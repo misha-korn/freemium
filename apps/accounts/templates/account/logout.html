@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Log out · Freemium{% endblock %}
+
+{% block content %}
+<div class="card form-card" style="margin-inline:auto;">
+  <h1 class="card__title">Log out</h1>
+  <p>Are you sure you want to log out?</p>
+  <form method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+    {% endif %}
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">Log out</button>
+      <a class="btn btn--ghost" href="{% url 'portfolio:list' %}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

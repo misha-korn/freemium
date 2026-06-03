@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}{{ portfolio.name }} · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Portfolio</p>
+    <h1 class="page-header__title">{{ portfolio.name }}</h1>
+    {% if portfolio.description %}<p class="page-header__sub">{{ portfolio.description }}</p>{% endif %}
+  </div>
+  <div class="cluster">
+    <a class="btn btn--primary" href="{% url 'portfolio:transaction_create' portfolio.pk %}">+ Add trade</a>
+    <a class="btn btn--ghost" href="{% url 'portfolio:update' portfolio.pk %}">Edit</a>
+    <a class="btn btn--ghost" href="{% url 'portfolio:delete' portfolio.pk %}">Delete</a>
+  </div>
+</div>
+
+<div class="card-grid">
+  <div class="card stat">
+    <span class="stat__label">Base currency</span>
+    <span class="stat__value">{{ portfolio.base_currency }}</span>
+  </div>
+  <div class="card stat">
+    <span class="stat__label">Open positions</span>
+    <span class="stat__value">{{ summary.positions_count }}</span>
+  </div>
+  <div class="card stat">
+    <span class="stat__label">Invested (cost basis)</span>
+    <span class="stat__value">
+      {% for cur, amt in summary.invested_by_currency.items %}{{ amt|floatformat:2 }} {{ cur }}{% if not forloop.last %} · {% endif %}{% empty %}—{% endfor %}
+    </span>
+  </div>
+</div>
+
+<h2 class="card__title mt-6">Positions</h2>
+{% if positions %}
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Asset</th><th>Market</th>
+          <th class="num">Quantity</th><th class="num">Avg cost</th><th class="num">Invested</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pos in positions %}
+          <tr>
+            <td>{{ pos.asset.ticker }}{% if pos.asset.name %} <span class="text-muted">· {{ pos.asset.name }}</span>{% endif %}</td>
+            <td><span class="badge">{{ pos.asset.market }}</span></td>
+            <td class="num">{{ pos.quantity|floatformat:"-8" }}</td>
+            <td class="num">{{ pos.avg_cost|floatformat:2 }} {{ pos.currency }}</td>
+            <td class="num">{{ pos.invested|floatformat:2 }} {{ pos.currency }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="text-muted mt-6">Market value &amp; returns arrive in Stage 2 (live quotes).</p>
+{% else %}
+  <div class="empty-state">
+    <h2>No open positions</h2>
+    <p>Add a buy trade to see your positions here.</p>
+    <a class="btn btn--primary mt-6" href="{% url 'portfolio:transaction_create' portfolio.pk %}">Add a trade</a>
+  </div>
+{% endif %}
+
+<h2 class="card__title mt-6">Recent transactions</h2>
+{% if transactions %}
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th><th>Type</th><th>Asset</th>
+          <th class="num">Qty</th><th class="num">Price</th><th class="num">Fee</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in transactions %}
+          <tr>
+            <td>{{ t.executed_at|date:"Y-m-d H:i" }}</td>
+            <td><span class="badge badge--{{ t.kind|lower }}">{{ t.get_kind_display }}</span></td>
+            <td>{{ t.asset.ticker }}</td>
+            <td class="num">{{ t.quantity|floatformat:"-8" }}</td>
+            <td class="num">{{ t.price|floatformat:2 }}</td>
+            <td class="num">{{ t.fee|floatformat:2 }}</td>
+            <td class="text-right">
+              <a href="{% url 'portfolio:transaction_update' t.pk %}">edit</a>
+              · <a href="{% url 'portfolio:transaction_delete' t.pk %}">delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="text-muted">No transactions logged yet.</p>
+{% endif %}
+{% endblock %}

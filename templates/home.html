@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Freemium · Stop wrestling with spreadsheets{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero__copy">
+    <p class="eyebrow">Personal investment tracker</p>
+    <h1 class="hero__title">Your whole portfolio,<br>finally in one clear view.</h1>
+    <p class="hero__lede">
+      Log your trades, connect quotes from MOEX and global markets, and see
+      real returns, allocation and risk — without another fragile Excel sheet.
+    </p>
+    <div class="hero__actions">
+      {% if user.is_authenticated %}
+        <a class="btn btn--primary btn--lg" href="{% url 'portfolio:list' %}">Go to my portfolios</a>
+      {% else %}
+        <a class="btn btn--primary btn--lg" href="{% url 'account_signup' %}">Create free account</a>
+        <a class="btn btn--ghost btn--lg" href="{% url 'account_login' %}">Log in</a>
+      {% endif %}
+    </div>
+    <p class="hero__note">Free plan: 1 portfolio, manual entry, core charts.</p>
+  </div>
+
+  <ul class="feature-grid">
+    <li class="feature-card">
+      <h2 class="feature-card__title">True returns</h2>
+      <p>Time-weighted and money-weighted performance computed with exact decimal math.</p>
+    </li>
+    <li class="feature-card feature-card--accent">
+      <h2 class="feature-card__title">Allocation &amp; risk</h2>
+      <p>Diversification by asset, sector and currency — see concentration at a glance.</p>
+    </li>
+    <li class="feature-card">
+      <h2 class="feature-card__title">Two markets</h2>
+      <p>Russian (MOEX) and international tickers in one base-currency view.</p>
+    </li>
+    <li class="feature-card">
+      <h2 class="feature-card__title">Own your data</h2>
+      <p>Manual entry first. Export to Excel/PDF and a yearly tax report on Pro.</p>
+    </li>
+  </ul>
+</section>
+{% endblock %}

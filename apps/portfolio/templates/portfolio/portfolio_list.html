@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Portfolios · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Your account</p>
+    <h1 class="page-header__title">Portfolios</h1>
+    <p class="page-header__sub">Track your investments and log trades by hand.</p>
+  </div>
+  <a class="btn btn--primary" href="{% url 'portfolio:create' %}">+ New portfolio</a>
+</div>
+
+{% if portfolios %}
+  <div class="card-grid">
+    {% for p in portfolios %}
+      <a class="card stack" href="{{ p.get_absolute_url }}" style="color:inherit;text-decoration:none;">
+        <h2 class="card__title">{{ p.name }}</h2>
+        <div class="cluster">
+          <span class="badge">{{ p.base_currency }}</span>
+          <span class="text-muted">{{ p.transaction_count }} trade{{ p.transaction_count|pluralize }}</span>
+        </div>
+        {% if p.description %}<p class="text-muted">{{ p.description }}</p>{% endif %}
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty-state">
+    <h2>No portfolios yet</h2>
+    <p>Create your first portfolio to stop wrestling with spreadsheets.</p>
+    <a class="btn btn--primary btn--lg mt-6" href="{% url 'portfolio:create' %}">Create a portfolio</a>
+  </div>
+{% endif %}
+
+<p class="mt-6"><a href="{% url 'portfolio:asset_list' %}">Browse the asset catalogue →</a></p>
+{% endblock %}

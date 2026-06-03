@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Delete {{ portfolio.name }} · Freemium{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+  <h1 class="card__title">Delete portfolio?</h1>
+  <p>This permanently deletes <strong>{{ portfolio.name }}</strong> and all of its transactions. This cannot be undone.</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-actions">
+      <button class="btn btn--danger" type="submit">Delete permanently</button>
+      <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

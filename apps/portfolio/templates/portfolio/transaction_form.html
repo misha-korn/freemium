@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{% if form.instance.pk %}Edit trade{% else %}Add trade{% endif %} · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    {% if portfolio %}<p class="eyebrow">{{ portfolio.name }}</p>{% endif %}
+    <h1 class="page-header__title">{% if form.instance.pk %}Edit transaction{% else %}Add transaction{% endif %}</h1>
+  </div>
+</div>
+
+<div class="card form-card">
+  {% if assets_exist is False %}
+    <p class="helptext">You have no assets yet. <a href="{% url 'portfolio:asset_create' %}">Add an asset</a> before logging a trade.</p>
+  {% endif %}
+  <form class="form" method="post" novalidate>
+    {% csrf_token %}
+    {% include "partials/form_fields.html" %}
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">Save trade</button>
+      <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

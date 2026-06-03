@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Subscription · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Account</p>
+    <h1 class="page-header__title">Subscription</h1>
+    <p class="page-header__sub">Upgrade to unlock multi-portfolio analytics and exports.</p>
+  </div>
+</div>
+
+<div class="card-grid">
+  <div class="card stack">
+    <h2 class="card__title">Free</h2>
+    <p class="stat__value">₽0</p>
+    <ul class="text-muted">
+      <li>1 portfolio</li>
+      <li>Manual trade entry</li>
+      <li>Core charts</li>
+    </ul>
+    {% if subscription and not subscription.is_pro %}<span class="badge">Current plan</span>{% endif %}
+  </div>
+  <div class="card stack" style="border-color:var(--color-accent);">
+    <h2 class="card__title">Pro</h2>
+    <p class="stat__value">$5–10/mo</p>
+    <ul class="text-muted">
+      <li>Multiple portfolios</li>
+      <li>Advanced analytics &amp; risk</li>
+      <li>Excel/PDF export &amp; tax report</li>
+      <li>Event notifications</li>
+    </ul>
+    <a class="btn btn--primary" href="{% url 'billing:pricing' %}">See plans &amp; upgrade</a>
+  </div>
+</div>
+{% endblock %}

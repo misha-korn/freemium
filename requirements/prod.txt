@@ -1,0 +1,7 @@
+-r base.txt
+
+# Production server
+gunicorn>=23.0
+
+# Error monitoring
+sentry-sdk>=2.19

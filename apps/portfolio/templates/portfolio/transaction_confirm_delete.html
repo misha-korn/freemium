@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Delete transaction · Freemium{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+  <h1 class="card__title">Delete transaction?</h1>
+  <p>
+    <span class="badge badge--{{ transaction.kind|lower }}">{{ transaction.get_kind_display }}</span>
+    {{ transaction.quantity|floatformat:"-8" }} {{ transaction.asset.ticker }}
+    @ {{ transaction.price|floatformat:2 }} {{ transaction.asset.currency }}
+  </p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-actions">
+      <button class="btn btn--danger" type="submit">Delete</button>
+      <a class="btn btn--ghost" href="{{ transaction.portfolio.get_absolute_url }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+[project]
+name = "freemium"
+version = "0.1.0"
+description = "Freemium — personal investment / portfolio tracker (Django)"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["*/migrations/*", ".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "DJ", "C4"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/settings/*.py" = ["F405", "F403"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.dev"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+testpaths = ["apps"]
+addopts = "-q --strict-markers --ds=config.settings.dev"
+
+[tool.coverage.run]
+source = ["apps"]
+omit = ["*/migrations/*", "*/tests/*", "*/apps.py", "manage.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]

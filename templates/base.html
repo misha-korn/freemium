@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>{% block title %}Freemium · Investment Tracker{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="{% url 'home' %}">
+        <span class="brand__mark" aria-hidden="true">◆</span>
+        <span class="brand__name">Freemium</span>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        {% if user.is_authenticated %}
+          <a class="nav__link" href="{% url 'portfolio:list' %}">Portfolios</a>
+          <a class="nav__link" href="{% url 'accounts:profile' %}">{{ user.get_username }}</a>
+          <form class="nav__logout" method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            <button class="btn btn--ghost" type="submit">Log out</button>
+          </form>
+        {% else %}
+          <a class="nav__link" href="{% url 'account_login' %}">Log in</a>
+          <a class="btn btn--primary" href="{% url 'account_signup' %}">Get started</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  {% if messages %}
+    <div class="container">
+      <ul class="messages" role="status" aria-live="polite">
+        {% for message in messages %}
+          <li class="message message--{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <main id="main" class="container main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <span>© {% now "Y" %} Freemium</span>
+      <span class="site-footer__muted">Track. Analyse. Grow your portfolio.</span>
+    </div>
+  </footer>
+
+  {% block extra_body %}{% endblock %}
+</body>
+</html>
