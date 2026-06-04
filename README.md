@@ -6,11 +6,13 @@ positions and cost basis per portfolio, and pull live quotes from **MOEX** and
 invested-capital chart. Monetised as **freemium**: a useful Free tier plus a paid
 **Pro** subscription.
 
-> **Status: Stage 2 (Quotes & analytics) complete.** On top of Stage 1: live
-> quotes persisted as `PriceQuote`, a Celery Beat periodic refresh (+ manual
-> "Refresh prices"), mark-to-market valuation with unrealised P&L, simple +
-> money-weighted (XIRR) returns, multi-currency aggregation via an FX converter,
-> and a Chart.js portfolio chart. 69 tests, ~89% coverage, ruff-clean.
+> **Status: Stage 3 (MVP dashboard) complete.** On top of Stage 2: a polished
+> portfolio dashboard with allocation donuts (by holding / asset class / market /
+> currency), an account overview on the portfolio list (per-portfolio cards + a
+> single-currency combined total), and one-click deploy via a Render Blueprint
+> (`render.yaml`) plus a `Procfile` / `bin/release.sh` for VPS. 86 tests, ~90%
+> coverage, ruff-clean. Allocation stays honest — market-value basis only when
+> fully priced, no fabricated industry sector.
 
 ---
 
@@ -99,6 +101,33 @@ The `web` service runs migrations then `runserver`; `db` is Postgres, `redis` is
 the broker/cache, `worker` runs Celery and `beat` schedules the periodic quote
 refresh. Production builds use the Gunicorn `CMD` in the `Dockerfile`.
 
+## Deploy (Stage 3)
+
+### Render (one click, recommended)
+
+`render.yaml` is a Blueprint describing the whole stack — **web** (Gunicorn),
+**worker** + **beat** (Celery), managed **Postgres** and **Redis**:
+
+1. Push this repo to GitHub.
+2. On Render: **New + → Blueprint**, pick the repo. Render reads `render.yaml`.
+3. Apply. `DJANGO_SECRET_KEY` is generated; `DATABASE_URL` / `REDIS_URL` /
+   `CELERY_*` are wired automatically.
+
+On deploy the web service runs `collectstatic` (build) and `migrate`
+(pre-deploy). The Render hostname is trusted automatically (`prod.py` reads
+`RENDER_EXTERNAL_HOSTNAME`), so it serves immediately; add any custom domain to
+`DJANGO_ALLOWED_HOSTS`. Free Redis/Postgres are fine to start; the free web
+instance sleeps when idle.
+
+### VPS / Docker
+
+Build the image (`Dockerfile`, Gunicorn `CMD`) and run `bin/release.sh`
+(`migrate` + `collectstatic`) as your deploy hook before starting the web
+process; run `worker` and `beat` from the same image (see the `Procfile` for the
+exact process commands). Provide `DJANGO_SETTINGS_MODULE=config.settings.prod`,
+`DJANGO_SECRET_KEY`, `DJANGO_ALLOWED_HOSTS`, `DATABASE_URL`, `REDIS_URL` and the
+`CELERY_*` URLs via the environment.
+
 ## Configuration
 
 All environment-specific values come from the environment (or a local `.env`),
@@ -121,7 +150,7 @@ loaded by `django-environ`. See `.env.example` for the full list. Notable:
 
 1. **Foundation** ✅ — auth, portfolios, assets, manual trades, positions.
 2. **Quotes & analytics** ✅ — providers + Celery refresh, market value, returns (simple + XIRR), FX, first chart.
-3. **MVP dashboard** — allocation, performance, deploy.
+3. **MVP dashboard** ✅ — allocation donuts, account overview, Render/VPS deploy.
 4. **Monetisation** — Free/Pro limits, payments + webhooks.
 5. **Retention** — tax report, Excel/PDF export, notifications, broker import.
 

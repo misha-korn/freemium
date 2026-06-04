@@ -17,6 +17,29 @@ def test_list_requires_login(client):
 
 
 @pytest.mark.django_db
+def test_list_shows_account_overview(auth_client, user):
+    asset = Asset.objects.create(
+        ticker="AAPL", asset_type="STOCK", market="US", currency="USD"
+    )
+    portfolio = Portfolio.objects.create(owner=user, name="Main", base_currency="USD")
+    Transaction.objects.create(
+        portfolio=portfolio, asset=asset, kind="BUY",
+        quantity=Decimal("10"), price=Decimal("100"), fee=Decimal("0"),
+        executed_at=datetime(2024, 1, 1, tzinfo=UTC),
+    )
+    PriceQuote.objects.create(
+        asset=asset, price=Decimal("150"), currency="USD",
+        as_of=datetime.now(UTC), source="TEST",
+    )
+
+    resp = auth_client.get(reverse("portfolio:list"))
+    assert resp.status_code == 200
+    overview = resp.context["overview"]
+    assert overview["combined"]["market_value"] == Decimal("1500")
+    assert [c.portfolio.name for c in overview["cards"]] == ["Main"]
+
+
+@pytest.mark.django_db
 def test_owner_cannot_see_others_portfolio(auth_client, other_user):
     foreign = Portfolio.objects.create(
         owner=other_user, name="Theirs", base_currency="USD"
@@ -130,6 +153,58 @@ def test_detail_renders_unpriced_without_error(auth_client, user):
     resp = auth_client.get(reverse("portfolio:detail", kwargs={"pk": portfolio.pk}))
     assert resp.status_code == 200
     assert resp.context["valuation"]["totals"]["market_value_base"] is None
+
+
+@pytest.mark.django_db
+def test_detail_builds_allocation_donuts_across_classes(auth_client, user):
+    """A multi-class portfolio exposes a 'by asset class' donut on the dashboard."""
+    stock = Asset.objects.create(
+        ticker="AAPL", asset_type="STOCK", market="US", currency="USD"
+    )
+    etf = Asset.objects.create(
+        ticker="VOO", asset_type="ETF", market="US", currency="USD"
+    )
+    portfolio = Portfolio.objects.create(owner=user, name="Mix", base_currency="USD")
+    for asset in (stock, etf):
+        Transaction.objects.create(
+            portfolio=portfolio, asset=asset, kind="BUY",
+            quantity=Decimal("10"), price=Decimal("100"), fee=Decimal("0"),
+            executed_at=datetime(2024, 1, 1, tzinfo=UTC),
+        )
+
+    resp = auth_client.get(reverse("portfolio:detail", kwargs={"pk": portfolio.pk}))
+    assert resp.status_code == 200
+
+    allocation = resp.context["allocation"]
+    assert allocation["available"] is True
+    assert {s.label for s in allocation["by_class"]} == {"Stock", "ETF"}
+
+    chart_titles = {c["title"] for c in resp.context["allocation_charts"]}
+    assert "By asset class" in chart_titles
+    # Single-currency, single-market portfolio: those axes are not charted.
+    assert "By currency" not in chart_titles
+    assert "By market" not in chart_titles
+    # The donut canvas and its JSON data island are present in the HTML.
+    assert b'id="donut-class"' in resp.content
+    assert b'id="donut-class-data"' in resp.content
+
+
+@pytest.mark.django_db
+def test_detail_no_allocation_charts_for_single_holding(auth_client, user):
+    """A single holding has no diversification story — no donuts rendered."""
+    asset = Asset.objects.create(
+        ticker="AAPL", asset_type="STOCK", market="US", currency="USD"
+    )
+    portfolio = Portfolio.objects.create(owner=user, name="Solo", base_currency="USD")
+    Transaction.objects.create(
+        portfolio=portfolio, asset=asset, kind="BUY",
+        quantity=Decimal("10"), price=Decimal("100"), fee=Decimal("0"),
+        executed_at=datetime(2024, 1, 1, tzinfo=UTC),
+    )
+
+    resp = auth_client.get(reverse("portfolio:detail", kwargs={"pk": portfolio.pk}))
+    assert resp.status_code == 200
+    assert resp.context["allocation_charts"] == []
 
 
 @pytest.mark.django_db

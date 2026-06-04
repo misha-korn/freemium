@@ -69,6 +69,26 @@ base-currency cashflows (buys negative, sells/terminal value positive) and calls
 `invested_timeseries` powers the first chart: cumulative net invested capital over
 time (Chart.js), which needs no historical prices.
 
+## Dashboard & allocation (Stage 3)
+
+`portfolio.allocation.build_allocation` is pure: it takes the `ValuedPosition`
+list `portfolio_valuation` already produced and groups base-currency value across
+four axes — **holding** (ticker), **asset class** (`asset_type`), **market** and
+**currency** — reusing `analytics.allocation_by` for the weights. Basis is market
+value when every position is priced, else invested capital (labelled either way);
+unconvertible currencies are excluded and reported in `missing_fx`. `chart_payload`
+shapes a breakdown for Chart.js (labels + float percentages — chart-only; money
+stays Decimal). `PortfolioDetailView` renders one donut per axis that has more
+than one slice (`static/js/allocation_charts.js`).
+
+`portfolio.overview.build_account_overview` powers the portfolio list: one
+`PortfolioCard` per portfolio (its own base-currency totals) plus a combined total
+*only* when every portfolio shares one currency — never summed across currencies
+without FX.
+
+Industry sector is deliberately absent — `Asset` has no sector field and no
+provider supplies one, so it would be fabricated. See `docs/DECISIONS.md`.
+
 ## Request → response flow (example: add a trade)
 
 1. `POST /portfolio/<pk>/transactions/new/` → `TransactionCreateView`.
@@ -82,3 +102,10 @@ time (Chart.js), which needs no historical prices.
 Split settings (`base` / `dev` / `prod`). Secrets come from the environment via
 `django-environ`. Production enables HSTS, secure cookies, SSL redirect,
 WhiteNoise compressed/hashed static, and optional Sentry. Gunicorn serves WSGI.
+
+Stage 3 adds deploy artifacts: `render.yaml` (a Render Blueprint provisioning
+web + worker + beat + Postgres + Redis), a `Procfile` and `bin/release.sh`
+(`migrate` + `collectstatic`) for VPS/Docker, and `.gitattributes` pinning
+shell/manifest files to LF. `prod.py` trusts `RENDER_EXTERNAL_HOSTNAME`
+(auto-set by Render) for `ALLOWED_HOSTS` / `CSRF_TRUSTED_ORIGINS`, so a fresh
+deploy serves before any host is configured by hand.

@@ -1,0 +1,149 @@
+# Render Blueprint — one-click deploy of the full stack (Stage 3).
+#
+#   web    : Django behind Gunicorn (static via WhiteNoise)
+#   worker : Celery worker (quote refresh)
+#   beat   : Celery beat (schedules the periodic refresh)
+#   db     : managed PostgreSQL
+#   redis  : managed Redis (Celery broker/result backend + Django cache)
+#
+# Deploy: push to GitHub, then on Render → "New +" → "Blueprint" and pick this
+# repo. Render reads this file and provisions everything. DJANGO_SECRET_KEY is
+# generated; DATABASE_URL / REDIS_URL are wired automatically. The only thing
+# you may want to set by hand is a custom domain in DJANGO_ALLOWED_HOSTS — the
+# Render hostname is trusted automatically (see config/settings/prod.py).
+
+databases:
+  - name: freemium-db
+    databaseName: freemium
+    user: freemium
+    plan: free
+
+services:
+  # --- Redis (broker + result backend + cache) --------------------------- #
+  - type: redis
+    name: freemium-redis
+    plan: free
+    maxmemoryPolicy: noeviction # don't drop queued Celery tasks under pressure
+    ipAllowList: [] # internal-only; no public access
+
+  # --- Web (Gunicorn) ---------------------------------------------------- #
+  - type: web
+    name: freemium-web
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements/prod.txt && python manage.py collectstatic --no-input"
+    preDeployCommand: "python manage.py migrate --no-input"
+    startCommand: "gunicorn config.wsgi:application --workers 3 --bind 0.0.0.0:$PORT"
+    healthCheckPath: /
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
+      - key: PYTHON_VERSION
+        value: "3.13.4"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      # Render's hostname is trusted automatically; add custom domains here.
+      - key: DJANGO_ALLOWED_HOSTS
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: freemium-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: freemium-redis
+          property: connectionString
+      - key: CELERY_BROKER_URL
+        fromService:
+          type: redis
+          name: freemium-redis
+          property: connectionString
+      - key: CELERY_RESULT_BACKEND
+        fromService:
+          type: redis
+          name: freemium-redis
+          property: connectionString
+      - key: CELERY_TASK_ALWAYS_EAGER
+        value: "False"
+      # Optional: set in the dashboard to enable error monitoring.
+      - key: SENTRY_DSN
+        sync: false
+
+  # --- Celery worker ----------------------------------------------------- #
+  - type: worker
+    name: freemium-worker
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements/prod.txt"
+    startCommand: "celery -A config worker -l info"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
+      - key: PYTHON_VERSION
+        value: "3.13.4"
+      - key: DJANGO_SECRET_KEY
+        fromService:
+          type: web
+          name: freemium-web
+          envVarKey: DJANGO_SECRET_KEY
+      - key: DATABASE_URL
+        fromDatabase:
+          name: freemium-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: freemium-redis
+          property: connectionString
+      - key: CELERY_BROKER_URL
+        fromService:
+          type: redis
+          name: freemium-redis
+          property: connectionString
+      - key: CELERY_RESULT_BACKEND
+        fromService:
+          type: redis
+          name: freemium-redis
+          property: connectionString
+      - key: CELERY_TASK_ALWAYS_EAGER
+        value: "False"
+
+  # --- Celery beat (periodic schedule) ----------------------------------- #
+  - type: worker
+    name: freemium-beat
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements/prod.txt"
+    startCommand: "celery -A config beat -l info"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
+      - key: PYTHON_VERSION
+        value: "3.13.4"
+      - key: DJANGO_SECRET_KEY
+        fromService:
+          type: web
+          name: freemium-web
+          envVarKey: DJANGO_SECRET_KEY
+      - key: DATABASE_URL
+        fromDatabase:
+          name: freemium-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: freemium-redis
+          property: connectionString
+      - key: CELERY_BROKER_URL
+        fromService:
+          type: redis
+          name: freemium-redis
+          property: connectionString
+      - key: CELERY_RESULT_BACKEND
+        fromService:
+          type: redis
+          name: freemium-redis
+          property: connectionString
+      - key: CELERY_TASK_ALWAYS_EAGER
+        value: "False"

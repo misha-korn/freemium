@@ -20,10 +20,23 @@ from django.views.generic import (
 
 from apps.marketdata.tasks import refresh_quote
 
+from .allocation import build_allocation, chart_payload
 from .forms import AssetForm, PortfolioForm, TransactionForm
 from .models import Asset, Portfolio, Transaction
+from .overview import build_account_overview
 from .services import compute_positions
 from .valuation import invested_timeseries, portfolio_valuation
+
+# Allocation axes rendered as donut charts on the dashboard. A donut is drawn
+# only for an axis with more than one slice — a single-slice pie (e.g. a
+# one-currency portfolio) carries no diversification signal.
+_MIN_SLICES_FOR_CHART = 2
+_ALLOCATION_AXES = (
+    ("By holding", "holding", "by_holding"),
+    ("By asset class", "class", "by_class"),
+    ("By market", "market", "by_market"),
+    ("By currency", "currency", "by_currency"),
+)
 
 
 # --------------------------------------------------------------------------- #
@@ -37,6 +50,12 @@ class PortfolioListView(LoginRequiredMixin, ListView):
         return self.request.user.portfolios.annotate(
             transaction_count=Count("transactions")
         ).order_by("name")
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        # Per-portfolio cards + an optional single-currency combined total.
+        ctx["overview"] = build_account_overview(ctx["portfolios"])
+        return ctx
 
 
 class PortfolioCreateView(LoginRequiredMixin, CreateView):
@@ -63,10 +82,34 @@ class PortfolioDetailView(_OwnedPortfolioMixin, DetailView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         ctx = super().get_context_data(**kwargs)
-        ctx["valuation"] = portfolio_valuation(self.object)
+        valuation = portfolio_valuation(self.object)
+        # Reuse the already-priced positions so allocation costs no extra query.
+        allocation = build_allocation(valuation["positions"], valuation["base_currency"])
+        ctx["valuation"] = valuation
+        ctx["allocation"] = allocation
+        ctx["allocation_charts"] = self._allocation_charts(allocation)
         ctx["chart_data"] = invested_timeseries(self.object)
         ctx["transactions"] = self.object.transactions.select_related("asset")[:50]
         return ctx
+
+    @staticmethod
+    def _allocation_charts(allocation: dict[str, Any]) -> list[dict[str, Any]]:
+        """Build per-axis donut data, skipping axes with a single slice."""
+        charts: list[dict[str, Any]] = []
+        for title, slug, key in _ALLOCATION_AXES:
+            slices = allocation[key]
+            if len(slices) < _MIN_SLICES_FOR_CHART:
+                continue
+            charts.append(
+                {
+                    "title": title,
+                    "slices": slices,
+                    "dom_id": f"donut-{slug}",
+                    "data_id": f"donut-{slug}-data",
+                    "payload": chart_payload(slices),
+                }
+            )
+        return charts
 
 
 class PortfolioRefreshQuotesView(LoginRequiredMixin, View):

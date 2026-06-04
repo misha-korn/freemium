@@ -1,0 +1,11 @@
+# Normalise line endings. Default: let Git handle text automatically.
+* text=auto
+
+# Shell scripts and deploy manifests MUST stay LF — a stray CRLF breaks the
+# shebang / process commands on Linux hosts (Render, VPS, Docker).
+*.sh        text eol=lf
+*.yaml      text eol=lf
+*.yml       text eol=lf
+Procfile    text eol=lf
+Dockerfile  text eol=lf
+.python-version text eol=lf

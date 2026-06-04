@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load portfolio_extras %}
 {% block title %}Portfolios · Freemium{% endblock %}
 
 {% block content %}
@@ -11,16 +12,64 @@
   <a class="btn btn--primary" href="{% url 'portfolio:create' %}">+ New portfolio</a>
 </div>
 
-{% if portfolios %}
+{% if overview.combined %}
+  {% with cb=overview.combined %}
   <div class="card-grid">
-    {% for p in portfolios %}
-      <a class="card stack" href="{{ p.get_absolute_url }}" style="color:inherit;text-decoration:none;">
-        <h2 class="card__title">{{ p.name }}</h2>
-        <div class="cluster">
-          <span class="badge">{{ p.base_currency }}</span>
-          <span class="text-muted">{{ p.transaction_count }} trade{{ p.transaction_count|pluralize }}</span>
+    <div class="card stat">
+      <span class="stat__label">Total value · {{ cb.currency }}</span>
+      <span class="stat__value">{% if cb.market_value is not None %}{{ cb.market_value|money }}{% else %}—{% endif %}</span>
+      <span class="stat__sub text-muted">{{ cb.portfolio_count }} portfolio{{ cb.portfolio_count|pluralize }}</span>
+    </div>
+    <div class="card stat">
+      <span class="stat__label">Invested (cost basis)</span>
+      <span class="stat__value">{% if cb.invested is not None %}{{ cb.invested|money }}{% else %}—{% endif %}</span>
+    </div>
+    <div class="card stat">
+      <span class="stat__label">Unrealised P&amp;L</span>
+      <span class="stat__value {% if cb.unrealised_pnl is not None %}{% if cb.unrealised_pnl > 0 %}is-positive{% elif cb.unrealised_pnl < 0 %}is-negative{% endif %}{% endif %}">
+        {% if cb.unrealised_pnl is not None %}{{ cb.unrealised_pnl|signed }} {{ cb.currency }}{% else %}—{% endif %}
+      </span>
+    </div>
+    <div class="card stat">
+      <span class="stat__label">Return</span>
+      <span class="stat__value {% if cb.simple_return is not None %}{% if cb.simple_return > 0 %}is-positive{% elif cb.simple_return < 0 %}is-negative{% endif %}{% endif %}">
+        {{ cb.simple_return|percent }}
+      </span>
+    </div>
+  </div>
+  {% endwith %}
+{% endif %}
+
+{% if overview.cards %}
+  <div class="card-grid mt-6">
+    {% for c in overview.cards %}
+      <a class="card stack portfolio-card" href="{{ c.portfolio.get_absolute_url }}">
+        <div class="portfolio-card__head">
+          <h2 class="card__title" style="margin:0;">{{ c.portfolio.name }}</h2>
+          <span class="badge">{{ c.currency }}</span>
         </div>
-        {% if p.description %}<p class="text-muted">{{ p.description }}</p>{% endif %}
+        <div class="portfolio-card__figure">
+          {% if c.market_value is not None %}
+            <span class="stat__value">{{ c.market_value|money }}</span>
+            <span class="text-muted">market value</span>
+          {% elif c.invested is not None %}
+            <span class="stat__value">{{ c.invested|money }}</span>
+            <span class="text-muted">invested · add prices to value</span>
+          {% else %}
+            <span class="stat__value text-muted">—</span>
+            <span class="text-muted">no trades yet</span>
+          {% endif %}
+        </div>
+        <div class="cluster portfolio-card__meta">
+          {% if c.unrealised_pnl is not None %}
+            <span class="{% if c.unrealised_pnl > 0 %}is-positive{% elif c.unrealised_pnl < 0 %}is-negative{% endif %}">{{ c.unrealised_pnl|signed }}</span>
+          {% endif %}
+          {% if c.simple_return is not None %}
+            <span class="{% if c.simple_return > 0 %}is-positive{% elif c.simple_return < 0 %}is-negative{% endif %}">{{ c.simple_return|percent }}</span>
+          {% endif %}
+          <span class="text-muted">{{ c.portfolio.transaction_count }} trade{{ c.portfolio.transaction_count|pluralize }}</span>
+        </div>
+        {% if c.portfolio.description %}<p class="text-muted" style="margin:0;">{{ c.portfolio.description }}</p>{% endif %}
       </a>
     {% endfor %}
   </div>

@@ -57,6 +57,44 @@
   </p>
 {% endif %}
 
+{% if allocation_charts %}
+  <section class="dashboard-section" aria-labelledby="alloc-heading">
+    <div class="section-head">
+      <h2 id="alloc-heading" class="card__title">Allocation</h2>
+      <span class="badge">
+        {% if allocation.basis == "market" %}by market value{% else %}by invested capital{% endif %}
+        · {{ allocation.base_currency }}
+      </span>
+    </div>
+    <div class="donut-grid">
+      {% for c in allocation_charts %}
+        <div class="card donut-card">
+          <h3 class="donut-card__title">{{ c.title }}</h3>
+          <div class="donut-canvas-wrap">
+            <canvas id="{{ c.dom_id }}" data-source="{{ c.data_id }}" role="img"
+                    aria-label="{{ c.title }} allocation, in {{ allocation.base_currency }}"></canvas>
+          </div>
+          <ul class="donut-legend" data-legend-for="{{ c.dom_id }}">
+            {% for s in c.slices %}
+              <li class="donut-legend__item">
+                <span class="donut-legend__swatch" data-i="{{ forloop.counter0 }}" aria-hidden="true"></span>
+                <span class="donut-legend__label">{{ s.label }}</span>
+                <span class="donut-legend__pct">{{ s.weight|percent }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+          {{ c.payload|json_script:c.data_id }}
+        </div>
+      {% endfor %}
+    </div>
+    {% if allocation.missing_fx %}
+      <p class="text-muted mt-6">
+        Allocation excludes positions in {{ allocation.missing_fx|join:", " }} — no FX rate to {{ allocation.base_currency }} yet.
+      </p>
+    {% endif %}
+  </section>
+{% endif %}
+
 {% if chart_data.available and chart_data.points %}
   <section class="card chart-card" aria-labelledby="chart-heading">
     <h2 id="chart-heading" class="card__title">Invested capital over time</h2>
@@ -150,11 +188,16 @@
 {% endblock %}
 
 {% block extra_body %}
-  {% if chart_data.available and chart_data.points %}
-    {{ chart_data|json_script:"portfolio-chart-data" }}
+  {% if chart_data.points or allocation_charts %}
     {# Stage 3/prod hardening: self-host Chart.js or add SRI + CSP nonce. #}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
             crossorigin="anonymous" defer></script>
-    <script src="{% static 'js/portfolio_chart.js' %}" defer></script>
+    {% if chart_data.available and chart_data.points %}
+      {{ chart_data|json_script:"portfolio-chart-data" }}
+      <script src="{% static 'js/portfolio_chart.js' %}" defer></script>
+    {% endif %}
+    {% if allocation_charts %}
+      <script src="{% static 'js/allocation_charts.js' %}" defer></script>
+    {% endif %}
   {% endif %}
 {% endblock %}

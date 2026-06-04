@@ -56,3 +56,31 @@ daily `PortfolioSnapshot`) is deferred.
 `refresh_active_quotes` dispatches one `refresh_quote` per held asset instead of
 looping inline, so one slow/failing provider can't block the batch and retries
 stay per-asset. Scheduled via Celery Beat (`MARKETDATA_REFRESH_SECONDS`).
+
+### Allocation axes = real data, not a fabricated sector (Stage 3)
+The roadmap lists "by asset / sector / currency", but `Asset` has no industry
+*sector* and no provider feeds one yet. Rather than add an empty field that
+renders as "Unclassified: 100%", allocation breaks down by the axes we *do* hold
+honestly: **holding** (ticker), **asset class** (`asset_type`), **market** and
+**currency**. Industry sector is deferred until a data source exists — consistent
+with the "never fabricate" rule. A donut is drawn only for an axis with >1 slice,
+so single-currency/single-market portfolios aren't cluttered with 100% pies.
+
+### Allocation basis: market value when fully priced, else cost basis (Stage 3)
+`build_allocation` weights slices on **market value** only when every position is
+priced; otherwise it falls back to **invested capital** (always known, no quote
+needed) and labels which basis it used. Positions whose currency can't convert to
+the base are excluded and listed in `missing_fx` — never mixed in without a rate.
+
+### Combined account total only within one currency (Stage 3)
+The portfolio-list overview sums portfolios into one headline total *only* when
+they all share a base currency; mixed-currency accounts show per-portfolio cards
+but no combined figure (we don't sum across currencies without FX). Same honesty
+rule as valuation, applied at the account level.
+
+### Deploy via Render Blueprint + portable hooks (Stage 3)
+`render.yaml` provisions web + worker + beat + Postgres + Redis in one click;
+`prod.py` trusts `RENDER_EXTERNAL_HOSTNAME` so a fresh deploy serves immediately.
+A `Procfile` and `bin/release.sh` (migrate + collectstatic) keep the same app
+deployable on any VPS/PaaS. `.gitattributes` pins shell/manifest files to LF so
+Linux hosts don't choke on CRLF.

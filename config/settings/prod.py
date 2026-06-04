@@ -10,9 +10,15 @@ from .base import env
 
 DEBUG = False
 
-# Fail fast if the secret key / hosts are not configured in the environment.
+# Fail fast if the secret key is not configured in the environment.
 SECRET_KEY = env("DJANGO_SECRET_KEY")
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[])
+
+# Render injects RENDER_EXTERNAL_HOSTNAME automatically; trust it so a fresh
+# deploy serves before you've hand-set DJANGO_ALLOWED_HOSTS. Harmless elsewhere.
+RENDER_EXTERNAL_HOSTNAME = env("RENDER_EXTERNAL_HOSTNAME", default="")
+if RENDER_EXTERNAL_HOSTNAME and RENDER_EXTERNAL_HOSTNAME not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Static files served compressed + hashed via WhiteNoise.
 STORAGES["staticfiles"] = {  # noqa: F405
@@ -34,6 +40,10 @@ X_FRAME_OPTIONS = "DENY"
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS", default=[])
+if RENDER_EXTERNAL_HOSTNAME:
+    _render_origin = f"https://{RENDER_EXTERNAL_HOSTNAME}"
+    if _render_origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(_render_origin)
 
 # Real email backend in production (configure SMTP via env).
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

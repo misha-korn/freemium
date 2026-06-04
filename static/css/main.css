@@ -156,6 +156,15 @@ a:hover { text-decoration: underline; }
 .card__title { font-size: var(--text-lg); margin-bottom: var(--space-4); }
 .card-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 
+/* ----- Portfolio cards (list) ----- */
+.portfolio-card { color: inherit; text-decoration: none; transition: transform var(--duration) var(--ease-out-expo), box-shadow var(--duration), border-color var(--duration); }
+.portfolio-card:hover { text-decoration: none; transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--color-border-strong); }
+.portfolio-card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.portfolio-card__figure { display: flex; flex-direction: column; gap: var(--space-1); }
+.portfolio-card__figure .stat__value { font-size: var(--text-xl); }
+.portfolio-card__figure .text-muted { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; }
+.portfolio-card__meta { font-size: var(--text-sm); gap: var(--space-3); font-family: var(--font-mono); }
+
 /* ----- Stats ----- */
 .stat { display: flex; flex-direction: column; gap: var(--space-1); }
 .stat__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); }
@@ -168,6 +177,20 @@ a:hover { text-decoration: underline; }
 .chart-card { margin-top: var(--space-6); }
 .chart-canvas-wrap { position: relative; height: clamp(240px, 30vw, 340px); }
 .cluster__inline { margin: 0; }
+
+/* ----- Dashboard: allocation donuts ----- */
+.dashboard-section { margin-top: var(--space-6); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-4); flex-wrap: wrap; }
+.section-head .card__title { margin-bottom: 0; }
+.donut-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); }
+.donut-card { display: flex; flex-direction: column; gap: var(--space-4); }
+.donut-card__title { font-size: var(--text-base); margin: 0; }
+.donut-canvas-wrap { position: relative; height: 196px; }
+.donut-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.donut-legend__item { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-2); font-size: var(--text-sm); }
+.donut-legend__swatch { width: 10px; height: 10px; border-radius: 3px; background: var(--color-border-strong); flex-shrink: 0; }
+.donut-legend__label { color: var(--color-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.donut-legend__pct { font-family: var(--font-mono); color: var(--color-text-muted); font-size: var(--text-xs); }
 
 /* ----- Tables ----- */
 .table-wrap { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--radius); background: var(--color-surface); }

@@ -24,10 +24,30 @@
   mark-to-market history needs a price backfill / daily snapshots — a later stage.
 - FX rates are a static `settings.FX_RATES` stop-gap; swap in a live feed later.
 
-## Stage 3 — MVP dashboard
-- [ ] Allocation by asset / sector / currency
-- [ ] Performance view; polished dashboard
-- [ ] Deploy to a VPS / Render
+## Stage 3 — MVP dashboard ✅ (done)
+- [x] Allocation breakdowns by holding / asset class / market / currency
+      (`portfolio.allocation`), rendered as Chart.js donuts on the dashboard
+- [x] Polished portfolio dashboard: headline stats + allocation + invested chart
+- [x] Account overview on the portfolio list: per-portfolio cards + a combined
+      single-currency total (`portfolio.overview`)
+- [x] Deploy: Render Blueprint (`render.yaml`) for web + worker + beat + Postgres
+      + Redis; `Procfile` + `bin/release.sh` for VPS/Docker; Render hostname
+      trusted automatically in `prod.py`
+- [x] 90% test coverage, ruff-clean
+
+### Stage 3 honesty notes (carry into later stages)
+- Allocation uses **market value** only when every position is priced; otherwise
+  it falls back to **invested capital** and says so. Unconvertible currencies are
+  excluded and listed in `missing_fx` — never mixed without a rate.
+- Industry **sector** is intentionally *not* shown: `Asset` has no sector and no
+  provider feeds one. Added only when a real data source exists.
+- "Performance" is current returns (simple + XIRR) + the invested-capital chart;
+  true value-over-time still needs the deferred price backfill / daily snapshots.
+
+## Stage 3.5 — deferred polish (nice-to-have)
+- [ ] Industry-sector allocation once a provider feed exists
+- [ ] Mark-to-market value-over-time chart (price backfill or `PortfolioSnapshot`)
+- [ ] Self-host Chart.js (or SRI + CSP nonce) instead of the CDN tag
 
 ## Stage 4 — Monetisation
 - [ ] Free/Pro limits enforced (e.g. 1 portfolio on Free)
