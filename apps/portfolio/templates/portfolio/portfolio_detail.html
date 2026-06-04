@@ -1,61 +1,113 @@
 {% extends "base.html" %}
+{% load static portfolio_extras %}
 {% block title %}{{ portfolio.name }} · Freemium{% endblock %}
 
 {% block content %}
 <div class="page-header">
   <div>
-    <p class="eyebrow">Portfolio</p>
+    <p class="eyebrow">Portfolio · {{ valuation.base_currency }}</p>
     <h1 class="page-header__title">{{ portfolio.name }}</h1>
     {% if portfolio.description %}<p class="page-header__sub">{{ portfolio.description }}</p>{% endif %}
   </div>
   <div class="cluster">
     <a class="btn btn--primary" href="{% url 'portfolio:transaction_create' portfolio.pk %}">+ Add trade</a>
+    <form method="post" action="{% url 'portfolio:refresh_quotes' portfolio.pk %}" class="cluster__inline">
+      {% csrf_token %}
+      <button class="btn btn--ghost" type="submit">↻ Refresh prices</button>
+    </form>
     <a class="btn btn--ghost" href="{% url 'portfolio:update' portfolio.pk %}">Edit</a>
     <a class="btn btn--ghost" href="{% url 'portfolio:delete' portfolio.pk %}">Delete</a>
   </div>
 </div>
 
+{% with totals=valuation.totals %}
 <div class="card-grid">
   <div class="card stat">
-    <span class="stat__label">Base currency</span>
-    <span class="stat__value">{{ portfolio.base_currency }}</span>
-  </div>
-  <div class="card stat">
-    <span class="stat__label">Open positions</span>
-    <span class="stat__value">{{ summary.positions_count }}</span>
+    <span class="stat__label">Market value</span>
+    <span class="stat__value">
+      {% if totals.market_value_base is not None %}{{ totals.market_value_base|money }} {{ valuation.base_currency }}{% else %}—{% endif %}
+    </span>
   </div>
   <div class="card stat">
     <span class="stat__label">Invested (cost basis)</span>
     <span class="stat__value">
-      {% for cur, amt in summary.invested_by_currency.items %}{{ amt|floatformat:2 }} {{ cur }}{% if not forloop.last %} · {% endif %}{% empty %}—{% endfor %}
+      {% if totals.invested_base is not None %}{{ totals.invested_base|money }} {{ valuation.base_currency }}{% else %}—{% endif %}
     </span>
   </div>
+  <div class="card stat">
+    <span class="stat__label">Unrealised P&amp;L</span>
+    <span class="stat__value {% if totals.unrealised_pnl_base is not None %}{% if totals.unrealised_pnl_base > 0 %}is-positive{% elif totals.unrealised_pnl_base < 0 %}is-negative{% endif %}{% endif %}">
+      {% if totals.unrealised_pnl_base is not None %}{{ totals.unrealised_pnl_base|signed }} {{ valuation.base_currency }}{% else %}—{% endif %}
+    </span>
+  </div>
+  <div class="card stat">
+    <span class="stat__label">Return · XIRR</span>
+    <span class="stat__value {% if totals.simple_return is not None %}{% if totals.simple_return > 0 %}is-positive{% elif totals.simple_return < 0 %}is-negative{% endif %}{% endif %}">
+      {{ totals.simple_return|percent }}
+    </span>
+    <span class="stat__sub text-muted">XIRR {{ totals.xirr|percent }}</span>
+  </div>
 </div>
+{% endwith %}
+
+{% if valuation.missing_fx %}
+  <p class="text-muted mt-6">
+    Base-currency totals need FX rates for: {{ valuation.missing_fx|join:", " }}.
+    Per-asset figures below are exact in each asset's own currency.
+  </p>
+{% endif %}
+
+{% if chart_data.available and chart_data.points %}
+  <section class="card chart-card" aria-labelledby="chart-heading">
+    <h2 id="chart-heading" class="card__title">Invested capital over time</h2>
+    <div class="chart-canvas-wrap">
+      <canvas id="portfolio-chart" role="img"
+              aria-label="Line chart of cumulative invested capital over time in {{ valuation.base_currency }}"></canvas>
+    </div>
+  </section>
+{% endif %}
 
 <h2 class="card__title mt-6">Positions</h2>
-{% if positions %}
+{% if valuation.positions %}
   <div class="table-wrap">
     <table class="table">
       <thead>
         <tr>
           <th>Asset</th><th>Market</th>
-          <th class="num">Quantity</th><th class="num">Avg cost</th><th class="num">Invested</th>
+          <th class="num">Quantity</th><th class="num">Avg cost</th>
+          <th class="num">Price</th><th class="num">Market value</th>
+          <th class="num">P&amp;L</th><th class="num">Return</th>
         </tr>
       </thead>
       <tbody>
-        {% for pos in positions %}
+        {% for pos in valuation.positions %}
           <tr>
             <td>{{ pos.asset.ticker }}{% if pos.asset.name %} <span class="text-muted">· {{ pos.asset.name }}</span>{% endif %}</td>
             <td><span class="badge">{{ pos.asset.market }}</span></td>
             <td class="num">{{ pos.quantity|floatformat:"-8" }}</td>
             <td class="num">{{ pos.avg_cost|floatformat:2 }} {{ pos.currency }}</td>
-            <td class="num">{{ pos.invested|floatformat:2 }} {{ pos.currency }}</td>
+            {% if pos.priced %}
+              <td class="num">{{ pos.price|floatformat:2 }} {{ pos.currency }}</td>
+              <td class="num">{{ pos.market_value|money }} {{ pos.currency }}</td>
+              <td class="num {% if pos.unrealised_pnl > 0 %}is-positive{% elif pos.unrealised_pnl < 0 %}is-negative{% endif %}">{{ pos.unrealised_pnl|signed }}</td>
+              <td class="num {% if pos.simple_return > 0 %}is-positive{% elif pos.simple_return < 0 %}is-negative{% endif %}">{{ pos.simple_return|percent }}</td>
+            {% else %}
+              <td class="num text-muted">—</td>
+              <td class="num text-muted">—</td>
+              <td class="num text-muted">—</td>
+              <td class="num text-muted">—</td>
+            {% endif %}
           </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
-  <p class="text-muted mt-6">Market value &amp; returns arrive in Stage 2 (live quotes).</p>
+  <p class="text-muted mt-6">
+    {% if valuation.as_of %}Prices as of {{ valuation.as_of|date:"Y-m-d H:i" }} UTC.{% endif %}
+    {% if valuation.missing_prices %}
+      No quote yet for: {{ valuation.missing_prices|join:", " }} — click <strong>Refresh prices</strong> to fetch.
+    {% endif %}
+  </p>
 {% else %}
   <div class="empty-state">
     <h2>No open positions</h2>
@@ -95,4 +147,14 @@
 {% else %}
   <p class="text-muted">No transactions logged yet.</p>
 {% endif %}
+{% endblock %}
+
+{% block extra_body %}
+  {% if chart_data.available and chart_data.points %}
+    {{ chart_data|json_script:"portfolio-chart-data" }}
+    {# Stage 3/prod hardening: self-host Chart.js or add SRI + CSP nonce. #}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
+            crossorigin="anonymous" defer></script>
+    <script src="{% static 'js/portfolio_chart.js' %}" defer></script>
+  {% endif %}
 {% endblock %}

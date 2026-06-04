@@ -6,8 +6,10 @@ from typing import Any
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, QuerySet
-from django.shortcuts import get_object_or_404
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -16,9 +18,12 @@ from django.views.generic import (
     UpdateView,
 )
 
+from apps.marketdata.tasks import refresh_quote
+
 from .forms import AssetForm, PortfolioForm, TransactionForm
 from .models import Asset, Portfolio, Transaction
-from .services import compute_positions, portfolio_summary
+from .services import compute_positions
+from .valuation import invested_timeseries, portfolio_valuation
 
 
 # --------------------------------------------------------------------------- #
@@ -58,10 +63,34 @@ class PortfolioDetailView(_OwnedPortfolioMixin, DetailView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         ctx = super().get_context_data(**kwargs)
-        ctx["positions"] = compute_positions(self.object)
-        ctx["summary"] = portfolio_summary(self.object)
+        ctx["valuation"] = portfolio_valuation(self.object)
+        ctx["chart_data"] = invested_timeseries(self.object)
         ctx["transactions"] = self.object.transactions.select_related("asset")[:50]
         return ctx
+
+
+class PortfolioRefreshQuotesView(LoginRequiredMixin, View):
+    """POST-only: enqueue a fresh-quote refresh for this portfolio's held assets.
+
+    Under ``CELERY_TASK_ALWAYS_EAGER`` (dev) the fetch runs inline so prices
+    appear immediately; in production it queues work for the Celery worker.
+    """
+
+    def post(
+        self, request: HttpRequest, *args: Any, pk: int, **kwargs: Any
+    ) -> HttpResponse:
+        portfolio = get_object_or_404(Portfolio, pk=pk, owner=request.user)
+        held = compute_positions(portfolio)
+        for position in held:
+            refresh_quote.delay(position.asset.id)
+
+        if held:
+            messages.success(
+                request, f"Refreshing quotes for {len(held)} asset(s)…"
+            )
+        else:
+            messages.info(request, "Add a trade first — no positions to price yet.")
+        return redirect(portfolio.get_absolute_url())
 
 
 class PortfolioUpdateView(_OwnedPortfolioMixin, UpdateView):

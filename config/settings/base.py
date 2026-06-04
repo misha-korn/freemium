@@ -201,6 +201,16 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = TIME_ZONE
 
+# Periodic price refresh (Celery Beat). Interval in seconds; default 15 min.
+# Run a beat process alongside the worker: ``celery -A config beat -l info``.
+MARKETDATA_REFRESH_SECONDS = env.int("MARKETDATA_REFRESH_SECONDS", default=15 * 60)
+CELERY_BEAT_SCHEDULE = {
+    "refresh-active-quotes": {
+        "task": "apps.marketdata.tasks.refresh_active_quotes",
+        "schedule": float(MARKETDATA_REFRESH_SECONDS),
+    },
+}
+
 # --------------------------------------------------------------------------- #
 # Cache (Redis in non-dev; locmem fallback)
 # --------------------------------------------------------------------------- #
@@ -226,6 +236,12 @@ else:
 FINNHUB_API_KEY = env("FINNHUB_API_KEY", default="")
 ALPHA_VANTAGE_API_KEY = env("ALPHA_VANTAGE_API_KEY", default="")
 TWELVE_DATA_API_KEY = env("TWELVE_DATA_API_KEY", default="")
+
+# Static FX rates ({from: {to: rate}}) used to aggregate multi-currency
+# portfolios into a single base currency. A deliberate Stage 2 stop-gap: a live
+# FX provider replaces this later (see apps.marketdata.fx). Same-currency
+# portfolios need no rates. Example: {"USD": {"RUB": "90"}, "EUR": {"USD": "1.08"}}
+FX_RATES: dict[str, dict[str, str]] = {}
 
 # --------------------------------------------------------------------------- #
 # Logging

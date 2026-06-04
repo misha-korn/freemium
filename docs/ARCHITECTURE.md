@@ -10,8 +10,9 @@ views or models) so they are pure and testable.
 |-----|----------------|-------------|
 | `accounts` | Identity & subscription state | `User` (custom), `Subscription`, signals, profile views, allauth templates |
 | `portfolio` | Core product | `Portfolio`, `Asset`, `Transaction`, `services.compute_positions/portfolio_summary` |
-| `marketdata` | Quotes | `PriceQuote`, `providers/` abstraction, `services.get_cached_quote`, Celery tasks |
+| `marketdata` | Quotes & FX | `PriceQuote`, `providers/` abstraction, `services` (cache + persist + `latest_quotes`), `fx` converter, Celery `refresh_*` tasks |
 | `analytics` | Calculations | pure `services`: `xirr`, `allocation_by`, `simple_return` (no models) |
+| `portfolio.valuation` | Mark-to-market | `value_positions` (pure), `portfolio_valuation`, `invested_timeseries` |
 | `billing` | Payments | `Payment`, `WebhookEvent`, `PaymentProvider` interface, pricing + webhook views |
 | `notifications` | Messaging | `Notification`, `NotificationPreference`, `notify()`, digest task |
 
@@ -43,8 +44,30 @@ concrete provider:
 - `US` / `EU` / `GLOBAL` → `FinnhubQuoteProvider` (needs `FINNHUB_API_KEY`).
 - anything else → `NullQuoteProvider` (safe no-op).
 
-`services.get_cached_quote` adds Django-cache memoisation. Stage 2 adds Celery
-periodic refresh that persists `PriceQuote` rows.
+`services.get_cached_quote` adds Django-cache memoisation. `fetch_and_store_quote`
+persists a `PriceQuote`; `latest_quotes(asset_ids)` reads the newest row per asset
+(portable — no Postgres `DISTINCT ON`).
+
+## Quote refresh (Stage 2)
+
+`refresh_active_quotes` (Celery Beat, every `MARKETDATA_REFRESH_SECONDS`, default
+15 min) finds every asset referenced by a transaction and fans out one
+`refresh_quote` subtask each, so a slow/failing provider on one asset never blocks
+the rest. A POST-only "Refresh prices" button on the portfolio detail enqueues the
+same per-asset refresh on demand (inline under `CELERY_TASK_ALWAYS_EAGER` in dev).
+
+## Valuation & FX (Stage 2)
+
+`portfolio.valuation.portfolio_valuation` ties it together: replay positions →
+`latest_quotes` → `value_positions` (pure: market value, unrealised P&L, simple
+return per position, in the asset's own currency) → aggregate per-currency and,
+via `marketdata.fx`, into the base currency. `_portfolio_xirr` builds dated,
+base-currency cashflows (buys negative, sells/terminal value positive) and calls
+`analytics.xirr`. Anything that cannot be priced or converted is reported as
+`None` / listed in `missing_prices` / `missing_fx` — never fabricated.
+
+`invested_timeseries` powers the first chart: cumulative net invested capital over
+time (Chart.js), which needs no historical prices.
 
 ## Request → response flow (example: add a trade)
 

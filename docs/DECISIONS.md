@@ -31,3 +31,28 @@ than fattening views or models.
 `billing.WebhookEvent` has a unique `(provider, event_id)` constraint so repeated
 provider deliveries are processed once. Signature verification + activation land
 in Stage 4.
+
+### Never fabricate a price or FX rate (Stage 2)
+Valuation is honest by construction: a position with no usable quote is
+`priced=False` and renders `—`; base-currency totals are produced only when every
+involved currency converts, otherwise they are `None` and `missing_fx` names the
+gaps. Per-currency figures stay exact regardless. This protects users from
+confidently-wrong numbers — the cardinal sin in fintech.
+
+### FX rates are a static stop-gap (Stage 2)
+`marketdata.fx` resolves rates from `settings.FX_RATES` (identity for same
+currency, `1/x` inverse otherwise). Single-currency portfolios — the common Free
+case — need no configuration. A live FX feed can replace `_rate_table` later
+without touching callers.
+
+### First chart = invested capital, not mark-to-market (Stage 2)
+A true value-over-time chart needs *historical* prices, which the current-quote
+providers don't give us. Rather than back-date today's price onto past holdings
+(dishonest), the first chart plots cumulative net invested capital from
+transactions — fully honest and useful. Mark-to-market history (price backfill or
+daily `PortfolioSnapshot`) is deferred.
+
+### Fan-out quote refresh (Stage 2)
+`refresh_active_quotes` dispatches one `refresh_quote` per held asset instead of
+looping inline, so one slow/failing provider can't block the batch and retries
+stay per-asset. Scheduled via Celery Beat (`MARKETDATA_REFRESH_SECONDS`).

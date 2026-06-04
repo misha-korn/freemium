@@ -10,6 +10,11 @@ urlpatterns = [
     path("assets/", views.AssetListView.as_view(), name="asset_list"),
     path("assets/new/", views.AssetCreateView.as_view(), name="asset_create"),
     path("<int:pk>/", views.PortfolioDetailView.as_view(), name="detail"),
+    path(
+        "<int:pk>/refresh-quotes/",
+        views.PortfolioRefreshQuotesView.as_view(),
+        name="refresh_quotes",
+    ),
     path("<int:pk>/edit/", views.PortfolioUpdateView.as_view(), name="update"),
     path("<int:pk>/delete/", views.PortfolioDeleteView.as_view(), name="delete"),
     path(

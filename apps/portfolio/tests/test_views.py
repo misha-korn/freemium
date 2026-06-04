@@ -1,6 +1,11 @@
+from datetime import UTC, datetime
+from decimal import Decimal
+from unittest.mock import patch
+
 import pytest
 from django.urls import reverse
 
+from apps.marketdata.models import PriceQuote
 from apps.portfolio.models import Asset, Portfolio, Transaction
 
 
@@ -83,3 +88,83 @@ def test_cannot_add_transaction_to_others_portfolio(auth_client, other_user):
         reverse("portfolio:transaction_create", kwargs={"pk": foreign.pk})
     )
     assert resp.status_code == 404
+
+
+@pytest.mark.django_db
+def test_detail_shows_market_value_when_priced(auth_client, user):
+    asset = Asset.objects.create(
+        ticker="AAPL", asset_type="STOCK", market="US", currency="USD"
+    )
+    portfolio = Portfolio.objects.create(owner=user, name="Main", base_currency="USD")
+    Transaction.objects.create(
+        portfolio=portfolio, asset=asset, kind="BUY",
+        quantity=Decimal("10"), price=Decimal("100"), fee=Decimal("0"),
+        executed_at=datetime(2024, 1, 1, tzinfo=UTC),
+    )
+    PriceQuote.objects.create(
+        asset=asset, price=Decimal("150"), currency="USD",
+        as_of=datetime.now(UTC), source="TEST",
+    )
+
+    resp = auth_client.get(reverse("portfolio:detail", kwargs={"pk": portfolio.pk}))
+    assert resp.status_code == 200
+    valuation = resp.context["valuation"]
+    assert valuation["totals"]["market_value_base"] == Decimal("1500")
+    # Chart series is rendered for a single-currency portfolio.
+    assert resp.context["chart_data"]["available"] is True
+
+
+@pytest.mark.django_db
+def test_detail_renders_unpriced_without_error(auth_client, user):
+    """Detail page must render cleanly when nothing is priced (None totals)."""
+    asset = Asset.objects.create(
+        ticker="AAPL", asset_type="STOCK", market="US", currency="USD"
+    )
+    portfolio = Portfolio.objects.create(owner=user, name="Main", base_currency="USD")
+    Transaction.objects.create(
+        portfolio=portfolio, asset=asset, kind="BUY",
+        quantity=Decimal("10"), price=Decimal("100"), fee=Decimal("0"),
+        executed_at=datetime(2024, 1, 1, tzinfo=UTC),
+    )  # no PriceQuote -> unpriced
+
+    resp = auth_client.get(reverse("portfolio:detail", kwargs={"pk": portfolio.pk}))
+    assert resp.status_code == 200
+    assert resp.context["valuation"]["totals"]["market_value_base"] is None
+
+
+@pytest.mark.django_db
+def test_refresh_quotes_dispatches_for_held_assets(auth_client, user):
+    asset = Asset.objects.create(
+        ticker="SBER", asset_type="STOCK", market="MOEX", currency="RUB"
+    )
+    portfolio = Portfolio.objects.create(owner=user, name="RU", base_currency="RUB")
+    Transaction.objects.create(
+        portfolio=portfolio, asset=asset, kind="BUY",
+        quantity=Decimal("1"), price=Decimal("100"), fee=Decimal("0"),
+        executed_at=datetime(2024, 1, 1, tzinfo=UTC),
+    )
+
+    url = reverse("portfolio:refresh_quotes", kwargs={"pk": portfolio.pk})
+    with patch("apps.portfolio.views.refresh_quote.delay") as delay:
+        resp = auth_client.post(url)
+
+    assert resp.status_code == 302
+    delay.assert_called_once_with(asset.id)
+
+
+@pytest.mark.django_db
+def test_refresh_quotes_requires_ownership(auth_client, other_user):
+    foreign = Portfolio.objects.create(
+        owner=other_user, name="Theirs", base_currency="USD"
+    )
+    url = reverse("portfolio:refresh_quotes", kwargs={"pk": foreign.pk})
+    resp = auth_client.post(url)
+    assert resp.status_code == 404
+
+
+@pytest.mark.django_db
+def test_refresh_quotes_rejects_get(auth_client, user):
+    portfolio = Portfolio.objects.create(owner=user, name="RU", base_currency="RUB")
+    url = reverse("portfolio:refresh_quotes", kwargs={"pk": portfolio.pk})
+    resp = auth_client.get(url)
+    assert resp.status_code == 405  # method not allowed
