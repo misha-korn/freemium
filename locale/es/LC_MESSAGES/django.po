@@ -1,0 +1,337 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: freemium 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Skip to content"
+msgstr "Saltar al contenido"
+
+msgid "Main navigation"
+msgstr "Navegación principal"
+
+msgid "Portfolios"
+msgstr "Carteras"
+
+msgid "Log in"
+msgstr "Iniciar sesión"
+
+msgid "Get started"
+msgstr "Empezar"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Toggle dark theme"
+msgstr "Cambiar tema oscuro"
+
+msgid "Log out"
+msgstr "Cerrar sesión"
+
+msgid "Track. Analyse. Grow your portfolio."
+msgstr "Controla. Analiza. Haz crecer tu cartera."
+
+msgid "English"
+msgstr "Inglés"
+
+msgid "Russian"
+msgstr "Ruso"
+
+msgid "Spanish"
+msgstr "Español"
+
+msgid "Simplified Chinese"
+msgstr "Chino simplificado"
+
+msgid "Freemium · Stop wrestling with spreadsheets"
+msgstr "Freemium · Deja de pelear con hojas de cálculo"
+
+msgid "Personal investment tracker"
+msgstr "Rastreador de inversiones personal"
+
+msgid "Your whole portfolio,<br>finally in one clear view."
+msgstr "Toda tu cartera,<br>por fin en una vista clara."
+
+msgid ""
+"Log your trades, connect quotes from MOEX and global markets, and see real "
+"returns, allocation and risk — without another fragile Excel sheet."
+msgstr ""
+"Registra tus operaciones, conecta cotizaciones de MOEX y los mercados "
+"globales, y observa rendimientos, distribución y riesgo reales — sin otra "
+"frágil hoja de Excel."
+
+msgid "Go to my portfolios"
+msgstr "Ir a mis carteras"
+
+msgid "Create free account"
+msgstr "Crear cuenta gratis"
+
+msgid "Free plan: 1 portfolio, manual entry, core charts."
+msgstr "Plan gratuito: 1 cartera, entrada manual, gráficos básicos."
+
+msgid "True returns"
+msgstr "Rendimientos reales"
+
+msgid ""
+"Time-weighted and money-weighted performance computed with exact decimal "
+"math."
+msgstr ""
+"Rendimiento ponderado por tiempo y por dinero, con cálculo decimal exacto."
+
+msgid "Allocation & risk"
+msgstr "Distribución y riesgo"
+
+msgid ""
+"Diversification by holding, asset class, market and currency — see "
+"concentration at a glance."
+msgstr ""
+"Diversificación por posición, clase de activo, mercado y divisa — observa la"
+" concentración de un vistazo."
+
+msgid "Two markets"
+msgstr "Dos mercados"
+
+msgid "Russian (MOEX) and international tickers in one base-currency view."
+msgstr "Tickers rusos (MOEX) e internacionales en una vista en moneda base."
+
+msgid "Own your data"
+msgstr "Tus datos son tuyos"
+
+msgid ""
+"Manual entry first. Export to Excel/PDF and a yearly tax report on Pro."
+msgstr ""
+"Primero entrada manual. Exporta a Excel/PDF e informe fiscal anual en Pro."
+
+msgid "Create account · Freemium"
+msgstr "Crear cuenta · Freemium"
+
+msgid "Start tracking your portfolio — free."
+msgstr "Empieza a seguir tu cartera — gratis."
+
+msgid ""
+"Stop wrestling with spreadsheets. Log your trades and see real value, "
+"returns and allocation across Russian and global markets."
+msgstr ""
+"Deja de pelear con hojas de cálculo. Registra tus operaciones y observa el "
+"valor, los rendimientos y la distribución reales en los mercados ruso y "
+"globales."
+
+msgid "1 portfolio, unlimited manual trades"
+msgstr "1 cartera, operaciones manuales ilimitadas"
+
+msgid "Live MOEX & international quotes"
+msgstr "Cotizaciones de MOEX e internacionales en vivo"
+
+msgid "Allocation, returns & money-weighted XIRR"
+msgstr "Distribución, rendimientos y XIRR ponderada por dinero"
+
+msgid "No card required"
+msgstr "Sin tarjeta"
+
+msgid "Create your account"
+msgstr "Crea tu cuenta"
+
+msgid "Create account"
+msgstr "Crear cuenta"
+
+msgid "Already have an account?"
+msgstr "¿Ya tienes una cuenta?"
+
+msgid "Log in · Freemium"
+msgstr "Iniciar sesión · Freemium"
+
+msgid "Forgot password?"
+msgstr "¿Olvidaste tu contraseña?"
+
+msgid "New here?"
+msgstr "¿Nuevo por aquí?"
+
+msgid "Create an account"
+msgstr "Crear una cuenta"
+
+msgid "Portfolios · Freemium"
+msgstr "Carteras · Freemium"
+
+msgid "Your account"
+msgstr "Tu cuenta"
+
+msgid "Track your investments and log trades by hand."
+msgstr "Sigue tus inversiones y registra operaciones a mano."
+
+msgid "+ New portfolio"
+msgstr "+ Nueva cartera"
+
+msgid "Total value"
+msgstr "Valor total"
+
+msgid "Invested (cost basis)"
+msgstr "Invertido (coste)"
+
+msgid "Unrealised P&L"
+msgstr "P&L no realizado"
+
+msgid "Return"
+msgstr "Rendimiento"
+
+msgid "market value"
+msgstr "valor de mercado"
+
+msgid "invested · add prices to value"
+msgstr "invertido · añade precios para valorar"
+
+msgid "no trades yet"
+msgstr "aún sin operaciones"
+
+msgid "No portfolios yet"
+msgstr "Aún no hay carteras"
+
+msgid "Create your first portfolio to stop wrestling with spreadsheets."
+msgstr "Crea tu primera cartera y deja de pelear con hojas de cálculo."
+
+msgid "Create a portfolio"
+msgstr "Crear una cartera"
+
+msgid "Browse the asset catalogue →"
+msgstr "Explorar el catálogo de activos →"
+
+msgid "Portfolio"
+msgstr "Cartera"
+
+msgid "+ Add trade"
+msgstr "+ Añadir operación"
+
+msgid "↻ Refresh prices"
+msgstr "↻ Actualizar precios"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Market value"
+msgstr "Valor de mercado"
+
+msgid "Return · XIRR"
+msgstr "Rendimiento · XIRR"
+
+msgid "Allocation"
+msgstr "Distribución"
+
+msgid "by market value"
+msgstr "por valor de mercado"
+
+msgid "by invested capital"
+msgstr "por capital invertido"
+
+msgid "Invested capital over time"
+msgstr "Capital invertido a lo largo del tiempo"
+
+msgid "Cumulative invested capital over time"
+msgstr "Capital invertido acumulado a lo largo del tiempo"
+
+msgid "Positions"
+msgstr "Posiciones"
+
+msgid "Asset"
+msgstr "Activo"
+
+msgid "Market"
+msgstr "Mercado"
+
+msgid "Quantity"
+msgstr "Cantidad"
+
+msgid "Avg cost"
+msgstr "Coste medio"
+
+msgid "Price"
+msgstr "Precio"
+
+msgid "P&L"
+msgstr "P&L"
+
+msgid "No open positions"
+msgstr "Sin posiciones abiertas"
+
+msgid "Add a buy trade to see your positions here."
+msgstr "Añade una operación de compra para ver tus posiciones aquí."
+
+msgid "Add a trade"
+msgstr "Añadir operación"
+
+msgid "Recent transactions"
+msgstr "Operaciones recientes"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Qty"
+msgstr "Cant."
+
+msgid "Fee"
+msgstr "Comisión"
+
+msgid "edit"
+msgstr "editar"
+
+msgid "delete"
+msgstr "eliminar"
+
+msgid "No transactions logged yet."
+msgstr "Aún no se han registrado operaciones."
+
+msgid "By holding"
+msgstr "Por posición"
+
+msgid "By asset class"
+msgstr "Por clase de activo"
+
+msgid "By market"
+msgstr "Por mercado"
+
+msgid "By currency"
+msgstr "Por divisa"
+
+msgid "XIRR %(x)s"
+msgstr "XIRR %(x)s"
+
+msgid ""
+"Base-currency totals need FX rates for: %(cur)s. Per-asset figures below are"
+" exact in each asset's own currency."
+msgstr ""
+"Los totales en moneda base necesitan tipos de cambio para: %(cur)s. Las "
+"cifras por activo más abajo son exactas en la moneda de cada activo."
+
+msgid "Allocation excludes positions in %(cur)s — no FX rate to %(base)s yet."
+msgstr ""
+"La distribución excluye posiciones en %(cur)s — aún sin tipo de cambio a "
+"%(base)s."
+
+msgid "Prices as of %(d)s UTC."
+msgstr "Precios al %(d)s UTC."
+
+msgid ""
+"No quote yet for: %(tickers)s — click <strong>Refresh prices</strong> to "
+"fetch."
+msgstr ""
+"Aún sin cotización para: %(tickers)s — pulsa <strong>Actualizar "
+"precios</strong>."
+
+msgid "%(count)s portfolio"
+msgid_plural "%(count)s portfolios"
+msgstr[0] "%(count)s cartera"
+msgstr[1] "%(count)s carteras"
+
+msgid "%(count)s trade"
+msgid_plural "%(count)s trades"
+msgstr[0] "%(count)s operación"
+msgstr[1] "%(count)s operaciones"

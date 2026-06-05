@@ -23,6 +23,11 @@
   --color-negative: oklch(57% 0.2 24);
   --color-warning: oklch(72% 0.16 75);
 
+  /* Translucent sticky-header background (themed) */
+  --color-header-bg: oklch(99% 0.003 250 / 0.82);
+  /* Tint behind the body radial-gradient glow */
+  --color-glow: var(--color-accent-soft);
+
   /* Type scale (fluid) */
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -57,6 +62,38 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ----- Dark theme -----
+   Applied when <html data-theme="dark"> (set by the no-flash inline script in
+   base.html from localStorage or the OS preference). Only colour tokens change;
+   every component reads them, so the whole UI flips with no per-component CSS. */
+[data-theme="dark"] {
+  --color-bg: oklch(20% 0.022 264);
+  --color-surface: oklch(24.5% 0.024 264);
+  --color-surface-2: oklch(29% 0.026 264);
+  --color-border: oklch(36% 0.022 264);
+  --color-border-strong: oklch(48% 0.026 264);
+  --color-text: oklch(94% 0.012 250);
+  --color-text-muted: oklch(72% 0.018 255);
+  --color-ink: oklch(96% 0.01 250);
+
+  --color-accent: oklch(72% 0.13 200);
+  --color-accent-strong: oklch(78% 0.13 198);
+  --color-accent-soft: oklch(34% 0.06 205);
+
+  --color-positive: oklch(74% 0.16 152);
+  --color-negative: oklch(70% 0.19 24);
+  --color-warning: oklch(80% 0.15 75);
+
+  --color-header-bg: oklch(22% 0.022 264 / 0.85);
+  --color-glow: oklch(36% 0.06 205 / 0.5);
+
+  --shadow-sm: 0 1px 2px oklch(0% 0 0 / 0.3);
+  --shadow: 0 6px 24px oklch(0% 0 0 / 0.4);
+  --shadow-lg: 0 20px 50px oklch(0% 0 0 / 0.5);
+
+  color-scheme: dark;
+}
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -70,7 +107,7 @@ body {
   line-height: 1.55;
   color: var(--color-text);
   background:
-    radial-gradient(900px 600px at 100% -10%, var(--color-accent-soft), transparent 60%),
+    radial-gradient(900px 600px at 100% -10%, var(--color-glow), transparent 60%),
     var(--color-bg);
   min-height: 100vh;
   display: flex;
@@ -95,7 +132,7 @@ a:hover { text-decoration: underline; }
 .site-header {
   position: sticky; top: 0; z-index: 50;
   backdrop-filter: saturate(1.4) blur(10px);
-  background: oklch(99% 0.003 250 / 0.82);
+  background: var(--color-header-bg);
   border-bottom: 1px solid var(--color-border);
 }
 .site-header__inner {
@@ -253,6 +290,35 @@ a:hover { text-decoration: underline; }
 .text-muted { color: var(--color-text-muted); }
 .text-right { text-align: right; }
 .mt-6 { margin-top: var(--space-6); }
+
+/* ----- Header controls: theme toggle + language switcher ----- */
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; padding: 0;
+  background: var(--color-surface); color: var(--color-text);
+  border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm);
+  cursor: pointer; font-size: 1rem; line-height: 1;
+  transition: background var(--duration-fast), border-color var(--duration-fast), transform var(--duration-fast);
+}
+.theme-toggle:hover { background: var(--color-surface-2); transform: translateY(-1px); }
+.theme-toggle:focus-visible { outline: 2px solid var(--color-accent-strong); outline-offset: 2px; }
+
+.lang-switcher { margin: 0; display: inline-flex; }
+.lang-switcher select {
+  font: inherit; font-size: var(--text-sm); padding: 0.35rem 1.6rem 0.35rem 0.5rem;
+  background: var(--color-surface); color: var(--color-text);
+  border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); cursor: pointer;
+}
+.lang-switcher select:focus-visible { outline: 2px solid var(--color-accent-strong); outline-offset: 2px; }
+
+/* ----- Auth pages (signup / login) ----- */
+.auth-layout { display: grid; gap: var(--space-6); align-items: center; padding-block: var(--space-6); }
+@media (min-width: 860px) { .auth-layout { grid-template-columns: 1fr 1fr; gap: var(--space-8); } }
+.auth-aside__title { font-size: var(--text-2xl); }
+.auth-benefits { list-style: none; margin: var(--space-5) 0 0; padding: 0; display: grid; gap: var(--space-3); }
+.auth-benefits li { position: relative; padding-left: 1.6rem; color: var(--color-text); }
+.auth-benefits li::before { content: "✓"; position: absolute; left: 0; color: var(--color-positive); font-weight: 700; }
+.auth-card { margin: 0; max-width: none; width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }

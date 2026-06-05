@@ -84,3 +84,27 @@ rule as valuation, applied at the account level.
 A `Procfile` and `bin/release.sh` (migrate + collectstatic) keep the same app
 deployable on any VPS/PaaS. `.gitattributes` pins shell/manifest files to LF so
 Linux hosts don't choke on CRLF.
+
+### allauth templates live in project `templates/` (Stage 3.5)
+Our branded `account/login.html`, `signup.html`, etc. were being shadowed by
+allauth's own defaults: with `APP_DIRS=True`, Django returns the first match in
+INSTALLED_APPS order, and `allauth.account` precedes `apps.accounts`. Moving them
+to project-level `templates/account/` (the `DIRS` loader runs before app loaders)
+makes our pages win. A regression test asserts the branded markers render.
+
+### Theme: token-swap dark mode, no-flash, OS-aware (Stage 3.5)
+Light/dark is a pure CSS custom-property swap under `[data-theme="dark"]` — every
+component already reads tokens, so nothing per-component changes. An inline script
+in `<head>` applies the saved/OS theme *before first paint* (no flash); `theme.js`
+handles the toggle and persists to `localStorage`. Without JS the page still
+renders (defaults to light).
+
+### i18n without GNU gettext (Stage 3.5)
+Windows dev boxes rarely have GNU gettext, so `makemessages`/`compilemessages`
+fail. `bin/build_translations.py` is the stand-in: translations live in that file
+and it writes `locale/<code>/LC_MESSAGES/django.{po,mo}` via `polib`. The compiled
+`.mo` files are committed so runtime needs no gettext. Language is cookie/session
+based via `LocaleMiddleware` + the `set_language` view (no `i18n_patterns`, so URLs
+stay clean). `blocktrans` blocks use `trimmed` to keep msgids stable. Initial UI
+languages: en (source), ru, es, zh-hans. Asset-class/market *data* labels and the
+profile/CRUD forms are not yet translated — a follow-up.

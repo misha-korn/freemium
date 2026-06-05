@@ -44,7 +44,18 @@
 - "Performance" is current returns (simple + XIRR) + the invested-capital chart;
   true value-over-time still needs the deferred price backfill / daily snapshots.
 
-## Stage 3.5 — deferred polish (nice-to-have)
+## Stage 3.5 — UX polish ✅ (done)
+- [x] Branded auth pages actually render — moved allauth templates to project
+      `templates/account/` so they stop being shadowed by allauth defaults; the
+      signup page got an editorial "benefits + form" layout
+- [x] Light/dark theme: token-swap dark mode, header toggle, no-flash inline
+      script, OS-preference aware, persisted to `localStorage`
+- [x] Internationalisation: en/ru/es/zh-hans via `LocaleMiddleware` + a header
+      language switcher; catalogs built with `bin/build_translations.py` (polib,
+      no gettext needed); 91 tests incl. template + i18n regression tests
+
+### Still deferred (nice-to-have)
+- [ ] Translate asset-class/market data labels + profile/CRUD forms (partial i18n)
 - [ ] Industry-sector allocation once a provider feed exists
 - [ ] Mark-to-market value-over-time chart (price backfill or `PortfolioSnapshot`)
 - [ ] Self-host Chart.js (or SRI + CSP nonce) instead of the CDN tag

@@ -1,37 +1,37 @@
 {% extends "base.html" %}
-{% load portfolio_extras %}
-{% block title %}Portfolios · Freemium{% endblock %}
+{% load portfolio_extras i18n %}
+{% block title %}{% trans "Portfolios · Freemium" %}{% endblock %}
 
 {% block content %}
 <div class="page-header">
   <div>
-    <p class="eyebrow">Your account</p>
-    <h1 class="page-header__title">Portfolios</h1>
-    <p class="page-header__sub">Track your investments and log trades by hand.</p>
+    <p class="eyebrow">{% trans "Your account" %}</p>
+    <h1 class="page-header__title">{% trans "Portfolios" %}</h1>
+    <p class="page-header__sub">{% trans "Track your investments and log trades by hand." %}</p>
   </div>
-  <a class="btn btn--primary" href="{% url 'portfolio:create' %}">+ New portfolio</a>
+  <a class="btn btn--primary" href="{% url 'portfolio:create' %}">{% trans "+ New portfolio" %}</a>
 </div>
 
 {% if overview.combined %}
   {% with cb=overview.combined %}
   <div class="card-grid">
     <div class="card stat">
-      <span class="stat__label">Total value · {{ cb.currency }}</span>
+      <span class="stat__label">{% trans "Total value" %} · {{ cb.currency }}</span>
       <span class="stat__value">{% if cb.market_value is not None %}{{ cb.market_value|money }}{% else %}—{% endif %}</span>
-      <span class="stat__sub text-muted">{{ cb.portfolio_count }} portfolio{{ cb.portfolio_count|pluralize }}</span>
+      <span class="stat__sub text-muted">{% blocktrans count count=cb.portfolio_count %}{{ count }} portfolio{% plural %}{{ count }} portfolios{% endblocktrans %}</span>
     </div>
     <div class="card stat">
-      <span class="stat__label">Invested (cost basis)</span>
+      <span class="stat__label">{% trans "Invested (cost basis)" %}</span>
       <span class="stat__value">{% if cb.invested is not None %}{{ cb.invested|money }}{% else %}—{% endif %}</span>
     </div>
     <div class="card stat">
-      <span class="stat__label">Unrealised P&amp;L</span>
+      <span class="stat__label">{% trans "Unrealised P&L" %}</span>
       <span class="stat__value {% if cb.unrealised_pnl is not None %}{% if cb.unrealised_pnl > 0 %}is-positive{% elif cb.unrealised_pnl < 0 %}is-negative{% endif %}{% endif %}">
         {% if cb.unrealised_pnl is not None %}{{ cb.unrealised_pnl|signed }} {{ cb.currency }}{% else %}—{% endif %}
       </span>
     </div>
     <div class="card stat">
-      <span class="stat__label">Return</span>
+      <span class="stat__label">{% trans "Return" %}</span>
       <span class="stat__value {% if cb.simple_return is not None %}{% if cb.simple_return > 0 %}is-positive{% elif cb.simple_return < 0 %}is-negative{% endif %}{% endif %}">
         {{ cb.simple_return|percent }}
       </span>
@@ -51,13 +51,13 @@
         <div class="portfolio-card__figure">
           {% if c.market_value is not None %}
             <span class="stat__value">{{ c.market_value|money }}</span>
-            <span class="text-muted">market value</span>
+            <span class="text-muted">{% trans "market value" %}</span>
           {% elif c.invested is not None %}
             <span class="stat__value">{{ c.invested|money }}</span>
-            <span class="text-muted">invested · add prices to value</span>
+            <span class="text-muted">{% trans "invested · add prices to value" %}</span>
           {% else %}
             <span class="stat__value text-muted">—</span>
-            <span class="text-muted">no trades yet</span>
+            <span class="text-muted">{% trans "no trades yet" %}</span>
           {% endif %}
         </div>
         <div class="cluster portfolio-card__meta">
@@ -67,7 +67,7 @@
           {% if c.simple_return is not None %}
             <span class="{% if c.simple_return > 0 %}is-positive{% elif c.simple_return < 0 %}is-negative{% endif %}">{{ c.simple_return|percent }}</span>
           {% endif %}
-          <span class="text-muted">{{ c.portfolio.transaction_count }} trade{{ c.portfolio.transaction_count|pluralize }}</span>
+          <span class="text-muted">{% blocktrans count count=c.portfolio.transaction_count %}{{ count }} trade{% plural %}{{ count }} trades{% endblocktrans %}</span>
         </div>
         {% if c.portfolio.description %}<p class="text-muted" style="margin:0;">{{ c.portfolio.description }}</p>{% endif %}
       </a>
@@ -75,11 +75,11 @@
   </div>
 {% else %}
   <div class="empty-state">
-    <h2>No portfolios yet</h2>
-    <p>Create your first portfolio to stop wrestling with spreadsheets.</p>
-    <a class="btn btn--primary btn--lg mt-6" href="{% url 'portfolio:create' %}">Create a portfolio</a>
+    <h2>{% trans "No portfolios yet" %}</h2>
+    <p>{% trans "Create your first portfolio to stop wrestling with spreadsheets." %}</p>
+    <a class="btn btn--primary btn--lg mt-6" href="{% url 'portfolio:create' %}">{% trans "Create a portfolio" %}</a>
   </div>
 {% endif %}
 
-<p class="mt-6"><a href="{% url 'portfolio:asset_list' %}">Browse the asset catalogue →</a></p>
+<p class="mt-6"><a href="{% url 'portfolio:asset_list' %}">{% trans "Browse the asset catalogue →" %}</a></p>
 {% endblock %}

@@ -9,6 +9,7 @@ from django.db.models import Count, QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import (
     CreateView,
@@ -32,10 +33,10 @@ from .valuation import invested_timeseries, portfolio_valuation
 # one-currency portfolio) carries no diversification signal.
 _MIN_SLICES_FOR_CHART = 2
 _ALLOCATION_AXES = (
-    ("By holding", "holding", "by_holding"),
-    ("By asset class", "class", "by_class"),
-    ("By market", "market", "by_market"),
-    ("By currency", "currency", "by_currency"),
+    (_("By holding"), "holding", "by_holding"),
+    (_("By asset class"), "class", "by_class"),
+    (_("By market"), "market", "by_market"),
+    (_("By currency"), "currency", "by_currency"),
 )
 
 

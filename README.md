@@ -6,13 +6,14 @@ positions and cost basis per portfolio, and pull live quotes from **MOEX** and
 invested-capital chart. Monetised as **freemium**: a useful Free tier plus a paid
 **Pro** subscription.
 
-> **Status: Stage 3 (MVP dashboard) complete.** On top of Stage 2: a polished
-> portfolio dashboard with allocation donuts (by holding / asset class / market /
-> currency), an account overview on the portfolio list (per-portfolio cards + a
-> single-currency combined total), and one-click deploy via a Render Blueprint
-> (`render.yaml`) plus a `Procfile` / `bin/release.sh` for VPS. 86 tests, ~90%
-> coverage, ruff-clean. Allocation stays honest — market-value basis only when
-> fully priced, no fabricated industry sector.
+> **Status: Stage 3 + 3.5 complete.** Stage 3 — a polished portfolio dashboard
+> with allocation donuts (by holding / asset class / market / currency), an
+> account overview on the portfolio list (per-portfolio cards + a single-currency
+> combined total), and one-click deploy via a Render Blueprint (`render.yaml`)
+> plus a `Procfile` / `bin/release.sh` for VPS. Stage 3.5 UX — branded auth pages,
+> a light/dark theme toggle (no-flash, OS-aware), and i18n in **en/ru/es/zh-hans**
+> with a header language switcher. 91 tests, ~90% coverage, ruff-clean. Allocation
+> stays honest — market-value basis only when fully priced, no fabricated sector.
 
 ---
 
@@ -139,6 +140,28 @@ loaded by `django-environ`. See `.env.example` for the full list. Notable:
 - `MARKETDATA_REFRESH_SECONDS` — periodic refresh interval for Celery Beat (default 900).
 - `CELERY_TASK_ALWAYS_EAGER` — `True` in dev runs tasks inline (no worker needed).
 
+## Internationalisation & theming
+
+The UI ships in **English, Russian, Spanish and Simplified Chinese**, switchable
+from the header (cookie/session based via `LocaleMiddleware` + `set_language`).
+A light/dark theme toggle sits next to it — a no-flash inline script applies the
+saved or OS-preferred theme before first paint, and the choice persists in
+`localStorage`.
+
+Translations are managed **without GNU gettext** (rarely present on Windows):
+strings live in `bin/build_translations.py`, which writes
+`locale/<code>/LC_MESSAGES/django.{po,mo}` with `polib`. To add or change a string:
+
+```powershell
+# 1. wrap it in {% trans %}/{% blocktrans trimmed %} (templates) or _() (Python)
+# 2. add its msgid + translations to bin/build_translations.py
+.\.venv\Scripts\python.exe -m pip install polib
+.\.venv\Scripts\python.exe bin\build_translations.py   # regenerates .po + .mo
+```
+
+The compiled `.mo` files are committed, so deploys need no gettext. (If you *do*
+have gettext, the standard `makemessages`/`compilemessages` also work.)
+
 ## Testing
 
 ```powershell
@@ -151,6 +174,7 @@ loaded by `django-environ`. See `.env.example` for the full list. Notable:
 1. **Foundation** ✅ — auth, portfolios, assets, manual trades, positions.
 2. **Quotes & analytics** ✅ — providers + Celery refresh, market value, returns (simple + XIRR), FX, first chart.
 3. **MVP dashboard** ✅ — allocation donuts, account overview, Render/VPS deploy.
+   - **3.5 UX** ✅ — branded auth pages, light/dark theme, i18n (en/ru/es/zh-hans).
 4. **Monetisation** — Free/Pro limits, payments + webhooks.
 5. **Retention** — tax report, Excel/PDF export, notifications, broker import.
 

@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Log in · Freemium{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Log in · Freemium" %}{% endblock %}
 
 {% block content %}
 <div class="card form-card" style="margin-inline:auto;">
-  <h1 class="card__title">Log in</h1>
+  <h1 class="card__title">{% trans "Log in" %}</h1>
   <form class="form" method="post" action="{% url 'account_login' %}" novalidate>
     {% csrf_token %}
     {% include "partials/form_fields.html" %}
@@ -11,12 +12,12 @@
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
     {% endif %}
     <div class="form-actions">
-      <button class="btn btn--primary btn--block" type="submit">Log in</button>
+      <button class="btn btn--primary btn--block" type="submit">{% trans "Log in" %}</button>
     </div>
   </form>
   <p class="text-muted mt-6">
-    <a href="{% url 'account_reset_password' %}">Forgot password?</a>
-    &nbsp;·&nbsp; New here? <a href="{% url 'account_signup' %}">Create an account</a>
+    <a href="{% url 'account_reset_password' %}">{% trans "Forgot password?" %}</a>
+    &nbsp;·&nbsp; {% trans "New here?" %} <a href="{% url 'account_signup' %}">{% trans "Create an account" %}</a>
   </p>
 </div>
 {% endblock %}

@@ -1,0 +1,338 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: freemium 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+
+msgid "Skip to content"
+msgstr "Перейти к содержимому"
+
+msgid "Main navigation"
+msgstr "Основная навигация"
+
+msgid "Portfolios"
+msgstr "Портфели"
+
+msgid "Log in"
+msgstr "Войти"
+
+msgid "Get started"
+msgstr "Начать"
+
+msgid "Language"
+msgstr "Язык"
+
+msgid "Toggle dark theme"
+msgstr "Переключить тёмную тему"
+
+msgid "Log out"
+msgstr "Выйти"
+
+msgid "Track. Analyse. Grow your portfolio."
+msgstr "Отслеживайте. Анализируйте. Растите портфель."
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Spanish"
+msgstr "Испанский"
+
+msgid "Simplified Chinese"
+msgstr "Китайский (упрощённый)"
+
+msgid "Freemium · Stop wrestling with spreadsheets"
+msgstr "Freemium · Хватит мучиться с таблицами"
+
+msgid "Personal investment tracker"
+msgstr "Личный трекер инвестиций"
+
+msgid "Your whole portfolio,<br>finally in one clear view."
+msgstr "Весь ваш портфель<br>наконец в одном понятном виде."
+
+msgid ""
+"Log your trades, connect quotes from MOEX and global markets, and see real "
+"returns, allocation and risk — without another fragile Excel sheet."
+msgstr ""
+"Вносите сделки, подключайте котировки MOEX и мировых рынков и видьте "
+"реальную доходность, распределение и риск — без очередной хрупкой таблицы "
+"Excel."
+
+msgid "Go to my portfolios"
+msgstr "Перейти к портфелям"
+
+msgid "Create free account"
+msgstr "Создать бесплатный аккаунт"
+
+msgid "Free plan: 1 portfolio, manual entry, core charts."
+msgstr "Бесплатный план: 1 портфель, ручной ввод, базовые графики."
+
+msgid "True returns"
+msgstr "Реальная доходность"
+
+msgid ""
+"Time-weighted and money-weighted performance computed with exact decimal "
+"math."
+msgstr ""
+"Доходность, взвешенная по времени и по деньгам, с точными десятичными "
+"расчётами."
+
+msgid "Allocation & risk"
+msgstr "Распределение и риск"
+
+msgid ""
+"Diversification by holding, asset class, market and currency — see "
+"concentration at a glance."
+msgstr ""
+"Диверсификация по позиции, классу актива, рынку и валюте — концентрация "
+"видна с первого взгляда."
+
+msgid "Two markets"
+msgstr "Два рынка"
+
+msgid "Russian (MOEX) and international tickers in one base-currency view."
+msgstr "Российские (MOEX) и зарубежные тикеры в одном виде в базовой валюте."
+
+msgid "Own your data"
+msgstr "Ваши данные — ваши"
+
+msgid ""
+"Manual entry first. Export to Excel/PDF and a yearly tax report on Pro."
+msgstr ""
+"Сначала ручной ввод. Экспорт в Excel/PDF и годовой налоговый отчёт в Pro."
+
+msgid "Create account · Freemium"
+msgstr "Создать аккаунт · Freemium"
+
+msgid "Start tracking your portfolio — free."
+msgstr "Начните отслеживать портфель — бесплатно."
+
+msgid ""
+"Stop wrestling with spreadsheets. Log your trades and see real value, "
+"returns and allocation across Russian and global markets."
+msgstr ""
+"Хватит мучиться с таблицами. Вносите сделки и видьте реальную стоимость, "
+"доходность и распределение по российским и мировым рынкам."
+
+msgid "1 portfolio, unlimited manual trades"
+msgstr "1 портфель, неограниченный ручной ввод сделок"
+
+msgid "Live MOEX & international quotes"
+msgstr "Котировки MOEX и международные в реальном времени"
+
+msgid "Allocation, returns & money-weighted XIRR"
+msgstr "Распределение, доходность и XIRR (взвешенная по деньгам)"
+
+msgid "No card required"
+msgstr "Карта не нужна"
+
+msgid "Create your account"
+msgstr "Создайте аккаунт"
+
+msgid "Create account"
+msgstr "Создать аккаунт"
+
+msgid "Already have an account?"
+msgstr "Уже есть аккаунт?"
+
+msgid "Log in · Freemium"
+msgstr "Войти · Freemium"
+
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
+
+msgid "New here?"
+msgstr "Впервые здесь?"
+
+msgid "Create an account"
+msgstr "Создать аккаунт"
+
+msgid "Portfolios · Freemium"
+msgstr "Портфели · Freemium"
+
+msgid "Your account"
+msgstr "Ваш аккаунт"
+
+msgid "Track your investments and log trades by hand."
+msgstr "Отслеживайте инвестиции и вносите сделки вручную."
+
+msgid "+ New portfolio"
+msgstr "+ Новый портфель"
+
+msgid "Total value"
+msgstr "Общая стоимость"
+
+msgid "Invested (cost basis)"
+msgstr "Вложено (себестоимость)"
+
+msgid "Unrealised P&L"
+msgstr "Нереализованная прибыль/убыток"
+
+msgid "Return"
+msgstr "Доходность"
+
+msgid "market value"
+msgstr "рыночная стоимость"
+
+msgid "invested · add prices to value"
+msgstr "вложено · добавьте цены для оценки"
+
+msgid "no trades yet"
+msgstr "сделок пока нет"
+
+msgid "No portfolios yet"
+msgstr "Портфелей пока нет"
+
+msgid "Create your first portfolio to stop wrestling with spreadsheets."
+msgstr "Создайте первый портфель, чтобы перестать мучиться с таблицами."
+
+msgid "Create a portfolio"
+msgstr "Создать портфель"
+
+msgid "Browse the asset catalogue →"
+msgstr "Открыть каталог активов →"
+
+msgid "Portfolio"
+msgstr "Портфель"
+
+msgid "+ Add trade"
+msgstr "+ Добавить сделку"
+
+msgid "↻ Refresh prices"
+msgstr "↻ Обновить цены"
+
+msgid "Edit"
+msgstr "Изменить"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Market value"
+msgstr "Рыночная стоимость"
+
+msgid "Return · XIRR"
+msgstr "Доходность · XIRR"
+
+msgid "Allocation"
+msgstr "Распределение"
+
+msgid "by market value"
+msgstr "по рыночной стоимости"
+
+msgid "by invested capital"
+msgstr "по вложенному капиталу"
+
+msgid "Invested capital over time"
+msgstr "Вложенный капитал во времени"
+
+msgid "Cumulative invested capital over time"
+msgstr "Накопленный вложенный капитал во времени"
+
+msgid "Positions"
+msgstr "Позиции"
+
+msgid "Asset"
+msgstr "Актив"
+
+msgid "Market"
+msgstr "Рынок"
+
+msgid "Quantity"
+msgstr "Количество"
+
+msgid "Avg cost"
+msgstr "Средняя цена"
+
+msgid "Price"
+msgstr "Цена"
+
+msgid "P&L"
+msgstr "Прибыль/убыток"
+
+msgid "No open positions"
+msgstr "Нет открытых позиций"
+
+msgid "Add a buy trade to see your positions here."
+msgstr "Добавьте сделку покупки, чтобы увидеть позиции здесь."
+
+msgid "Add a trade"
+msgstr "Добавить сделку"
+
+msgid "Recent transactions"
+msgstr "Последние сделки"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Qty"
+msgstr "Кол-во"
+
+msgid "Fee"
+msgstr "Комиссия"
+
+msgid "edit"
+msgstr "изменить"
+
+msgid "delete"
+msgstr "удалить"
+
+msgid "No transactions logged yet."
+msgstr "Сделок пока не внесено."
+
+msgid "By holding"
+msgstr "По позициям"
+
+msgid "By asset class"
+msgstr "По классу активов"
+
+msgid "By market"
+msgstr "По рынку"
+
+msgid "By currency"
+msgstr "По валюте"
+
+msgid "XIRR %(x)s"
+msgstr "XIRR %(x)s"
+
+msgid ""
+"Base-currency totals need FX rates for: %(cur)s. Per-asset figures below are"
+" exact in each asset's own currency."
+msgstr ""
+"Итоги в базовой валюте требуют курсов для: %(cur)s. Показатели по активам "
+"ниже точны в собственной валюте каждого актива."
+
+msgid "Allocation excludes positions in %(cur)s — no FX rate to %(base)s yet."
+msgstr ""
+"Распределение исключает позиции в %(cur)s — пока нет курса к %(base)s."
+
+msgid "Prices as of %(d)s UTC."
+msgstr "Цены на %(d)s UTC."
+
+msgid ""
+"No quote yet for: %(tickers)s — click <strong>Refresh prices</strong> to "
+"fetch."
+msgstr ""
+"Пока нет котировки для: %(tickers)s — нажмите <strong>Обновить "
+"цены</strong>."
+
+msgid "%(count)s portfolio"
+msgid_plural "%(count)s portfolios"
+msgstr[0] "%(count)s портфель"
+msgstr[1] "%(count)s портфеля"
+msgstr[2] "%(count)s портфелей"
+
+msgid "%(count)s trade"
+msgid_plural "%(count)s trades"
+msgstr[0] "%(count)s сделка"
+msgstr[1] "%(count)s сделки"
+msgstr[2] "%(count)s сделок"
