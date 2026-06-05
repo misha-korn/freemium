@@ -1,0 +1,462 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: freemium 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: zh-Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Skip to content"
+msgstr "跳到内容"
+
+msgid "Main navigation"
+msgstr "主导航"
+
+msgid "Portfolios"
+msgstr "投资组合"
+
+msgid "Log in"
+msgstr "登录"
+
+msgid "Get started"
+msgstr "开始使用"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Toggle dark theme"
+msgstr "切换深色主题"
+
+msgid "Log out"
+msgstr "退出"
+
+msgid "Track. Analyse. Grow your portfolio."
+msgstr "记录、分析、增长你的投资组合。"
+
+msgid "English"
+msgstr "英语"
+
+msgid "Russian"
+msgstr "俄语"
+
+msgid "Spanish"
+msgstr "西班牙语"
+
+msgid "Simplified Chinese"
+msgstr "简体中文"
+
+msgid "Freemium · Stop wrestling with spreadsheets"
+msgstr "Freemium · 告别繁琐的表格"
+
+msgid "Personal investment tracker"
+msgstr "个人投资追踪器"
+
+msgid "Your whole portfolio,<br>finally in one clear view."
+msgstr "你的整个投资组合，<br>终于一目了然。"
+
+msgid ""
+"Log your trades, connect quotes from MOEX and global markets, and see real "
+"returns, allocation and risk — without another fragile Excel sheet."
+msgstr "记录交易，接入 MOEX 和全球市场的报价，查看真实的收益、配置与风险——无需再依赖脆弱的 Excel 表格。"
+
+msgid "Go to my portfolios"
+msgstr "前往我的投资组合"
+
+msgid "Create free account"
+msgstr "创建免费账户"
+
+msgid "Free plan: 1 portfolio, manual entry, core charts."
+msgstr "免费方案：1 个投资组合、手动录入、基础图表。"
+
+msgid "True returns"
+msgstr "真实收益"
+
+msgid ""
+"Time-weighted and money-weighted performance computed with exact decimal "
+"math."
+msgstr "采用精确的十进制运算，计算时间加权和资金加权收益。"
+
+msgid "Allocation & risk"
+msgstr "配置与风险"
+
+msgid ""
+"Diversification by holding, asset class, market and currency — see "
+"concentration at a glance."
+msgstr "按持仓、资产类别、市场和货币进行分散——一眼看清集中度。"
+
+msgid "Two markets"
+msgstr "两个市场"
+
+msgid "Russian (MOEX) and international tickers in one base-currency view."
+msgstr "俄罗斯（MOEX）和国际标的，统一以基准货币呈现。"
+
+msgid "Own your data"
+msgstr "数据归你所有"
+
+msgid ""
+"Manual entry first. Export to Excel/PDF and a yearly tax report on Pro."
+msgstr "先手动录入。Pro 版支持导出 Excel/PDF 和年度税务报告。"
+
+msgid "Create account · Freemium"
+msgstr "创建账户 · Freemium"
+
+msgid "Start tracking your portfolio — free."
+msgstr "开始追踪你的投资组合——免费。"
+
+msgid ""
+"Stop wrestling with spreadsheets. Log your trades and see real value, "
+"returns and allocation across Russian and global markets."
+msgstr "告别繁琐的表格。记录交易，查看俄罗斯及全球市场的真实价值、收益与配置。"
+
+msgid "1 portfolio, unlimited manual trades"
+msgstr "1 个投资组合，无限手动交易"
+
+msgid "Live MOEX & international quotes"
+msgstr "MOEX 与国际实时报价"
+
+msgid "Allocation, returns & money-weighted XIRR"
+msgstr "配置、收益与资金加权 XIRR"
+
+msgid "No card required"
+msgstr "无需绑卡"
+
+msgid "Create your account"
+msgstr "创建你的账户"
+
+msgid "Create account"
+msgstr "创建账户"
+
+msgid "Already have an account?"
+msgstr "已有账户？"
+
+msgid "Log in · Freemium"
+msgstr "登录 · Freemium"
+
+msgid "Forgot password?"
+msgstr "忘记密码？"
+
+msgid "New here?"
+msgstr "第一次来？"
+
+msgid "Create an account"
+msgstr "创建账户"
+
+msgid "Portfolios · Freemium"
+msgstr "投资组合 · Freemium"
+
+msgid "Your account"
+msgstr "你的账户"
+
+msgid "Track your investments and log trades by hand."
+msgstr "追踪你的投资，手动记录交易。"
+
+msgid "+ New portfolio"
+msgstr "+ 新建投资组合"
+
+msgid "Total value"
+msgstr "总价值"
+
+msgid "Invested (cost basis)"
+msgstr "投入（成本）"
+
+msgid "Unrealised P&L"
+msgstr "未实现盈亏"
+
+msgid "Return"
+msgstr "收益率"
+
+msgid "market value"
+msgstr "市值"
+
+msgid "invested · add prices to value"
+msgstr "已投入 · 添加价格以估值"
+
+msgid "no trades yet"
+msgstr "尚无交易"
+
+msgid "No portfolios yet"
+msgstr "还没有投资组合"
+
+msgid "Create your first portfolio to stop wrestling with spreadsheets."
+msgstr "创建你的第一个投资组合，告别繁琐的表格。"
+
+msgid "Create a portfolio"
+msgstr "创建投资组合"
+
+msgid "Browse the asset catalogue →"
+msgstr "浏览资产目录 →"
+
+msgid "Portfolio"
+msgstr "投资组合"
+
+msgid "+ Add trade"
+msgstr "+ 添加交易"
+
+msgid "↻ Refresh prices"
+msgstr "↻ 刷新价格"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Market value"
+msgstr "市值"
+
+msgid "Return · XIRR"
+msgstr "收益率 · XIRR"
+
+msgid "Allocation"
+msgstr "配置"
+
+msgid "by market value"
+msgstr "按市值"
+
+msgid "by invested capital"
+msgstr "按投入资金"
+
+msgid "Invested capital over time"
+msgstr "投入资金随时间变化"
+
+msgid "Cumulative invested capital over time"
+msgstr "累计投入资金随时间变化"
+
+msgid "Positions"
+msgstr "持仓"
+
+msgid "Asset"
+msgstr "资产"
+
+msgid "Market"
+msgstr "市场"
+
+msgid "Quantity"
+msgstr "数量"
+
+msgid "Avg cost"
+msgstr "平均成本"
+
+msgid "Price"
+msgstr "价格"
+
+msgid "P&L"
+msgstr "盈亏"
+
+msgid "No open positions"
+msgstr "没有持仓"
+
+msgid "Add a buy trade to see your positions here."
+msgstr "添加一笔买入交易即可在此查看持仓。"
+
+msgid "Add a trade"
+msgstr "添加交易"
+
+msgid "Recent transactions"
+msgstr "近期交易"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Qty"
+msgstr "数量"
+
+msgid "Fee"
+msgstr "费用"
+
+msgid "edit"
+msgstr "编辑"
+
+msgid "delete"
+msgstr "删除"
+
+msgid "No transactions logged yet."
+msgstr "尚未记录任何交易。"
+
+msgid "By holding"
+msgstr "按持仓"
+
+msgid "By asset class"
+msgstr "按资产类别"
+
+msgid "By market"
+msgstr "按市场"
+
+msgid "By currency"
+msgstr "按货币"
+
+msgid "Pricing"
+msgstr "定价"
+
+msgid "Pricing · Freemium"
+msgstr "定价 · Freemium"
+
+msgid "Simple plans that grow with you"
+msgstr "随你成长的简单方案"
+
+msgid "Start free. Upgrade when you want deeper analytics and exports."
+msgstr "免费开始。需要更深入的分析和导出时再升级。"
+
+msgid "Free"
+msgstr "免费"
+
+msgid "/ forever"
+msgstr "/ 永久"
+
+msgid "1 portfolio"
+msgstr "1 个投资组合"
+
+msgid "Manual trade entry"
+msgstr "手动录入交易"
+
+msgid "Core charts & positions"
+msgstr "核心图表与持仓"
+
+msgid "Core charts"
+msgstr "核心图表"
+
+msgid "Delayed quotes"
+msgstr "延迟报价"
+
+msgid "Go to app"
+msgstr "进入应用"
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid "Popular"
+msgstr "热门"
+
+msgid "/ month"
+msgstr "/ 月"
+
+msgid "Multiple portfolios"
+msgstr "多个投资组合"
+
+msgid "Advanced analytics: risk, correlations, XIRR"
+msgstr "高级分析：风险、相关性、XIRR"
+
+msgid "Advanced analytics & risk"
+msgstr "高级分析与风险"
+
+msgid "Excel / PDF export & yearly tax report"
+msgstr "Excel/PDF 导出与年度税务报告"
+
+msgid "Excel/PDF export & tax report"
+msgstr "Excel/PDF 导出与税务报告"
+
+msgid "Event & price notifications"
+msgstr "事件与价格通知"
+
+msgid "Event notifications"
+msgstr "事件通知"
+
+msgid "Broker auto-import (later)"
+msgstr "券商自动导入（稍后）"
+
+msgid "Current plan"
+msgstr "当前方案"
+
+msgid "Manage subscription"
+msgstr "管理订阅"
+
+msgid "Upgrade to Pro"
+msgstr "升级到 Pro"
+
+msgid "Upgrade for more portfolios"
+msgstr "升级以获得更多投资组合"
+
+msgid ""
+"You've reached the Free plan limit. Upgrade to Pro for unlimited portfolios."
+msgstr "你已达到免费方案上限。升级到 Pro 即可拥有无限投资组合。"
+
+msgid "Account"
+msgstr "账户"
+
+msgid "Subscription"
+msgstr "订阅"
+
+msgid "Subscription · Freemium"
+msgstr "订阅 · Freemium"
+
+msgid "Manage your plan and unlock multi-portfolio analytics."
+msgstr "管理方案，解锁多投资组合分析。"
+
+msgid "Active"
+msgstr "已激活"
+
+msgid "Cancel your Pro subscription?"
+msgstr "取消你的 Pro 订阅？"
+
+msgid "Cancel subscription"
+msgstr "取消订阅"
+
+msgid "Confirm payment · Freemium"
+msgstr "确认支付 · Freemium"
+
+msgid "Test checkout"
+msgstr "测试结账"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Confirm your Pro upgrade"
+msgstr "确认升级到 Pro"
+
+msgid "Pay & activate Pro (test)"
+msgstr "支付并激活 Pro（测试）"
+
+msgid ""
+"Your Free plan is limited to %(limit)s portfolio(s). Upgrade to Pro for "
+"unlimited portfolios."
+msgstr "免费方案限 %(limit)s 个投资组合。升级到 Pro 可拥有无限投资组合。"
+
+msgid "Portfolio created."
+msgstr "投资组合已创建。"
+
+msgid "You're on Pro now — thank you!"
+msgstr "你已升级到 Pro——谢谢！"
+
+msgid "Your subscription was cancelled."
+msgstr "你的订阅已取消。"
+
+msgid "Renews / valid until %(date)s."
+msgstr "续订 / 有效期至 %(date)s。"
+
+msgid ""
+"This is a simulated checkout (dev provider) — no real payment is taken. "
+"Amount: %(amount)s %(currency)s."
+msgstr "这是模拟结账（dev 提供方）——不会真实扣款。金额：%(amount)s %(currency)s。"
+
+msgid "XIRR %(x)s"
+msgstr "XIRR %(x)s"
+
+msgid ""
+"Base-currency totals need FX rates for: %(cur)s. Per-asset figures below are"
+" exact in each asset's own currency."
+msgstr "基准货币合计需要以下货币的汇率：%(cur)s。下方各资产数字以各自货币计算，精确无误。"
+
+msgid "Allocation excludes positions in %(cur)s — no FX rate to %(base)s yet."
+msgstr "配置已排除 %(cur)s 计价的持仓——尚无到 %(base)s 的汇率。"
+
+msgid "Prices as of %(d)s UTC."
+msgstr "价格截至 %(d)s UTC。"
+
+msgid ""
+"No quote yet for: %(tickers)s — click <strong>Refresh prices</strong> to "
+"fetch."
+msgstr "尚无报价：%(tickers)s——点击<strong>刷新价格</strong>获取。"
+
+msgid "%(count)s portfolio"
+msgid_plural "%(count)s portfolios"
+msgstr[0] "%(count)s 个投资组合"
+
+msgid "%(count)s trade"
+msgid_plural "%(count)s trades"
+msgstr[0] "%(count)s 笔交易"

@@ -1,68 +1,67 @@
 {% extends "base.html" %}
-{% load static portfolio_extras %}
+{% load static portfolio_extras i18n %}
 {% block title %}{{ portfolio.name }} · Freemium{% endblock %}
 
 {% block content %}
 <div class="page-header">
   <div>
-    <p class="eyebrow">Portfolio · {{ valuation.base_currency }}</p>
+    <p class="eyebrow">{% trans "Portfolio" %} · {{ valuation.base_currency }}</p>
     <h1 class="page-header__title">{{ portfolio.name }}</h1>
     {% if portfolio.description %}<p class="page-header__sub">{{ portfolio.description }}</p>{% endif %}
   </div>
   <div class="cluster">
-    <a class="btn btn--primary" href="{% url 'portfolio:transaction_create' portfolio.pk %}">+ Add trade</a>
+    <a class="btn btn--primary" href="{% url 'portfolio:transaction_create' portfolio.pk %}">{% trans "+ Add trade" %}</a>
     <form method="post" action="{% url 'portfolio:refresh_quotes' portfolio.pk %}" class="cluster__inline">
       {% csrf_token %}
-      <button class="btn btn--ghost" type="submit">↻ Refresh prices</button>
+      <button class="btn btn--ghost" type="submit">{% trans "↻ Refresh prices" %}</button>
     </form>
-    <a class="btn btn--ghost" href="{% url 'portfolio:update' portfolio.pk %}">Edit</a>
-    <a class="btn btn--ghost" href="{% url 'portfolio:delete' portfolio.pk %}">Delete</a>
+    <a class="btn btn--ghost" href="{% url 'portfolio:update' portfolio.pk %}">{% trans "Edit" %}</a>
+    <a class="btn btn--ghost" href="{% url 'portfolio:delete' portfolio.pk %}">{% trans "Delete" %}</a>
   </div>
 </div>
 
 {% with totals=valuation.totals %}
 <div class="card-grid">
   <div class="card stat">
-    <span class="stat__label">Market value</span>
+    <span class="stat__label">{% trans "Market value" %}</span>
     <span class="stat__value">
       {% if totals.market_value_base is not None %}{{ totals.market_value_base|money }} {{ valuation.base_currency }}{% else %}—{% endif %}
     </span>
   </div>
   <div class="card stat">
-    <span class="stat__label">Invested (cost basis)</span>
+    <span class="stat__label">{% trans "Invested (cost basis)" %}</span>
     <span class="stat__value">
       {% if totals.invested_base is not None %}{{ totals.invested_base|money }} {{ valuation.base_currency }}{% else %}—{% endif %}
     </span>
   </div>
   <div class="card stat">
-    <span class="stat__label">Unrealised P&amp;L</span>
+    <span class="stat__label">{% trans "Unrealised P&L" %}</span>
     <span class="stat__value {% if totals.unrealised_pnl_base is not None %}{% if totals.unrealised_pnl_base > 0 %}is-positive{% elif totals.unrealised_pnl_base < 0 %}is-negative{% endif %}{% endif %}">
       {% if totals.unrealised_pnl_base is not None %}{{ totals.unrealised_pnl_base|signed }} {{ valuation.base_currency }}{% else %}—{% endif %}
     </span>
   </div>
   <div class="card stat">
-    <span class="stat__label">Return · XIRR</span>
+    <span class="stat__label">{% trans "Return · XIRR" %}</span>
     <span class="stat__value {% if totals.simple_return is not None %}{% if totals.simple_return > 0 %}is-positive{% elif totals.simple_return < 0 %}is-negative{% endif %}{% endif %}">
       {{ totals.simple_return|percent }}
     </span>
-    <span class="stat__sub text-muted">XIRR {{ totals.xirr|percent }}</span>
+    <span class="stat__sub text-muted">{% blocktrans with x=totals.xirr|percent %}XIRR {{ x }}{% endblocktrans %}</span>
   </div>
 </div>
 {% endwith %}
 
 {% if valuation.missing_fx %}
   <p class="text-muted mt-6">
-    Base-currency totals need FX rates for: {{ valuation.missing_fx|join:", " }}.
-    Per-asset figures below are exact in each asset's own currency.
+    {% blocktrans with cur=valuation.missing_fx|join:", " %}Base-currency totals need FX rates for: {{ cur }}. Per-asset figures below are exact in each asset's own currency.{% endblocktrans %}
   </p>
 {% endif %}
 
 {% if allocation_charts %}
   <section class="dashboard-section" aria-labelledby="alloc-heading">
     <div class="section-head">
-      <h2 id="alloc-heading" class="card__title">Allocation</h2>
+      <h2 id="alloc-heading" class="card__title">{% trans "Allocation" %}</h2>
       <span class="badge">
-        {% if allocation.basis == "market" %}by market value{% else %}by invested capital{% endif %}
+        {% if allocation.basis == "market" %}{% trans "by market value" %}{% else %}{% trans "by invested capital" %}{% endif %}
         · {{ allocation.base_currency }}
       </span>
     </div>
@@ -72,7 +71,7 @@
           <h3 class="donut-card__title">{{ c.title }}</h3>
           <div class="donut-canvas-wrap">
             <canvas id="{{ c.dom_id }}" data-source="{{ c.data_id }}" role="img"
-                    aria-label="{{ c.title }} allocation, in {{ allocation.base_currency }}"></canvas>
+                    aria-label="{{ c.title }}"></canvas>
           </div>
           <ul class="donut-legend" data-legend-for="{{ c.dom_id }}">
             {% for s in c.slices %}
@@ -89,7 +88,7 @@
     </div>
     {% if allocation.missing_fx %}
       <p class="text-muted mt-6">
-        Allocation excludes positions in {{ allocation.missing_fx|join:", " }} — no FX rate to {{ allocation.base_currency }} yet.
+        {% blocktrans with cur=allocation.missing_fx|join:", " base=allocation.base_currency %}Allocation excludes positions in {{ cur }} — no FX rate to {{ base }} yet.{% endblocktrans %}
       </p>
     {% endif %}
   </section>
@@ -97,24 +96,24 @@
 
 {% if chart_data.available and chart_data.points %}
   <section class="card chart-card" aria-labelledby="chart-heading">
-    <h2 id="chart-heading" class="card__title">Invested capital over time</h2>
+    <h2 id="chart-heading" class="card__title">{% trans "Invested capital over time" %}</h2>
     <div class="chart-canvas-wrap">
       <canvas id="portfolio-chart" role="img"
-              aria-label="Line chart of cumulative invested capital over time in {{ valuation.base_currency }}"></canvas>
+              aria-label="{% trans 'Cumulative invested capital over time' %}"></canvas>
     </div>
   </section>
 {% endif %}
 
-<h2 class="card__title mt-6">Positions</h2>
+<h2 class="card__title mt-6">{% trans "Positions" %}</h2>
 {% if valuation.positions %}
   <div class="table-wrap">
     <table class="table">
       <thead>
         <tr>
-          <th>Asset</th><th>Market</th>
-          <th class="num">Quantity</th><th class="num">Avg cost</th>
-          <th class="num">Price</th><th class="num">Market value</th>
-          <th class="num">P&amp;L</th><th class="num">Return</th>
+          <th>{% trans "Asset" %}</th><th>{% trans "Market" %}</th>
+          <th class="num">{% trans "Quantity" %}</th><th class="num">{% trans "Avg cost" %}</th>
+          <th class="num">{% trans "Price" %}</th><th class="num">{% trans "Market value" %}</th>
+          <th class="num">{% trans "P&L" %}</th><th class="num">{% trans "Return" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -141,27 +140,27 @@
     </table>
   </div>
   <p class="text-muted mt-6">
-    {% if valuation.as_of %}Prices as of {{ valuation.as_of|date:"Y-m-d H:i" }} UTC.{% endif %}
+    {% if valuation.as_of %}{% blocktrans with d=valuation.as_of|date:"Y-m-d H:i" %}Prices as of {{ d }} UTC.{% endblocktrans %}{% endif %}
     {% if valuation.missing_prices %}
-      No quote yet for: {{ valuation.missing_prices|join:", " }} — click <strong>Refresh prices</strong> to fetch.
+      {% blocktrans with tickers=valuation.missing_prices|join:", " %}No quote yet for: {{ tickers }} — click <strong>Refresh prices</strong> to fetch.{% endblocktrans %}
     {% endif %}
   </p>
 {% else %}
   <div class="empty-state">
-    <h2>No open positions</h2>
-    <p>Add a buy trade to see your positions here.</p>
-    <a class="btn btn--primary mt-6" href="{% url 'portfolio:transaction_create' portfolio.pk %}">Add a trade</a>
+    <h2>{% trans "No open positions" %}</h2>
+    <p>{% trans "Add a buy trade to see your positions here." %}</p>
+    <a class="btn btn--primary mt-6" href="{% url 'portfolio:transaction_create' portfolio.pk %}">{% trans "Add a trade" %}</a>
   </div>
 {% endif %}
 
-<h2 class="card__title mt-6">Recent transactions</h2>
+<h2 class="card__title mt-6">{% trans "Recent transactions" %}</h2>
 {% if transactions %}
   <div class="table-wrap">
     <table class="table">
       <thead>
         <tr>
-          <th>Date</th><th>Type</th><th>Asset</th>
-          <th class="num">Qty</th><th class="num">Price</th><th class="num">Fee</th><th></th>
+          <th>{% trans "Date" %}</th><th>{% trans "Type" %}</th><th>{% trans "Asset" %}</th>
+          <th class="num">{% trans "Qty" %}</th><th class="num">{% trans "Price" %}</th><th class="num">{% trans "Fee" %}</th><th></th>
         </tr>
       </thead>
       <tbody>
@@ -174,8 +173,8 @@
             <td class="num">{{ t.price|floatformat:2 }}</td>
             <td class="num">{{ t.fee|floatformat:2 }}</td>
             <td class="text-right">
-              <a href="{% url 'portfolio:transaction_update' t.pk %}">edit</a>
-              · <a href="{% url 'portfolio:transaction_delete' t.pk %}">delete</a>
+              <a href="{% url 'portfolio:transaction_update' t.pk %}">{% trans "edit" %}</a>
+              · <a href="{% url 'portfolio:transaction_delete' t.pk %}">{% trans "delete" %}</a>
             </td>
           </tr>
         {% endfor %}
@@ -183,7 +182,7 @@
     </table>
   </div>
 {% else %}
-  <p class="text-muted">No transactions logged yet.</p>
+  <p class="text-muted">{% trans "No transactions logged yet." %}</p>
 {% endif %}
 {% endblock %}
 

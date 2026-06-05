@@ -1,16 +1,30 @@
-{% load static %}
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>{% block title %}Freemium · Investment Tracker{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  {# No-flash theme: apply the saved/OS theme before first paint. Must be inline
+     and synchronous — a deferred external script would let a light flash through. #}
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t !== "light" && t !== "dark") {
+          t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
   {% block extra_head %}{% endblock %}
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main">{% trans "Skip to content" %}</a>
 
   <header class="site-header">
     <div class="container site-header__inner">
@@ -18,17 +32,39 @@
         <span class="brand__mark" aria-hidden="true">◆</span>
         <span class="brand__name">Freemium</span>
       </a>
-      <nav class="nav" aria-label="Main navigation">
+      <nav class="nav" aria-label="{% trans 'Main navigation' %}">
         {% if user.is_authenticated %}
-          <a class="nav__link" href="{% url 'portfolio:list' %}">Portfolios</a>
+          <a class="nav__link" href="{% url 'portfolio:list' %}">{% trans "Portfolios" %}</a>
           <a class="nav__link" href="{% url 'accounts:profile' %}">{{ user.get_username }}</a>
+        {% else %}
+          <a class="nav__link" href="{% url 'billing:pricing' %}">{% trans "Pricing" %}</a>
+          <a class="nav__link" href="{% url 'account_login' %}">{% trans "Log in" %}</a>
+          <a class="btn btn--primary" href="{% url 'account_signup' %}">{% trans "Get started" %}</a>
+        {% endif %}
+
+        {# Language switcher (auto-submits via theme.js) #}
+        <form class="lang-switcher" action="{% url 'set_language' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.path }}">
+          {% get_available_languages as AVAILABLE_LANGUAGES %}
+          {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+          <select name="language" data-lang-switcher aria-label="{% trans 'Language' %}">
+            {% for lang in languages %}
+              <option value="{{ lang.code }}" {% if lang.code == LANGUAGE_CODE %}selected{% endif %}>{{ lang.name_local }}</option>
+            {% endfor %}
+          </select>
+        </form>
+
+        <button id="theme-toggle" class="theme-toggle" type="button"
+                aria-pressed="false" aria-label="{% trans 'Toggle dark theme' %}">
+          <span data-theme-icon aria-hidden="true">☾</span>
+        </button>
+
+        {% if user.is_authenticated %}
           <form class="nav__logout" method="post" action="{% url 'account_logout' %}">
             {% csrf_token %}
-            <button class="btn btn--ghost" type="submit">Log out</button>
+            <button class="btn btn--ghost" type="submit">{% trans "Log out" %}</button>
           </form>
-        {% else %}
-          <a class="nav__link" href="{% url 'account_login' %}">Log in</a>
-          <a class="btn btn--primary" href="{% url 'account_signup' %}">Get started</a>
         {% endif %}
       </nav>
     </div>
@@ -51,10 +87,11 @@
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <span>© {% now "Y" %} Freemium</span>
-      <span class="site-footer__muted">Track. Analyse. Grow your portfolio.</span>
+      <span class="site-footer__muted">{% trans "Track. Analyse. Grow your portfolio." %}</span>
     </div>
   </footer>
 
+  <script src="{% static 'js/theme.js' %}" defer></script>
   {% block extra_body %}{% endblock %}
 </body>
 </html>

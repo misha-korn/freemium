@@ -5,6 +5,8 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # i18n set_language view (POST) powers the header language switcher.
+    path("i18n/", include("django.conf.urls.i18n")),
     # django-allauth: login, signup, logout, password reset, email mgmt, ...
     path("accounts/", include("allauth.account.urls")),
     # App routes

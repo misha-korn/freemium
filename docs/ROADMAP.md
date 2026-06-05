@@ -44,15 +44,41 @@
 - "Performance" is current returns (simple + XIRR) + the invested-capital chart;
   true value-over-time still needs the deferred price backfill / daily snapshots.
 
-## Stage 3.5 — deferred polish (nice-to-have)
+## Stage 3.5 — UX polish ✅ (done)
+- [x] Branded auth pages actually render — moved allauth templates to project
+      `templates/account/` so they stop being shadowed by allauth defaults; the
+      signup page got an editorial "benefits + form" layout
+- [x] Light/dark theme: token-swap dark mode, header toggle, no-flash inline
+      script, OS-preference aware, persisted to `localStorage`
+- [x] Internationalisation: en/ru/es/zh-hans via `LocaleMiddleware` + a header
+      language switcher; catalogs built with `bin/build_translations.py` (polib,
+      no gettext needed); 91 tests incl. template + i18n regression tests
+
+### Still deferred (nice-to-have)
+- [ ] Translate asset-class/market data labels + profile/CRUD forms (partial i18n)
 - [ ] Industry-sector allocation once a provider feed exists
 - [ ] Mark-to-market value-over-time chart (price backfill or `PortfolioSnapshot`)
 - [ ] Self-host Chart.js (or SRI + CSP nonce) instead of the CDN tag
 
-## Stage 4 — Monetisation
-- [ ] Free/Pro limits enforced (e.g. 1 portfolio on Free)
-- [ ] Payment provider integration + verified webhooks → activate Pro
-- [ ] "Pro-only" feature gating
+## Stage 4 — Monetisation ✅ (done)
+- [x] Free/Pro plan service (`billing.subscriptions`): activate/cancel, plan
+      limits, `is_pro`
+- [x] Free limit enforced — `FREE_MAX_PORTFOLIOS` (default 1) blocks extra
+      portfolios with an upsell to pricing; Pro is unlimited
+- [x] Payment provider abstraction (`billing.providers`): dev provider simulates
+      checkout + HMAC-signed webhooks end-to-end with no keys; YooKassa/Stripe
+      slot in once keys exist
+- [x] Upgrade → checkout → (dev) confirm → Pro, plus cancel
+- [x] Webhook verifies the signature before trusting the body, then activates /
+      cancels Pro idempotently
+- [x] Pricing + subscription pages wired (i18n + theme); 118 tests, ~92% coverage
+
+### Stage 4 honesty notes
+- The **dev** provider takes no real money; the dev-confirm page 404s under a
+  real provider so it can never be a free upgrade in production.
+- Real provider integration (live API calls) needs keys + a `PaymentProvider`
+  implementation — the seam is ready, the calls are not faked.
+- Cancel revokes access immediately (MVP); period-end grace is a later refinement.
 
 ## Stage 5 — Retention & growth
 - [ ] Yearly tax report; Excel/PDF export

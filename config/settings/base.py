@@ -7,6 +7,7 @@ Secrets and environment-dependent values are read from the environment
 from pathlib import Path
 
 import environ
+from django.utils.translation import gettext_lazy as _
 
 # BASE_DIR -> project root (the directory that contains manage.py)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -65,6 +66,9 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    # LocaleMiddleware sits after Session (reads the language cookie/session) and
+    # before Common (which may redirect based on the active locale).
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -87,6 +91,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                # Exposes LANGUAGES / LANGUAGE_CODE to templates for the switcher.
+                "django.template.context_processors.i18n",
             ],
         },
     },
@@ -145,7 +151,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # --------------------------------------------------------------------------- #
 # Internationalization
 # --------------------------------------------------------------------------- #
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en"
+
+# Languages offered in the UI switcher. `en` is the source language; ru/es/zh-hans
+# ship translated catalogs under locale/<code>/LC_MESSAGES/.
+LANGUAGES = [
+    ("en", _("English")),
+    ("ru", _("Russian")),
+    ("es", _("Spanish")),
+    ("zh-hans", _("Simplified Chinese")),
+]
+LOCALE_PATHS = [BASE_DIR / "locale"]
+
 TIME_ZONE = env("DJANGO_TIME_ZONE", default="UTC")
 USE_I18N = True
 USE_TZ = True
@@ -242,6 +259,21 @@ TWELVE_DATA_API_KEY = env("TWELVE_DATA_API_KEY", default="")
 # FX provider replaces this later (see apps.marketdata.fx). Same-currency
 # portfolios need no rates. Example: {"USD": {"RUB": "90"}, "EUR": {"USD": "1.08"}}
 FX_RATES: dict[str, dict[str, str]] = {}
+
+# --------------------------------------------------------------------------- #
+# Billing / subscriptions (Stage 4)
+# --------------------------------------------------------------------------- #
+# Active payment provider: "dev" simulates checkout/webhooks for local testing
+# (no keys, no real money); swap to "yookassa"/"stripe" once keys are set.
+BILLING_PROVIDER = env("BILLING_PROVIDER", default="dev")
+# Pro plan price + billing period. DecimalField/Decimal elsewhere — string here.
+PRO_PRICE_AMOUNT = env("PRO_PRICE_AMOUNT", default="499")
+PRO_PRICE_CURRENCY = env("PRO_PRICE_CURRENCY", default="RUB")
+PRO_PERIOD_DAYS = env.int("PRO_PERIOD_DAYS", default=30)
+# Free-plan limits (Pro lifts these). None elsewhere means "unlimited".
+FREE_MAX_PORTFOLIOS = env.int("FREE_MAX_PORTFOLIOS", default=1)
+# Shared secret used to sign/verify webhooks (HMAC). Required in prod.
+BILLING_WEBHOOK_SECRET = env("BILLING_WEBHOOK_SECRET", default="dev-webhook-secret")
 
 # --------------------------------------------------------------------------- #
 # Logging

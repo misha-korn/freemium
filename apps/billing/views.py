@@ -1,17 +1,37 @@
-"""Billing views — public pricing + idempotent webhook intake (Stage 1 stub)."""
+"""Billing views — pricing, checkout/upgrade, dev confirm, cancel, webhook.
+
+Stage 4: a real upgrade flow behind the provider abstraction. The dev provider
+drives it locally; the webhook verifies a signature before trusting anything and
+activates Pro idempotently — the same path a real provider would use.
+"""
 from __future__ import annotations
 
-import json
 import logging
+from decimal import Decimal
+from typing import Any
 
-from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404, HttpRequest, HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.utils.translation import gettext as _
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
-from .models import WebhookEvent
+from . import subscriptions
+from .models import Payment, WebhookEvent
+from .providers import ProviderEvent, get_provider
 
 logger = logging.getLogger(__name__)
+
+# Webhook event types we act on (kept provider-agnostic in the dev provider).
+_ACTIVATE_EVENTS = {"payment.succeeded", "subscription.activated"}
+_CANCEL_EVENTS = {"subscription.cancelled", "subscription.deleted"}
 
 
 class PricingView(TemplateView):
@@ -19,28 +39,140 @@ class PricingView(TemplateView):
 
     template_name = "billing/pricing.html"
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx["pro_price"] = settings.PRO_PRICE_AMOUNT
+        ctx["pro_currency"] = settings.PRO_PRICE_CURRENCY
+        if self.request.user.is_authenticated:
+            ctx["is_pro"] = subscriptions.is_pro(self.request.user)
+        return ctx
+
+
+class UpgradeView(LoginRequiredMixin, View):
+    """Start a Pro checkout: record a PENDING Payment, create a provider session,
+    and redirect the user to pay."""
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        amount = Decimal(str(settings.PRO_PRICE_AMOUNT))
+        currency = settings.PRO_PRICE_CURRENCY
+        payment = Payment.objects.create(
+            user=request.user,
+            amount=amount,
+            currency=currency,
+            provider=settings.BILLING_PROVIDER,
+            purpose=Payment.Purpose.SUBSCRIPTION,
+            status=Payment.Status.PENDING,
+        )
+        success_url = request.build_absolute_uri(
+            reverse("billing:dev_confirm", kwargs={"payment_id": payment.id})
+        )
+        session = get_provider().create_checkout(
+            user_id=request.user.id,
+            amount=amount,
+            currency=currency,
+            purpose=payment.purpose,
+            success_url=success_url,
+        )
+        payment.provider_payment_id = session.provider_session_id
+        payment.save(update_fields=["provider_payment_id"])
+        return redirect(session.url)
+
+
+class DevConfirmView(LoginRequiredMixin, View):
+    """DEV ONLY: simulate the provider's redirect-back after a successful payment.
+
+    Activates Pro directly so the flow is testable without keys. With a real
+    provider Pro is activated by the webhook instead, so this page 404s unless
+    the dev provider is active — it must never be a free upgrade in production.
+    """
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        if settings.BILLING_PROVIDER != "dev":
+            raise Http404("dev confirm is only available with the dev provider")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(
+        self, request: HttpRequest, payment_id: int, *args: Any, **kwargs: Any
+    ) -> HttpResponse:
+        payment = get_object_or_404(Payment, id=payment_id, user=request.user)
+        return render(request, "billing/dev_confirm.html", {"payment": payment})
+
+    def post(
+        self, request: HttpRequest, payment_id: int, *args: Any, **kwargs: Any
+    ) -> HttpResponse:
+        payment = get_object_or_404(
+            Payment,
+            id=payment_id,
+            user=request.user,
+            status=Payment.Status.PENDING,
+        )
+        payment.status = Payment.Status.SUCCEEDED
+        payment.save(update_fields=["status"])
+        subscriptions.activate_pro(
+            request.user,
+            provider=settings.BILLING_PROVIDER,
+            provider_subscription_id=payment.provider_payment_id,
+        )
+        messages.success(request, _("You're on Pro now — thank you!"))
+        return redirect("accounts:subscription")
+
+
+class CancelView(LoginRequiredMixin, View):
+    """Cancel the user's subscription (downgrades to Free)."""
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        subscriptions.cancel(request.user)
+        messages.info(request, _("Your subscription was cancelled."))
+        return redirect("accounts:subscription")
+
 
 @csrf_exempt
 @require_POST
 def webhook(request: HttpRequest, provider: str) -> HttpResponse:
-    """Record an incoming payment webhook idempotently and acknowledge.
+    """Verify, deduplicate and process a provider webhook.
 
-    SECURITY / TODO (Stage 4): verify the provider signature BEFORE trusting the
-    body, then activate/deactivate the user's subscription. For now we only
-    persist the event (deduplicated by provider+event_id) and return 200.
+    Security: the signature is verified BEFORE the body is trusted. Idempotency:
+    ``(provider, event_id)`` is unique, and a processed event is acknowledged
+    without re-acting. Only then do we activate/cancel the subscription.
     """
-    try:
-        payload = json.loads(request.body or b"{}")
-    except json.JSONDecodeError:
-        return JsonResponse({"ok": False, "error": "invalid json"}, status=400)
-
-    event_id = str(payload.get("id") or payload.get("event_id") or "")
-    if not event_id:
-        return JsonResponse({"ok": False, "error": "missing event id"}, status=400)
-
-    WebhookEvent.objects.get_or_create(
-        provider=provider,
-        event_id=event_id,
-        defaults={"payload": payload},
+    event = get_provider(provider).parse_webhook(
+        headers=request.headers, body=request.body
     )
+    if event is None:
+        return JsonResponse(
+            {"ok": False, "error": "invalid signature or payload"}, status=400
+        )
+
+    record, created = WebhookEvent.objects.get_or_create(
+        provider=provider,
+        event_id=event.event_id,
+        defaults={"payload": event.raw},
+    )
+    if not created and record.processed:
+        return JsonResponse({"ok": True, "deduplicated": True})
+
+    _process_event(provider, event)
+    record.processed = True
+    record.save(update_fields=["processed"])
     return JsonResponse({"ok": True})
+
+
+def _process_event(provider: str, event: ProviderEvent) -> None:
+    """Apply a verified webhook event to the user's subscription."""
+    if event.user_id is None:
+        logger.info("Webhook %s has no user_id; ignoring", event.event_id)
+        return
+    user = get_user_model().objects.filter(id=event.user_id).first()
+    if user is None:
+        logger.info("Webhook %s references unknown user %s", event.event_id, event.user_id)
+        return
+
+    if event.type in _ACTIVATE_EVENTS:
+        subscriptions.activate_pro(
+            user, provider=provider, provider_subscription_id=event.payment_id
+        )
+        Payment.objects.filter(
+            user=user, provider_payment_id=event.payment_id
+        ).update(status=Payment.Status.SUCCEEDED)
+    elif event.type in _CANCEL_EVENTS:
+        subscriptions.cancel(user)

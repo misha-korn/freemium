@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Create account · Freemium" %}{% endblock %}
+
+{% block content %}
+<div class="auth-layout">
+  <aside class="auth-aside">
+    <p class="eyebrow">Freemium</p>
+    <h1 class="auth-aside__title">{% trans "Start tracking your portfolio — free." %}</h1>
+    <p class="text-muted">{% blocktrans trimmed %}Stop wrestling with spreadsheets. Log your trades and see
+      real value, returns and allocation across Russian and global markets.{% endblocktrans %}</p>
+    <ul class="auth-benefits">
+      <li>{% trans "1 portfolio, unlimited manual trades" %}</li>
+      <li>{% trans "Live MOEX & international quotes" %}</li>
+      <li>{% trans "Allocation, returns & money-weighted XIRR" %}</li>
+      <li>{% trans "No card required" %}</li>
+    </ul>
+  </aside>
+
+  <div class="card form-card auth-card">
+    <h2 class="card__title">{% trans "Create your account" %}</h2>
+    <form class="form" method="post" action="{% url 'account_signup' %}" novalidate>
+      {% csrf_token %}
+      {% include "partials/form_fields.html" %}
+      {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+      {% endif %}
+      <div class="form-actions">
+        <button class="btn btn--primary btn--block" type="submit">{% trans "Create account" %}</button>
+      </div>
+    </form>
+    <p class="text-muted mt-6">{% trans "Already have an account?" %} <a href="{% url 'account_login' %}">{% trans "Log in" %}</a></p>
+  </div>
+</div>
+{% endblock %}
