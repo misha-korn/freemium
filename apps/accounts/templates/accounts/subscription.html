@@ -1,36 +1,66 @@
 {% extends "base.html" %}
-{% block title %}Subscription · Freemium{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Subscription · Freemium" %}{% endblock %}
 
 {% block content %}
 <div class="page-header">
   <div>
-    <p class="eyebrow">Account</p>
-    <h1 class="page-header__title">Subscription</h1>
-    <p class="page-header__sub">Upgrade to unlock multi-portfolio analytics and exports.</p>
+    <p class="eyebrow">{% trans "Account" %}</p>
+    <h1 class="page-header__title">{% trans "Subscription" %}</h1>
+    <p class="page-header__sub">{% trans "Manage your plan and unlock multi-portfolio analytics." %}</p>
   </div>
 </div>
 
-<div class="card-grid">
-  <div class="card stack">
-    <h2 class="card__title">Free</h2>
-    <p class="stat__value">₽0</p>
+{% if subscription and subscription.is_pro %}
+  <div class="card stack" style="border-color:var(--color-accent);max-width:520px;">
+    <div class="cluster">
+      <h2 class="card__title" style="margin:0;">{% trans "Pro" %}</h2>
+      <span class="badge badge--buy">{% trans "Active" %}</span>
+    </div>
+    {% if subscription.current_period_end %}
+      <p class="text-muted">
+        {% blocktrans trimmed with date=subscription.current_period_end|date:"Y-m-d" %}
+          Renews / valid until {{ date }}.
+        {% endblocktrans %}
+      </p>
+    {% endif %}
     <ul class="text-muted">
-      <li>1 portfolio</li>
-      <li>Manual trade entry</li>
-      <li>Core charts</li>
+      <li>{% trans "Multiple portfolios" %}</li>
+      <li>{% trans "Advanced analytics & risk" %}</li>
+      <li>{% trans "Excel/PDF export & tax report" %}</li>
     </ul>
-    {% if subscription and not subscription.is_pro %}<span class="badge">Current plan</span>{% endif %}
+    <form method="post" action="{% url 'billing:cancel' %}"
+          onsubmit="return confirm('{% trans "Cancel your Pro subscription?" %}');">
+      {% csrf_token %}
+      <button class="btn btn--ghost" type="submit">{% trans "Cancel subscription" %}</button>
+    </form>
   </div>
-  <div class="card stack" style="border-color:var(--color-accent);">
-    <h2 class="card__title">Pro</h2>
-    <p class="stat__value">$5–10/mo</p>
-    <ul class="text-muted">
-      <li>Multiple portfolios</li>
-      <li>Advanced analytics &amp; risk</li>
-      <li>Excel/PDF export &amp; tax report</li>
-      <li>Event notifications</li>
-    </ul>
-    <a class="btn btn--primary" href="{% url 'billing:pricing' %}">See plans &amp; upgrade</a>
+{% else %}
+  <div class="card-grid">
+    <div class="card stack">
+      <h2 class="card__title">{% trans "Free" %}</h2>
+      <p class="stat__value">₽0</p>
+      <ul class="text-muted">
+        <li>{% trans "1 portfolio" %}</li>
+        <li>{% trans "Manual trade entry" %}</li>
+        <li>{% trans "Core charts" %}</li>
+      </ul>
+      <span class="badge">{% trans "Current plan" %}</span>
+    </div>
+    <div class="card stack" style="border-color:var(--color-accent);">
+      <h2 class="card__title">{% trans "Pro" %}</h2>
+      <p class="stat__value">{{ pro_price }} {{ pro_currency }}<span class="text-muted" style="font-size:1rem;">{% trans "/ month" %}</span></p>
+      <ul class="text-muted">
+        <li>{% trans "Multiple portfolios" %}</li>
+        <li>{% trans "Advanced analytics & risk" %}</li>
+        <li>{% trans "Excel/PDF export & tax report" %}</li>
+        <li>{% trans "Event notifications" %}</li>
+      </ul>
+      <form method="post" action="{% url 'billing:upgrade' %}">
+        {% csrf_token %}
+        <button class="btn btn--primary btn--block" type="submit">{% trans "Upgrade to Pro" %}</button>
+      </form>
+    </div>
   </div>
-</div>
+{% endif %}
 {% endblock %}

@@ -1,46 +1,56 @@
 {% extends "base.html" %}
-{% block title %}Pricing · Freemium{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Pricing · Freemium" %}{% endblock %}
 
 {% block content %}
 <div class="page-header">
   <div>
-    <p class="eyebrow">Pricing</p>
-    <h1 class="page-header__title">Simple plans that grow with you</h1>
-    <p class="page-header__sub">Start free. Upgrade when you want deeper analytics and exports.</p>
+    <p class="eyebrow">{% trans "Pricing" %}</p>
+    <h1 class="page-header__title">{% trans "Simple plans that grow with you" %}</h1>
+    <p class="page-header__sub">{% trans "Start free. Upgrade when you want deeper analytics and exports." %}</p>
   </div>
 </div>
 
 <div class="card-grid">
   <div class="card stack">
-    <h2 class="card__title">Free</h2>
-    <p class="stat__value">₽0 <span class="text-muted" style="font-size:1rem;">/ forever</span></p>
+    <h2 class="card__title">{% trans "Free" %}</h2>
+    <p class="stat__value">₽0 <span class="text-muted" style="font-size:1rem;">{% trans "/ forever" %}</span></p>
     <ul class="text-muted">
-      <li>1 portfolio</li>
-      <li>Manual trade entry</li>
-      <li>Core charts &amp; positions</li>
-      <li>Delayed quotes</li>
+      <li>{% trans "1 portfolio" %}</li>
+      <li>{% trans "Manual trade entry" %}</li>
+      <li>{% trans "Core charts & positions" %}</li>
+      <li>{% trans "Delayed quotes" %}</li>
     </ul>
     {% if user.is_authenticated %}
-      <a class="btn btn--ghost" href="{% url 'portfolio:list' %}">Go to app</a>
+      <a class="btn btn--ghost" href="{% url 'portfolio:list' %}">{% trans "Go to app" %}</a>
     {% else %}
-      <a class="btn btn--ghost" href="{% url 'account_signup' %}">Create free account</a>
+      <a class="btn btn--ghost" href="{% url 'account_signup' %}">{% trans "Create free account" %}</a>
     {% endif %}
   </div>
 
   <div class="card stack" style="border-color:var(--color-accent);box-shadow:var(--shadow);">
-    <div class="cluster"><h2 class="card__title">Pro</h2><span class="badge badge--buy">Popular</span></div>
-    <p class="stat__value">$5–10 <span class="text-muted" style="font-size:1rem;">/ month</span></p>
+    <div class="cluster"><h2 class="card__title">{% trans "Pro" %}</h2><span class="badge badge--buy">{% trans "Popular" %}</span></div>
+    <p class="stat__value">{{ pro_price }} {{ pro_currency }} <span class="text-muted" style="font-size:1rem;">{% trans "/ month" %}</span></p>
     <ul class="text-muted">
-      <li>Multiple portfolios</li>
-      <li>Advanced analytics: risk, correlations, XIRR</li>
-      <li>Excel / PDF export &amp; yearly tax report</li>
-      <li>Event &amp; price notifications</li>
-      <li>Broker auto-import (later)</li>
+      <li>{% trans "Multiple portfolios" %}</li>
+      <li>{% trans "Advanced analytics: risk, correlations, XIRR" %}</li>
+      <li>{% trans "Excel / PDF export & yearly tax report" %}</li>
+      <li>{% trans "Event & price notifications" %}</li>
+      <li>{% trans "Broker auto-import (later)" %}</li>
     </ul>
-    <button class="btn btn--primary" type="button" disabled title="Payments arrive in Stage 4">
-      Upgrade (coming soon)
-    </button>
-    <p class="helptext">Checkout integration lands in Stage 4 (YooKassa / CloudPayments / Stripe).</p>
+    {% if user.is_authenticated %}
+      {% if is_pro %}
+        <span class="badge">{% trans "Current plan" %}</span>
+        <a class="btn btn--ghost" href="{% url 'accounts:subscription' %}">{% trans "Manage subscription" %}</a>
+      {% else %}
+        <form method="post" action="{% url 'billing:upgrade' %}">
+          {% csrf_token %}
+          <button class="btn btn--primary btn--block" type="submit">{% trans "Upgrade to Pro" %}</button>
+        </form>
+      {% endif %}
+    {% else %}
+      <a class="btn btn--primary" href="{% url 'account_signup' %}">{% trans "Get started" %}</a>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

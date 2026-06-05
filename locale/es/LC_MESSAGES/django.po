@@ -301,6 +301,156 @@ msgstr "Por mercado"
 msgid "By currency"
 msgstr "Por divisa"
 
+msgid "Pricing"
+msgstr "Precios"
+
+msgid "Pricing · Freemium"
+msgstr "Precios · Freemium"
+
+msgid "Simple plans that grow with you"
+msgstr "Planes simples que crecen contigo"
+
+msgid "Start free. Upgrade when you want deeper analytics and exports."
+msgstr ""
+"Empieza gratis. Mejora cuando quieras análisis y exportaciones avanzados."
+
+msgid "Free"
+msgstr "Gratis"
+
+msgid "/ forever"
+msgstr "/ para siempre"
+
+msgid "1 portfolio"
+msgstr "1 cartera"
+
+msgid "Manual trade entry"
+msgstr "Entrada manual de operaciones"
+
+msgid "Core charts & positions"
+msgstr "Gráficos y posiciones básicos"
+
+msgid "Core charts"
+msgstr "Gráficos básicos"
+
+msgid "Delayed quotes"
+msgstr "Cotizaciones con retraso"
+
+msgid "Go to app"
+msgstr "Ir a la app"
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid "Popular"
+msgstr "Popular"
+
+msgid "/ month"
+msgstr "/ mes"
+
+msgid "Multiple portfolios"
+msgstr "Múltiples carteras"
+
+msgid "Advanced analytics: risk, correlations, XIRR"
+msgstr "Análisis avanzado: riesgo, correlaciones, XIRR"
+
+msgid "Advanced analytics & risk"
+msgstr "Análisis avanzado y riesgo"
+
+msgid "Excel / PDF export & yearly tax report"
+msgstr "Exportación a Excel/PDF e informe fiscal anual"
+
+msgid "Excel/PDF export & tax report"
+msgstr "Exportación a Excel/PDF e informe fiscal"
+
+msgid "Event & price notifications"
+msgstr "Notificaciones de eventos y precios"
+
+msgid "Event notifications"
+msgstr "Notificaciones de eventos"
+
+msgid "Broker auto-import (later)"
+msgstr "Importación automática del bróker (más adelante)"
+
+msgid "Current plan"
+msgstr "Plan actual"
+
+msgid "Manage subscription"
+msgstr "Gestionar suscripción"
+
+msgid "Upgrade to Pro"
+msgstr "Cambiar a Pro"
+
+msgid "Upgrade for more portfolios"
+msgstr "Mejora para más carteras"
+
+msgid ""
+"You've reached the Free plan limit. Upgrade to Pro for unlimited portfolios."
+msgstr ""
+"Has alcanzado el límite del plan gratuito. Mejora a Pro para carteras "
+"ilimitadas."
+
+msgid "Account"
+msgstr "Cuenta"
+
+msgid "Subscription"
+msgstr "Suscripción"
+
+msgid "Subscription · Freemium"
+msgstr "Suscripción · Freemium"
+
+msgid "Manage your plan and unlock multi-portfolio analytics."
+msgstr "Gestiona tu plan y desbloquea el análisis de varias carteras."
+
+msgid "Active"
+msgstr "Activa"
+
+msgid "Cancel your Pro subscription?"
+msgstr "¿Cancelar tu suscripción Pro?"
+
+msgid "Cancel subscription"
+msgstr "Cancelar suscripción"
+
+msgid "Confirm payment · Freemium"
+msgstr "Confirmar pago · Freemium"
+
+msgid "Test checkout"
+msgstr "Pago de prueba"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Confirm your Pro upgrade"
+msgstr "Confirma tu mejora a Pro"
+
+msgid "Pay & activate Pro (test)"
+msgstr "Pagar y activar Pro (prueba)"
+
+msgid ""
+"Your Free plan is limited to %(limit)s portfolio(s). Upgrade to Pro for "
+"unlimited portfolios."
+msgstr ""
+"Tu plan gratuito está limitado a %(limit)s cartera(s). Mejora a Pro para "
+"carteras ilimitadas."
+
+msgid "Portfolio created."
+msgstr "Cartera creada."
+
+msgid "You're on Pro now — thank you!"
+msgstr "Ya tienes Pro — ¡gracias!"
+
+msgid "Your subscription was cancelled."
+msgstr "Tu suscripción ha sido cancelada."
+
+msgid "Renews / valid until %(date)s."
+msgstr "Se renueva / válido hasta %(date)s."
+
+msgid ""
+"This is a simulated checkout (dev provider) — no real payment is taken. "
+"Amount: %(amount)s %(currency)s."
+msgstr ""
+"Este es un pago simulado (proveedor dev) — no se cobra dinero real. Importe:"
+" %(amount)s %(currency)s."
+
 msgid "XIRR %(x)s"
 msgstr "XIRR %(x)s"
 

@@ -108,3 +108,32 @@ based via `LocaleMiddleware` + the `set_language` view (no `i18n_patterns`, so U
 stay clean). `blocktrans` blocks use `trimmed` to keep msgids stable. Initial UI
 languages: en (source), ru, es, zh-hans. Asset-class/market *data* labels and the
 profile/CRUD forms are not yet translated — a follow-up.
+
+### Subscription rules live in one service (Stage 4)
+`billing.subscriptions` is the only place that activates/cancels Pro and answers
+"what can this plan do" (`portfolio_limit`, `can_create_portfolio`). Views and the
+webhook call it instead of mutating `Subscription` directly, so plan logic is
+tested in isolation and a missing `Subscription` row safely reads as Free.
+
+### Payment provider abstraction + dev provider (Stage 4)
+Payments sit behind `billing.providers.PaymentProvider` (`create_checkout`,
+`parse_webhook`). The **dev** provider drives the whole flow — checkout
+"redirects" to an internal confirm page; webhooks are HMAC-signed exactly like a
+real provider — so the production verify→activate path is exercised in tests with
+no keys and no real money. YooKassa (RU) / Stripe register in the registry once
+keys exist. The dev-confirm page 404s unless the dev provider is active, so it can
+never become a free upgrade in production.
+
+### Webhooks: verify signature before trusting the body (Stage 4)
+The webhook computes the expected HMAC over the raw body and rejects (400) any
+request whose signature is missing or wrong — *before* parsing or acting. Only
+then does it deduplicate on `(provider, event_id)` and activate/cancel. An
+already-processed event is acknowledged without re-acting. This is the cardinal
+payments rule: never trust an unauthenticated webhook.
+
+### Free-plan gating by limit, not feature flags (Stage 4)
+The enforced Free limit is `FREE_MAX_PORTFOLIOS` (default 1); Pro lifts it to
+unlimited. The cap is checked in `PortfolioCreateView` for both GET (hide the
+form) and POST (block creation), redirecting to pricing as an upsell. Other
+"Pro" perks (exports, notifications) are advertised but not yet built — we gate
+the one capability that exists rather than fake the rest.

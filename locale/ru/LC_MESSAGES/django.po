@@ -301,6 +301,157 @@ msgstr "По рынку"
 msgid "By currency"
 msgstr "По валюте"
 
+msgid "Pricing"
+msgstr "Тарифы"
+
+msgid "Pricing · Freemium"
+msgstr "Тарифы · Freemium"
+
+msgid "Simple plans that grow with you"
+msgstr "Простые тарифы, которые растут вместе с вами"
+
+msgid "Start free. Upgrade when you want deeper analytics and exports."
+msgstr ""
+"Начните бесплатно. Перейдите на Pro, когда нужна глубокая аналитика и "
+"экспорт."
+
+msgid "Free"
+msgstr "Бесплатно"
+
+msgid "/ forever"
+msgstr "/ навсегда"
+
+msgid "1 portfolio"
+msgstr "1 портфель"
+
+msgid "Manual trade entry"
+msgstr "Ручной ввод сделок"
+
+msgid "Core charts & positions"
+msgstr "Базовые графики и позиции"
+
+msgid "Core charts"
+msgstr "Базовые графики"
+
+msgid "Delayed quotes"
+msgstr "Котировки с задержкой"
+
+msgid "Go to app"
+msgstr "Перейти в приложение"
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid "Popular"
+msgstr "Популярный"
+
+msgid "/ month"
+msgstr "/ месяц"
+
+msgid "Multiple portfolios"
+msgstr "Несколько портфелей"
+
+msgid "Advanced analytics: risk, correlations, XIRR"
+msgstr "Продвинутая аналитика: риск, корреляции, XIRR"
+
+msgid "Advanced analytics & risk"
+msgstr "Продвинутая аналитика и риск"
+
+msgid "Excel / PDF export & yearly tax report"
+msgstr "Экспорт в Excel/PDF и годовой налоговый отчёт"
+
+msgid "Excel/PDF export & tax report"
+msgstr "Экспорт в Excel/PDF и налоговый отчёт"
+
+msgid "Event & price notifications"
+msgstr "Уведомления о событиях и ценах"
+
+msgid "Event notifications"
+msgstr "Уведомления о событиях"
+
+msgid "Broker auto-import (later)"
+msgstr "Автоимпорт от брокера (позже)"
+
+msgid "Current plan"
+msgstr "Текущий тариф"
+
+msgid "Manage subscription"
+msgstr "Управление подпиской"
+
+msgid "Upgrade to Pro"
+msgstr "Перейти на Pro"
+
+msgid "Upgrade for more portfolios"
+msgstr "Перейдите на Pro для большего числа портфелей"
+
+msgid ""
+"You've reached the Free plan limit. Upgrade to Pro for unlimited portfolios."
+msgstr ""
+"Вы достигли лимита бесплатного тарифа. Перейдите на Pro для неограниченных "
+"портфелей."
+
+msgid "Account"
+msgstr "Аккаунт"
+
+msgid "Subscription"
+msgstr "Подписка"
+
+msgid "Subscription · Freemium"
+msgstr "Подписка · Freemium"
+
+msgid "Manage your plan and unlock multi-portfolio analytics."
+msgstr "Управляйте тарифом и откройте аналитику по нескольким портфелям."
+
+msgid "Active"
+msgstr "Активна"
+
+msgid "Cancel your Pro subscription?"
+msgstr "Отменить подписку Pro?"
+
+msgid "Cancel subscription"
+msgstr "Отменить подписку"
+
+msgid "Confirm payment · Freemium"
+msgstr "Подтверждение оплаты · Freemium"
+
+msgid "Test checkout"
+msgstr "Тестовая оплата"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Confirm your Pro upgrade"
+msgstr "Подтвердите переход на Pro"
+
+msgid "Pay & activate Pro (test)"
+msgstr "Оплатить и активировать Pro (тест)"
+
+msgid ""
+"Your Free plan is limited to %(limit)s portfolio(s). Upgrade to Pro for "
+"unlimited portfolios."
+msgstr ""
+"Бесплатный тариф ограничен %(limit)s портфелем(ями). Перейдите на Pro для "
+"неограниченного числа портфелей."
+
+msgid "Portfolio created."
+msgstr "Портфель создан."
+
+msgid "You're on Pro now — thank you!"
+msgstr "Теперь у вас Pro — спасибо!"
+
+msgid "Your subscription was cancelled."
+msgstr "Ваша подписка отменена."
+
+msgid "Renews / valid until %(date)s."
+msgstr "Продление / действует до %(date)s."
+
+msgid ""
+"This is a simulated checkout (dev provider) — no real payment is taken. "
+"Amount: %(amount)s %(currency)s."
+msgstr ""
+"Это имитация оплаты (dev-провайдер) — реальные деньги не списываются. Сумма:"
+" %(amount)s %(currency)s."
+
 msgid "XIRR %(x)s"
 msgstr "XIRR %(x)s"
 

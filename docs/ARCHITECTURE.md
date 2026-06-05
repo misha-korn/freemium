@@ -13,7 +13,7 @@ views or models) so they are pure and testable.
 | `marketdata` | Quotes & FX | `PriceQuote`, `providers/` abstraction, `services` (cache + persist + `latest_quotes`), `fx` converter, Celery `refresh_*` tasks |
 | `analytics` | Calculations | pure `services`: `xirr`, `allocation_by`, `simple_return` (no models) |
 | `portfolio.valuation` | Mark-to-market | `value_positions` (pure), `portfolio_valuation`, `invested_timeseries` |
-| `billing` | Payments | `Payment`, `WebhookEvent`, `PaymentProvider` interface, pricing + webhook views |
+| `billing` | Payments & plans | `Payment`, `WebhookEvent`, `subscriptions` service, `providers/` (dev + abstraction), pricing/upgrade/cancel + verified webhook |
 | `notifications` | Messaging | `Notification`, `NotificationPreference`, `notify()`, digest task |
 
 ## Data model (Stage 1)
@@ -96,6 +96,20 @@ provider supplies one, so it would be fabricated. See `docs/DECISIONS.md`.
 3. `TransactionForm` validates (quantity > 0, price ≥ 0).
 4. On success the `Transaction` is saved and the user is redirected to the
    portfolio detail, where `compute_positions` recalculates holdings.
+
+## Monetisation (Stage 4)
+
+`billing.subscriptions` owns plan rules: `activate_pro`/`cancel`, `is_pro`, and
+the Free limit (`portfolio_limit`/`can_create_portfolio`). `billing.providers`
+hides the payment provider behind `PaymentProvider` (`create_checkout`,
+`parse_webhook`); the **dev** provider simulates the flow with HMAC-signed
+webhooks so the verify→activate path runs in tests without keys.
+
+Upgrade flow: `UpgradeView` records a PENDING `Payment` and redirects to the
+provider's checkout; for dev that's an internal confirm page that activates Pro
+(real providers activate via the webhook). The `webhook` view verifies the
+signature first, deduplicates on `(provider, event_id)`, then activates/cancels.
+`PortfolioCreateView` enforces the Free cap (GET + POST) and upsells to pricing.
 
 ## Settings & deployment
 

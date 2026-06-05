@@ -37,6 +37,7 @@
           <a class="nav__link" href="{% url 'portfolio:list' %}">{% trans "Portfolios" %}</a>
           <a class="nav__link" href="{% url 'accounts:profile' %}">{{ user.get_username }}</a>
         {% else %}
+          <a class="nav__link" href="{% url 'billing:pricing' %}">{% trans "Pricing" %}</a>
           <a class="nav__link" href="{% url 'account_login' %}">{% trans "Log in" %}</a>
           <a class="btn btn--primary" href="{% url 'account_signup' %}">{% trans "Get started" %}</a>
         {% endif %}

@@ -9,8 +9,16 @@
     <h1 class="page-header__title">{% trans "Portfolios" %}</h1>
     <p class="page-header__sub">{% trans "Track your investments and log trades by hand." %}</p>
   </div>
-  <a class="btn btn--primary" href="{% url 'portfolio:create' %}">{% trans "+ New portfolio" %}</a>
+  {% if can_create_portfolio %}
+    <a class="btn btn--primary" href="{% url 'portfolio:create' %}">{% trans "+ New portfolio" %}</a>
+  {% else %}
+    <a class="btn btn--primary" href="{% url 'billing:pricing' %}">{% trans "Upgrade for more portfolios" %}</a>
+  {% endif %}
 </div>
+
+{% if not is_pro and not can_create_portfolio %}
+  <p class="text-muted">{% trans "You've reached the Free plan limit. Upgrade to Pro for unlimited portfolios." %}</p>
+{% endif %}
 
 {% if overview.combined %}
   {% with cb=overview.combined %}

@@ -261,6 +261,21 @@ TWELVE_DATA_API_KEY = env("TWELVE_DATA_API_KEY", default="")
 FX_RATES: dict[str, dict[str, str]] = {}
 
 # --------------------------------------------------------------------------- #
+# Billing / subscriptions (Stage 4)
+# --------------------------------------------------------------------------- #
+# Active payment provider: "dev" simulates checkout/webhooks for local testing
+# (no keys, no real money); swap to "yookassa"/"stripe" once keys are set.
+BILLING_PROVIDER = env("BILLING_PROVIDER", default="dev")
+# Pro plan price + billing period. DecimalField/Decimal elsewhere — string here.
+PRO_PRICE_AMOUNT = env("PRO_PRICE_AMOUNT", default="499")
+PRO_PRICE_CURRENCY = env("PRO_PRICE_CURRENCY", default="RUB")
+PRO_PERIOD_DAYS = env.int("PRO_PERIOD_DAYS", default=30)
+# Free-plan limits (Pro lifts these). None elsewhere means "unlimited".
+FREE_MAX_PORTFOLIOS = env.int("FREE_MAX_PORTFOLIOS", default=1)
+# Shared secret used to sign/verify webhooks (HMAC). Required in prod.
+BILLING_WEBHOOK_SECRET = env("BILLING_WEBHOOK_SECRET", default="dev-webhook-secret")
+
+# --------------------------------------------------------------------------- #
 # Logging
 # --------------------------------------------------------------------------- #
 LOGGING = {

@@ -19,6 +19,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from apps.billing import subscriptions
 from apps.marketdata.tasks import refresh_quote
 
 from .allocation import build_allocation, chart_payload
@@ -56,6 +57,14 @@ class PortfolioListView(LoginRequiredMixin, ListView):
         ctx = super().get_context_data(**kwargs)
         # Per-portfolio cards + an optional single-currency combined total.
         ctx["overview"] = build_account_overview(ctx["portfolios"])
+        # Plan context drives the "New portfolio" button / upsell.
+        ctx["can_create_portfolio"] = subscriptions.can_create_portfolio(
+            self.request.user
+        )
+        ctx["remaining_slots"] = subscriptions.remaining_portfolio_slots(
+            self.request.user
+        )
+        ctx["is_pro"] = subscriptions.is_pro(self.request.user)
         return ctx
 
 
@@ -64,9 +73,27 @@ class PortfolioCreateView(LoginRequiredMixin, CreateView):
     form_class = PortfolioForm
     template_name = "portfolio/portfolio_form.html"
 
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        # Enforce the Free-plan portfolio cap before GET (hide form) or POST
+        # (block creation); Pro is unlimited. Upsell by redirecting to pricing.
+        if request.user.is_authenticated and not subscriptions.can_create_portfolio(
+            request.user
+        ):
+            limit = subscriptions.portfolio_limit(request.user)
+            messages.info(
+                request,
+                _(
+                    "Your Free plan is limited to %(limit)s portfolio(s). "
+                    "Upgrade to Pro for unlimited portfolios."
+                )
+                % {"limit": limit},
+            )
+            return redirect("billing:pricing")
+        return super().dispatch(request, *args, **kwargs)
+
     def form_valid(self, form: PortfolioForm):
         form.instance.owner = self.request.user
-        messages.success(self.request, "Portfolio created.")
+        messages.success(self.request, _("Portfolio created."))
         return super().form_valid(form)
 
 

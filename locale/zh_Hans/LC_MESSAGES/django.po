@@ -291,6 +291,149 @@ msgstr "按市场"
 msgid "By currency"
 msgstr "按货币"
 
+msgid "Pricing"
+msgstr "定价"
+
+msgid "Pricing · Freemium"
+msgstr "定价 · Freemium"
+
+msgid "Simple plans that grow with you"
+msgstr "随你成长的简单方案"
+
+msgid "Start free. Upgrade when you want deeper analytics and exports."
+msgstr "免费开始。需要更深入的分析和导出时再升级。"
+
+msgid "Free"
+msgstr "免费"
+
+msgid "/ forever"
+msgstr "/ 永久"
+
+msgid "1 portfolio"
+msgstr "1 个投资组合"
+
+msgid "Manual trade entry"
+msgstr "手动录入交易"
+
+msgid "Core charts & positions"
+msgstr "核心图表与持仓"
+
+msgid "Core charts"
+msgstr "核心图表"
+
+msgid "Delayed quotes"
+msgstr "延迟报价"
+
+msgid "Go to app"
+msgstr "进入应用"
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid "Popular"
+msgstr "热门"
+
+msgid "/ month"
+msgstr "/ 月"
+
+msgid "Multiple portfolios"
+msgstr "多个投资组合"
+
+msgid "Advanced analytics: risk, correlations, XIRR"
+msgstr "高级分析：风险、相关性、XIRR"
+
+msgid "Advanced analytics & risk"
+msgstr "高级分析与风险"
+
+msgid "Excel / PDF export & yearly tax report"
+msgstr "Excel/PDF 导出与年度税务报告"
+
+msgid "Excel/PDF export & tax report"
+msgstr "Excel/PDF 导出与税务报告"
+
+msgid "Event & price notifications"
+msgstr "事件与价格通知"
+
+msgid "Event notifications"
+msgstr "事件通知"
+
+msgid "Broker auto-import (later)"
+msgstr "券商自动导入（稍后）"
+
+msgid "Current plan"
+msgstr "当前方案"
+
+msgid "Manage subscription"
+msgstr "管理订阅"
+
+msgid "Upgrade to Pro"
+msgstr "升级到 Pro"
+
+msgid "Upgrade for more portfolios"
+msgstr "升级以获得更多投资组合"
+
+msgid ""
+"You've reached the Free plan limit. Upgrade to Pro for unlimited portfolios."
+msgstr "你已达到免费方案上限。升级到 Pro 即可拥有无限投资组合。"
+
+msgid "Account"
+msgstr "账户"
+
+msgid "Subscription"
+msgstr "订阅"
+
+msgid "Subscription · Freemium"
+msgstr "订阅 · Freemium"
+
+msgid "Manage your plan and unlock multi-portfolio analytics."
+msgstr "管理方案，解锁多投资组合分析。"
+
+msgid "Active"
+msgstr "已激活"
+
+msgid "Cancel your Pro subscription?"
+msgstr "取消你的 Pro 订阅？"
+
+msgid "Cancel subscription"
+msgstr "取消订阅"
+
+msgid "Confirm payment · Freemium"
+msgstr "确认支付 · Freemium"
+
+msgid "Test checkout"
+msgstr "测试结账"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Confirm your Pro upgrade"
+msgstr "确认升级到 Pro"
+
+msgid "Pay & activate Pro (test)"
+msgstr "支付并激活 Pro（测试）"
+
+msgid ""
+"Your Free plan is limited to %(limit)s portfolio(s). Upgrade to Pro for "
+"unlimited portfolios."
+msgstr "免费方案限 %(limit)s 个投资组合。升级到 Pro 可拥有无限投资组合。"
+
+msgid "Portfolio created."
+msgstr "投资组合已创建。"
+
+msgid "You're on Pro now — thank you!"
+msgstr "你已升级到 Pro——谢谢！"
+
+msgid "Your subscription was cancelled."
+msgstr "你的订阅已取消。"
+
+msgid "Renews / valid until %(date)s."
+msgstr "续订 / 有效期至 %(date)s。"
+
+msgid ""
+"This is a simulated checkout (dev provider) — no real payment is taken. "
+"Amount: %(amount)s %(currency)s."
+msgstr "这是模拟结账（dev 提供方）——不会真实扣款。金额：%(amount)s %(currency)s。"
+
 msgid "XIRR %(x)s"
 msgstr "XIRR %(x)s"
 

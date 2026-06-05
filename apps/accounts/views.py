@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -44,4 +45,6 @@ class SubscriptionView(LoginRequiredMixin, TemplateView):
         ctx["subscription"] = Subscription.objects.filter(
             user=self.request.user
         ).first()
+        ctx["pro_price"] = settings.PRO_PRICE_AMOUNT
+        ctx["pro_currency"] = settings.PRO_PRICE_CURRENCY
         return ctx

@@ -234,7 +234,140 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
     "By asset class": ("По классу активов", "Por clase de activo", "按资产类别"),
     "By market": ("По рынку", "Por mercado", "按市场"),
     "By currency": ("По валюте", "Por divisa", "按货币"),
+    # --- Stage 4: billing / subscription ---
+    "Pricing": ("Тарифы", "Precios", "定价"),
+    "Pricing · Freemium": ("Тарифы · Freemium", "Precios · Freemium", "定价 · Freemium"),
+    "Simple plans that grow with you": (
+        "Простые тарифы, которые растут вместе с вами",
+        "Planes simples que crecen contigo",
+        "随你成长的简单方案",
+    ),
+    "Start free. Upgrade when you want deeper analytics and exports.": (
+        "Начните бесплатно. Перейдите на Pro, когда нужна глубокая аналитика и экспорт.",
+        "Empieza gratis. Mejora cuando quieras análisis y exportaciones avanzados.",
+        "免费开始。需要更深入的分析和导出时再升级。",
+    ),
+    "Free": ("Бесплатно", "Gratis", "免费"),
+    "/ forever": ("/ навсегда", "/ para siempre", "/ 永久"),
+    "1 portfolio": ("1 портфель", "1 cartera", "1 个投资组合"),
+    "Manual trade entry": ("Ручной ввод сделок", "Entrada manual de operaciones", "手动录入交易"),
+    "Core charts & positions": ("Базовые графики и позиции", "Gráficos y posiciones básicos", "核心图表与持仓"),
+    "Core charts": ("Базовые графики", "Gráficos básicos", "核心图表"),
+    "Delayed quotes": ("Котировки с задержкой", "Cotizaciones con retraso", "延迟报价"),
+    "Go to app": ("Перейти в приложение", "Ir a la app", "进入应用"),
+    "Pro": ("Pro", "Pro", "Pro"),
+    "Popular": ("Популярный", "Popular", "热门"),
+    "/ month": ("/ месяц", "/ mes", "/ 月"),
+    "Multiple portfolios": ("Несколько портфелей", "Múltiples carteras", "多个投资组合"),
+    "Advanced analytics: risk, correlations, XIRR": (
+        "Продвинутая аналитика: риск, корреляции, XIRR",
+        "Análisis avanzado: riesgo, correlaciones, XIRR",
+        "高级分析：风险、相关性、XIRR",
+    ),
+    "Advanced analytics & risk": (
+        "Продвинутая аналитика и риск",
+        "Análisis avanzado y riesgo",
+        "高级分析与风险",
+    ),
+    "Excel / PDF export & yearly tax report": (
+        "Экспорт в Excel/PDF и годовой налоговый отчёт",
+        "Exportación a Excel/PDF e informe fiscal anual",
+        "Excel/PDF 导出与年度税务报告",
+    ),
+    "Excel/PDF export & tax report": (
+        "Экспорт в Excel/PDF и налоговый отчёт",
+        "Exportación a Excel/PDF e informe fiscal",
+        "Excel/PDF 导出与税务报告",
+    ),
+    "Event & price notifications": (
+        "Уведомления о событиях и ценах",
+        "Notificaciones de eventos y precios",
+        "事件与价格通知",
+    ),
+    "Event notifications": ("Уведомления о событиях", "Notificaciones de eventos", "事件通知"),
+    "Broker auto-import (later)": (
+        "Автоимпорт от брокера (позже)",
+        "Importación automática del bróker (más adelante)",
+        "券商自动导入（稍后）",
+    ),
+    "Current plan": ("Текущий тариф", "Plan actual", "当前方案"),
+    "Manage subscription": ("Управление подпиской", "Gestionar suscripción", "管理订阅"),
+    "Upgrade to Pro": ("Перейти на Pro", "Cambiar a Pro", "升级到 Pro"),
+    "Upgrade for more portfolios": (
+        "Перейдите на Pro для большего числа портфелей",
+        "Mejora para más carteras",
+        "升级以获得更多投资组合",
+    ),
+    "You've reached the Free plan limit. Upgrade to Pro for unlimited portfolios.": (
+        "Вы достигли лимита бесплатного тарифа. Перейдите на Pro для неограниченных портфелей.",
+        "Has alcanzado el límite del plan gratuito. Mejora a Pro para carteras ilimitadas.",
+        "你已达到免费方案上限。升级到 Pro 即可拥有无限投资组合。",
+    ),
+    "Account": ("Аккаунт", "Cuenta", "账户"),
+    "Subscription": ("Подписка", "Suscripción", "订阅"),
+    "Subscription · Freemium": ("Подписка · Freemium", "Suscripción · Freemium", "订阅 · Freemium"),
+    "Manage your plan and unlock multi-portfolio analytics.": (
+        "Управляйте тарифом и откройте аналитику по нескольким портфелям.",
+        "Gestiona tu plan y desbloquea el análisis de varias carteras.",
+        "管理方案，解锁多投资组合分析。",
+    ),
+    "Active": ("Активна", "Activa", "已激活"),
+    "Cancel your Pro subscription?": (
+        "Отменить подписку Pro?",
+        "¿Cancelar tu suscripción Pro?",
+        "取消你的 Pro 订阅？",
+    ),
+    "Cancel subscription": ("Отменить подписку", "Cancelar suscripción", "取消订阅"),
+    "Confirm payment · Freemium": (
+        "Подтверждение оплаты · Freemium",
+        "Confirmar pago · Freemium",
+        "确认支付 · Freemium",
+    ),
+    "Test checkout": ("Тестовая оплата", "Pago de prueba", "测试结账"),
+    "Cancel": ("Отмена", "Cancelar", "取消"),
+    "Confirm your Pro upgrade": (
+        "Подтвердите переход на Pro",
+        "Confirma tu mejora a Pro",
+        "确认升级到 Pro",
+    ),
+    "Pay & activate Pro (test)": (
+        "Оплатить и активировать Pro (тест)",
+        "Pagar y activar Pro (prueba)",
+        "支付并激活 Pro（测试）",
+    ),
+    "Your Free plan is limited to %(limit)s portfolio(s). Upgrade to Pro for "
+    "unlimited portfolios.": (
+        "Бесплатный тариф ограничен %(limit)s портфелем(ями). Перейдите на Pro "
+        "для неограниченного числа портфелей.",
+        "Tu plan gratuito está limitado a %(limit)s cartera(s). Mejora a Pro para "
+        "carteras ilimitadas.",
+        "免费方案限 %(limit)s 个投资组合。升级到 Pro 可拥有无限投资组合。",
+    ),
+    "Portfolio created.": ("Портфель создан.", "Cartera creada.", "投资组合已创建。"),
+    "You're on Pro now — thank you!": (
+        "Теперь у вас Pro — спасибо!",
+        "Ya tienes Pro — ¡gracias!",
+        "你已升级到 Pro——谢谢！",
+    ),
+    "Your subscription was cancelled.": (
+        "Ваша подписка отменена.",
+        "Tu suscripción ha sido cancelada.",
+        "你的订阅已取消。",
+    ),
     # --- blocktrans with variables (keep %(name)s placeholders intact) ---
+    "Renews / valid until %(date)s.": (
+        "Продление / действует до %(date)s.",
+        "Se renueva / válido hasta %(date)s.",
+        "续订 / 有效期至 %(date)s。",
+    ),
+    "This is a simulated checkout (dev provider) — no real payment is taken. "
+    "Amount: %(amount)s %(currency)s.": (
+        "Это имитация оплаты (dev-провайдер) — реальные деньги не списываются. "
+        "Сумма: %(amount)s %(currency)s.",
+        "Este es un pago simulado (proveedor dev) — no se cobra dinero real. "
+        "Importe: %(amount)s %(currency)s.",
+        "这是模拟结账（dev 提供方）——不会真实扣款。金额：%(amount)s %(currency)s。",
+    ),
     "XIRR %(x)s": ("XIRR %(x)s", "XIRR %(x)s", "XIRR %(x)s"),
     "Base-currency totals need FX rates for: %(cur)s. Per-asset figures below are "
     "exact in each asset's own currency.": (

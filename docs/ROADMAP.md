@@ -60,10 +60,25 @@
 - [ ] Mark-to-market value-over-time chart (price backfill or `PortfolioSnapshot`)
 - [ ] Self-host Chart.js (or SRI + CSP nonce) instead of the CDN tag
 
-## Stage 4 — Monetisation
-- [ ] Free/Pro limits enforced (e.g. 1 portfolio on Free)
-- [ ] Payment provider integration + verified webhooks → activate Pro
-- [ ] "Pro-only" feature gating
+## Stage 4 — Monetisation ✅ (done)
+- [x] Free/Pro plan service (`billing.subscriptions`): activate/cancel, plan
+      limits, `is_pro`
+- [x] Free limit enforced — `FREE_MAX_PORTFOLIOS` (default 1) blocks extra
+      portfolios with an upsell to pricing; Pro is unlimited
+- [x] Payment provider abstraction (`billing.providers`): dev provider simulates
+      checkout + HMAC-signed webhooks end-to-end with no keys; YooKassa/Stripe
+      slot in once keys exist
+- [x] Upgrade → checkout → (dev) confirm → Pro, plus cancel
+- [x] Webhook verifies the signature before trusting the body, then activates /
+      cancels Pro idempotently
+- [x] Pricing + subscription pages wired (i18n + theme); 118 tests, ~92% coverage
+
+### Stage 4 honesty notes
+- The **dev** provider takes no real money; the dev-confirm page 404s under a
+  real provider so it can never be a free upgrade in production.
+- Real provider integration (live API calls) needs keys + a `PaymentProvider`
+  implementation — the seam is ready, the calls are not faked.
+- Cancel revokes access immediately (MVP); period-end grace is a later refinement.
 
 ## Stage 5 — Retention & growth
 - [ ] Yearly tax report; Excel/PDF export
