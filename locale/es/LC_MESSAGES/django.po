@@ -441,6 +441,106 @@ msgstr "Ya tienes Pro — ¡gracias!"
 msgid "Your subscription was cancelled."
 msgstr "Tu suscripción ha sido cancelada."
 
+msgid "Password reset"
+msgstr "Restablecer contraseña"
+
+msgid "Reset your password"
+msgstr "Restablece tu contraseña"
+
+msgid "Enter your email and we'll send reset instructions."
+msgstr "Introduce tu email y te enviaremos instrucciones de restablecimiento."
+
+msgid "Send reset email"
+msgstr "Enviar correo"
+
+msgid "Back to log in"
+msgstr "Volver a iniciar sesión"
+
+msgid "Log out · Freemium"
+msgstr "Cerrar sesión · Freemium"
+
+msgid "Are you sure you want to log out?"
+msgstr "¿Seguro que quieres cerrar sesión?"
+
+msgid "Check your email · Freemium"
+msgstr "Revisa tu correo · Freemium"
+
+msgid "Check your email"
+msgstr "Revisa tu correo"
+
+msgid "Set a new password · Freemium"
+msgstr "Nueva contraseña · Freemium"
+
+msgid "Invalid link"
+msgstr "Enlace no válido"
+
+msgid "Set a new password"
+msgstr "Establece una nueva contraseña"
+
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+msgid "Password changed · Freemium"
+msgstr "Contraseña cambiada · Freemium"
+
+msgid "Password changed"
+msgstr "Contraseña cambiada"
+
+msgid "Your password has been changed. You can now log in."
+msgstr "Tu contraseña ha sido cambiada. Ya puedes iniciar sesión."
+
+msgid "Verify your email · Freemium"
+msgstr "Verifica tu correo · Freemium"
+
+msgid "Almost there"
+msgstr "Casi listo"
+
+msgid "Verify your email"
+msgstr "Verifica tu correo"
+
+msgid "Confirm email · Freemium"
+msgstr "Confirmar correo · Freemium"
+
+msgid "Confirm your email"
+msgstr "Confirma tu correo"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "This email is already confirmed by a different account."
+msgstr "Este correo ya está confirmado por otra cuenta."
+
+msgid ""
+"We've sent you a link to reset your password. If it doesn't arrive in a few "
+"minutes, check your spam folder."
+msgstr ""
+"Te hemos enviado un enlace para restablecer tu contraseña. Si no llega en "
+"unos minutos, revisa tu carpeta de spam."
+
+msgid ""
+"This password reset link is invalid or has already been used. Please <a "
+"href=\"%(reset_url)s\">request a new one</a>."
+msgstr ""
+"El enlace de restablecimiento no es válido o ya se ha usado. Por favor, <a "
+"href=\"%(reset_url)s\">solicita uno nuevo</a>."
+
+msgid ""
+"We've sent you a verification link. Follow it to finish signing up. If it "
+"doesn't arrive in a few minutes, check your spam folder."
+msgstr ""
+"Te hemos enviado un enlace de verificación. Síguelo para terminar el "
+"registro. Si no llega en unos minutos, revisa tu carpeta de spam."
+
+msgid "Confirm that %(email)s is your email address."
+msgstr "Confirma que %(email)s es tu dirección de correo."
+
+msgid ""
+"This confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">request a new one</a>."
+msgstr ""
+"El enlace de confirmación caducó o no es válido. Por favor, <a "
+"href=\"%(email_url)s\">solicita uno nuevo</a>."
+
 msgid "Renews / valid until %(date)s."
 msgstr "Se renueva / válido hasta %(date)s."
 

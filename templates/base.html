@@ -7,9 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>{% block title %}Freemium · Investment Tracker{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
-  {# No-flash theme: apply the saved/OS theme before first paint. Must be inline
-     and synchronous — a deferred external script would let a light flash through. #}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}?v={{ STATIC_VERSION }}">
+  {% comment %}
+    No-flash theme: set the saved/OS theme before first paint. Must be inline and
+    synchronous — a deferred external script would let a light flash through.
+  {% endcomment %}
   <script>
     (function () {
       try {
@@ -91,7 +93,7 @@
     </div>
   </footer>
 
-  <script src="{% static 'js/theme.js' %}" defer></script>
+  <script src="{% static 'js/theme.js' %}?v={{ STATIC_VERSION }}" defer></script>
   {% block extra_body %}{% endblock %}
 </body>
 </html>
