@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Confirm email · Freemium" %}{% endblock %}
+
+{% block content %}
+<div class="card form-card auth-card" style="margin-inline:auto;max-width:460px;">
+  <h1 class="card__title">{% trans "Confirm your email" %}</h1>
+  {% if confirmation %}
+    {% if can_confirm %}
+      <p class="text-muted">
+        {% blocktrans trimmed with email=confirmation.email_address.email %}
+          Confirm that {{ email }} is your email address.
+        {% endblocktrans %}
+      </p>
+      <form class="form" method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+        {% csrf_token %}
+        {{ redirect_field }}
+        <div class="form-actions">
+          <button class="btn btn--primary btn--block" type="submit">{% trans "Confirm" %}</button>
+        </div>
+      </form>
+    {% else %}
+      <p class="text-muted">{% trans "This email is already confirmed by a different account." %}</p>
+    {% endif %}
+  {% else %}
+    <p class="text-muted">
+      {% url 'account_email' as email_url %}
+      {% blocktrans trimmed %}
+        This confirmation link expired or is invalid. Please
+        <a href="{{ email_url }}">request a new one</a>.
+      {% endblocktrans %}
+    </p>
+  {% endif %}
+</div>
+{% endblock %}

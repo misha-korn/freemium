@@ -93,6 +93,8 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 # Exposes LANGUAGES / LANGUAGE_CODE to templates for the switcher.
                 "django.template.context_processors.i18n",
+                # Cache-busting version for CSS/JS query strings.
+                "config.context_processors.static_version",
             ],
         },
     },
@@ -173,6 +175,10 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Cache-busting token appended to CSS/JS URLs (see config.context_processors).
+# Overridden per-environment: dev bumps it on every server start.
+STATIC_VERSION = env("STATIC_VERSION", default="1")
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
