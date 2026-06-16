@@ -460,6 +460,45 @@ msgstr "返回投资组合"
 msgid "That's a Pro feature. Upgrade to unlock tax reports and exports."
 msgstr "这是 Pro 功能。升级到 Pro 即可使用税务报告和导出。"
 
+msgid "Notifications"
+msgstr "通知"
+
+msgid "Mark all read"
+msgstr "全部标为已读"
+
+msgid "Preferences"
+msgstr "偏好设置"
+
+msgid "No notifications yet"
+msgstr "暂无通知"
+
+msgid "Portfolio digests and alerts will show up here."
+msgstr "投资组合摘要和提醒将显示在此处。"
+
+msgid "Previous"
+msgstr "上一页"
+
+msgid "Next"
+msgstr "下一页"
+
+msgid "Notification preferences"
+msgstr "通知偏好"
+
+msgid "Choose how you'd like to hear from us."
+msgstr "选择你希望接收通知的方式。"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Preferences saved."
+msgstr "偏好已保存。"
+
+msgid "Your portfolio digest"
+msgstr "你的投资组合摘要"
+
+msgid "Email me portfolio digests & alerts"
+msgstr "通过邮件向我发送摘要和提醒"
+
 msgid "Confirm your Pro upgrade"
 msgstr "确认升级到 Pro"
 

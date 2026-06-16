@@ -7,6 +7,7 @@ Secrets and environment-dependent values are read from the environment
 from pathlib import Path
 
 import environ
+from celery.schedules import crontab
 from django.utils.translation import gettext_lazy as _
 
 # BASE_DIR -> project root (the directory that contains manage.py)
@@ -95,6 +96,8 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 # Cache-busting version for CSS/JS query strings.
                 "config.context_processors.static_version",
+                # Unread-notification count for the nav badge.
+                "config.context_processors.notifications",
             ],
         },
     },
@@ -231,6 +234,11 @@ CELERY_BEAT_SCHEDULE = {
     "refresh-active-quotes": {
         "task": "apps.marketdata.tasks.refresh_active_quotes",
         "schedule": float(MARKETDATA_REFRESH_SECONDS),
+    },
+    # Daily portfolio digest (in-app + email for opted-in users).
+    "daily-portfolio-digest": {
+        "task": "apps.notifications.tasks.send_daily_digest",
+        "schedule": crontab(hour=8, minute=0),
     },
 }
 

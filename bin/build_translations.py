@@ -360,6 +360,40 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "Es una función Pro. Mejora a Pro para desbloquear informes y exportaciones.",
         "这是 Pro 功能。升级到 Pro 即可使用税务报告和导出。",
     ),
+    # --- Stage 5: notifications ---
+    "Notifications": ("Уведомления", "Notificaciones", "通知"),
+    "Mark all read": ("Отметить все прочитанными", "Marcar todo como leído", "全部标为已读"),
+    "Preferences": ("Настройки", "Preferencias", "偏好设置"),
+    "No notifications yet": ("Уведомлений пока нет", "Aún no hay notificaciones", "暂无通知"),
+    "Portfolio digests and alerts will show up here.": (
+        "Здесь появятся дайджесты и оповещения по портфелю.",
+        "Aquí aparecerán resúmenes y alertas de tu cartera.",
+        "投资组合摘要和提醒将显示在此处。",
+    ),
+    "Previous": ("Предыдущая", "Anterior", "上一页"),
+    "Next": ("Следующая", "Siguiente", "下一页"),
+    "Notification preferences": (
+        "Настройки уведомлений",
+        "Preferencias de notificaciones",
+        "通知偏好",
+    ),
+    "Choose how you'd like to hear from us.": (
+        "Выберите, как вам удобнее получать уведомления.",
+        "Elige cómo prefieres que te contactemos.",
+        "选择你希望接收通知的方式。",
+    ),
+    "Save": ("Сохранить", "Guardar", "保存"),
+    "Preferences saved.": ("Настройки сохранены.", "Preferencias guardadas.", "偏好已保存。"),
+    "Your portfolio digest": (
+        "Дайджест по вашему портфелю",
+        "Resumen de tu cartera",
+        "你的投资组合摘要",
+    ),
+    "Email me portfolio digests & alerts": (
+        "Присылать дайджесты и оповещения на email",
+        "Enviarme resúmenes y alertas por correo",
+        "通过邮件向我发送摘要和提醒",
+    ),
     "Confirm your Pro upgrade": (
         "Подтвердите переход на Pro",
         "Confirma tu mejora a Pro",

@@ -476,6 +476,45 @@ msgid "That's a Pro feature. Upgrade to unlock tax reports and exports."
 msgstr ""
 "Это функция Pro. Перейдите на Pro, чтобы открыть налоговые отчёты и экспорт."
 
+msgid "Notifications"
+msgstr "Уведомления"
+
+msgid "Mark all read"
+msgstr "Отметить все прочитанными"
+
+msgid "Preferences"
+msgstr "Настройки"
+
+msgid "No notifications yet"
+msgstr "Уведомлений пока нет"
+
+msgid "Portfolio digests and alerts will show up here."
+msgstr "Здесь появятся дайджесты и оповещения по портфелю."
+
+msgid "Previous"
+msgstr "Предыдущая"
+
+msgid "Next"
+msgstr "Следующая"
+
+msgid "Notification preferences"
+msgstr "Настройки уведомлений"
+
+msgid "Choose how you'd like to hear from us."
+msgstr "Выберите, как вам удобнее получать уведомления."
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Preferences saved."
+msgstr "Настройки сохранены."
+
+msgid "Your portfolio digest"
+msgstr "Дайджест по вашему портфелю"
+
+msgid "Email me portfolio digests & alerts"
+msgstr "Присылать дайджесты и оповещения на email"
+
 msgid "Confirm your Pro upgrade"
 msgstr "Подтвердите переход на Pro"
 

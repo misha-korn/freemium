@@ -85,8 +85,12 @@
       with a year selector (`portfolio.tax`); Pro-gated page
 - [x] **Export** — transactions + realized-gains report as CSV (UTF-8 BOM) and
       Excel (`portfolio.exports`, openpyxl); Pro-gated downloads
+- [x] **Notifications** — in-app list + unread nav badge, per-user email
+      preference, and a daily **portfolio digest** (Celery Beat → in-app + email
+      for opted-in users); `notifications.services` / `tasks`
 - [ ] PDF export (CSV/Excel shipped first; PDF needs a renderer)
-- [ ] Email/Telegram digests & price alerts (notifications app has the skeleton)
+- [ ] Telegram digests & price alerts (email digest shipped; Telegram channel +
+      per-asset price triggers next)
 - [ ] Broker auto-import (e.g. Tinkoff Invest API) — needs broker API keys
 
 ### Stage 5 notes
