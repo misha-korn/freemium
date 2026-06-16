@@ -6,15 +6,15 @@ positions and cost basis per portfolio, and pull live quotes from **MOEX** and
 invested-capital chart. Monetised as **freemium**: a useful Free tier plus a paid
 **Pro** subscription.
 
-> **Status: Stage 4 (Monetisation) complete.** Freemium plans are live: a
-> `subscriptions` service with an enforced Free limit (1 portfolio) and unlimited
-> Pro, a payment-provider abstraction with a **dev** provider that simulates
-> checkout + HMAC-signed webhooks end-to-end (no keys, no real money), an
-> upgrade → Pro → cancel flow, and a webhook that verifies the signature before
-> activating Pro idempotently. Built on Stage 3 (allocation dashboard + deploy)
-> and Stage 3.5 UX (branded auth, light/dark theme, i18n en/ru/es/zh-hans).
-> 118 tests, ~92% coverage, ruff-clean. Honest by design — market-value basis
-> only when fully priced, no fabricated sector, and no faked payment calls.
+> **Status: Stage 5 (Retention) in progress.** First Pro retention features are
+> live: a **tax report** (FIFO realized gains per lot, grouped by currency, with a
+> year selector) and **data export** (transactions + realized gains as CSV and
+> Excel) — both Pro-gated. Built on Stage 4 monetisation (Free/Pro plans, enforced
+> limits, dev payment provider + signed webhooks), the Stage 3 allocation
+> dashboard + deploy, and Stage 3.5 UX (branded auth, light/dark theme, i18n
+> en/ru/es/zh-hans). 131 tests, ~90%+ coverage, ruff-clean. Honest by design —
+> market-value basis only when fully priced, FIFO gains per currency, no faked
+> payment calls. Still ahead: PDF export, notifications, broker auto-import.
 
 ---
 
@@ -181,7 +181,7 @@ have gettext, the standard `makemessages`/`compilemessages` also work.)
 3. **MVP dashboard** ✅ — allocation donuts, account overview, Render/VPS deploy.
    - **3.5 UX** ✅ — branded auth pages, light/dark theme, i18n (en/ru/es/zh-hans).
 4. **Monetisation** ✅ — Free/Pro plans, enforced limits, dev payment provider, verified webhooks.
-5. **Retention** — tax report, Excel/PDF export, notifications, broker import.
+5. **Retention** 🚧 — tax report ✅, CSV/Excel export ✅; PDF, notifications, broker import next.
 
 See [docs/ROADMAP.md](docs/ROADMAP.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md),
 and [docs/DECISIONS.md](docs/DECISIONS.md).

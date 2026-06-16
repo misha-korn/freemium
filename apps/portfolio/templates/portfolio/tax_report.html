@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n portfolio_extras %}
+{% block title %}{% trans "Tax report" %} · {{ portfolio.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{{ portfolio.name }}</p>
+    <h1 class="page-header__title">{% trans "Realized gains" %}{% if year %} · {{ year }}{% endif %}</h1>
+    <p class="page-header__sub">{% trans "Closed positions matched FIFO — proceeds minus cost, per currency." %}</p>
+  </div>
+  <div class="cluster">
+    <a class="btn btn--ghost" href="{% url 'portfolio:export_tax_csv' portfolio.pk %}{% if year %}?year={{ year }}{% endif %}">{% trans "Export CSV" %}</a>
+    <a class="btn btn--ghost" href="{% url 'portfolio:export_tax_xlsx' portfolio.pk %}{% if year %}?year={{ year }}{% endif %}">{% trans "Export Excel" %}</a>
+    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
+  </div>
+</div>
+
+{% if years %}
+  <div class="cluster" style="margin-bottom:var(--space-5);">
+    {% for y in years %}
+      <a class="badge {% if y == year %}badge--buy{% endif %}" href="{% url 'portfolio:tax_report_year' portfolio.pk y %}">{{ y }}</a>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% if summary %}
+  <div class="card-grid">
+    {% for cur, t in summary.items %}
+      <div class="card stat">
+        <span class="stat__label">{% trans "Realized gain" %} · {{ cur }}</span>
+        <span class="stat__value {% if t.gain > 0 %}is-positive{% elif t.gain < 0 %}is-negative{% endif %}">{{ t.gain|signed }}</span>
+        <span class="stat__sub text-muted">{% blocktrans count count=t.count %}{{ count }} lot{% plural %}{{ count }} lots{% endblocktrans %}</span>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h2 class="card__title mt-6">{% trans "Closed lots" %}</h2>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{% trans "Asset" %}</th><th>{% trans "Acquired" %}</th><th>{% trans "Disposed" %}</th>
+          <th class="num">{% trans "Quantity" %}</th><th class="num">{% trans "Cost" %}</th>
+          <th class="num">{% trans "Proceeds" %}</th><th class="num">{% trans "Gain" %}</th><th class="num">{% trans "Days" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for lot in lots %}
+          <tr>
+            <td>{{ lot.asset.ticker }}</td>
+            <td>{{ lot.acquired_at|date:"Y-m-d" }}</td>
+            <td>{{ lot.disposed_at|date:"Y-m-d" }}</td>
+            <td class="num">{{ lot.quantity|floatformat:"-8" }}</td>
+            <td class="num">{{ lot.cost|money }} {{ lot.currency }}</td>
+            <td class="num">{{ lot.proceeds|money }}</td>
+            <td class="num {% if lot.gain > 0 %}is-positive{% elif lot.gain < 0 %}is-negative{% endif %}">{{ lot.gain|signed }}</td>
+            <td class="num">{{ lot.holding_days }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="empty-state">
+    <h2>{% trans "No realized gains yet" %}</h2>
+    <p>{% trans "Sell some holdings to see a realized-gains tax report here." %}</p>
+    <a class="btn btn--primary mt-6" href="{{ portfolio.get_absolute_url }}">{% trans "Back to portfolio" %}</a>
+  </div>
+{% endif %}
+{% endblock %}

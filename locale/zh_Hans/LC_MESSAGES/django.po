@@ -406,6 +406,60 @@ msgstr "测试结账"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Tax report"
+msgstr "税务报告"
+
+msgid "Realized gains"
+msgstr "已实现收益"
+
+msgid "Closed positions matched FIFO — proceeds minus cost, per currency."
+msgstr "按 FIFO 匹配的已平仓——收入减成本，按货币分组。"
+
+msgid "Export CSV"
+msgstr "导出 CSV"
+
+msgid "Export Excel"
+msgstr "导出 Excel"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "Realized gain"
+msgstr "已实现收益"
+
+msgid "Closed lots"
+msgstr "已平仓批次"
+
+msgid "Acquired"
+msgstr "买入"
+
+msgid "Disposed"
+msgstr "卖出"
+
+msgid "Cost"
+msgstr "成本"
+
+msgid "Proceeds"
+msgstr "收入"
+
+msgid "Gain"
+msgstr "收益"
+
+msgid "Days"
+msgstr "天数"
+
+msgid "No realized gains yet"
+msgstr "暂无已实现收益"
+
+msgid "Sell some holdings to see a realized-gains tax report here."
+msgstr "卖出部分持仓即可在此查看税务报告。"
+
+msgid "Back to portfolio"
+msgstr "返回投资组合"
+
+msgid "That's a Pro feature. Upgrade to unlock tax reports and exports."
+msgstr "这是 Pro 功能。升级到 Pro 即可使用税务报告和导出。"
+
 msgid "Confirm your Pro upgrade"
 msgstr "确认升级到 Pro"
 
@@ -552,3 +606,7 @@ msgstr[0] "%(count)s 个投资组合"
 msgid "%(count)s trade"
 msgid_plural "%(count)s trades"
 msgstr[0] "%(count)s 笔交易"
+
+msgid "%(count)s lot"
+msgid_plural "%(count)s lots"
+msgstr[0] "%(count)s 个批次"

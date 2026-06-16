@@ -80,7 +80,17 @@
   implementation — the seam is ready, the calls are not faked.
 - Cancel revokes access immediately (MVP); period-end grace is a later refinement.
 
-## Stage 5 — Retention & growth
-- [ ] Yearly tax report; Excel/PDF export
-- [ ] Email/Telegram digests & price alerts
-- [ ] Broker auto-import (e.g. Tinkoff Invest API)
+## Stage 5 — Retention & growth (in progress)
+- [x] Yearly **tax report** — FIFO realized gains per lot, grouped by currency,
+      with a year selector (`portfolio.tax`); Pro-gated page
+- [x] **Export** — transactions + realized-gains report as CSV (UTF-8 BOM) and
+      Excel (`portfolio.exports`, openpyxl); Pro-gated downloads
+- [ ] PDF export (CSV/Excel shipped first; PDF needs a renderer)
+- [ ] Email/Telegram digests & price alerts (notifications app has the skeleton)
+- [ ] Broker auto-import (e.g. Tinkoff Invest API) — needs broker API keys
+
+### Stage 5 notes
+- Realized gains use **FIFO**; figures stay per-currency (never mixed without FX),
+  consistent with the rest of the app. Money is Decimal; exports round to 2dp.
+- Tax report + exports are **Pro features** (`_ProRequiredMixin` → upsell to
+  pricing for Free users).

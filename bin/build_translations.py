@@ -325,6 +325,41 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
     ),
     "Test checkout": ("Тестовая оплата", "Pago de prueba", "测试结账"),
     "Cancel": ("Отмена", "Cancelar", "取消"),
+    # --- Stage 5: tax report + export ---
+    "Tax report": ("Налоговый отчёт", "Informe fiscal", "税务报告"),
+    "Realized gains": ("Реализованная прибыль", "Ganancias realizadas", "已实现收益"),
+    "Closed positions matched FIFO — proceeds minus cost, per currency.": (
+        "Закрытые позиции по методу FIFO — выручка минус себестоимость, по валютам.",
+        "Posiciones cerradas con FIFO — ingresos menos coste, por divisa.",
+        "按 FIFO 匹配的已平仓——收入减成本，按货币分组。",
+    ),
+    "Export CSV": ("Экспорт CSV", "Exportar CSV", "导出 CSV"),
+    "Export Excel": ("Экспорт Excel", "Exportar Excel", "导出 Excel"),
+    "Back": ("Назад", "Volver", "返回"),
+    "Realized gain": ("Реализованная прибыль", "Ganancia realizada", "已实现收益"),
+    "Closed lots": ("Закрытые лоты", "Lotes cerrados", "已平仓批次"),
+    "Acquired": ("Куплено", "Comprado", "买入"),
+    "Disposed": ("Продано", "Vendido", "卖出"),
+    "Cost": ("Себестоимость", "Coste", "成本"),
+    "Proceeds": ("Выручка", "Ingresos", "收入"),
+    "Gain": ("Прибыль", "Ganancia", "收益"),
+    "Days": ("Дней", "Días", "天数"),
+    "No realized gains yet": (
+        "Реализованной прибыли пока нет",
+        "Aún no hay ganancias realizadas",
+        "暂无已实现收益",
+    ),
+    "Sell some holdings to see a realized-gains tax report here.": (
+        "Продайте часть позиций, чтобы увидеть здесь налоговый отчёт.",
+        "Vende algunas posiciones para ver aquí un informe fiscal.",
+        "卖出部分持仓即可在此查看税务报告。",
+    ),
+    "Back to portfolio": ("Назад к портфелю", "Volver a la cartera", "返回投资组合"),
+    "That's a Pro feature. Upgrade to unlock tax reports and exports.": (
+        "Это функция Pro. Перейдите на Pro, чтобы открыть налоговые отчёты и экспорт.",
+        "Es una función Pro. Mejora a Pro para desbloquear informes y exportaciones.",
+        "这是 Pro 功能。升级到 Pro 即可使用税务报告和导出。",
+    ),
     "Confirm your Pro upgrade": (
         "Подтвердите переход на Pro",
         "Confirma tu mejora a Pro",
@@ -507,6 +542,14 @@ PLURALS: dict[str, tuple[str, dict[str, tuple[str, ...]]]] = {
             "ru": ("%(count)s сделка", "%(count)s сделки", "%(count)s сделок"),
             "es": ("%(count)s operación", "%(count)s operaciones"),
             "zh_Hans": ("%(count)s 笔交易",),
+        },
+    ),
+    "%(count)s lot": (
+        "%(count)s lots",
+        {
+            "ru": ("%(count)s лот", "%(count)s лота", "%(count)s лотов"),
+            "es": ("%(count)s lote", "%(count)s lotes"),
+            "zh_Hans": ("%(count)s 个批次",),
         },
     ),
 }

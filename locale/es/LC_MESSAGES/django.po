@@ -419,6 +419,61 @@ msgstr "Pago de prueba"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Tax report"
+msgstr "Informe fiscal"
+
+msgid "Realized gains"
+msgstr "Ganancias realizadas"
+
+msgid "Closed positions matched FIFO — proceeds minus cost, per currency."
+msgstr "Posiciones cerradas con FIFO — ingresos menos coste, por divisa."
+
+msgid "Export CSV"
+msgstr "Exportar CSV"
+
+msgid "Export Excel"
+msgstr "Exportar Excel"
+
+msgid "Back"
+msgstr "Volver"
+
+msgid "Realized gain"
+msgstr "Ganancia realizada"
+
+msgid "Closed lots"
+msgstr "Lotes cerrados"
+
+msgid "Acquired"
+msgstr "Comprado"
+
+msgid "Disposed"
+msgstr "Vendido"
+
+msgid "Cost"
+msgstr "Coste"
+
+msgid "Proceeds"
+msgstr "Ingresos"
+
+msgid "Gain"
+msgstr "Ganancia"
+
+msgid "Days"
+msgstr "Días"
+
+msgid "No realized gains yet"
+msgstr "Aún no hay ganancias realizadas"
+
+msgid "Sell some holdings to see a realized-gains tax report here."
+msgstr "Vende algunas posiciones para ver aquí un informe fiscal."
+
+msgid "Back to portfolio"
+msgstr "Volver a la cartera"
+
+msgid "That's a Pro feature. Upgrade to unlock tax reports and exports."
+msgstr ""
+"Es una función Pro. Mejora a Pro para desbloquear informes y exportaciones."
+
 msgid "Confirm your Pro upgrade"
 msgstr "Confirma tu mejora a Pro"
 
@@ -585,3 +640,8 @@ msgid "%(count)s trade"
 msgid_plural "%(count)s trades"
 msgstr[0] "%(count)s operación"
 msgstr[1] "%(count)s operaciones"
+
+msgid "%(count)s lot"
+msgid_plural "%(count)s lots"
+msgstr[0] "%(count)s lote"
+msgstr[1] "%(count)s lotes"

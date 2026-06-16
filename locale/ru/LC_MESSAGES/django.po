@@ -420,6 +420,62 @@ msgstr "Тестовая оплата"
 msgid "Cancel"
 msgstr "Отмена"
 
+msgid "Tax report"
+msgstr "Налоговый отчёт"
+
+msgid "Realized gains"
+msgstr "Реализованная прибыль"
+
+msgid "Closed positions matched FIFO — proceeds minus cost, per currency."
+msgstr ""
+"Закрытые позиции по методу FIFO — выручка минус себестоимость, по валютам."
+
+msgid "Export CSV"
+msgstr "Экспорт CSV"
+
+msgid "Export Excel"
+msgstr "Экспорт Excel"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Realized gain"
+msgstr "Реализованная прибыль"
+
+msgid "Closed lots"
+msgstr "Закрытые лоты"
+
+msgid "Acquired"
+msgstr "Куплено"
+
+msgid "Disposed"
+msgstr "Продано"
+
+msgid "Cost"
+msgstr "Себестоимость"
+
+msgid "Proceeds"
+msgstr "Выручка"
+
+msgid "Gain"
+msgstr "Прибыль"
+
+msgid "Days"
+msgstr "Дней"
+
+msgid "No realized gains yet"
+msgstr "Реализованной прибыли пока нет"
+
+msgid "Sell some holdings to see a realized-gains tax report here."
+msgstr "Продайте часть позиций, чтобы увидеть здесь налоговый отчёт."
+
+msgid "Back to portfolio"
+msgstr "Назад к портфелю"
+
+msgid "That's a Pro feature. Upgrade to unlock tax reports and exports."
+msgstr ""
+"Это функция Pro. Перейдите на Pro, чтобы открыть налоговые отчёты и экспорт."
+
 msgid "Confirm your Pro upgrade"
 msgstr "Подтвердите переход на Pro"
 
@@ -588,3 +644,9 @@ msgid_plural "%(count)s trades"
 msgstr[0] "%(count)s сделка"
 msgstr[1] "%(count)s сделки"
 msgstr[2] "%(count)s сделок"
+
+msgid "%(count)s lot"
+msgid_plural "%(count)s lots"
+msgstr[0] "%(count)s лот"
+msgstr[1] "%(count)s лота"
+msgstr[2] "%(count)s лотов"

@@ -22,11 +22,13 @@ from django.views.generic import (
 from apps.billing import subscriptions
 from apps.marketdata.tasks import refresh_quote
 
+from . import exports
 from .allocation import build_allocation, chart_payload
 from .forms import AssetForm, PortfolioForm, TransactionForm
 from .models import Asset, Portfolio, Transaction
 from .overview import build_account_overview
 from .services import compute_positions
+from .tax import realized_gains, realized_summary, realized_years
 from .valuation import invested_timeseries, portfolio_valuation
 
 # Allocation axes rendered as donut charts on the dashboard. A donut is drawn
@@ -250,3 +252,88 @@ class AssetCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form: AssetForm):
         messages.success(self.request, "Asset added to the catalogue.")
         return super().form_valid(form)
+
+
+# --------------------------------------------------------------------------- #
+# Pro: tax report + exports (Stage 5)
+# --------------------------------------------------------------------------- #
+class _ProRequiredMixin(LoginRequiredMixin):
+    """Gate a view behind active Pro; upsell to pricing for Free users."""
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any):
+        if request.user.is_authenticated and not subscriptions.is_pro(request.user):
+            messages.info(
+                request,
+                _("That's a Pro feature. Upgrade to unlock tax reports and exports."),
+            )
+            return redirect("billing:pricing")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class TaxReportView(_ProRequiredMixin, _OwnedPortfolioMixin, DetailView):
+    """Per-portfolio yearly realized-gains report (Pro)."""
+
+    template_name = "portfolio/tax_report.html"
+    context_object_name = "portfolio"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        years = realized_years(self.object)
+        year = self.kwargs.get("year")
+        if year is None and years:
+            year = years[0]
+        lots = realized_gains(self.object, year=year)
+        ctx["years"] = years
+        ctx["year"] = year
+        ctx["lots"] = lots
+        ctx["summary"] = realized_summary(lots)
+        return ctx
+
+
+def _owned_portfolio(request: HttpRequest, pk: int) -> Portfolio:
+    return get_object_or_404(Portfolio, pk=pk, owner=request.user)
+
+
+def _download(content: bytes, content_type: str, filename: str) -> HttpResponse:
+    response = HttpResponse(content, content_type=content_type)
+    response["Content-Disposition"] = f'attachment; filename="{filename}"'
+    return response
+
+
+class ExportTransactionsCsvView(_ProRequiredMixin, View):
+    def get(self, request: HttpRequest, pk: int, *a: Any, **k: Any) -> HttpResponse:
+        portfolio = _owned_portfolio(request, pk)
+        return _download(
+            exports.transactions_csv(portfolio),
+            "text/csv; charset=utf-8",
+            f"{portfolio.name}-transactions.csv",
+        )
+
+
+class ExportTaxCsvView(_ProRequiredMixin, View):
+    def get(self, request: HttpRequest, pk: int, *a: Any, **k: Any) -> HttpResponse:
+        portfolio = _owned_portfolio(request, pk)
+        year = _parse_year(request)
+        return _download(
+            exports.tax_csv(portfolio, year),
+            "text/csv; charset=utf-8",
+            f"{portfolio.name}-tax-{year or 'all'}.csv",
+        )
+
+
+class ExportTaxXlsxView(_ProRequiredMixin, View):
+    def get(self, request: HttpRequest, pk: int, *a: Any, **k: Any) -> HttpResponse:
+        portfolio = _owned_portfolio(request, pk)
+        year = _parse_year(request)
+        return _download(
+            exports.tax_xlsx(portfolio, year),
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            f"{portfolio.name}-tax-{year or 'all'}.xlsx",
+        )
+
+
+def _parse_year(request: HttpRequest) -> int | None:
+    raw = request.GET.get("year")
+    if raw and raw.isdigit():
+        return int(raw)
+    return None
