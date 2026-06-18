@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Price alerts" %} · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{% trans "Notifications" %}</p>
+    <h1 class="page-header__title">{% trans "Price alerts" %}</h1>
+    <p class="page-header__sub">{% trans "Get notified when an asset crosses your target price." %}</p>
+  </div>
+  <a class="btn btn--primary" href="{% url 'marketdata:alert_create' %}">{% trans "+ New alert" %}</a>
+</div>
+
+{% if alerts %}
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{% trans "Asset" %}</th><th>{% trans "Condition" %}</th>
+          <th class="num">{% trans "Threshold" %}</th><th>{% trans "Status" %}</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in alerts %}
+          <tr>
+            <td>{{ a.asset.ticker }}</td>
+            <td>{{ a.get_direction_display }}</td>
+            <td class="num">{{ a.threshold|floatformat:2 }} {{ a.asset.currency }}</td>
+            <td>
+              {% if a.is_active %}
+                <span class="badge badge--buy">{% trans "Active" %}</span>
+              {% else %}
+                <span class="badge">{% trans "Triggered" %}</span>
+              {% endif %}
+            </td>
+            <td class="text-right"><a href="{% url 'marketdata:alert_delete' a.pk %}">{% trans "delete" %}</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="empty-state">
+    <h2>{% trans "No price alerts yet" %}</h2>
+    <p>{% trans "Create an alert to be notified when an asset hits your target." %}</p>
+    <a class="btn btn--primary mt-6" href="{% url 'marketdata:alert_create' %}">{% trans "Create an alert" %}</a>
+  </div>
+{% endif %}
+{% endblock %}

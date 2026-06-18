@@ -325,6 +325,144 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
     ),
     "Test checkout": ("Тестовая оплата", "Pago de prueba", "测试结账"),
     "Cancel": ("Отмена", "Cancelar", "取消"),
+    # --- Stage 5: tax report + export ---
+    "Tax report": ("Налоговый отчёт", "Informe fiscal", "税务报告"),
+    "Realized gains": ("Реализованная прибыль", "Ganancias realizadas", "已实现收益"),
+    "Closed positions matched FIFO — proceeds minus cost, per currency.": (
+        "Закрытые позиции по методу FIFO — выручка минус себестоимость, по валютам.",
+        "Posiciones cerradas con FIFO — ingresos menos coste, por divisa.",
+        "按 FIFO 匹配的已平仓——收入减成本，按货币分组。",
+    ),
+    "Export CSV": ("Экспорт CSV", "Exportar CSV", "导出 CSV"),
+    "Export Excel": ("Экспорт Excel", "Exportar Excel", "导出 Excel"),
+    "Back": ("Назад", "Volver", "返回"),
+    "Realized gain": ("Реализованная прибыль", "Ganancia realizada", "已实现收益"),
+    "Closed lots": ("Закрытые лоты", "Lotes cerrados", "已平仓批次"),
+    "Acquired": ("Куплено", "Comprado", "买入"),
+    "Disposed": ("Продано", "Vendido", "卖出"),
+    "Cost": ("Себестоимость", "Coste", "成本"),
+    "Proceeds": ("Выручка", "Ingresos", "收入"),
+    "Gain": ("Прибыль", "Ganancia", "收益"),
+    "Days": ("Дней", "Días", "天数"),
+    "No realized gains yet": (
+        "Реализованной прибыли пока нет",
+        "Aún no hay ganancias realizadas",
+        "暂无已实现收益",
+    ),
+    "Sell some holdings to see a realized-gains tax report here.": (
+        "Продайте часть позиций, чтобы увидеть здесь налоговый отчёт.",
+        "Vende algunas posiciones para ver aquí un informe fiscal.",
+        "卖出部分持仓即可在此查看税务报告。",
+    ),
+    "Back to portfolio": ("Назад к портфелю", "Volver a la cartera", "返回投资组合"),
+    "That's a Pro feature. Upgrade to unlock tax reports and exports.": (
+        "Это функция Pro. Перейдите на Pro, чтобы открыть налоговые отчёты и экспорт.",
+        "Es una función Pro. Mejora a Pro para desbloquear informes y exportaciones.",
+        "这是 Pro 功能。升级到 Pro 即可使用税务报告和导出。",
+    ),
+    # --- Stage 5: notifications ---
+    "Notifications": ("Уведомления", "Notificaciones", "通知"),
+    "Mark all read": ("Отметить все прочитанными", "Marcar todo como leído", "全部标为已读"),
+    "Preferences": ("Настройки", "Preferencias", "偏好设置"),
+    "No notifications yet": ("Уведомлений пока нет", "Aún no hay notificaciones", "暂无通知"),
+    "Portfolio digests and alerts will show up here.": (
+        "Здесь появятся дайджесты и оповещения по портфелю.",
+        "Aquí aparecerán resúmenes y alertas de tu cartera.",
+        "投资组合摘要和提醒将显示在此处。",
+    ),
+    "Previous": ("Предыдущая", "Anterior", "上一页"),
+    "Next": ("Следующая", "Siguiente", "下一页"),
+    "Notification preferences": (
+        "Настройки уведомлений",
+        "Preferencias de notificaciones",
+        "通知偏好",
+    ),
+    "Choose how you'd like to hear from us.": (
+        "Выберите, как вам удобнее получать уведомления.",
+        "Elige cómo prefieres que te contactemos.",
+        "选择你希望接收通知的方式。",
+    ),
+    "Save": ("Сохранить", "Guardar", "保存"),
+    "Preferences saved.": ("Настройки сохранены.", "Preferencias guardadas.", "偏好已保存。"),
+    "Your portfolio digest": (
+        "Дайджест по вашему портфелю",
+        "Resumen de tu cartera",
+        "你的投资组合摘要",
+    ),
+    "Email me portfolio digests & alerts": (
+        "Присылать дайджесты и оповещения на email",
+        "Enviarme resúmenes y alertas por correo",
+        "通过邮件向我发送摘要和提醒",
+    ),
+    "Send to Telegram": ("Отправлять в Telegram", "Enviar a Telegram", "发送到 Telegram"),
+    "Telegram chat ID": ("ID чата Telegram", "ID de chat de Telegram", "Telegram 聊天 ID"),
+    # --- Stage 5: PDF export + CSV import + price alerts ---
+    "Export PDF": ("Экспорт PDF", "Exportar PDF", "导出 PDF"),
+    "Import CSV": ("Импорт CSV", "Importar CSV", "导入 CSV"),
+    "Import": ("Импортировать", "Importar", "导入"),
+    "Import trades": ("Импорт сделок", "Importar operaciones", "导入交易"),
+    "Import trades from CSV": (
+        "Импорт сделок из CSV",
+        "Importar operaciones desde CSV",
+        "从 CSV 导入交易",
+    ),
+    "Bulk-add trades from a file. Assets must already exist in the catalogue; "
+    "invalid rows are reported and skipped.": (
+        "Массовое добавление сделок из файла. Активы должны уже быть в каталоге; "
+        "неверные строки показываются и пропускаются.",
+        "Añade operaciones en masa desde un archivo. Los activos deben existir ya "
+        "en el catálogo; las filas inválidas se informan y se omiten.",
+        "从文件批量添加交易。资产须已存在于目录中；无效行将被报告并跳过。",
+    ),
+    "CSV file": ("Файл CSV", "Archivo CSV", "CSV 文件"),
+    "Expected columns:": ("Ожидаемые столбцы:", "Columnas esperadas:", "预期列："),
+    "Please choose a CSV file.": (
+        "Пожалуйста, выберите CSV-файл.",
+        "Por favor, elige un archivo CSV.",
+        "请选择一个 CSV 文件。",
+    ),
+    "No rows found in the file.": (
+        "В файле не найдено строк.",
+        "No se encontraron filas en el archivo.",
+        "文件中未找到数据行。",
+    ),
+    "Imported %(n)s trade(s).": (
+        "Импортировано сделок: %(n)s.",
+        "Operaciones importadas: %(n)s.",
+        "已导入 %(n)s 笔交易。",
+    ),
+    "Price alerts": ("Оповещения о ценах", "Alertas de precio", "价格提醒"),
+    "Get notified when an asset crosses your target price.": (
+        "Получайте уведомление, когда цена актива достигнет вашей цели.",
+        "Recibe un aviso cuando un activo cruce tu precio objetivo.",
+        "当资产价格达到你的目标时收到通知。",
+    ),
+    "+ New alert": ("+ Новое оповещение", "+ Nueva alerta", "+ 新建提醒"),
+    "Condition": ("Условие", "Condición", "条件"),
+    "Threshold": ("Порог", "Umbral", "阈值"),
+    "Status": ("Статус", "Estado", "状态"),
+    "Triggered": ("Сработало", "Activada", "已触发"),
+    "No price alerts yet": ("Оповещений пока нет", "Aún no hay alertas", "暂无价格提醒"),
+    "Create an alert to be notified when an asset hits your target.": (
+        "Создайте оповещение, чтобы узнать, когда актив достигнет цели.",
+        "Crea una alerta para enterarte cuando un activo alcance tu objetivo.",
+        "创建提醒，当资产达到目标时通知你。",
+    ),
+    "Create an alert": ("Создать оповещение", "Crear una alerta", "创建提醒"),
+    "New price alert": ("Новое оповещение о цене", "Nueva alerta de precio", "新建价格提醒"),
+    "Create alert": ("Создать оповещение", "Crear alerta", "创建提醒"),
+    "Delete this alert?": ("Удалить это оповещение?", "¿Eliminar esta alerta?", "删除此提醒？"),
+    "Price alert created.": ("Оповещение создано.", "Alerta creada.", "提醒已创建。"),
+    "Price alert: %(ticker)s": (
+        "Оповещение о цене: %(ticker)s",
+        "Alerta de precio: %(ticker)s",
+        "价格提醒：%(ticker)s",
+    ),
+    "%(ticker)s is now %(price)s (target %(arrow)s %(threshold)s).": (
+        "%(ticker)s сейчас %(price)s (цель %(arrow)s %(threshold)s).",
+        "%(ticker)s está ahora en %(price)s (objetivo %(arrow)s %(threshold)s).",
+        "%(ticker)s 现价 %(price)s（目标 %(arrow)s %(threshold)s）。",
+    ),
     "Confirm your Pro upgrade": (
         "Подтвердите переход на Pro",
         "Confirma tu mejora a Pro",
@@ -354,7 +492,104 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "Tu suscripción ha sido cancelada.",
         "你的订阅已取消。",
     ),
+    # --- Stage 3.5 fixes: auth pages (reset / verification) ---
+    "Password reset": ("Сброс пароля", "Restablecer contraseña", "重置密码"),
+    "Reset your password": ("Сбросьте пароль", "Restablece tu contraseña", "重置你的密码"),
+    "Enter your email and we'll send reset instructions.": (
+        "Введите email — мы отправим инструкции для сброса.",
+        "Introduce tu email y te enviaremos instrucciones de restablecimiento.",
+        "输入你的邮箱，我们会发送重置说明。",
+    ),
+    "Send reset email": ("Отправить письмо", "Enviar correo", "发送重置邮件"),
+    "Back to log in": ("Назад ко входу", "Volver a iniciar sesión", "返回登录"),
+    "Log out · Freemium": ("Выход · Freemium", "Cerrar sesión · Freemium", "退出 · Freemium"),
+    "Are you sure you want to log out?": (
+        "Вы уверены, что хотите выйти?",
+        "¿Seguro que quieres cerrar sesión?",
+        "确定要退出吗？",
+    ),
+    "Check your email · Freemium": (
+        "Проверьте почту · Freemium",
+        "Revisa tu correo · Freemium",
+        "查收邮件 · Freemium",
+    ),
+    "Check your email": ("Проверьте почту", "Revisa tu correo", "查收邮件"),
+    "Set a new password · Freemium": (
+        "Новый пароль · Freemium",
+        "Nueva contraseña · Freemium",
+        "设置新密码 · Freemium",
+    ),
+    "Invalid link": ("Недействительная ссылка", "Enlace no válido", "链接无效"),
+    "Set a new password": ("Установите новый пароль", "Establece una nueva contraseña", "设置新密码"),
+    "Change password": ("Изменить пароль", "Cambiar contraseña", "修改密码"),
+    "Password changed · Freemium": (
+        "Пароль изменён · Freemium",
+        "Contraseña cambiada · Freemium",
+        "密码已修改 · Freemium",
+    ),
+    "Password changed": ("Пароль изменён", "Contraseña cambiada", "密码已修改"),
+    "Your password has been changed. You can now log in.": (
+        "Ваш пароль изменён. Теперь вы можете войти.",
+        "Tu contraseña ha sido cambiada. Ya puedes iniciar sesión.",
+        "你的密码已修改，现在可以登录了。",
+    ),
+    "Verify your email · Freemium": (
+        "Подтвердите email · Freemium",
+        "Verifica tu correo · Freemium",
+        "验证邮箱 · Freemium",
+    ),
+    "Almost there": ("Почти готово", "Casi listo", "就差一步"),
+    "Verify your email": ("Подтвердите email", "Verifica tu correo", "验证你的邮箱"),
+    "Confirm email · Freemium": (
+        "Подтверждение email · Freemium",
+        "Confirmar correo · Freemium",
+        "确认邮箱 · Freemium",
+    ),
+    "Confirm your email": ("Подтвердите ваш email", "Confirma tu correo", "确认你的邮箱"),
+    "Confirm": ("Подтвердить", "Confirmar", "确认"),
+    "This email is already confirmed by a different account.": (
+        "Этот email уже подтверждён другим аккаунтом.",
+        "Este correo ya está confirmado por otra cuenta.",
+        "该邮箱已被另一个账户确认。",
+    ),
     # --- blocktrans with variables (keep %(name)s placeholders intact) ---
+    "We've sent you a link to reset your password. If it doesn't arrive in a few "
+    "minutes, check your spam folder.": (
+        "Мы отправили ссылку для сброса пароля. Если письмо не пришло за несколько "
+        "минут, проверьте папку «Спам».",
+        "Te hemos enviado un enlace para restablecer tu contraseña. Si no llega en "
+        "unos minutos, revisa tu carpeta de spam.",
+        "我们已向你发送重置密码的链接。如果几分钟内没有收到，请检查垃圾邮件箱。",
+    ),
+    "This password reset link is invalid or has already been used. Please "
+    '<a href="%(reset_url)s">request a new one</a>.': (
+        "Ссылка для сброса пароля недействительна или уже использована. "
+        'Пожалуйста, <a href="%(reset_url)s">запросите новую</a>.',
+        "El enlace de restablecimiento no es válido o ya se ha usado. "
+        'Por favor, <a href="%(reset_url)s">solicita uno nuevo</a>.',
+        '该重置密码链接无效或已被使用。请<a href="%(reset_url)s">重新申请</a>。',
+    ),
+    "We've sent you a verification link. Follow it to finish signing up. If it "
+    "doesn't arrive in a few minutes, check your spam folder.": (
+        "Мы отправили ссылку для подтверждения. Перейдите по ней, чтобы завершить "
+        "регистрацию. Если письмо не пришло за несколько минут, проверьте папку «Спам».",
+        "Te hemos enviado un enlace de verificación. Síguelo para terminar el "
+        "registro. Si no llega en unos minutos, revisa tu carpeta de spam.",
+        "我们已向你发送验证链接。点击它即可完成注册。如果几分钟内没有收到，请检查垃圾邮件箱。",
+    ),
+    "Confirm that %(email)s is your email address.": (
+        "Подтвердите, что %(email)s — ваш адрес электронной почты.",
+        "Confirma que %(email)s es tu dirección de correo.",
+        "确认 %(email)s 是你的邮箱地址。",
+    ),
+    "This confirmation link expired or is invalid. Please "
+    '<a href="%(email_url)s">request a new one</a>.': (
+        "Ссылка для подтверждения недействительна или устарела. "
+        'Пожалуйста, <a href="%(email_url)s">запросите новую</a>.',
+        "El enlace de confirmación caducó o no es válido. "
+        'Por favor, <a href="%(email_url)s">solicita uno nuevo</a>.',
+        '该确认链接已过期或无效。请<a href="%(email_url)s">重新申请</a>。',
+    ),
     "Renews / valid until %(date)s.": (
         "Продление / действует до %(date)s.",
         "Se renueva / válido hasta %(date)s.",
@@ -410,6 +645,14 @@ PLURALS: dict[str, tuple[str, dict[str, tuple[str, ...]]]] = {
             "ru": ("%(count)s сделка", "%(count)s сделки", "%(count)s сделок"),
             "es": ("%(count)s operación", "%(count)s operaciones"),
             "zh_Hans": ("%(count)s 笔交易",),
+        },
+    ),
+    "%(count)s lot": (
+        "%(count)s lots",
+        {
+            "ru": ("%(count)s лот", "%(count)s лота", "%(count)s лотов"),
+            "es": ("%(count)s lote", "%(count)s lotes"),
+            "zh_Hans": ("%(count)s 个批次",),
         },
     ),
 }

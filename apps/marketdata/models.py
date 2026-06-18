@@ -4,6 +4,7 @@ Money rule: price is a DecimalField — never FloatField.
 """
 from __future__ import annotations
 
+from django.conf import settings
 from django.db import models
 
 
@@ -39,3 +40,35 @@ class PriceQuote(models.Model):
 
     def __str__(self) -> str:
         return f"{self.source} {self.price} {self.currency} @ {self.as_of:%Y-%m-%d %H:%M}"
+
+
+class PriceAlert(models.Model):
+    """A user's price trigger for an asset — fires once, then deactivates."""
+
+    class Direction(models.TextChoices):
+        ABOVE = "ABOVE", "Rises to or above"
+        BELOW = "BELOW", "Falls to or below"
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="price_alerts",
+    )
+    asset = models.ForeignKey(
+        "portfolio.Asset",
+        on_delete=models.CASCADE,
+        related_name="price_alerts",
+    )
+    # Decimal only — never FloatField for money.
+    threshold = models.DecimalField(max_digits=20, decimal_places=8)
+    direction = models.CharField(max_length=5, choices=Direction.choices)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    triggered_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        indexes = [models.Index(fields=["asset", "is_active"])]
+
+    def __str__(self) -> str:
+        return f"{self.user} {self.asset} {self.direction} {self.threshold}"

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Notification preferences" %} · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{% trans "Notifications" %}</p>
+    <h1 class="page-header__title">{% trans "Preferences" %}</h1>
+    <p class="page-header__sub">{% trans "Choose how you'd like to hear from us." %}</p>
+  </div>
+</div>
+
+<div class="card form-card">
+  <form class="form" method="post">
+    {% csrf_token %}
+    {% include "partials/form_fields.html" %}
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">{% trans "Save" %}</button>
+      <a class="btn btn--ghost" href="{% url 'notifications:list' %}">{% trans "Back" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

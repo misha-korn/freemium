@@ -7,6 +7,7 @@ Secrets and environment-dependent values are read from the environment
 from pathlib import Path
 
 import environ
+from celery.schedules import crontab
 from django.utils.translation import gettext_lazy as _
 
 # BASE_DIR -> project root (the directory that contains manage.py)
@@ -93,6 +94,10 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 # Exposes LANGUAGES / LANGUAGE_CODE to templates for the switcher.
                 "django.template.context_processors.i18n",
+                # Cache-busting version for CSS/JS query strings.
+                "config.context_processors.static_version",
+                # Unread-notification count for the nav badge.
+                "config.context_processors.notifications",
             ],
         },
     },
@@ -174,6 +179,10 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
+# Cache-busting token appended to CSS/JS URLs (see config.context_processors).
+# Overridden per-environment: dev bumps it on every server start.
+STATIC_VERSION = env("STATIC_VERSION", default="1")
+
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
@@ -226,6 +235,11 @@ CELERY_BEAT_SCHEDULE = {
         "task": "apps.marketdata.tasks.refresh_active_quotes",
         "schedule": float(MARKETDATA_REFRESH_SECONDS),
     },
+    # Daily portfolio digest (in-app + email for opted-in users).
+    "daily-portfolio-digest": {
+        "task": "apps.notifications.tasks.send_daily_digest",
+        "schedule": crontab(hour=8, minute=0),
+    },
 }
 
 # --------------------------------------------------------------------------- #
@@ -274,6 +288,13 @@ PRO_PERIOD_DAYS = env.int("PRO_PERIOD_DAYS", default=30)
 FREE_MAX_PORTFOLIOS = env.int("FREE_MAX_PORTFOLIOS", default=1)
 # Shared secret used to sign/verify webhooks (HMAC). Required in prod.
 BILLING_WEBHOOK_SECRET = env("BILLING_WEBHOOK_SECRET", default="dev-webhook-secret")
+
+# --------------------------------------------------------------------------- #
+# Notifications (Stage 5)
+# --------------------------------------------------------------------------- #
+# Telegram Bot API token for digest/alert delivery. Empty -> Telegram disabled
+# (in-app + email still work); set a real bot token to enable.
+TELEGRAM_BOT_TOKEN = env("TELEGRAM_BOT_TOKEN", default="")
 
 # --------------------------------------------------------------------------- #
 # Logging

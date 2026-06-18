@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "New price alert" %} · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{% trans "Price alerts" %}</p>
+    <h1 class="page-header__title">{% trans "New price alert" %}</h1>
+  </div>
+</div>
+
+<div class="card form-card">
+  <form class="form" method="post" novalidate>
+    {% csrf_token %}
+    {% include "partials/form_fields.html" %}
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">{% trans "Create alert" %}</button>
+      <a class="btn btn--ghost" href="{% url 'marketdata:alert_list' %}">{% trans "Cancel" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

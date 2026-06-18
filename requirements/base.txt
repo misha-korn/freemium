@@ -19,3 +19,10 @@ requests>=2.32
 
 # Static files serving
 whitenoise>=6.7
+
+# Excel + PDF export (Stage 5 — Pro tax report / data export)
+openpyxl>=3.1
+reportlab>=4.0
+
+# i18n catalog tooling without GNU gettext (bin/build_translations.py)
+polib>=1.2

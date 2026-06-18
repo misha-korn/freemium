@@ -406,6 +406,188 @@ msgstr "测试结账"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Tax report"
+msgstr "税务报告"
+
+msgid "Realized gains"
+msgstr "已实现收益"
+
+msgid "Closed positions matched FIFO — proceeds minus cost, per currency."
+msgstr "按 FIFO 匹配的已平仓——收入减成本，按货币分组。"
+
+msgid "Export CSV"
+msgstr "导出 CSV"
+
+msgid "Export Excel"
+msgstr "导出 Excel"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "Realized gain"
+msgstr "已实现收益"
+
+msgid "Closed lots"
+msgstr "已平仓批次"
+
+msgid "Acquired"
+msgstr "买入"
+
+msgid "Disposed"
+msgstr "卖出"
+
+msgid "Cost"
+msgstr "成本"
+
+msgid "Proceeds"
+msgstr "收入"
+
+msgid "Gain"
+msgstr "收益"
+
+msgid "Days"
+msgstr "天数"
+
+msgid "No realized gains yet"
+msgstr "暂无已实现收益"
+
+msgid "Sell some holdings to see a realized-gains tax report here."
+msgstr "卖出部分持仓即可在此查看税务报告。"
+
+msgid "Back to portfolio"
+msgstr "返回投资组合"
+
+msgid "That's a Pro feature. Upgrade to unlock tax reports and exports."
+msgstr "这是 Pro 功能。升级到 Pro 即可使用税务报告和导出。"
+
+msgid "Notifications"
+msgstr "通知"
+
+msgid "Mark all read"
+msgstr "全部标为已读"
+
+msgid "Preferences"
+msgstr "偏好设置"
+
+msgid "No notifications yet"
+msgstr "暂无通知"
+
+msgid "Portfolio digests and alerts will show up here."
+msgstr "投资组合摘要和提醒将显示在此处。"
+
+msgid "Previous"
+msgstr "上一页"
+
+msgid "Next"
+msgstr "下一页"
+
+msgid "Notification preferences"
+msgstr "通知偏好"
+
+msgid "Choose how you'd like to hear from us."
+msgstr "选择你希望接收通知的方式。"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Preferences saved."
+msgstr "偏好已保存。"
+
+msgid "Your portfolio digest"
+msgstr "你的投资组合摘要"
+
+msgid "Email me portfolio digests & alerts"
+msgstr "通过邮件向我发送摘要和提醒"
+
+msgid "Send to Telegram"
+msgstr "发送到 Telegram"
+
+msgid "Telegram chat ID"
+msgstr "Telegram 聊天 ID"
+
+msgid "Export PDF"
+msgstr "导出 PDF"
+
+msgid "Import CSV"
+msgstr "导入 CSV"
+
+msgid "Import"
+msgstr "导入"
+
+msgid "Import trades"
+msgstr "导入交易"
+
+msgid "Import trades from CSV"
+msgstr "从 CSV 导入交易"
+
+msgid ""
+"Bulk-add trades from a file. Assets must already exist in the catalogue; "
+"invalid rows are reported and skipped."
+msgstr "从文件批量添加交易。资产须已存在于目录中；无效行将被报告并跳过。"
+
+msgid "CSV file"
+msgstr "CSV 文件"
+
+msgid "Expected columns:"
+msgstr "预期列："
+
+msgid "Please choose a CSV file."
+msgstr "请选择一个 CSV 文件。"
+
+msgid "No rows found in the file."
+msgstr "文件中未找到数据行。"
+
+msgid "Imported %(n)s trade(s)."
+msgstr "已导入 %(n)s 笔交易。"
+
+msgid "Price alerts"
+msgstr "价格提醒"
+
+msgid "Get notified when an asset crosses your target price."
+msgstr "当资产价格达到你的目标时收到通知。"
+
+msgid "+ New alert"
+msgstr "+ 新建提醒"
+
+msgid "Condition"
+msgstr "条件"
+
+msgid "Threshold"
+msgstr "阈值"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Triggered"
+msgstr "已触发"
+
+msgid "No price alerts yet"
+msgstr "暂无价格提醒"
+
+msgid "Create an alert to be notified when an asset hits your target."
+msgstr "创建提醒，当资产达到目标时通知你。"
+
+msgid "Create an alert"
+msgstr "创建提醒"
+
+msgid "New price alert"
+msgstr "新建价格提醒"
+
+msgid "Create alert"
+msgstr "创建提醒"
+
+msgid "Delete this alert?"
+msgstr "删除此提醒？"
+
+msgid "Price alert created."
+msgstr "提醒已创建。"
+
+msgid "Price alert: %(ticker)s"
+msgstr "价格提醒：%(ticker)s"
+
+msgid "%(ticker)s is now %(price)s (target %(arrow)s %(threshold)s)."
+msgstr "%(ticker)s 现价 %(price)s（目标 %(arrow)s %(threshold)s）。"
+
 msgid "Confirm your Pro upgrade"
 msgstr "确认升级到 Pro"
 
@@ -425,6 +607,98 @@ msgstr "你已升级到 Pro——谢谢！"
 
 msgid "Your subscription was cancelled."
 msgstr "你的订阅已取消。"
+
+msgid "Password reset"
+msgstr "重置密码"
+
+msgid "Reset your password"
+msgstr "重置你的密码"
+
+msgid "Enter your email and we'll send reset instructions."
+msgstr "输入你的邮箱，我们会发送重置说明。"
+
+msgid "Send reset email"
+msgstr "发送重置邮件"
+
+msgid "Back to log in"
+msgstr "返回登录"
+
+msgid "Log out · Freemium"
+msgstr "退出 · Freemium"
+
+msgid "Are you sure you want to log out?"
+msgstr "确定要退出吗？"
+
+msgid "Check your email · Freemium"
+msgstr "查收邮件 · Freemium"
+
+msgid "Check your email"
+msgstr "查收邮件"
+
+msgid "Set a new password · Freemium"
+msgstr "设置新密码 · Freemium"
+
+msgid "Invalid link"
+msgstr "链接无效"
+
+msgid "Set a new password"
+msgstr "设置新密码"
+
+msgid "Change password"
+msgstr "修改密码"
+
+msgid "Password changed · Freemium"
+msgstr "密码已修改 · Freemium"
+
+msgid "Password changed"
+msgstr "密码已修改"
+
+msgid "Your password has been changed. You can now log in."
+msgstr "你的密码已修改，现在可以登录了。"
+
+msgid "Verify your email · Freemium"
+msgstr "验证邮箱 · Freemium"
+
+msgid "Almost there"
+msgstr "就差一步"
+
+msgid "Verify your email"
+msgstr "验证你的邮箱"
+
+msgid "Confirm email · Freemium"
+msgstr "确认邮箱 · Freemium"
+
+msgid "Confirm your email"
+msgstr "确认你的邮箱"
+
+msgid "Confirm"
+msgstr "确认"
+
+msgid "This email is already confirmed by a different account."
+msgstr "该邮箱已被另一个账户确认。"
+
+msgid ""
+"We've sent you a link to reset your password. If it doesn't arrive in a few "
+"minutes, check your spam folder."
+msgstr "我们已向你发送重置密码的链接。如果几分钟内没有收到，请检查垃圾邮件箱。"
+
+msgid ""
+"This password reset link is invalid or has already been used. Please <a "
+"href=\"%(reset_url)s\">request a new one</a>."
+msgstr "该重置密码链接无效或已被使用。请<a href=\"%(reset_url)s\">重新申请</a>。"
+
+msgid ""
+"We've sent you a verification link. Follow it to finish signing up. If it "
+"doesn't arrive in a few minutes, check your spam folder."
+msgstr "我们已向你发送验证链接。点击它即可完成注册。如果几分钟内没有收到，请检查垃圾邮件箱。"
+
+msgid "Confirm that %(email)s is your email address."
+msgstr "确认 %(email)s 是你的邮箱地址。"
+
+msgid ""
+"This confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">request a new one</a>."
+msgstr "该确认链接已过期或无效。请<a href=\"%(email_url)s\">重新申请</a>。"
 
 msgid "Renews / valid until %(date)s."
 msgstr "续订 / 有效期至 %(date)s。"
@@ -460,3 +734,7 @@ msgstr[0] "%(count)s 个投资组合"
 msgid "%(count)s trade"
 msgid_plural "%(count)s trades"
 msgstr[0] "%(count)s 笔交易"
+
+msgid "%(count)s lot"
+msgid_plural "%(count)s lots"
+msgstr[0] "%(count)s 个批次"

@@ -420,6 +420,192 @@ msgstr "Тестовая оплата"
 msgid "Cancel"
 msgstr "Отмена"
 
+msgid "Tax report"
+msgstr "Налоговый отчёт"
+
+msgid "Realized gains"
+msgstr "Реализованная прибыль"
+
+msgid "Closed positions matched FIFO — proceeds minus cost, per currency."
+msgstr ""
+"Закрытые позиции по методу FIFO — выручка минус себестоимость, по валютам."
+
+msgid "Export CSV"
+msgstr "Экспорт CSV"
+
+msgid "Export Excel"
+msgstr "Экспорт Excel"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Realized gain"
+msgstr "Реализованная прибыль"
+
+msgid "Closed lots"
+msgstr "Закрытые лоты"
+
+msgid "Acquired"
+msgstr "Куплено"
+
+msgid "Disposed"
+msgstr "Продано"
+
+msgid "Cost"
+msgstr "Себестоимость"
+
+msgid "Proceeds"
+msgstr "Выручка"
+
+msgid "Gain"
+msgstr "Прибыль"
+
+msgid "Days"
+msgstr "Дней"
+
+msgid "No realized gains yet"
+msgstr "Реализованной прибыли пока нет"
+
+msgid "Sell some holdings to see a realized-gains tax report here."
+msgstr "Продайте часть позиций, чтобы увидеть здесь налоговый отчёт."
+
+msgid "Back to portfolio"
+msgstr "Назад к портфелю"
+
+msgid "That's a Pro feature. Upgrade to unlock tax reports and exports."
+msgstr ""
+"Это функция Pro. Перейдите на Pro, чтобы открыть налоговые отчёты и экспорт."
+
+msgid "Notifications"
+msgstr "Уведомления"
+
+msgid "Mark all read"
+msgstr "Отметить все прочитанными"
+
+msgid "Preferences"
+msgstr "Настройки"
+
+msgid "No notifications yet"
+msgstr "Уведомлений пока нет"
+
+msgid "Portfolio digests and alerts will show up here."
+msgstr "Здесь появятся дайджесты и оповещения по портфелю."
+
+msgid "Previous"
+msgstr "Предыдущая"
+
+msgid "Next"
+msgstr "Следующая"
+
+msgid "Notification preferences"
+msgstr "Настройки уведомлений"
+
+msgid "Choose how you'd like to hear from us."
+msgstr "Выберите, как вам удобнее получать уведомления."
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Preferences saved."
+msgstr "Настройки сохранены."
+
+msgid "Your portfolio digest"
+msgstr "Дайджест по вашему портфелю"
+
+msgid "Email me portfolio digests & alerts"
+msgstr "Присылать дайджесты и оповещения на email"
+
+msgid "Send to Telegram"
+msgstr "Отправлять в Telegram"
+
+msgid "Telegram chat ID"
+msgstr "ID чата Telegram"
+
+msgid "Export PDF"
+msgstr "Экспорт PDF"
+
+msgid "Import CSV"
+msgstr "Импорт CSV"
+
+msgid "Import"
+msgstr "Импортировать"
+
+msgid "Import trades"
+msgstr "Импорт сделок"
+
+msgid "Import trades from CSV"
+msgstr "Импорт сделок из CSV"
+
+msgid ""
+"Bulk-add trades from a file. Assets must already exist in the catalogue; "
+"invalid rows are reported and skipped."
+msgstr ""
+"Массовое добавление сделок из файла. Активы должны уже быть в каталоге; "
+"неверные строки показываются и пропускаются."
+
+msgid "CSV file"
+msgstr "Файл CSV"
+
+msgid "Expected columns:"
+msgstr "Ожидаемые столбцы:"
+
+msgid "Please choose a CSV file."
+msgstr "Пожалуйста, выберите CSV-файл."
+
+msgid "No rows found in the file."
+msgstr "В файле не найдено строк."
+
+msgid "Imported %(n)s trade(s)."
+msgstr "Импортировано сделок: %(n)s."
+
+msgid "Price alerts"
+msgstr "Оповещения о ценах"
+
+msgid "Get notified when an asset crosses your target price."
+msgstr "Получайте уведомление, когда цена актива достигнет вашей цели."
+
+msgid "+ New alert"
+msgstr "+ Новое оповещение"
+
+msgid "Condition"
+msgstr "Условие"
+
+msgid "Threshold"
+msgstr "Порог"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Triggered"
+msgstr "Сработало"
+
+msgid "No price alerts yet"
+msgstr "Оповещений пока нет"
+
+msgid "Create an alert to be notified when an asset hits your target."
+msgstr "Создайте оповещение, чтобы узнать, когда актив достигнет цели."
+
+msgid "Create an alert"
+msgstr "Создать оповещение"
+
+msgid "New price alert"
+msgstr "Новое оповещение о цене"
+
+msgid "Create alert"
+msgstr "Создать оповещение"
+
+msgid "Delete this alert?"
+msgstr "Удалить это оповещение?"
+
+msgid "Price alert created."
+msgstr "Оповещение создано."
+
+msgid "Price alert: %(ticker)s"
+msgstr "Оповещение о цене: %(ticker)s"
+
+msgid "%(ticker)s is now %(price)s (target %(arrow)s %(threshold)s)."
+msgstr "%(ticker)s сейчас %(price)s (цель %(arrow)s %(threshold)s)."
+
 msgid "Confirm your Pro upgrade"
 msgstr "Подтвердите переход на Pro"
 
@@ -441,6 +627,107 @@ msgstr "Теперь у вас Pro — спасибо!"
 
 msgid "Your subscription was cancelled."
 msgstr "Ваша подписка отменена."
+
+msgid "Password reset"
+msgstr "Сброс пароля"
+
+msgid "Reset your password"
+msgstr "Сбросьте пароль"
+
+msgid "Enter your email and we'll send reset instructions."
+msgstr "Введите email — мы отправим инструкции для сброса."
+
+msgid "Send reset email"
+msgstr "Отправить письмо"
+
+msgid "Back to log in"
+msgstr "Назад ко входу"
+
+msgid "Log out · Freemium"
+msgstr "Выход · Freemium"
+
+msgid "Are you sure you want to log out?"
+msgstr "Вы уверены, что хотите выйти?"
+
+msgid "Check your email · Freemium"
+msgstr "Проверьте почту · Freemium"
+
+msgid "Check your email"
+msgstr "Проверьте почту"
+
+msgid "Set a new password · Freemium"
+msgstr "Новый пароль · Freemium"
+
+msgid "Invalid link"
+msgstr "Недействительная ссылка"
+
+msgid "Set a new password"
+msgstr "Установите новый пароль"
+
+msgid "Change password"
+msgstr "Изменить пароль"
+
+msgid "Password changed · Freemium"
+msgstr "Пароль изменён · Freemium"
+
+msgid "Password changed"
+msgstr "Пароль изменён"
+
+msgid "Your password has been changed. You can now log in."
+msgstr "Ваш пароль изменён. Теперь вы можете войти."
+
+msgid "Verify your email · Freemium"
+msgstr "Подтвердите email · Freemium"
+
+msgid "Almost there"
+msgstr "Почти готово"
+
+msgid "Verify your email"
+msgstr "Подтвердите email"
+
+msgid "Confirm email · Freemium"
+msgstr "Подтверждение email · Freemium"
+
+msgid "Confirm your email"
+msgstr "Подтвердите ваш email"
+
+msgid "Confirm"
+msgstr "Подтвердить"
+
+msgid "This email is already confirmed by a different account."
+msgstr "Этот email уже подтверждён другим аккаунтом."
+
+msgid ""
+"We've sent you a link to reset your password. If it doesn't arrive in a few "
+"minutes, check your spam folder."
+msgstr ""
+"Мы отправили ссылку для сброса пароля. Если письмо не пришло за несколько "
+"минут, проверьте папку «Спам»."
+
+msgid ""
+"This password reset link is invalid or has already been used. Please <a "
+"href=\"%(reset_url)s\">request a new one</a>."
+msgstr ""
+"Ссылка для сброса пароля недействительна или уже использована. Пожалуйста, "
+"<a href=\"%(reset_url)s\">запросите новую</a>."
+
+msgid ""
+"We've sent you a verification link. Follow it to finish signing up. If it "
+"doesn't arrive in a few minutes, check your spam folder."
+msgstr ""
+"Мы отправили ссылку для подтверждения. Перейдите по ней, чтобы завершить "
+"регистрацию. Если письмо не пришло за несколько минут, проверьте папку "
+"«Спам»."
+
+msgid "Confirm that %(email)s is your email address."
+msgstr "Подтвердите, что %(email)s — ваш адрес электронной почты."
+
+msgid ""
+"This confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">request a new one</a>."
+msgstr ""
+"Ссылка для подтверждения недействительна или устарела. Пожалуйста, <a "
+"href=\"%(email_url)s\">запросите новую</a>."
 
 msgid "Renews / valid until %(date)s."
 msgstr "Продление / действует до %(date)s."
@@ -487,3 +774,9 @@ msgid_plural "%(count)s trades"
 msgstr[0] "%(count)s сделка"
 msgstr[1] "%(count)s сделки"
 msgstr[2] "%(count)s сделок"
+
+msgid "%(count)s lot"
+msgid_plural "%(count)s lots"
+msgstr[0] "%(count)s лот"
+msgstr[1] "%(count)s лота"
+msgstr[2] "%(count)s лотов"

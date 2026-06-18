@@ -419,6 +419,192 @@ msgstr "Pago de prueba"
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Tax report"
+msgstr "Informe fiscal"
+
+msgid "Realized gains"
+msgstr "Ganancias realizadas"
+
+msgid "Closed positions matched FIFO — proceeds minus cost, per currency."
+msgstr "Posiciones cerradas con FIFO — ingresos menos coste, por divisa."
+
+msgid "Export CSV"
+msgstr "Exportar CSV"
+
+msgid "Export Excel"
+msgstr "Exportar Excel"
+
+msgid "Back"
+msgstr "Volver"
+
+msgid "Realized gain"
+msgstr "Ganancia realizada"
+
+msgid "Closed lots"
+msgstr "Lotes cerrados"
+
+msgid "Acquired"
+msgstr "Comprado"
+
+msgid "Disposed"
+msgstr "Vendido"
+
+msgid "Cost"
+msgstr "Coste"
+
+msgid "Proceeds"
+msgstr "Ingresos"
+
+msgid "Gain"
+msgstr "Ganancia"
+
+msgid "Days"
+msgstr "Días"
+
+msgid "No realized gains yet"
+msgstr "Aún no hay ganancias realizadas"
+
+msgid "Sell some holdings to see a realized-gains tax report here."
+msgstr "Vende algunas posiciones para ver aquí un informe fiscal."
+
+msgid "Back to portfolio"
+msgstr "Volver a la cartera"
+
+msgid "That's a Pro feature. Upgrade to unlock tax reports and exports."
+msgstr ""
+"Es una función Pro. Mejora a Pro para desbloquear informes y exportaciones."
+
+msgid "Notifications"
+msgstr "Notificaciones"
+
+msgid "Mark all read"
+msgstr "Marcar todo como leído"
+
+msgid "Preferences"
+msgstr "Preferencias"
+
+msgid "No notifications yet"
+msgstr "Aún no hay notificaciones"
+
+msgid "Portfolio digests and alerts will show up here."
+msgstr "Aquí aparecerán resúmenes y alertas de tu cartera."
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Notification preferences"
+msgstr "Preferencias de notificaciones"
+
+msgid "Choose how you'd like to hear from us."
+msgstr "Elige cómo prefieres que te contactemos."
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Preferences saved."
+msgstr "Preferencias guardadas."
+
+msgid "Your portfolio digest"
+msgstr "Resumen de tu cartera"
+
+msgid "Email me portfolio digests & alerts"
+msgstr "Enviarme resúmenes y alertas por correo"
+
+msgid "Send to Telegram"
+msgstr "Enviar a Telegram"
+
+msgid "Telegram chat ID"
+msgstr "ID de chat de Telegram"
+
+msgid "Export PDF"
+msgstr "Exportar PDF"
+
+msgid "Import CSV"
+msgstr "Importar CSV"
+
+msgid "Import"
+msgstr "Importar"
+
+msgid "Import trades"
+msgstr "Importar operaciones"
+
+msgid "Import trades from CSV"
+msgstr "Importar operaciones desde CSV"
+
+msgid ""
+"Bulk-add trades from a file. Assets must already exist in the catalogue; "
+"invalid rows are reported and skipped."
+msgstr ""
+"Añade operaciones en masa desde un archivo. Los activos deben existir ya en "
+"el catálogo; las filas inválidas se informan y se omiten."
+
+msgid "CSV file"
+msgstr "Archivo CSV"
+
+msgid "Expected columns:"
+msgstr "Columnas esperadas:"
+
+msgid "Please choose a CSV file."
+msgstr "Por favor, elige un archivo CSV."
+
+msgid "No rows found in the file."
+msgstr "No se encontraron filas en el archivo."
+
+msgid "Imported %(n)s trade(s)."
+msgstr "Operaciones importadas: %(n)s."
+
+msgid "Price alerts"
+msgstr "Alertas de precio"
+
+msgid "Get notified when an asset crosses your target price."
+msgstr "Recibe un aviso cuando un activo cruce tu precio objetivo."
+
+msgid "+ New alert"
+msgstr "+ Nueva alerta"
+
+msgid "Condition"
+msgstr "Condición"
+
+msgid "Threshold"
+msgstr "Umbral"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Triggered"
+msgstr "Activada"
+
+msgid "No price alerts yet"
+msgstr "Aún no hay alertas"
+
+msgid "Create an alert to be notified when an asset hits your target."
+msgstr "Crea una alerta para enterarte cuando un activo alcance tu objetivo."
+
+msgid "Create an alert"
+msgstr "Crear una alerta"
+
+msgid "New price alert"
+msgstr "Nueva alerta de precio"
+
+msgid "Create alert"
+msgstr "Crear alerta"
+
+msgid "Delete this alert?"
+msgstr "¿Eliminar esta alerta?"
+
+msgid "Price alert created."
+msgstr "Alerta creada."
+
+msgid "Price alert: %(ticker)s"
+msgstr "Alerta de precio: %(ticker)s"
+
+msgid "%(ticker)s is now %(price)s (target %(arrow)s %(threshold)s)."
+msgstr ""
+"%(ticker)s está ahora en %(price)s (objetivo %(arrow)s %(threshold)s)."
+
 msgid "Confirm your Pro upgrade"
 msgstr "Confirma tu mejora a Pro"
 
@@ -440,6 +626,106 @@ msgstr "Ya tienes Pro — ¡gracias!"
 
 msgid "Your subscription was cancelled."
 msgstr "Tu suscripción ha sido cancelada."
+
+msgid "Password reset"
+msgstr "Restablecer contraseña"
+
+msgid "Reset your password"
+msgstr "Restablece tu contraseña"
+
+msgid "Enter your email and we'll send reset instructions."
+msgstr "Introduce tu email y te enviaremos instrucciones de restablecimiento."
+
+msgid "Send reset email"
+msgstr "Enviar correo"
+
+msgid "Back to log in"
+msgstr "Volver a iniciar sesión"
+
+msgid "Log out · Freemium"
+msgstr "Cerrar sesión · Freemium"
+
+msgid "Are you sure you want to log out?"
+msgstr "¿Seguro que quieres cerrar sesión?"
+
+msgid "Check your email · Freemium"
+msgstr "Revisa tu correo · Freemium"
+
+msgid "Check your email"
+msgstr "Revisa tu correo"
+
+msgid "Set a new password · Freemium"
+msgstr "Nueva contraseña · Freemium"
+
+msgid "Invalid link"
+msgstr "Enlace no válido"
+
+msgid "Set a new password"
+msgstr "Establece una nueva contraseña"
+
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+msgid "Password changed · Freemium"
+msgstr "Contraseña cambiada · Freemium"
+
+msgid "Password changed"
+msgstr "Contraseña cambiada"
+
+msgid "Your password has been changed. You can now log in."
+msgstr "Tu contraseña ha sido cambiada. Ya puedes iniciar sesión."
+
+msgid "Verify your email · Freemium"
+msgstr "Verifica tu correo · Freemium"
+
+msgid "Almost there"
+msgstr "Casi listo"
+
+msgid "Verify your email"
+msgstr "Verifica tu correo"
+
+msgid "Confirm email · Freemium"
+msgstr "Confirmar correo · Freemium"
+
+msgid "Confirm your email"
+msgstr "Confirma tu correo"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "This email is already confirmed by a different account."
+msgstr "Este correo ya está confirmado por otra cuenta."
+
+msgid ""
+"We've sent you a link to reset your password. If it doesn't arrive in a few "
+"minutes, check your spam folder."
+msgstr ""
+"Te hemos enviado un enlace para restablecer tu contraseña. Si no llega en "
+"unos minutos, revisa tu carpeta de spam."
+
+msgid ""
+"This password reset link is invalid or has already been used. Please <a "
+"href=\"%(reset_url)s\">request a new one</a>."
+msgstr ""
+"El enlace de restablecimiento no es válido o ya se ha usado. Por favor, <a "
+"href=\"%(reset_url)s\">solicita uno nuevo</a>."
+
+msgid ""
+"We've sent you a verification link. Follow it to finish signing up. If it "
+"doesn't arrive in a few minutes, check your spam folder."
+msgstr ""
+"Te hemos enviado un enlace de verificación. Síguelo para terminar el "
+"registro. Si no llega en unos minutos, revisa tu carpeta de spam."
+
+msgid "Confirm that %(email)s is your email address."
+msgstr "Confirma que %(email)s es tu dirección de correo."
+
+msgid ""
+"This confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">request a new one</a>."
+msgstr ""
+"El enlace de confirmación caducó o no es válido. Por favor, <a "
+"href=\"%(email_url)s\">solicita uno nuevo</a>."
 
 msgid "Renews / valid until %(date)s."
 msgstr "Se renueva / válido hasta %(date)s."
@@ -485,3 +771,8 @@ msgid "%(count)s trade"
 msgid_plural "%(count)s trades"
 msgstr[0] "%(count)s operación"
 msgstr[1] "%(count)s operaciones"
+
+msgid "%(count)s lot"
+msgid_plural "%(count)s lots"
+msgstr[0] "%(count)s lote"
+msgstr[1] "%(count)s lotes"

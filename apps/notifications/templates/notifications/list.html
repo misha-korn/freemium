@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Notifications" %} · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{% trans "Account" %}</p>
+    <h1 class="page-header__title">{% trans "Notifications" %}</h1>
+  </div>
+  <div class="cluster">
+    {% if notifications %}
+      <form method="post" action="{% url 'notifications:mark_all_read' %}" class="cluster__inline">
+        {% csrf_token %}
+        <button class="btn btn--ghost" type="submit">{% trans "Mark all read" %}</button>
+      </form>
+    {% endif %}
+    <a class="btn btn--ghost" href="{% url 'marketdata:alert_list' %}">{% trans "Price alerts" %}</a>
+    <a class="btn btn--ghost" href="{% url 'notifications:preferences' %}">{% trans "Preferences" %}</a>
+  </div>
+</div>
+
+{% if notifications %}
+  <div class="table-wrap">
+    {% for n in notifications %}
+      <div class="notif-item {% if not n.is_read %}notif-item--unread{% endif %}">
+        <span class="notif-item__title">{{ n.title }}</span>
+        {% if n.body %}<p class="notif-item__body">{{ n.body }}</p>{% endif %}
+        <span class="notif-item__time">{{ n.created_at|date:"Y-m-d H:i" }}</span>
+      </div>
+    {% endfor %}
+  </div>
+  {% if is_paginated %}
+    <div class="cluster mt-6">
+      {% if page_obj.has_previous %}
+        <a class="btn btn--ghost" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
+      {% endif %}
+      <span class="text-muted">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+        <a class="btn btn--ghost" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% else %}
+  <div class="empty-state">
+    <h2>{% trans "No notifications yet" %}</h2>
+    <p>{% trans "Portfolio digests and alerts will show up here." %}</p>
+  </div>
+{% endif %}
+{% endblock %}

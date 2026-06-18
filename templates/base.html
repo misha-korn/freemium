@@ -7,9 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>{% block title %}Freemium · Investment Tracker{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
-  {# No-flash theme: apply the saved/OS theme before first paint. Must be inline
-     and synchronous — a deferred external script would let a light flash through. #}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}?v={{ STATIC_VERSION }}">
+  {% comment %}
+    No-flash theme: set the saved/OS theme before first paint. Must be inline and
+    synchronous — a deferred external script would let a light flash through.
+  {% endcomment %}
   <script>
     (function () {
       try {
@@ -35,6 +37,10 @@
       <nav class="nav" aria-label="{% trans 'Main navigation' %}">
         {% if user.is_authenticated %}
           <a class="nav__link" href="{% url 'portfolio:list' %}">{% trans "Portfolios" %}</a>
+          <a class="nav__link nav__bell" href="{% url 'notifications:list' %}" aria-label="{% trans 'Notifications' %}" title="{% trans 'Notifications' %}">
+            <span aria-hidden="true">🔔</span>
+            {% if unread_notifications %}<span class="nav__badge">{{ unread_notifications }}</span>{% endif %}
+          </a>
           <a class="nav__link" href="{% url 'accounts:profile' %}">{{ user.get_username }}</a>
         {% else %}
           <a class="nav__link" href="{% url 'billing:pricing' %}">{% trans "Pricing" %}</a>
@@ -91,7 +97,7 @@
     </div>
   </footer>
 
-  <script src="{% static 'js/theme.js' %}" defer></script>
+  <script src="{% static 'js/theme.js' %}?v={{ STATIC_VERSION }}" defer></script>
   {% block extra_body %}{% endblock %}
 </body>
 </html>
