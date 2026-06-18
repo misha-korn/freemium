@@ -115,3 +115,65 @@ def tax_xlsx(portfolio: Portfolio, year: int | None = None) -> bytes:
     stream = io.BytesIO()
     wb.save(stream)
     return stream.getvalue()
+
+
+# --------------------------------------------------------------------------- #
+# PDF (.pdf)
+# --------------------------------------------------------------------------- #
+def tax_pdf(portfolio: Portfolio, year: int | None = None) -> bytes:
+    """A printable realized-gains report: summary table + closed-lot table."""
+    # Imported lazily — reportlab is only needed on the PDF path.
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import A4, landscape
+    from reportlab.lib.styles import getSampleStyleSheet
+    from reportlab.lib.units import cm
+    from reportlab.platypus import (
+        Paragraph,
+        SimpleDocTemplate,
+        Spacer,
+        Table,
+        TableStyle,
+    )
+
+    title = f"Realized gains — {portfolio.name}"
+    if year:
+        title += f" ({year})"
+
+    stream = io.BytesIO()
+    doc = SimpleDocTemplate(stream, pagesize=landscape(A4), title=title)
+    styles = getSampleStyleSheet()
+    story = [Paragraph(title, styles["Title"]), Spacer(1, 0.4 * cm)]
+
+    lots = realized_gains(portfolio, year=year)
+    summary = realized_summary(lots)
+
+    def _styled(table: Table) -> Table:
+        table.setStyle(
+            TableStyle([
+                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#0d9488")),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("FONTSIZE", (0, 0), (-1, -1), 8),
+                ("GRID", (0, 0), (-1, -1), 0.4, colors.HexColor("#cccccc")),
+                ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f3f4f6")]),
+                ("ALIGN", (1, 0), (-1, -1), "RIGHT"),
+            ])
+        )
+        return table
+
+    if summary:
+        story.append(Paragraph("Summary", styles["Heading2"]))
+        sum_data = [["Currency", "Proceeds", "Cost", "Gain", "Lots"]]
+        for currency, totals in summary.items():
+            sum_data.append([
+                currency, _money(totals["proceeds"]), _money(totals["cost"]),
+                _money(totals["gain"]), str(totals["count"]),
+            ])
+        story.append(_styled(Table(sum_data)))
+        story.append(Spacer(1, 0.5 * cm))
+        story.append(Paragraph("Closed lots", styles["Heading2"]))
+        story.append(_styled(Table([_TAX_HEADERS, *_tax_rows(portfolio, year)], repeatRows=1)))
+    else:
+        story.append(Paragraph("No realized gains for this period.", styles["Normal"]))
+
+    doc.build(story)
+    return stream.getvalue()

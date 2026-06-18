@@ -77,6 +77,42 @@ def test_build_portfolio_digest_none_without_portfolios(user):
 
 
 @pytest.mark.django_db
+def test_send_telegram_posts_when_configured(user, settings, monkeypatch):
+    settings.TELEGRAM_BOT_TOKEN = "token123"
+    pref = services.get_preference(user)
+    pref.telegram_enabled = True
+    pref.telegram_chat_id = "555"
+    pref.save()
+
+    calls = {}
+
+    class _Resp:
+        def raise_for_status(self) -> None:
+            return None
+
+    def fake_post(url, **kwargs):
+        calls["url"] = url
+        calls["json"] = kwargs.get("json")
+        return _Resp()
+
+    monkeypatch.setattr("apps.notifications.services.requests.post", fake_post)
+    assert services.send_telegram(pref, "Hello") is True
+    assert "token123" in calls["url"]
+    assert calls["json"]["chat_id"] == "555"
+    assert calls["json"]["text"] == "Hello"
+
+
+@pytest.mark.django_db
+def test_send_telegram_skips_without_token(user, settings):
+    settings.TELEGRAM_BOT_TOKEN = ""
+    pref = services.get_preference(user)
+    pref.telegram_enabled = True
+    pref.telegram_chat_id = "555"
+    pref.save()
+    assert services.send_telegram(pref, "Hi") is False
+
+
+@pytest.mark.django_db
 def test_send_daily_digest_notifies_users_with_holdings(user, settings):
     settings.EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
     mail.outbox = []

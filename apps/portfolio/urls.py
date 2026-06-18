@@ -17,6 +17,8 @@ urlpatterns = [
     ),
     path("<int:pk>/edit/", views.PortfolioUpdateView.as_view(), name="update"),
     path("<int:pk>/delete/", views.PortfolioDeleteView.as_view(), name="delete"),
+    # CSV trade import (Stage 5)
+    path("<int:pk>/import/", views.ImportTradesView.as_view(), name="import_trades"),
     # Pro: tax report + exports (Stage 5)
     path("<int:pk>/tax/", views.TaxReportView.as_view(), name="tax_report"),
     path("<int:pk>/tax/<int:year>/", views.TaxReportView.as_view(), name="tax_report_year"),
@@ -27,6 +29,7 @@ urlpatterns = [
     ),
     path("<int:pk>/export/tax.csv", views.ExportTaxCsvView.as_view(), name="export_tax_csv"),
     path("<int:pk>/export/tax.xlsx", views.ExportTaxXlsxView.as_view(), name="export_tax_xlsx"),
+    path("<int:pk>/export/tax.pdf", views.ExportTaxPdfView.as_view(), name="export_tax_pdf"),
     path(
         "<int:pk>/transactions/new/",
         views.TransactionCreateView.as_view(),

@@ -34,7 +34,7 @@ class MarkAllReadView(LoginRequiredMixin, View):
 
 class PreferencesView(LoginRequiredMixin, UpdateView):
     model = NotificationPreference
-    fields = ["email_enabled"]
+    fields = ["email_enabled", "telegram_enabled", "telegram_chat_id"]
     template_name = "notifications/preferences.html"
     success_url = reverse_lazy("notifications:preferences")
 
@@ -44,6 +44,9 @@ class PreferencesView(LoginRequiredMixin, UpdateView):
     def get_form(self, form_class: Any = None) -> Any:
         form = super().get_form(form_class)
         form.fields["email_enabled"].label = _("Email me portfolio digests & alerts")
+        form.fields["telegram_enabled"].label = _("Send to Telegram")
+        form.fields["telegram_chat_id"].label = _("Telegram chat ID")
+        form.fields["telegram_chat_id"].required = False
         return form
 
     def form_valid(self, form: Any) -> HttpResponse:

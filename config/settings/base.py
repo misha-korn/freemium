@@ -290,6 +290,13 @@ FREE_MAX_PORTFOLIOS = env.int("FREE_MAX_PORTFOLIOS", default=1)
 BILLING_WEBHOOK_SECRET = env("BILLING_WEBHOOK_SECRET", default="dev-webhook-secret")
 
 # --------------------------------------------------------------------------- #
+# Notifications (Stage 5)
+# --------------------------------------------------------------------------- #
+# Telegram Bot API token for digest/alert delivery. Empty -> Telegram disabled
+# (in-app + email still work); set a real bot token to enable.
+TELEGRAM_BOT_TOKEN = env("TELEGRAM_BOT_TOKEN", default="")
+
+# --------------------------------------------------------------------------- #
 # Logging
 # --------------------------------------------------------------------------- #
 LOGGING = {

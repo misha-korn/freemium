@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, QuerySet
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views import View
@@ -25,6 +25,7 @@ from apps.marketdata.tasks import refresh_quote
 from . import exports
 from .allocation import build_allocation, chart_payload
 from .forms import AssetForm, PortfolioForm, TransactionForm
+from .imports import import_trades_csv
 from .models import Asset, Portfolio, Transaction
 from .overview import build_account_overview
 from .services import compute_positions
@@ -255,6 +256,38 @@ class AssetCreateView(LoginRequiredMixin, CreateView):
 
 
 # --------------------------------------------------------------------------- #
+# CSV trade import (Stage 5 — broker-import stand-in)
+# --------------------------------------------------------------------------- #
+class ImportTradesView(LoginRequiredMixin, View):
+    template_name = "portfolio/import_trades.html"
+
+    def _portfolio(self, request: HttpRequest, pk: int) -> Portfolio:
+        return get_object_or_404(Portfolio, pk=pk, owner=request.user)
+
+    def get(self, request: HttpRequest, pk: int, *a: Any, **k: Any) -> HttpResponse:
+        return render(request, self.template_name, {"portfolio": self._portfolio(request, pk)})
+
+    def post(self, request: HttpRequest, pk: int, *a: Any, **k: Any) -> HttpResponse:
+        portfolio = self._portfolio(request, pk)
+        upload = request.FILES.get("file")
+        if upload is None:
+            messages.error(request, _("Please choose a CSV file."))
+            return redirect("portfolio:import_trades", pk=pk)
+
+        result = import_trades_csv(portfolio, upload.read())
+        if result["created"]:
+            messages.success(
+                request,
+                _("Imported %(n)s trade(s).") % {"n": result["created"]},
+            )
+        for error in result["errors"][:10]:
+            messages.warning(request, error)
+        if not result["created"] and not result["errors"]:
+            messages.info(request, _("No rows found in the file."))
+        return redirect(portfolio.get_absolute_url())
+
+
+# --------------------------------------------------------------------------- #
 # Pro: tax report + exports (Stage 5)
 # --------------------------------------------------------------------------- #
 class _ProRequiredMixin(LoginRequiredMixin):
@@ -329,6 +362,17 @@ class ExportTaxXlsxView(_ProRequiredMixin, View):
             exports.tax_xlsx(portfolio, year),
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             f"{portfolio.name}-tax-{year or 'all'}.xlsx",
+        )
+
+
+class ExportTaxPdfView(_ProRequiredMixin, View):
+    def get(self, request: HttpRequest, pk: int, *a: Any, **k: Any) -> HttpResponse:
+        portfolio = _owned_portfolio(request, pk)
+        year = _parse_year(request)
+        return _download(
+            exports.tax_pdf(portfolio, year),
+            "application/pdf",
+            f"{portfolio.name}-tax-{year or 'all'}.pdf",
         )
 
 

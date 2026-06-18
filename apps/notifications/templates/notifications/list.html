@@ -15,6 +15,7 @@
         <button class="btn btn--ghost" type="submit">{% trans "Mark all read" %}</button>
       </form>
     {% endif %}
+    <a class="btn btn--ghost" href="{% url 'marketdata:alert_list' %}">{% trans "Price alerts" %}</a>
     <a class="btn btn--ghost" href="{% url 'notifications:preferences' %}">{% trans "Preferences" %}</a>
   </div>
 </div>

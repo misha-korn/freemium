@@ -55,6 +55,10 @@ def store_quote(asset: Asset, quote: Quote) -> PriceQuote:
         logger.info(
             "Stored quote %s %s for %s", quote.price, quote.currency, asset.ticker
         )
+        # Evaluate price alerts only on a genuinely new observation.
+        from .alerts import check_price_alerts
+
+        check_price_alerts(asset, quote.price)
     return price_quote
 
 

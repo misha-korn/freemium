@@ -394,6 +394,75 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "Enviarme resúmenes y alertas por correo",
         "通过邮件向我发送摘要和提醒",
     ),
+    "Send to Telegram": ("Отправлять в Telegram", "Enviar a Telegram", "发送到 Telegram"),
+    "Telegram chat ID": ("ID чата Telegram", "ID de chat de Telegram", "Telegram 聊天 ID"),
+    # --- Stage 5: PDF export + CSV import + price alerts ---
+    "Export PDF": ("Экспорт PDF", "Exportar PDF", "导出 PDF"),
+    "Import CSV": ("Импорт CSV", "Importar CSV", "导入 CSV"),
+    "Import": ("Импортировать", "Importar", "导入"),
+    "Import trades": ("Импорт сделок", "Importar operaciones", "导入交易"),
+    "Import trades from CSV": (
+        "Импорт сделок из CSV",
+        "Importar operaciones desde CSV",
+        "从 CSV 导入交易",
+    ),
+    "Bulk-add trades from a file. Assets must already exist in the catalogue; "
+    "invalid rows are reported and skipped.": (
+        "Массовое добавление сделок из файла. Активы должны уже быть в каталоге; "
+        "неверные строки показываются и пропускаются.",
+        "Añade operaciones en masa desde un archivo. Los activos deben existir ya "
+        "en el catálogo; las filas inválidas se informan y se omiten.",
+        "从文件批量添加交易。资产须已存在于目录中；无效行将被报告并跳过。",
+    ),
+    "CSV file": ("Файл CSV", "Archivo CSV", "CSV 文件"),
+    "Expected columns:": ("Ожидаемые столбцы:", "Columnas esperadas:", "预期列："),
+    "Please choose a CSV file.": (
+        "Пожалуйста, выберите CSV-файл.",
+        "Por favor, elige un archivo CSV.",
+        "请选择一个 CSV 文件。",
+    ),
+    "No rows found in the file.": (
+        "В файле не найдено строк.",
+        "No se encontraron filas en el archivo.",
+        "文件中未找到数据行。",
+    ),
+    "Imported %(n)s trade(s).": (
+        "Импортировано сделок: %(n)s.",
+        "Operaciones importadas: %(n)s.",
+        "已导入 %(n)s 笔交易。",
+    ),
+    "Price alerts": ("Оповещения о ценах", "Alertas de precio", "价格提醒"),
+    "Get notified when an asset crosses your target price.": (
+        "Получайте уведомление, когда цена актива достигнет вашей цели.",
+        "Recibe un aviso cuando un activo cruce tu precio objetivo.",
+        "当资产价格达到你的目标时收到通知。",
+    ),
+    "+ New alert": ("+ Новое оповещение", "+ Nueva alerta", "+ 新建提醒"),
+    "Condition": ("Условие", "Condición", "条件"),
+    "Threshold": ("Порог", "Umbral", "阈值"),
+    "Status": ("Статус", "Estado", "状态"),
+    "Triggered": ("Сработало", "Activada", "已触发"),
+    "No price alerts yet": ("Оповещений пока нет", "Aún no hay alertas", "暂无价格提醒"),
+    "Create an alert to be notified when an asset hits your target.": (
+        "Создайте оповещение, чтобы узнать, когда актив достигнет цели.",
+        "Crea una alerta para enterarte cuando un activo alcance tu objetivo.",
+        "创建提醒，当资产达到目标时通知你。",
+    ),
+    "Create an alert": ("Создать оповещение", "Crear una alerta", "创建提醒"),
+    "New price alert": ("Новое оповещение о цене", "Nueva alerta de precio", "新建价格提醒"),
+    "Create alert": ("Создать оповещение", "Crear alerta", "创建提醒"),
+    "Delete this alert?": ("Удалить это оповещение?", "¿Eliminar esta alerta?", "删除此提醒？"),
+    "Price alert created.": ("Оповещение создано.", "Alerta creada.", "提醒已创建。"),
+    "Price alert: %(ticker)s": (
+        "Оповещение о цене: %(ticker)s",
+        "Alerta de precio: %(ticker)s",
+        "价格提醒：%(ticker)s",
+    ),
+    "%(ticker)s is now %(price)s (target %(arrow)s %(threshold)s).": (
+        "%(ticker)s сейчас %(price)s (цель %(arrow)s %(threshold)s).",
+        "%(ticker)s está ahora en %(price)s (objetivo %(arrow)s %(threshold)s).",
+        "%(ticker)s 现价 %(price)s（目标 %(arrow)s %(threshold)s）。",
+    ),
     "Confirm your Pro upgrade": (
         "Подтвердите переход на Pro",
         "Confirma tu mejora a Pro",

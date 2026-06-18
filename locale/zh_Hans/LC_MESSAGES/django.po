@@ -499,6 +499,95 @@ msgstr "你的投资组合摘要"
 msgid "Email me portfolio digests & alerts"
 msgstr "通过邮件向我发送摘要和提醒"
 
+msgid "Send to Telegram"
+msgstr "发送到 Telegram"
+
+msgid "Telegram chat ID"
+msgstr "Telegram 聊天 ID"
+
+msgid "Export PDF"
+msgstr "导出 PDF"
+
+msgid "Import CSV"
+msgstr "导入 CSV"
+
+msgid "Import"
+msgstr "导入"
+
+msgid "Import trades"
+msgstr "导入交易"
+
+msgid "Import trades from CSV"
+msgstr "从 CSV 导入交易"
+
+msgid ""
+"Bulk-add trades from a file. Assets must already exist in the catalogue; "
+"invalid rows are reported and skipped."
+msgstr "从文件批量添加交易。资产须已存在于目录中；无效行将被报告并跳过。"
+
+msgid "CSV file"
+msgstr "CSV 文件"
+
+msgid "Expected columns:"
+msgstr "预期列："
+
+msgid "Please choose a CSV file."
+msgstr "请选择一个 CSV 文件。"
+
+msgid "No rows found in the file."
+msgstr "文件中未找到数据行。"
+
+msgid "Imported %(n)s trade(s)."
+msgstr "已导入 %(n)s 笔交易。"
+
+msgid "Price alerts"
+msgstr "价格提醒"
+
+msgid "Get notified when an asset crosses your target price."
+msgstr "当资产价格达到你的目标时收到通知。"
+
+msgid "+ New alert"
+msgstr "+ 新建提醒"
+
+msgid "Condition"
+msgstr "条件"
+
+msgid "Threshold"
+msgstr "阈值"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Triggered"
+msgstr "已触发"
+
+msgid "No price alerts yet"
+msgstr "暂无价格提醒"
+
+msgid "Create an alert to be notified when an asset hits your target."
+msgstr "创建提醒，当资产达到目标时通知你。"
+
+msgid "Create an alert"
+msgstr "创建提醒"
+
+msgid "New price alert"
+msgstr "新建价格提醒"
+
+msgid "Create alert"
+msgstr "创建提醒"
+
+msgid "Delete this alert?"
+msgstr "删除此提醒？"
+
+msgid "Price alert created."
+msgstr "提醒已创建。"
+
+msgid "Price alert: %(ticker)s"
+msgstr "价格提醒：%(ticker)s"
+
+msgid "%(ticker)s is now %(price)s (target %(arrow)s %(threshold)s)."
+msgstr "%(ticker)s 现价 %(price)s（目标 %(arrow)s %(threshold)s）。"
+
 msgid "Confirm your Pro upgrade"
 msgstr "确认升级到 Pro"
 

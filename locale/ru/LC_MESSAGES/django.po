@@ -515,6 +515,97 @@ msgstr "Дайджест по вашему портфелю"
 msgid "Email me portfolio digests & alerts"
 msgstr "Присылать дайджесты и оповещения на email"
 
+msgid "Send to Telegram"
+msgstr "Отправлять в Telegram"
+
+msgid "Telegram chat ID"
+msgstr "ID чата Telegram"
+
+msgid "Export PDF"
+msgstr "Экспорт PDF"
+
+msgid "Import CSV"
+msgstr "Импорт CSV"
+
+msgid "Import"
+msgstr "Импортировать"
+
+msgid "Import trades"
+msgstr "Импорт сделок"
+
+msgid "Import trades from CSV"
+msgstr "Импорт сделок из CSV"
+
+msgid ""
+"Bulk-add trades from a file. Assets must already exist in the catalogue; "
+"invalid rows are reported and skipped."
+msgstr ""
+"Массовое добавление сделок из файла. Активы должны уже быть в каталоге; "
+"неверные строки показываются и пропускаются."
+
+msgid "CSV file"
+msgstr "Файл CSV"
+
+msgid "Expected columns:"
+msgstr "Ожидаемые столбцы:"
+
+msgid "Please choose a CSV file."
+msgstr "Пожалуйста, выберите CSV-файл."
+
+msgid "No rows found in the file."
+msgstr "В файле не найдено строк."
+
+msgid "Imported %(n)s trade(s)."
+msgstr "Импортировано сделок: %(n)s."
+
+msgid "Price alerts"
+msgstr "Оповещения о ценах"
+
+msgid "Get notified when an asset crosses your target price."
+msgstr "Получайте уведомление, когда цена актива достигнет вашей цели."
+
+msgid "+ New alert"
+msgstr "+ Новое оповещение"
+
+msgid "Condition"
+msgstr "Условие"
+
+msgid "Threshold"
+msgstr "Порог"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Triggered"
+msgstr "Сработало"
+
+msgid "No price alerts yet"
+msgstr "Оповещений пока нет"
+
+msgid "Create an alert to be notified when an asset hits your target."
+msgstr "Создайте оповещение, чтобы узнать, когда актив достигнет цели."
+
+msgid "Create an alert"
+msgstr "Создать оповещение"
+
+msgid "New price alert"
+msgstr "Новое оповещение о цене"
+
+msgid "Create alert"
+msgstr "Создать оповещение"
+
+msgid "Delete this alert?"
+msgstr "Удалить это оповещение?"
+
+msgid "Price alert created."
+msgstr "Оповещение создано."
+
+msgid "Price alert: %(ticker)s"
+msgstr "Оповещение о цене: %(ticker)s"
+
+msgid "%(ticker)s is now %(price)s (target %(arrow)s %(threshold)s)."
+msgstr "%(ticker)s сейчас %(price)s (цель %(arrow)s %(threshold)s)."
+
 msgid "Confirm your Pro upgrade"
 msgstr "Подтвердите переход на Pro"
 

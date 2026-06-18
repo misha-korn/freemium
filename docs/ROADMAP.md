@@ -88,13 +88,22 @@
 - [x] **Notifications** — in-app list + unread nav badge, per-user email
       preference, and a daily **portfolio digest** (Celery Beat → in-app + email
       for opted-in users); `notifications.services` / `tasks`
-- [ ] PDF export (CSV/Excel shipped first; PDF needs a renderer)
-- [ ] Telegram digests & price alerts (email digest shipped; Telegram channel +
-      per-asset price triggers next)
-- [ ] Broker auto-import (e.g. Tinkoff Invest API) — needs broker API keys
+- [x] **PDF export** of the tax report (`exports.tax_pdf`, reportlab) alongside
+      CSV/Excel; Pro-gated
+- [x] **Price alerts** — `marketdata.PriceAlert` + CRUD; evaluated when a quote
+      is stored (`marketdata.alerts.check_price_alerts`), fire once → notify
+- [x] **Telegram delivery** — best-effort via Bot API (`TELEGRAM_BOT_TOKEN`);
+      `notify_user` fans out to email + Telegram per the user's preferences
+- [x] **CSV trade import** (`portfolio.imports`) — a keyless stand-in for broker
+      auto-import: upload a CSV, valid rows become trades, bad rows are reported
+- [ ] Live broker auto-import (e.g. Tinkoff Invest API) — needs broker API keys
 
 ### Stage 5 notes
 - Realized gains use **FIFO**; figures stay per-currency (never mixed without FX),
   consistent with the rest of the app. Money is Decimal; exports round to 2dp.
 - Tax report + exports are **Pro features** (`_ProRequiredMixin` → upsell to
-  pricing for Free users).
+  pricing for Free users). Notifications, alerts and CSV import are available to
+  all signed-in users.
+- Telegram is **best-effort**: with no `TELEGRAM_BOT_TOKEN` it silently no-ops,
+  so in-app + email still work. A live broker API integration is the last
+  remaining item and needs credentials.

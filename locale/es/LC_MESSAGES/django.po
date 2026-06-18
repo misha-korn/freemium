@@ -513,6 +513,98 @@ msgstr "Resumen de tu cartera"
 msgid "Email me portfolio digests & alerts"
 msgstr "Enviarme resúmenes y alertas por correo"
 
+msgid "Send to Telegram"
+msgstr "Enviar a Telegram"
+
+msgid "Telegram chat ID"
+msgstr "ID de chat de Telegram"
+
+msgid "Export PDF"
+msgstr "Exportar PDF"
+
+msgid "Import CSV"
+msgstr "Importar CSV"
+
+msgid "Import"
+msgstr "Importar"
+
+msgid "Import trades"
+msgstr "Importar operaciones"
+
+msgid "Import trades from CSV"
+msgstr "Importar operaciones desde CSV"
+
+msgid ""
+"Bulk-add trades from a file. Assets must already exist in the catalogue; "
+"invalid rows are reported and skipped."
+msgstr ""
+"Añade operaciones en masa desde un archivo. Los activos deben existir ya en "
+"el catálogo; las filas inválidas se informan y se omiten."
+
+msgid "CSV file"
+msgstr "Archivo CSV"
+
+msgid "Expected columns:"
+msgstr "Columnas esperadas:"
+
+msgid "Please choose a CSV file."
+msgstr "Por favor, elige un archivo CSV."
+
+msgid "No rows found in the file."
+msgstr "No se encontraron filas en el archivo."
+
+msgid "Imported %(n)s trade(s)."
+msgstr "Operaciones importadas: %(n)s."
+
+msgid "Price alerts"
+msgstr "Alertas de precio"
+
+msgid "Get notified when an asset crosses your target price."
+msgstr "Recibe un aviso cuando un activo cruce tu precio objetivo."
+
+msgid "+ New alert"
+msgstr "+ Nueva alerta"
+
+msgid "Condition"
+msgstr "Condición"
+
+msgid "Threshold"
+msgstr "Umbral"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Triggered"
+msgstr "Activada"
+
+msgid "No price alerts yet"
+msgstr "Aún no hay alertas"
+
+msgid "Create an alert to be notified when an asset hits your target."
+msgstr "Crea una alerta para enterarte cuando un activo alcance tu objetivo."
+
+msgid "Create an alert"
+msgstr "Crear una alerta"
+
+msgid "New price alert"
+msgstr "Nueva alerta de precio"
+
+msgid "Create alert"
+msgstr "Crear alerta"
+
+msgid "Delete this alert?"
+msgstr "¿Eliminar esta alerta?"
+
+msgid "Price alert created."
+msgstr "Alerta creada."
+
+msgid "Price alert: %(ticker)s"
+msgstr "Alerta de precio: %(ticker)s"
+
+msgid "%(ticker)s is now %(price)s (target %(arrow)s %(threshold)s)."
+msgstr ""
+"%(ticker)s está ahora en %(price)s (objetivo %(arrow)s %(threshold)s)."
+
 msgid "Confirm your Pro upgrade"
 msgstr "Confirma tu mejora a Pro"
 

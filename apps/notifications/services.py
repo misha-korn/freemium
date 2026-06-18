@@ -4,6 +4,8 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+import requests
+from django.conf import settings
 from django.core.mail import send_mail
 
 from .models import Notification, NotificationPreference
@@ -38,11 +40,32 @@ def notify_user(
     *,
     email: bool = True,
 ) -> Notification:
-    """Create an in-app notification and email it when the user opted in."""
+    """Create an in-app notification and fan it out to the user's enabled channels."""
     note = notify(user, kind, title, body)
-    if email and get_preference(user).email_enabled:
+    pref = get_preference(user)
+    if email and pref.email_enabled:
         send_email_notification(note)
+    if pref.telegram_enabled and pref.telegram_chat_id:
+        send_telegram(pref, f"{title}\n{body}".strip())
     return note
+
+
+def send_telegram(pref: NotificationPreference, text: str) -> bool:
+    """Best-effort Telegram delivery. No-ops (returns False) when unconfigured."""
+    token = settings.TELEGRAM_BOT_TOKEN
+    if not token or not pref.telegram_enabled or not pref.telegram_chat_id:
+        return False
+    try:
+        response = requests.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            json={"chat_id": pref.telegram_chat_id, "text": text},
+            timeout=10,
+        )
+        response.raise_for_status()
+    except Exception as exc:  # noqa: BLE001 - log + report failure, never silent
+        logger.warning("Telegram delivery failed for %s: %s", pref.user, exc)
+        return False
+    return True
 
 
 def unread_count(user: AbstractBaseUser) -> int:

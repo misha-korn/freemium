@@ -77,6 +77,16 @@ def test_export_tax_xlsx_for_pro(auth_client, user):
 
 
 @pytest.mark.django_db
+def test_export_tax_pdf_for_pro(auth_client, user):
+    pf = _portfolio_with_realized_gain(user)
+    subscriptions.activate_pro(user, provider="dev")
+    resp = auth_client.get(reverse("portfolio:export_tax_pdf", kwargs={"pk": pf.pk}))
+    assert resp.status_code == 200
+    assert resp["Content-Type"] == "application/pdf"
+    assert resp.content[:5] == b"%PDF-"  # PDF magic header
+
+
+@pytest.mark.django_db
 def test_export_transactions_csv_for_pro(auth_client, user):
     pf = _portfolio_with_realized_gain(user)
     subscriptions.activate_pro(user, provider="dev")

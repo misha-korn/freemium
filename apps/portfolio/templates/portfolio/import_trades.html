@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Import trades" %} · {{ portfolio.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{{ portfolio.name }}</p>
+    <h1 class="page-header__title">{% trans "Import trades from CSV" %}</h1>
+    <p class="page-header__sub">{% trans "Bulk-add trades from a file. Assets must already exist in the catalogue; invalid rows are reported and skipped." %}</p>
+  </div>
+</div>
+
+<div class="card form-card">
+  <form class="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="field">
+      <label for="csvfile">{% trans "CSV file" %}</label>
+      <input id="csvfile" type="file" name="file" accept=".csv" required>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">{% trans "Import" %}</button>
+      <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Cancel" %}</a>
+    </div>
+  </form>
+  <p class="text-muted mt-6">{% trans "Expected columns:" %}</p>
+  <p class="text-muted"><code>ticker, market, kind, quantity, price, fee, executed_at</code></p>
+  <p class="text-muted"><code>AAPL,US,BUY,10,150.25,1,2024-01-15</code></p>
+</div>
+{% endblock %}

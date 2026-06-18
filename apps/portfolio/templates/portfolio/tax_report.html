@@ -12,6 +12,7 @@
   <div class="cluster">
     <a class="btn btn--ghost" href="{% url 'portfolio:export_tax_csv' portfolio.pk %}{% if year %}?year={{ year }}{% endif %}">{% trans "Export CSV" %}</a>
     <a class="btn btn--ghost" href="{% url 'portfolio:export_tax_xlsx' portfolio.pk %}{% if year %}?year={{ year }}{% endif %}">{% trans "Export Excel" %}</a>
+    <a class="btn btn--ghost" href="{% url 'portfolio:export_tax_pdf' portfolio.pk %}{% if year %}?year={{ year }}{% endif %}">{% trans "Export PDF" %}</a>
     <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
   </div>
 </div>

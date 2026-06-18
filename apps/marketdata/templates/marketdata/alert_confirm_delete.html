@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Delete alert" %} · Freemium{% endblock %}
+
+{% block content %}
+<div class="card form-card" style="margin-inline:auto;max-width:460px;">
+  <h1 class="card__title">{% trans "Delete this alert?" %}</h1>
+  <p class="text-muted">{{ alert.asset.ticker }} — {{ alert.get_direction_display }} {{ alert.threshold|floatformat:2 }} {{ alert.asset.currency }}</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-actions">
+      <button class="btn btn--danger" type="submit">{% trans "Delete" %}</button>
+      <a class="btn btn--ghost" href="{% url 'marketdata:alert_list' %}">{% trans "Cancel" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
