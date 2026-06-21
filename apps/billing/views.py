@@ -43,6 +43,7 @@ class PricingView(TemplateView):
         ctx = super().get_context_data(**kwargs)
         ctx["pro_price"] = settings.PRO_PRICE_AMOUNT
         ctx["pro_currency"] = settings.PRO_PRICE_CURRENCY
+        ctx["billing_enabled"] = settings.BILLING_ENABLED
         if self.request.user.is_authenticated:
             ctx["is_pro"] = subscriptions.is_pro(self.request.user)
         return ctx
@@ -53,6 +54,12 @@ class UpgradeView(LoginRequiredMixin, View):
     and redirect the user to pay."""
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # Paid checkout is gated behind BILLING_ENABLED. While it's off (no live
+        # provider yet) the upgrade is "coming soon": never start a checkout that
+        # would dead-end, and guard the endpoint against a direct POST.
+        if not settings.BILLING_ENABLED:
+            messages.info(request, _("Paid plans are coming soon."))
+            return redirect("billing:pricing")
         amount = Decimal(str(settings.PRO_PRICE_AMOUNT))
         currency = settings.PRO_PRICE_CURRENCY
         payment = Payment.objects.create(

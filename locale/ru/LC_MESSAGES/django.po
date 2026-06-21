@@ -381,6 +381,15 @@ msgstr "Управление подпиской"
 msgid "Upgrade to Pro"
 msgstr "Перейти на Pro"
 
+msgid "Coming soon"
+msgstr "Скоро"
+
+msgid "Paid plans are coming soon."
+msgstr "Платные тарифы скоро появятся."
+
+msgid "Privacy"
+msgstr "Конфиденциальность"
+
 msgid "Upgrade for more portfolios"
 msgstr "Перейдите на Pro для большего числа портфелей"
 

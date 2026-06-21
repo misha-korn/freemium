@@ -297,6 +297,13 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
     "Current plan": ("Текущий тариф", "Plan actual", "当前方案"),
     "Manage subscription": ("Управление подпиской", "Gestionar suscripción", "管理订阅"),
     "Upgrade to Pro": ("Перейти на Pro", "Cambiar a Pro", "升级到 Pro"),
+    "Coming soon": ("Скоро", "Próximamente", "敬请期待"),
+    "Paid plans are coming soon.": (
+        "Платные тарифы скоро появятся.",
+        "Los planes de pago llegarán pronto.",
+        "付费方案即将推出。",
+    ),
+    "Privacy": ("Конфиденциальность", "Privacidad", "隐私"),
     "Upgrade for more portfolios": (
         "Перейдите на Pro для большего числа портфелей",
         "Mejora para más carteras",

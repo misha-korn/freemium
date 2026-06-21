@@ -381,6 +381,15 @@ msgstr "Gérer l'abonnement"
 msgid "Upgrade to Pro"
 msgstr "Passer à Pro"
 
+msgid "Coming soon"
+msgstr ""
+
+msgid "Paid plans are coming soon."
+msgstr ""
+
+msgid "Privacy"
+msgstr ""
+
 msgid "Upgrade for more portfolios"
 msgstr "Passez à Pro pour plus de portefeuilles"
 

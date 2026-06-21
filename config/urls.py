@@ -11,6 +11,11 @@ urlpatterns = [
     path("accounts/", include("allauth.account.urls")),
     # App routes
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
+    path(
+        "privacy/",
+        TemplateView.as_view(template_name="legal/privacy.html"),
+        name="privacy",
+    ),
     path("u/", include("apps.accounts.urls")),
     path("portfolio/", include("apps.portfolio.urls")),
     path("billing/", include("apps.billing.urls")),

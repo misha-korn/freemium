@@ -7,7 +7,8 @@ from apps.billing.models import Payment
 
 
 @pytest.mark.django_db
-def test_upgrade_creates_pending_payment_and_redirects(auth_client, user):
+def test_upgrade_creates_pending_payment_and_redirects(auth_client, user, settings):
+    settings.BILLING_ENABLED = True
     resp = auth_client.post(reverse("billing:upgrade"))
     assert resp.status_code == 302
 
@@ -26,7 +27,18 @@ def test_upgrade_requires_login(client):
 
 
 @pytest.mark.django_db
-def test_dev_confirm_activates_pro(auth_client, user):
+def test_upgrade_coming_soon_when_billing_disabled(auth_client, user, settings):
+    """With BILLING_ENABLED off, upgrade is a no-op redirect — no broken checkout."""
+    settings.BILLING_ENABLED = False
+    resp = auth_client.post(reverse("billing:upgrade"))
+    assert resp.status_code == 302
+    assert reverse("billing:pricing") in resp.url
+    assert not Payment.objects.filter(user=user).exists()
+
+
+@pytest.mark.django_db
+def test_dev_confirm_activates_pro(auth_client, user, settings):
+    settings.BILLING_ENABLED = True
     auth_client.post(reverse("billing:upgrade"))
     payment = Payment.objects.get(user=user)
 
@@ -54,6 +66,7 @@ def test_dev_confirm_requires_ownership(auth_client, other_user):
 
 @pytest.mark.django_db
 def test_dev_confirm_blocked_for_real_provider(auth_client, user, settings):
+    settings.BILLING_ENABLED = True
     auth_client.post(reverse("billing:upgrade"))
     payment = Payment.objects.get(user=user)
     # In production with a real provider, the simulate-payment page must not exist.
