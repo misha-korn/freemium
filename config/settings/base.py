@@ -145,6 +145,11 @@ ACCOUNT_LOGIN_METHODS = {"username", "email"}
 ACCOUNT_SIGNUP_FIELDS = ["username*", "email*", "password1*", "password2*"]
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_UNIQUE_EMAIL = True
+# Custom allauth forms: clearer login-field label + no always-on password rules.
+ACCOUNT_FORMS = {
+    "login": "apps.accounts.forms.LoginForm",
+    "signup": "apps.accounts.forms.SignupForm",
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
