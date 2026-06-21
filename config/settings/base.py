@@ -282,6 +282,11 @@ FX_RATES: dict[str, dict[str, str]] = {}
 # Active payment provider: "dev" simulates checkout/webhooks for local testing
 # (no keys, no real money); swap to "yookassa"/"stripe" once keys are set.
 BILLING_PROVIDER = env("BILLING_PROVIDER", default="dev")
+# Master switch for paid checkout. Default False: until a real provider
+# (YooKassa/Stripe) is wired with keys, the "Upgrade to Pro" CTA shows a
+# "coming soon" state instead of a broken checkout. Flip to True to sell again —
+# nothing about the plan or feature gating is removed, only the buy button.
+BILLING_ENABLED = env.bool("BILLING_ENABLED", default=False)
 # Pro plan price + billing period. DecimalField/Decimal elsewhere — string here.
 PRO_PRICE_AMOUNT = env("PRO_PRICE_AMOUNT", default="499")
 PRO_PRICE_CURRENCY = env("PRO_PRICE_CURRENCY", default="RUB")

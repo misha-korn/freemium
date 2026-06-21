@@ -380,6 +380,15 @@ msgstr "Abo verwalten"
 msgid "Upgrade to Pro"
 msgstr "Auf Pro upgraden"
 
+msgid "Coming soon"
+msgstr ""
+
+msgid "Paid plans are coming soon."
+msgstr ""
+
+msgid "Privacy"
+msgstr ""
+
 msgid "Upgrade for more portfolios"
 msgstr "Für mehr Portfolios upgraden"
 

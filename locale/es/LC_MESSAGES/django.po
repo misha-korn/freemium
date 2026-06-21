@@ -380,6 +380,15 @@ msgstr "Gestionar suscripción"
 msgid "Upgrade to Pro"
 msgstr "Cambiar a Pro"
 
+msgid "Coming soon"
+msgstr "Próximamente"
+
+msgid "Paid plans are coming soon."
+msgstr "Los planes de pago llegarán pronto."
+
+msgid "Privacy"
+msgstr "Privacidad"
+
 msgid "Upgrade for more portfolios"
 msgstr "Mejora para más carteras"
 

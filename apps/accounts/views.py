@@ -47,4 +47,5 @@ class SubscriptionView(LoginRequiredMixin, TemplateView):
         ).first()
         ctx["pro_price"] = settings.PRO_PRICE_AMOUNT
         ctx["pro_currency"] = settings.PRO_PRICE_CURRENCY
+        ctx["billing_enabled"] = settings.BILLING_ENABLED
         return ctx

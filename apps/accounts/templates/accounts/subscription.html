@@ -56,10 +56,15 @@
         <li>{% trans "Excel/PDF export & tax report" %}</li>
         <li>{% trans "Event notifications" %}</li>
       </ul>
-      <form method="post" action="{% url 'billing:upgrade' %}">
-        {% csrf_token %}
-        <button class="btn btn--primary btn--block" type="submit">{% trans "Upgrade to Pro" %}</button>
-      </form>
+      {% if billing_enabled %}
+        <form method="post" action="{% url 'billing:upgrade' %}">
+          {% csrf_token %}
+          <button class="btn btn--primary btn--block" type="submit">{% trans "Upgrade to Pro" %}</button>
+        </form>
+      {% else %}
+        <button class="btn btn--primary btn--block" type="button" disabled>{% trans "Coming soon" %}</button>
+        <p class="text-muted" style="font-size:0.85rem;">{% trans "Paid plans are coming soon." %}</p>
+      {% endif %}
     </div>
   </div>
 {% endif %}

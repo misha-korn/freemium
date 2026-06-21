@@ -369,6 +369,15 @@ msgstr "管理订阅"
 msgid "Upgrade to Pro"
 msgstr "升级到 Pro"
 
+msgid "Coming soon"
+msgstr "敬请期待"
+
+msgid "Paid plans are coming soon."
+msgstr "付费方案即将推出。"
+
+msgid "Privacy"
+msgstr "隐私"
+
 msgid "Upgrade for more portfolios"
 msgstr "升级以获得更多投资组合"
 
