@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Add asset · Freemium{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Add asset" %} · Freemium{% endblock %}
 
 {% block content %}
 <div class="page-header">
   <div>
-    <h1 class="page-header__title">{% if form.instance.pk %}Edit asset{% else %}Add asset{% endif %}</h1>
-    <p class="page-header__sub">Stocks, ETFs, bonds, currencies or crypto — MOEX or international.</p>
+    <h1 class="page-header__title">{% if form.instance.pk %}{% trans "Edit asset" %}{% else %}{% trans "Add asset" %}{% endif %}</h1>
+    <p class="page-header__sub">{% trans "Stocks, ETFs, bonds, currencies or crypto — MOEX or international." %}</p>
   </div>
 </div>
 
@@ -14,8 +15,8 @@
     {% csrf_token %}
     {% include "partials/form_fields.html" %}
     <div class="form-actions">
-      <button class="btn btn--primary" type="submit">Save</button>
-      <a class="btn btn--ghost" href="{% url 'portfolio:asset_list' %}">Cancel</a>
+      <button class="btn btn--primary" type="submit">{% trans "Save" %}</button>
+      <a class="btn btn--ghost" href="{% url 'portfolio:asset_list' %}">{% trans "Cancel" %}</a>
     </div>
   </form>
 </div>

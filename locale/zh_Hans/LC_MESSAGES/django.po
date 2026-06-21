@@ -727,6 +727,137 @@ msgid ""
 "fetch."
 msgstr "尚无报价：%(tickers)s——点击<strong>刷新价格</strong>获取。"
 
+msgid "OK"
+msgstr "确定"
+
+msgid "Catalogue"
+msgstr "目录"
+
+msgid "Assets"
+msgstr "资产"
+
+msgid "Asset catalogue"
+msgstr "资产目录"
+
+msgid "Shared instrument reference used across all portfolios."
+msgstr "所有投资组合共用的工具参考库。"
+
+msgid "+ Add asset"
+msgstr "+ 添加资产"
+
+msgid "Add asset"
+msgstr "添加资产"
+
+msgid "Edit asset"
+msgstr "编辑资产"
+
+msgid "Stocks, ETFs, bonds, currencies or crypto — MOEX or international."
+msgstr "股票、ETF、债券、货币或加密货币——MOEX 或国际。"
+
+msgid "Ticker"
+msgstr "代码"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "No assets yet"
+msgstr "暂无资产"
+
+msgid ""
+"Add instruments (stocks, ETFs, bonds, crypto) to log trades against them."
+msgstr "添加工具（股票、ETF、债券、加密货币）以便记录交易。"
+
+msgid "Add the first asset"
+msgstr "添加第一个资产"
+
+msgid "Delete asset"
+msgstr "删除资产"
+
+msgid "Delete this asset?"
+msgstr "删除此资产？"
+
+msgid "Asset deleted."
+msgstr "资产已删除。"
+
+msgid "Asset added to the catalogue."
+msgstr "资产已添加到目录。"
+
+msgid "Can't delete %(ticker)s — it still has trades. Remove them first."
+msgstr "无法删除 %(ticker)s——仍有交易记录。请先删除它们。"
+
+msgid "Edit portfolio"
+msgstr "编辑投资组合"
+
+msgid "New portfolio"
+msgstr "新建投资组合"
+
+msgid "Edit trade"
+msgstr "编辑交易"
+
+msgid "Add trade"
+msgstr "添加交易"
+
+msgid "Edit transaction"
+msgstr "编辑交易"
+
+msgid "Add transaction"
+msgstr "添加交易"
+
+msgid "Save trade"
+msgstr "保存交易"
+
+msgid ""
+"You have no assets yet. <a href=\"%(add_asset_url)s\">Add an asset</a> "
+"before logging a trade."
+msgstr "你还没有资产。记录交易前请先<a href=\"%(add_asset_url)s\">添加资产</a>。"
+
+msgid "Delete %(name)s"
+msgstr "删除 %(name)s"
+
+msgid "Delete portfolio?"
+msgstr "删除投资组合？"
+
+msgid ""
+"This permanently deletes <strong>%(name)s</strong> and all of its "
+"transactions. This cannot be undone."
+msgstr "这将永久删除 <strong>%(name)s</strong> 及其所有交易，且无法撤销。"
+
+msgid "Delete permanently"
+msgstr "永久删除"
+
+msgid "Delete transaction?"
+msgstr "删除交易？"
+
+msgid "Profile"
+msgstr "个人资料"
+
+msgid "Edit profile"
+msgstr "编辑个人资料"
+
+msgid "Details"
+msgstr "详情"
+
+msgid "Username:"
+msgstr "用户名："
+
+msgid "Email:"
+msgstr "邮箱："
+
+msgid "Name:"
+msgstr "姓名："
+
+msgid "Pro features unlocked."
+msgstr "Pro 功能已解锁。"
+
+msgid "You're on the Free plan."
+msgstr "你当前是免费方案。"
+
+msgid "No subscription record."
+msgstr "无订阅记录。"
+
+msgid "Export trades (CSV)"
+msgstr "导出交易（CSV）"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"

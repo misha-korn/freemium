@@ -321,7 +321,13 @@ a:hover { text-decoration: underline; }
 .theme-toggle:hover { background: var(--color-surface-2); border-color: var(--color-accent); transform: translateY(-1px); }
 .theme-toggle:focus-visible { outline: 2px solid var(--color-accent-strong); outline-offset: 2px; }
 
-.lang-switcher { margin: 0; display: inline-flex; }
+.lang-switcher { margin: 0; display: inline-flex; gap: var(--space-2); align-items: center; }
+.lang-switcher__go {
+  font: inherit; font-size: var(--text-sm); font-weight: 600; height: 38px; padding: 0 0.7rem;
+  background: var(--color-accent-strong); color: #fff; border: 0;
+  border-radius: var(--radius-sm); cursor: pointer;
+}
+.lang-switcher__go:hover { background: var(--color-accent); }
 .lang-switcher select {
   font: inherit; font-size: var(--text-sm); height: 38px;
   padding: 0 2rem 0 0.75rem; line-height: 1;

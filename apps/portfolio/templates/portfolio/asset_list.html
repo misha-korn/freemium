@@ -1,21 +1,25 @@
 {% extends "base.html" %}
-{% block title %}Assets · Freemium{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Assets" %} · Freemium{% endblock %}
 
 {% block content %}
 <div class="page-header">
   <div>
-    <p class="eyebrow">Catalogue</p>
-    <h1 class="page-header__title">Assets</h1>
-    <p class="page-header__sub">Shared instrument reference used across all portfolios.</p>
+    <p class="eyebrow">{% trans "Catalogue" %}</p>
+    <h1 class="page-header__title">{% trans "Assets" %}</h1>
+    <p class="page-header__sub">{% trans "Shared instrument reference used across all portfolios." %}</p>
   </div>
-  <a class="btn btn--primary" href="{% url 'portfolio:asset_create' %}">+ Add asset</a>
+  <a class="btn btn--primary" href="{% url 'portfolio:asset_create' %}">{% trans "+ Add asset" %}</a>
 </div>
 
 {% if assets %}
   <div class="table-wrap">
     <table class="table">
       <thead>
-        <tr><th>Ticker</th><th>Name</th><th>Type</th><th>Market</th><th>Currency</th></tr>
+        <tr>
+          <th>{% trans "Ticker" %}</th><th>{% trans "Name" %}</th><th>{% trans "Type" %}</th>
+          <th>{% trans "Market" %}</th><th>{% trans "Currency" %}</th><th></th>
+        </tr>
       </thead>
       <tbody>
         {% for a in assets %}
@@ -25,6 +29,7 @@
             <td>{{ a.get_asset_type_display }}</td>
             <td><span class="badge">{{ a.market }}</span></td>
             <td>{{ a.currency }}</td>
+            <td class="text-right"><a href="{% url 'portfolio:asset_delete' a.pk %}">{% trans "delete" %}</a></td>
           </tr>
         {% endfor %}
       </tbody>
@@ -32,16 +37,16 @@
   </div>
   {% if is_paginated %}
     <p class="cluster mt-6">
-      {% if page_obj.has_previous %}<a class="btn btn--ghost" href="?page={{ page_obj.previous_page_number }}">Prev</a>{% endif %}
-      <span class="text-muted">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-      {% if page_obj.has_next %}<a class="btn btn--ghost" href="?page={{ page_obj.next_page_number }}">Next</a>{% endif %}
+      {% if page_obj.has_previous %}<a class="btn btn--ghost" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>{% endif %}
+      <span class="text-muted">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}<a class="btn btn--ghost" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>{% endif %}
     </p>
   {% endif %}
 {% else %}
   <div class="empty-state">
-    <h2>No assets yet</h2>
-    <p>Add instruments (stocks, ETFs, bonds, crypto) to log trades against them.</p>
-    <a class="btn btn--primary mt-6" href="{% url 'portfolio:asset_create' %}">Add the first asset</a>
+    <h2>{% trans "No assets yet" %}</h2>
+    <p>{% trans "Add instruments (stocks, ETFs, bonds, crypto) to log trades against them." %}</p>
+    <a class="btn btn--primary mt-6" href="{% url 'portfolio:asset_create' %}">{% trans "Add the first asset" %}</a>
   </div>
 {% endif %}
 {% endblock %}

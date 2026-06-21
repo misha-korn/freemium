@@ -59,6 +59,9 @@
               <option value="{{ lang.code }}" {% if lang.code == LANGUAGE_CODE %}selected{% endif %}>{{ lang.name_local }}</option>
             {% endfor %}
           </select>
+          {# Submit fallback so language changes work even if JS is off; theme.js
+             hides it and auto-submits on change when JS is available. #}
+          <button class="lang-switcher__go" type="submit">{% trans "OK" %}</button>
         </form>
 
         <button id="theme-toggle" class="theme-toggle" type="button"

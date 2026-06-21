@@ -155,7 +155,12 @@
   </div>
 {% endif %}
 
-<h2 class="card__title mt-6">{% trans "Recent transactions" %}</h2>
+<div class="section-head mt-6">
+  <h2 class="card__title" style="margin:0;">{% trans "Recent transactions" %}</h2>
+  {% if transactions %}
+    <a class="btn btn--ghost" href="{% url 'portfolio:export_transactions_csv' portfolio.pk %}">{% trans "Export trades (CSV)" %}</a>
+  {% endif %}
+</div>
 {% if transactions %}
   <div class="table-wrap">
     <table class="table">
