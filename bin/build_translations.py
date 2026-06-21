@@ -152,6 +152,7 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
     # --- login.html ---
     "Log in · Freemium": ("Войти · Freemium", "Iniciar sesión · Freemium", "登录 · Freemium"),
     "Forgot password?": ("Забыли пароль?", "¿Olvidaste tu contraseña?", "忘记密码？"),
+    "Username or email": ("Имя пользователя или email", "Usuario o correo", "用户名或邮箱"),
     "New here?": ("Впервые здесь?", "¿Nuevo por aquí?", "第一次来？"),
     "Create an account": ("Создать аккаунт", "Crear una cuenta", "创建账户"),
     # --- portfolio_list.html ---

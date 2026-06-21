@@ -31,3 +31,17 @@ def test_public_pages_render(client):
     assert client.get(reverse("home")).status_code == 200
     assert client.get(reverse("account_login")).status_code == 200
     assert client.get(reverse("account_signup")).status_code == 200
+
+
+@pytest.mark.django_db
+def test_login_field_is_relabeled(client):
+    """The credential field is relabeled so it isn't a third 'Log in'/'Войти'."""
+    html = client.get(reverse("account_login")).content.decode()
+    assert "Username or email" in html
+
+
+@pytest.mark.django_db
+def test_signup_hides_standing_password_rules(client):
+    """Password rules don't show as always-on help text (only on violation)."""
+    html = client.get(reverse("account_signup")).content.decode()
+    assert "Your password must contain at least 8 characters" not in html
