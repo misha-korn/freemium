@@ -635,6 +635,13 @@ msgstr "发送重置邮件"
 msgid "Back to log in"
 msgstr "返回登录"
 
+msgid "We've sent you a verification link. Follow it to finish signing up."
+msgstr "我们已向你发送验证链接。点击它即可完成注册。"
+
+msgid ""
+"Don't see the email? Check your Spam / Junk folder — it often lands there."
+msgstr "没看到邮件？请检查垃圾邮件文件夹——它常常会进到那里。"
+
 msgid "Log out · Freemium"
 msgstr "退出 · Freemium"
 

@@ -656,6 +656,13 @@ msgstr "E-Mail senden"
 msgid "Back to log in"
 msgstr "Zurück zur Anmeldung"
 
+msgid "We've sent you a verification link. Follow it to finish signing up."
+msgstr ""
+
+msgid ""
+"Don't see the email? Check your Spam / Junk folder — it often lands there."
+msgstr ""
+
 msgid "Log out · Freemium"
 msgstr "Abmelden · Freemium"
 

@@ -655,6 +655,15 @@ msgstr "Отправить письмо"
 msgid "Back to log in"
 msgstr "Назад ко входу"
 
+msgid "We've sent you a verification link. Follow it to finish signing up."
+msgstr ""
+"Мы отправили вам ссылку для подтверждения. Перейдите по ней, чтобы завершить"
+" регистрацию."
+
+msgid ""
+"Don't see the email? Check your Spam / Junk folder — it often lands there."
+msgstr "Не видите письмо? Проверьте папку «Спам» — оно часто попадает туда."
+
 msgid "Log out · Freemium"
 msgstr "Выход · Freemium"
 
