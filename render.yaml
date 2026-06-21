@@ -8,8 +8,9 @@
 # beat service here. Instead the web service runs Celery tasks eagerly (inline):
 # the "Refresh prices" button fetches quotes synchronously in the request, so it
 # works with no separate worker. The periodic auto-refresh and daily digest need
-# a beat scheduler and are therefore OFF on the free plan — to enable them,
-# upgrade and add `worker` + `beat` services (set CELERY_TASK_ALWAYS_EAGER=False).
+# a beat scheduler and are therefore OFF on the free plan. Ready-to-use worker +
+# beat service blocks are kept (commented out) at the BOTTOM of this file — on a
+# paid plan, uncomment them and flip the web CELERY_TASK_ALWAYS_EAGER to "False".
 #
 # Deploy: push to GitHub, then on Render → "New +" → "Blueprint" and pick this
 # repo. DJANGO_SECRET_KEY is generated; DATABASE_URL / REDIS_URL are wired
@@ -66,3 +67,89 @@ services:
       # Optional: set in the dashboard to enable error monitoring.
       - key: SENTRY_DSN
         sync: false
+
+  # --- Celery worker + beat — PAID PLANS ONLY (commented out) ------------- #
+  # Render's FREE plan has no background workers, so these stay disabled. The
+  # task code (periodic quote refresh + daily digest) is fully present in the
+  # project; only the processes that run it are commented out here, so NOTHING
+  # is lost — re-enable when you move to a paid plan:
+  #   1. Uncomment both service blocks below.
+  #   2. Change each `plan: starter` to the paid plan you want.
+  #   3. Set the web service's CELERY_TASK_ALWAYS_EAGER above to "False" so tasks
+  #      queue to the worker instead of running inline in the web request.
+  #
+  # - type: worker
+  #   name: freemium-worker
+  #   runtime: python
+  #   plan: starter
+  #   buildCommand: "pip install -r requirements/prod.txt"
+  #   startCommand: "celery -A config worker -l info"
+  #   envVars:
+  #     - key: DJANGO_SETTINGS_MODULE
+  #       value: config.settings.prod
+  #     - key: PYTHON_VERSION
+  #       value: "3.13.4"
+  #     - key: DJANGO_SECRET_KEY
+  #       fromService:
+  #         type: web
+  #         name: freemium-web
+  #         envVarKey: DJANGO_SECRET_KEY
+  #     - key: DATABASE_URL
+  #       fromDatabase:
+  #         name: freemium-db
+  #         property: connectionString
+  #     - key: REDIS_URL
+  #       fromService:
+  #         type: redis
+  #         name: freemium-redis
+  #         property: connectionString
+  #     - key: CELERY_BROKER_URL
+  #       fromService:
+  #         type: redis
+  #         name: freemium-redis
+  #         property: connectionString
+  #     - key: CELERY_RESULT_BACKEND
+  #       fromService:
+  #         type: redis
+  #         name: freemium-redis
+  #         property: connectionString
+  #     - key: CELERY_TASK_ALWAYS_EAGER
+  #       value: "False"
+  #
+  # - type: worker
+  #   name: freemium-beat
+  #   runtime: python
+  #   plan: starter
+  #   buildCommand: "pip install -r requirements/prod.txt"
+  #   startCommand: "celery -A config beat -l info"
+  #   envVars:
+  #     - key: DJANGO_SETTINGS_MODULE
+  #       value: config.settings.prod
+  #     - key: PYTHON_VERSION
+  #       value: "3.13.4"
+  #     - key: DJANGO_SECRET_KEY
+  #       fromService:
+  #         type: web
+  #         name: freemium-web
+  #         envVarKey: DJANGO_SECRET_KEY
+  #     - key: DATABASE_URL
+  #       fromDatabase:
+  #         name: freemium-db
+  #         property: connectionString
+  #     - key: REDIS_URL
+  #       fromService:
+  #         type: redis
+  #         name: freemium-redis
+  #         property: connectionString
+  #     - key: CELERY_BROKER_URL
+  #       fromService:
+  #         type: redis
+  #         name: freemium-redis
+  #         property: connectionString
+  #     - key: CELERY_RESULT_BACKEND
+  #       fromService:
+  #         type: redis
+  #         name: freemium-redis
+  #         property: connectionString
+  #     - key: CELERY_TASK_ALWAYS_EAGER
+  #       value: "False"
