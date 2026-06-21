@@ -514,6 +514,16 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
     ),
     "Send reset email": ("Отправить письмо", "Enviar correo", "发送重置邮件"),
     "Back to log in": ("Назад ко входу", "Volver a iniciar sesión", "返回登录"),
+    "We've sent you a verification link. Follow it to finish signing up.": (
+        "Мы отправили вам ссылку для подтверждения. Перейдите по ней, чтобы завершить регистрацию.",
+        "Te hemos enviado un enlace de verificación. Síguelo para terminar el registro.",
+        "我们已向你发送验证链接。点击它即可完成注册。",
+    ),
+    "Don't see the email? Check your Spam / Junk folder — it often lands there.": (
+        "Не видите письмо? Проверьте папку «Спам» — оно часто попадает туда.",
+        "¿No ves el correo? Revisa tu carpeta de Spam — suele acabar ahí.",
+        "没看到邮件？请检查垃圾邮件文件夹——它常常会进到那里。",
+    ),
     "Log out · Freemium": ("Выход · Freemium", "Cerrar sesión · Freemium", "退出 · Freemium"),
     "Are you sure you want to log out?": (
         "Вы уверены, что хотите выйти?",

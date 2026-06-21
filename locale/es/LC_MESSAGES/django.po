@@ -654,6 +654,15 @@ msgstr "Enviar correo"
 msgid "Back to log in"
 msgstr "Volver a iniciar sesión"
 
+msgid "We've sent you a verification link. Follow it to finish signing up."
+msgstr ""
+"Te hemos enviado un enlace de verificación. Síguelo para terminar el "
+"registro."
+
+msgid ""
+"Don't see the email? Check your Spam / Junk folder — it often lands there."
+msgstr "¿No ves el correo? Revisa tu carpeta de Spam — suele acabar ahí."
+
 msgid "Log out · Freemium"
 msgstr "Cerrar sesión · Freemium"
 
