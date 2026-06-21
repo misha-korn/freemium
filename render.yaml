@@ -32,8 +32,9 @@ services:
     runtime: python
     plan: free
     buildCommand: "pip install -r requirements/prod.txt && python manage.py collectstatic --no-input"
-    preDeployCommand: "python manage.py migrate --no-input"
-    startCommand: "gunicorn config.wsgi:application --workers 3 --bind 0.0.0.0:$PORT"
+    # Free tier has no pre-deploy step, so run migrations just before Gunicorn
+    # starts (idempotent; a no-op when there are no new migrations).
+    startCommand: "python manage.py migrate --no-input && gunicorn config.wsgi:application --workers 3 --bind 0.0.0.0:$PORT"
     healthCheckPath: /
     envVars:
       - key: DJANGO_SETTINGS_MODULE
