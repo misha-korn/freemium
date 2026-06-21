@@ -1,0 +1,920 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: freemium 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Skip to content"
+msgstr "Zum Inhalt springen"
+
+msgid "Main navigation"
+msgstr "Hauptnavigation"
+
+msgid "Portfolios"
+msgstr "Portfolios"
+
+msgid "Log in"
+msgstr "Anmelden"
+
+msgid "Get started"
+msgstr "Loslegen"
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Toggle dark theme"
+msgstr "Dunkles Design umschalten"
+
+msgid "Log out"
+msgstr "Abmelden"
+
+msgid "Track. Analyse. Grow your portfolio."
+msgstr "Verfolgen. Analysieren. Portfolio ausbauen."
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Spanish"
+msgstr "Spanisch"
+
+msgid "Simplified Chinese"
+msgstr "Chinesisch (vereinfacht)"
+
+msgid "Freemium · Stop wrestling with spreadsheets"
+msgstr "Freemium · Schluss mit Tabellen-Chaos"
+
+msgid "Personal investment tracker"
+msgstr "Persönlicher Investment-Tracker"
+
+msgid "Your whole portfolio,<br>finally in one clear view."
+msgstr "Ihr gesamtes Portfolio,<br>endlich übersichtlich."
+
+msgid ""
+"Log your trades, connect quotes from MOEX and global markets, and see real "
+"returns, allocation and risk — without another fragile Excel sheet."
+msgstr ""
+"Erfassen Sie Ihre Trades, verbinden Sie Kurse von MOEX und globalen Märkten "
+"und sehen Sie echte Rendite, Allokation und Risiko — ohne weitere fragile "
+"Excel-Tabelle."
+
+msgid "Go to my portfolios"
+msgstr "Zu meinen Portfolios"
+
+msgid "Create free account"
+msgstr "Kostenloses Konto erstellen"
+
+msgid "Free plan: 1 portfolio, manual entry, core charts."
+msgstr "Gratis-Tarif: 1 Portfolio, manuelle Eingabe, Basis-Diagramme."
+
+msgid "True returns"
+msgstr "Echte Rendite"
+
+msgid ""
+"Time-weighted and money-weighted performance computed with exact decimal "
+"math."
+msgstr "Zeit- und geldgewichtete Performance, exakt dezimal berechnet."
+
+msgid "Allocation & risk"
+msgstr "Allokation & Risiko"
+
+msgid ""
+"Diversification by holding, asset class, market and currency — see "
+"concentration at a glance."
+msgstr ""
+"Diversifikation nach Position, Anlageklasse, Markt und Währung — "
+"Konzentration auf einen Blick."
+
+msgid "Two markets"
+msgstr "Zwei Märkte"
+
+msgid "Russian (MOEX) and international tickers in one base-currency view."
+msgstr ""
+"Russische (MOEX) und internationale Titel in einer Basiswährungs-Ansicht."
+
+msgid "Own your data"
+msgstr "Ihre Daten gehören Ihnen"
+
+msgid ""
+"Manual entry first. Export to Excel/PDF and a yearly tax report on Pro."
+msgstr ""
+"Zuerst manuelle Eingabe. Export nach Excel/PDF und jährlicher Steuerbericht "
+"mit Pro."
+
+msgid "Create account · Freemium"
+msgstr "Konto erstellen · Freemium"
+
+msgid "Start tracking your portfolio — free."
+msgstr "Verfolgen Sie Ihr Portfolio — kostenlos."
+
+msgid ""
+"Stop wrestling with spreadsheets. Log your trades and see real value, "
+"returns and allocation across Russian and global markets."
+msgstr ""
+"Schluss mit Tabellen-Chaos. Erfassen Sie Trades und sehen Sie echten Wert, "
+"Rendite und Allokation auf dem russischen und den globalen Märkten."
+
+msgid "1 portfolio, unlimited manual trades"
+msgstr "1 Portfolio, unbegrenzte manuelle Trades"
+
+msgid "Live MOEX & international quotes"
+msgstr "MOEX- und internationale Kurse in Echtzeit"
+
+msgid "Allocation, returns & money-weighted XIRR"
+msgstr "Allokation, Rendite & geldgewichteter XIRR"
+
+msgid "No card required"
+msgstr "Keine Karte nötig"
+
+msgid "Create your account"
+msgstr "Erstellen Sie Ihr Konto"
+
+msgid "Create account"
+msgstr "Konto erstellen"
+
+msgid "Already have an account?"
+msgstr "Schon ein Konto?"
+
+msgid "Log in · Freemium"
+msgstr "Anmelden · Freemium"
+
+msgid "Forgot password?"
+msgstr "Passwort vergessen?"
+
+msgid "New here?"
+msgstr "Neu hier?"
+
+msgid "Create an account"
+msgstr "Konto erstellen"
+
+msgid "Portfolios · Freemium"
+msgstr "Portfolios · Freemium"
+
+msgid "Your account"
+msgstr "Ihr Konto"
+
+msgid "Track your investments and log trades by hand."
+msgstr "Verfolgen Sie Ihre Investments und erfassen Sie Trades manuell."
+
+msgid "+ New portfolio"
+msgstr "+ Neues Portfolio"
+
+msgid "Total value"
+msgstr "Gesamtwert"
+
+msgid "Invested (cost basis)"
+msgstr "Investiert (Einstandswert)"
+
+msgid "Unrealised P&L"
+msgstr "Nicht realisiertes Ergebnis"
+
+msgid "Return"
+msgstr "Rendite"
+
+msgid "market value"
+msgstr "Marktwert"
+
+msgid "invested · add prices to value"
+msgstr "investiert · Preise zur Bewertung hinzufügen"
+
+msgid "no trades yet"
+msgstr "noch keine Trades"
+
+msgid "No portfolios yet"
+msgstr "Noch keine Portfolios"
+
+msgid "Create your first portfolio to stop wrestling with spreadsheets."
+msgstr ""
+"Erstellen Sie Ihr erstes Portfolio und lassen Sie Tabellen hinter sich."
+
+msgid "Create a portfolio"
+msgstr "Portfolio erstellen"
+
+msgid "Browse the asset catalogue →"
+msgstr "Asset-Katalog durchsuchen →"
+
+msgid "Portfolio"
+msgstr "Portfolio"
+
+msgid "+ Add trade"
+msgstr "+ Trade hinzufügen"
+
+msgid "↻ Refresh prices"
+msgstr "↻ Preise aktualisieren"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Market value"
+msgstr "Marktwert"
+
+msgid "Return · XIRR"
+msgstr "Rendite · XIRR"
+
+msgid "Allocation"
+msgstr "Allokation"
+
+msgid "by market value"
+msgstr "nach Marktwert"
+
+msgid "by invested capital"
+msgstr "nach investiertem Kapital"
+
+msgid "Invested capital over time"
+msgstr "Investiertes Kapital im Zeitverlauf"
+
+msgid "Cumulative invested capital over time"
+msgstr "Kumuliertes investiertes Kapital im Zeitverlauf"
+
+msgid "Positions"
+msgstr "Positionen"
+
+msgid "Asset"
+msgstr "Wert"
+
+msgid "Market"
+msgstr "Markt"
+
+msgid "Quantity"
+msgstr "Menge"
+
+msgid "Avg cost"
+msgstr "Ø-Kosten"
+
+msgid "Price"
+msgstr "Preis"
+
+msgid "P&L"
+msgstr "Ergebnis"
+
+msgid "No open positions"
+msgstr "Keine offenen Positionen"
+
+msgid "Add a buy trade to see your positions here."
+msgstr "Fügen Sie einen Kauf hinzu, um hier Positionen zu sehen."
+
+msgid "Add a trade"
+msgstr "Trade hinzufügen"
+
+msgid "Recent transactions"
+msgstr "Letzte Transaktionen"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Qty"
+msgstr "Menge"
+
+msgid "Fee"
+msgstr "Gebühr"
+
+msgid "edit"
+msgstr "bearbeiten"
+
+msgid "delete"
+msgstr "löschen"
+
+msgid "No transactions logged yet."
+msgstr "Noch keine Transaktionen erfasst."
+
+msgid "By holding"
+msgstr "Nach Position"
+
+msgid "By asset class"
+msgstr "Nach Anlageklasse"
+
+msgid "By market"
+msgstr "Nach Markt"
+
+msgid "By currency"
+msgstr "Nach Währung"
+
+msgid "Pricing"
+msgstr "Preise"
+
+msgid "Pricing · Freemium"
+msgstr "Preise · Freemium"
+
+msgid "Simple plans that grow with you"
+msgstr "Einfache Tarife, die mitwachsen"
+
+msgid "Start free. Upgrade when you want deeper analytics and exports."
+msgstr "Kostenlos starten. Mit Pro für tiefere Analysen und Exporte upgraden."
+
+msgid "Free"
+msgstr "Gratis"
+
+msgid "/ forever"
+msgstr "/ für immer"
+
+msgid "1 portfolio"
+msgstr "1 Portfolio"
+
+msgid "Manual trade entry"
+msgstr "Manuelle Trade-Eingabe"
+
+msgid "Core charts & positions"
+msgstr "Basis-Diagramme & Positionen"
+
+msgid "Core charts"
+msgstr "Basis-Diagramme"
+
+msgid "Delayed quotes"
+msgstr "Verzögerte Kurse"
+
+msgid "Go to app"
+msgstr "Zur App"
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid "Popular"
+msgstr "Beliebt"
+
+msgid "/ month"
+msgstr "/ Monat"
+
+msgid "Multiple portfolios"
+msgstr "Mehrere Portfolios"
+
+msgid "Advanced analytics: risk, correlations, XIRR"
+msgstr "Erweiterte Analysen: Risiko, Korrelationen, XIRR"
+
+msgid "Advanced analytics & risk"
+msgstr "Erweiterte Analysen & Risiko"
+
+msgid "Excel / PDF export & yearly tax report"
+msgstr "Excel-/PDF-Export & jährlicher Steuerbericht"
+
+msgid "Excel/PDF export & tax report"
+msgstr "Excel-/PDF-Export & Steuerbericht"
+
+msgid "Event & price notifications"
+msgstr "Ereignis- & Preisbenachrichtigungen"
+
+msgid "Event notifications"
+msgstr "Ereignisbenachrichtigungen"
+
+msgid "Broker auto-import (later)"
+msgstr "Broker-Auto-Import (später)"
+
+msgid "Current plan"
+msgstr "Aktueller Tarif"
+
+msgid "Manage subscription"
+msgstr "Abo verwalten"
+
+msgid "Upgrade to Pro"
+msgstr "Auf Pro upgraden"
+
+msgid "Upgrade for more portfolios"
+msgstr "Für mehr Portfolios upgraden"
+
+msgid ""
+"You've reached the Free plan limit. Upgrade to Pro for unlimited portfolios."
+msgstr ""
+"Sie haben das Limit des Gratis-Tarifs erreicht. Upgraden Sie auf Pro für "
+"unbegrenzte Portfolios."
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Subscription"
+msgstr "Abo"
+
+msgid "Subscription · Freemium"
+msgstr "Abo · Freemium"
+
+msgid "Manage your plan and unlock multi-portfolio analytics."
+msgstr ""
+"Verwalten Sie Ihren Tarif und schalten Sie Multi-Portfolio-Analysen frei."
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Cancel your Pro subscription?"
+msgstr "Pro-Abo kündigen?"
+
+msgid "Cancel subscription"
+msgstr "Abo kündigen"
+
+msgid "Confirm payment · Freemium"
+msgstr "Zahlung bestätigen · Freemium"
+
+msgid "Test checkout"
+msgstr "Test-Bezahlung"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Tax report"
+msgstr "Steuerbericht"
+
+msgid "Realized gains"
+msgstr "Realisierte Gewinne"
+
+msgid "Closed positions matched FIFO — proceeds minus cost, per currency."
+msgstr "Geschlossene Positionen nach FIFO — Erlös minus Kosten, je Währung."
+
+msgid "Export CSV"
+msgstr "CSV exportieren"
+
+msgid "Export Excel"
+msgstr "Excel exportieren"
+
+msgid "Back"
+msgstr "Zurück"
+
+msgid "Realized gain"
+msgstr "Realisierter Gewinn"
+
+msgid "Closed lots"
+msgstr "Geschlossene Posten"
+
+msgid "Acquired"
+msgstr "Gekauft"
+
+msgid "Disposed"
+msgstr "Verkauft"
+
+msgid "Cost"
+msgstr "Kosten"
+
+msgid "Proceeds"
+msgstr "Erlös"
+
+msgid "Gain"
+msgstr "Gewinn"
+
+msgid "Days"
+msgstr "Tage"
+
+msgid "No realized gains yet"
+msgstr "Noch keine realisierten Gewinne"
+
+msgid "Sell some holdings to see a realized-gains tax report here."
+msgstr "Verkaufen Sie Positionen, um hier einen Steuerbericht zu sehen."
+
+msgid "Back to portfolio"
+msgstr "Zurück zum Portfolio"
+
+msgid "That's a Pro feature. Upgrade to unlock tax reports and exports."
+msgstr "Eine Pro-Funktion. Upgraden Sie für Steuerberichte und Exporte."
+
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
+msgid "Mark all read"
+msgstr "Alle als gelesen markieren"
+
+msgid "Preferences"
+msgstr "Einstellungen"
+
+msgid "No notifications yet"
+msgstr "Noch keine Benachrichtigungen"
+
+msgid "Portfolio digests and alerts will show up here."
+msgstr "Portfolio-Zusammenfassungen und Alarme erscheinen hier."
+
+msgid "Previous"
+msgstr "Zurück"
+
+msgid "Next"
+msgstr "Weiter"
+
+msgid "Notification preferences"
+msgstr "Benachrichtigungseinstellungen"
+
+msgid "Choose how you'd like to hear from us."
+msgstr "Wählen Sie, wie wir Sie erreichen."
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Preferences saved."
+msgstr "Einstellungen gespeichert."
+
+msgid "Your portfolio digest"
+msgstr "Ihre Portfolio-Zusammenfassung"
+
+msgid "Email me portfolio digests & alerts"
+msgstr "Zusammenfassungen & Alarme per E-Mail senden"
+
+msgid "Send to Telegram"
+msgstr "An Telegram senden"
+
+msgid "Telegram chat ID"
+msgstr "Telegram-Chat-ID"
+
+msgid "Export PDF"
+msgstr "PDF exportieren"
+
+msgid "Import CSV"
+msgstr "CSV importieren"
+
+msgid "Import"
+msgstr "Importieren"
+
+msgid "Import trades"
+msgstr "Trades importieren"
+
+msgid "Import trades from CSV"
+msgstr "Trades aus CSV importieren"
+
+msgid ""
+"Bulk-add trades from a file. Assets must already exist in the catalogue; "
+"invalid rows are reported and skipped."
+msgstr ""
+"Trades per Datei in Masse hinzufügen. Werte müssen bereits im Katalog sein; "
+"ungültige Zeilen werden gemeldet und übersprungen."
+
+msgid "CSV file"
+msgstr "CSV-Datei"
+
+msgid "Expected columns:"
+msgstr "Erwartete Spalten:"
+
+msgid "Please choose a CSV file."
+msgstr "Bitte wählen Sie eine CSV-Datei."
+
+msgid "No rows found in the file."
+msgstr "Keine Zeilen in der Datei gefunden."
+
+msgid "Imported %(n)s trade(s)."
+msgstr "%(n)s Trade(s) importiert."
+
+msgid "Price alerts"
+msgstr "Preisalarme"
+
+msgid "Get notified when an asset crosses your target price."
+msgstr "Werden Sie benachrichtigt, wenn ein Wert Ihren Zielpreis erreicht."
+
+msgid "+ New alert"
+msgstr "+ Neuer Alarm"
+
+msgid "Condition"
+msgstr "Bedingung"
+
+msgid "Threshold"
+msgstr "Schwelle"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Triggered"
+msgstr "Ausgelöst"
+
+msgid "No price alerts yet"
+msgstr "Noch keine Preisalarme"
+
+msgid "Create an alert to be notified when an asset hits your target."
+msgstr ""
+"Erstellen Sie einen Alarm, um benachrichtigt zu werden, wenn ein Wert Ihr "
+"Ziel erreicht."
+
+msgid "Create an alert"
+msgstr "Alarm erstellen"
+
+msgid "New price alert"
+msgstr "Neuer Preisalarm"
+
+msgid "Create alert"
+msgstr "Alarm erstellen"
+
+msgid "Delete this alert?"
+msgstr "Diesen Alarm löschen?"
+
+msgid "Price alert created."
+msgstr "Preisalarm erstellt."
+
+msgid "Price alert: %(ticker)s"
+msgstr "Preisalarm: %(ticker)s"
+
+msgid "%(ticker)s is now %(price)s (target %(arrow)s %(threshold)s)."
+msgstr "%(ticker)s steht jetzt bei %(price)s (Ziel %(arrow)s %(threshold)s)."
+
+msgid "Confirm your Pro upgrade"
+msgstr "Bestätigen Sie Ihr Pro-Upgrade"
+
+msgid "Pay & activate Pro (test)"
+msgstr "Bezahlen & Pro aktivieren (Test)"
+
+msgid ""
+"Your Free plan is limited to %(limit)s portfolio(s). Upgrade to Pro for "
+"unlimited portfolios."
+msgstr ""
+"Der Gratis-Tarif ist auf %(limit)s Portfolio(s) begrenzt. Upgraden Sie auf "
+"Pro für unbegrenzte Portfolios."
+
+msgid "Portfolio created."
+msgstr "Portfolio erstellt."
+
+msgid "You're on Pro now — thank you!"
+msgstr "Sie sind jetzt Pro — vielen Dank!"
+
+msgid "Your subscription was cancelled."
+msgstr "Ihr Abo wurde gekündigt."
+
+msgid "Password reset"
+msgstr "Passwort zurücksetzen"
+
+msgid "Reset your password"
+msgstr "Setzen Sie Ihr Passwort zurück"
+
+msgid "Enter your email and we'll send reset instructions."
+msgstr ""
+"Geben Sie Ihre E-Mail ein, wir senden eine Anleitung zum Zurücksetzen."
+
+msgid "Send reset email"
+msgstr "E-Mail senden"
+
+msgid "Back to log in"
+msgstr "Zurück zur Anmeldung"
+
+msgid "Log out · Freemium"
+msgstr "Abmelden · Freemium"
+
+msgid "Are you sure you want to log out?"
+msgstr "Möchten Sie sich wirklich abmelden?"
+
+msgid "Check your email · Freemium"
+msgstr "Prüfen Sie Ihre E-Mail · Freemium"
+
+msgid "Check your email"
+msgstr "Prüfen Sie Ihre E-Mail"
+
+msgid "Set a new password · Freemium"
+msgstr "Neues Passwort festlegen · Freemium"
+
+msgid "Invalid link"
+msgstr "Ungültiger Link"
+
+msgid "Set a new password"
+msgstr "Neues Passwort festlegen"
+
+msgid "Change password"
+msgstr "Passwort ändern"
+
+msgid "Password changed · Freemium"
+msgstr "Passwort geändert · Freemium"
+
+msgid "Password changed"
+msgstr "Passwort geändert"
+
+msgid "Your password has been changed. You can now log in."
+msgstr "Ihr Passwort wurde geändert. Sie können sich jetzt anmelden."
+
+msgid "Verify your email · Freemium"
+msgstr "E-Mail bestätigen · Freemium"
+
+msgid "Almost there"
+msgstr "Fast geschafft"
+
+msgid "Verify your email"
+msgstr "Bestätigen Sie Ihre E-Mail"
+
+msgid "Confirm email · Freemium"
+msgstr "E-Mail bestätigen · Freemium"
+
+msgid "Confirm your email"
+msgstr "Bestätigen Sie Ihre E-Mail"
+
+msgid "Confirm"
+msgstr "Bestätigen"
+
+msgid "This email is already confirmed by a different account."
+msgstr "Diese E-Mail ist bereits von einem anderen Konto bestätigt."
+
+msgid ""
+"We've sent you a link to reset your password. If it doesn't arrive in a few "
+"minutes, check your spam folder."
+msgstr ""
+"Wir haben Ihnen einen Link zum Zurücksetzen gesendet. Kommt er nicht in "
+"wenigen Minuten an, prüfen Sie den Spam-Ordner."
+
+msgid ""
+"This password reset link is invalid or has already been used. Please <a "
+"href=\"%(reset_url)s\">request a new one</a>."
+msgstr ""
+"Dieser Link ist ungültig oder wurde bereits verwendet. Bitte <a "
+"href=\"%(reset_url)s\">fordern Sie einen neuen an</a>."
+
+msgid ""
+"We've sent you a verification link. Follow it to finish signing up. If it "
+"doesn't arrive in a few minutes, check your spam folder."
+msgstr ""
+"Wir haben Ihnen einen Bestätigungslink gesendet. Folgen Sie ihm, um die "
+"Registrierung abzuschließen. Kommt er nicht an, prüfen Sie den Spam-Ordner."
+
+msgid "Confirm that %(email)s is your email address."
+msgstr "Bestätigen Sie, dass %(email)s Ihre E-Mail-Adresse ist."
+
+msgid ""
+"This confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">request a new one</a>."
+msgstr ""
+"Dieser Bestätigungslink ist abgelaufen oder ungültig. Bitte <a "
+"href=\"%(email_url)s\">fordern Sie einen neuen an</a>."
+
+msgid "Renews / valid until %(date)s."
+msgstr "Verlängerung / gültig bis %(date)s."
+
+msgid ""
+"This is a simulated checkout (dev provider) — no real payment is taken. "
+"Amount: %(amount)s %(currency)s."
+msgstr ""
+"Simulierte Bezahlung (Dev-Anbieter) — keine echte Zahlung. Betrag: "
+"%(amount)s %(currency)s."
+
+msgid "XIRR %(x)s"
+msgstr "XIRR %(x)s"
+
+msgid ""
+"Base-currency totals need FX rates for: %(cur)s. Per-asset figures below are"
+" exact in each asset's own currency."
+msgstr ""
+"Summen in Basiswährung benötigen Wechselkurse für: %(cur)s. Die Werte je "
+"Position unten sind in der jeweiligen Währung exakt."
+
+msgid "Allocation excludes positions in %(cur)s — no FX rate to %(base)s yet."
+msgstr ""
+"Die Allokation schließt Positionen in %(cur)s aus — noch kein Kurs zu "
+"%(base)s."
+
+msgid "Prices as of %(d)s UTC."
+msgstr "Preise zum %(d)s UTC."
+
+msgid ""
+"No quote yet for: %(tickers)s — click <strong>Refresh prices</strong> to "
+"fetch."
+msgstr ""
+"Noch kein Kurs für: %(tickers)s — auf <strong>Preise aktualisieren</strong> "
+"klicken."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Catalogue"
+msgstr "Katalog"
+
+msgid "Assets"
+msgstr "Werte"
+
+msgid "Asset catalogue"
+msgstr "Asset-Katalog"
+
+msgid "Shared instrument reference used across all portfolios."
+msgstr "Gemeinsame Instrumentenreferenz für alle Portfolios."
+
+msgid "+ Add asset"
+msgstr "+ Wert hinzufügen"
+
+msgid "Add asset"
+msgstr "Wert hinzufügen"
+
+msgid "Edit asset"
+msgstr "Wert bearbeiten"
+
+msgid "Stocks, ETFs, bonds, currencies or crypto — MOEX or international."
+msgstr ""
+"Aktien, ETFs, Anleihen, Währungen oder Krypto — MOEX oder international."
+
+msgid "Ticker"
+msgstr "Symbol"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "No assets yet"
+msgstr "Noch keine Werte"
+
+msgid ""
+"Add instruments (stocks, ETFs, bonds, crypto) to log trades against them."
+msgstr ""
+"Fügen Sie Instrumente (Aktien, ETFs, Anleihen, Krypto) hinzu, um Trades zu "
+"erfassen."
+
+msgid "Add the first asset"
+msgstr "Ersten Wert hinzufügen"
+
+msgid "Delete asset"
+msgstr "Wert löschen"
+
+msgid "Delete this asset?"
+msgstr "Diesen Wert löschen?"
+
+msgid "Asset deleted."
+msgstr "Wert gelöscht."
+
+msgid "Asset added to the catalogue."
+msgstr "Wert zum Katalog hinzugefügt."
+
+msgid "Can't delete %(ticker)s — it still has trades. Remove them first."
+msgstr ""
+"%(ticker)s kann nicht gelöscht werden — es gibt noch Trades. Entfernen Sie "
+"diese zuerst."
+
+msgid "Edit portfolio"
+msgstr "Portfolio bearbeiten"
+
+msgid "New portfolio"
+msgstr "Neues Portfolio"
+
+msgid "Edit trade"
+msgstr "Trade bearbeiten"
+
+msgid "Add trade"
+msgstr "Trade hinzufügen"
+
+msgid "Edit transaction"
+msgstr "Transaktion bearbeiten"
+
+msgid "Add transaction"
+msgstr "Transaktion hinzufügen"
+
+msgid "Save trade"
+msgstr "Trade speichern"
+
+msgid ""
+"You have no assets yet. <a href=\"%(add_asset_url)s\">Add an asset</a> "
+"before logging a trade."
+msgstr ""
+"Sie haben noch keine Werte. <a href=\"%(add_asset_url)s\">Fügen Sie einen "
+"Wert hinzu</a>, bevor Sie einen Trade erfassen."
+
+msgid "Delete %(name)s"
+msgstr "%(name)s löschen"
+
+msgid "Delete portfolio?"
+msgstr "Portfolio löschen?"
+
+msgid ""
+"This permanently deletes <strong>%(name)s</strong> and all of its "
+"transactions. This cannot be undone."
+msgstr ""
+"Dies löscht <strong>%(name)s</strong> und alle Transaktionen endgültig. "
+"Nicht rückgängig zu machen."
+
+msgid "Delete permanently"
+msgstr "Endgültig löschen"
+
+msgid "Delete transaction?"
+msgstr "Transaktion löschen?"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Edit profile"
+msgstr "Profil bearbeiten"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Username:"
+msgstr "Benutzername:"
+
+msgid "Email:"
+msgstr "E-Mail:"
+
+msgid "Name:"
+msgstr "Name:"
+
+msgid "Pro features unlocked."
+msgstr "Pro-Funktionen freigeschaltet."
+
+msgid "You're on the Free plan."
+msgstr "Sie nutzen den Gratis-Tarif."
+
+msgid "No subscription record."
+msgstr "Kein Abo-Eintrag."
+
+msgid "Export trades (CSV)"
+msgstr "Trades exportieren (CSV)"
+
+msgid "%(count)s portfolio"
+msgid_plural "%(count)s portfolios"
+msgstr[0] "%(count)s Portfolio"
+msgstr[1] "%(count)s Portfolios"
+
+msgid "%(count)s trade"
+msgid_plural "%(count)s trades"
+msgstr[0] "%(count)s Trade"
+msgstr[1] "%(count)s Trades"
+
+msgid "%(count)s lot"
+msgid_plural "%(count)s lots"
+msgstr[0] "%(count)s Posten"
+msgstr[1] "%(count)s Posten"

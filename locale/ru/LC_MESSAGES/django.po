@@ -763,6 +763,143 @@ msgstr ""
 "Пока нет котировки для: %(tickers)s — нажмите <strong>Обновить "
 "цены</strong>."
 
+msgid "OK"
+msgstr "OK"
+
+msgid "Catalogue"
+msgstr "Каталог"
+
+msgid "Assets"
+msgstr "Активы"
+
+msgid "Asset catalogue"
+msgstr "Каталог активов"
+
+msgid "Shared instrument reference used across all portfolios."
+msgstr "Общий справочник инструментов для всех портфелей."
+
+msgid "+ Add asset"
+msgstr "+ Добавить актив"
+
+msgid "Add asset"
+msgstr "Добавить актив"
+
+msgid "Edit asset"
+msgstr "Изменить актив"
+
+msgid "Stocks, ETFs, bonds, currencies or crypto — MOEX or international."
+msgstr "Акции, ETF, облигации, валюты или крипта — MOEX или зарубежные."
+
+msgid "Ticker"
+msgstr "Тикер"
+
+msgid "Name"
+msgstr "Название"
+
+msgid "No assets yet"
+msgstr "Активов пока нет"
+
+msgid ""
+"Add instruments (stocks, ETFs, bonds, crypto) to log trades against them."
+msgstr ""
+"Добавьте инструменты (акции, ETF, облигации, крипту), чтобы вносить по ним "
+"сделки."
+
+msgid "Add the first asset"
+msgstr "Добавить первый актив"
+
+msgid "Delete asset"
+msgstr "Удалить актив"
+
+msgid "Delete this asset?"
+msgstr "Удалить этот актив?"
+
+msgid "Asset deleted."
+msgstr "Актив удалён."
+
+msgid "Asset added to the catalogue."
+msgstr "Актив добавлен в каталог."
+
+msgid "Can't delete %(ticker)s — it still has trades. Remove them first."
+msgstr "Нельзя удалить %(ticker)s — по нему есть сделки. Сначала удалите их."
+
+msgid "Edit portfolio"
+msgstr "Изменить портфель"
+
+msgid "New portfolio"
+msgstr "Новый портфель"
+
+msgid "Edit trade"
+msgstr "Изменить сделку"
+
+msgid "Add trade"
+msgstr "Добавить сделку"
+
+msgid "Edit transaction"
+msgstr "Изменить транзакцию"
+
+msgid "Add transaction"
+msgstr "Добавить транзакцию"
+
+msgid "Save trade"
+msgstr "Сохранить сделку"
+
+msgid ""
+"You have no assets yet. <a href=\"%(add_asset_url)s\">Add an asset</a> "
+"before logging a trade."
+msgstr ""
+"У вас пока нет активов. <a href=\"%(add_asset_url)s\">Добавьте актив</a> "
+"перед внесением сделки."
+
+msgid "Delete %(name)s"
+msgstr "Удалить %(name)s"
+
+msgid "Delete portfolio?"
+msgstr "Удалить портфель?"
+
+msgid ""
+"This permanently deletes <strong>%(name)s</strong> and all of its "
+"transactions. This cannot be undone."
+msgstr ""
+"Это безвозвратно удалит <strong>%(name)s</strong> и все его сделки. Действие"
+" необратимо."
+
+msgid "Delete permanently"
+msgstr "Удалить навсегда"
+
+msgid "Delete transaction?"
+msgstr "Удалить транзакцию?"
+
+msgid "Profile"
+msgstr "Профиль"
+
+msgid "Edit profile"
+msgstr "Изменить профиль"
+
+msgid "Details"
+msgstr "Данные"
+
+msgid "Username:"
+msgstr "Имя пользователя:"
+
+msgid "Email:"
+msgstr "Email:"
+
+msgid "Name:"
+msgstr "Имя:"
+
+msgid "Pro features unlocked."
+msgstr "Функции Pro разблокированы."
+
+msgid "You're on the Free plan."
+msgstr "У вас бесплатный тариф."
+
+msgid "No subscription record."
+msgstr "Записи о подписке нет."
+
+msgid "Export trades (CSV)"
+msgstr "Экспорт сделок (CSV)"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s портфель"

@@ -251,8 +251,28 @@ class AssetCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("portfolio:asset_list")
 
     def form_valid(self, form: AssetForm):
-        messages.success(self.request, "Asset added to the catalogue.")
+        messages.success(self.request, _("Asset added to the catalogue."))
         return super().form_valid(form)
+
+
+class AssetDeleteView(LoginRequiredMixin, DeleteView):
+    model = Asset
+    template_name = "portfolio/asset_confirm_delete.html"
+    success_url = reverse_lazy("portfolio:asset_list")
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # Asset is a shared catalogue row; refuse deletion while trades reference
+        # it (FK is PROTECT) so we never orphan a portfolio's history.
+        asset = self.get_object()
+        if asset.transactions.exists():
+            messages.error(
+                request,
+                _("Can't delete %(ticker)s — it still has trades. Remove them first.")
+                % {"ticker": asset.ticker},
+            )
+            return redirect("portfolio:asset_list")
+        messages.success(request, _("Asset deleted."))
+        return super().post(request, *args, **kwargs)
 
 
 # --------------------------------------------------------------------------- #

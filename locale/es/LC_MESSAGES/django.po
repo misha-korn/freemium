@@ -762,6 +762,144 @@ msgstr ""
 "Aún sin cotización para: %(tickers)s — pulsa <strong>Actualizar "
 "precios</strong>."
 
+msgid "OK"
+msgstr "OK"
+
+msgid "Catalogue"
+msgstr "Catálogo"
+
+msgid "Assets"
+msgstr "Activos"
+
+msgid "Asset catalogue"
+msgstr "Catálogo de activos"
+
+msgid "Shared instrument reference used across all portfolios."
+msgstr "Referencia de instrumentos compartida entre todas las carteras."
+
+msgid "+ Add asset"
+msgstr "+ Añadir activo"
+
+msgid "Add asset"
+msgstr "Añadir activo"
+
+msgid "Edit asset"
+msgstr "Editar activo"
+
+msgid "Stocks, ETFs, bonds, currencies or crypto — MOEX or international."
+msgstr "Acciones, ETF, bonos, divisas o cripto — MOEX o internacional."
+
+msgid "Ticker"
+msgstr "Símbolo"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "No assets yet"
+msgstr "Aún no hay activos"
+
+msgid ""
+"Add instruments (stocks, ETFs, bonds, crypto) to log trades against them."
+msgstr ""
+"Añade instrumentos (acciones, ETF, bonos, cripto) para registrar "
+"operaciones."
+
+msgid "Add the first asset"
+msgstr "Añadir el primer activo"
+
+msgid "Delete asset"
+msgstr "Eliminar activo"
+
+msgid "Delete this asset?"
+msgstr "¿Eliminar este activo?"
+
+msgid "Asset deleted."
+msgstr "Activo eliminado."
+
+msgid "Asset added to the catalogue."
+msgstr "Activo añadido al catálogo."
+
+msgid "Can't delete %(ticker)s — it still has trades. Remove them first."
+msgstr ""
+"No se puede eliminar %(ticker)s — tiene operaciones. Elimínalas primero."
+
+msgid "Edit portfolio"
+msgstr "Editar cartera"
+
+msgid "New portfolio"
+msgstr "Nueva cartera"
+
+msgid "Edit trade"
+msgstr "Editar operación"
+
+msgid "Add trade"
+msgstr "Añadir operación"
+
+msgid "Edit transaction"
+msgstr "Editar transacción"
+
+msgid "Add transaction"
+msgstr "Añadir transacción"
+
+msgid "Save trade"
+msgstr "Guardar operación"
+
+msgid ""
+"You have no assets yet. <a href=\"%(add_asset_url)s\">Add an asset</a> "
+"before logging a trade."
+msgstr ""
+"Aún no tienes activos. <a href=\"%(add_asset_url)s\">Añade un activo</a> "
+"antes de registrar una operación."
+
+msgid "Delete %(name)s"
+msgstr "Eliminar %(name)s"
+
+msgid "Delete portfolio?"
+msgstr "¿Eliminar la cartera?"
+
+msgid ""
+"This permanently deletes <strong>%(name)s</strong> and all of its "
+"transactions. This cannot be undone."
+msgstr ""
+"Esto elimina permanentemente <strong>%(name)s</strong> y todas sus "
+"operaciones. No se puede deshacer."
+
+msgid "Delete permanently"
+msgstr "Eliminar permanentemente"
+
+msgid "Delete transaction?"
+msgstr "¿Eliminar la transacción?"
+
+msgid "Profile"
+msgstr "Perfil"
+
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+msgid "Details"
+msgstr "Detalles"
+
+msgid "Username:"
+msgstr "Usuario:"
+
+msgid "Email:"
+msgstr "Correo:"
+
+msgid "Name:"
+msgstr "Nombre:"
+
+msgid "Pro features unlocked."
+msgstr "Funciones Pro desbloqueadas."
+
+msgid "You're on the Free plan."
+msgstr "Estás en el plan gratuito."
+
+msgid "No subscription record."
+msgstr "Sin registro de suscripción."
+
+msgid "Export trades (CSV)"
+msgstr "Exportar operaciones (CSV)"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"

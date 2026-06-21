@@ -1,15 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Edit profile · Freemium{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Edit profile" %} · Freemium{% endblock %}
 
 {% block content %}
-<div class="page-header"><div><h1 class="page-header__title">Edit profile</h1></div></div>
+<div class="page-header"><div><h1 class="page-header__title">{% trans "Edit profile" %}</h1></div></div>
 <div class="card form-card">
   <form class="form" method="post" novalidate>
     {% csrf_token %}
     {% include "partials/form_fields.html" %}
     <div class="form-actions">
-      <button class="btn btn--primary" type="submit">Save</button>
-      <a class="btn btn--ghost" href="{% url 'accounts:profile' %}">Cancel</a>
+      <button class="btn btn--primary" type="submit">{% trans "Save" %}</button>
+      <a class="btn btn--ghost" href="{% url 'accounts:profile' %}">{% trans "Cancel" %}</a>
     </div>
   </form>
 </div>

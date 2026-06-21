@@ -1,35 +1,43 @@
 {% extends "base.html" %}
-{% block title %}Profile · Freemium{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Profile" %} · Freemium{% endblock %}
 
 {% block content %}
 <div class="page-header">
-  <div><p class="eyebrow">Account</p><h1 class="page-header__title">Profile</h1></div>
-  <a class="btn btn--ghost" href="{% url 'accounts:profile_edit' %}">Edit profile</a>
+  <div><p class="eyebrow">{% trans "Account" %}</p><h1 class="page-header__title">{% trans "Profile" %}</h1></div>
+  <a class="btn btn--ghost" href="{% url 'accounts:profile_edit' %}">{% trans "Edit profile" %}</a>
 </div>
 
 <div class="card-grid">
   <div class="card stack">
-    <h2 class="card__title">Details</h2>
-    <p><strong>Username:</strong> {{ user.get_username }}</p>
-    <p><strong>Email:</strong> {{ user.email|default:"—" }}</p>
-    <p><strong>Name:</strong> {{ user.get_full_name|default:"—" }}</p>
+    <h2 class="card__title">{% trans "Details" %}</h2>
+    <p><strong>{% trans "Username:" %}</strong> {{ user.get_username }}</p>
+    <p><strong>{% trans "Email:" %}</strong> {{ user.email|default:"—" }}</p>
+    <p><strong>{% trans "Name:" %}</strong> {{ user.get_full_name|default:"—" }}</p>
   </div>
   <div class="card stack">
-    <h2 class="card__title">Subscription</h2>
+    <h2 class="card__title">{% trans "Subscription" %}</h2>
     {% if subscription %}
       <div class="cluster">
         <span class="badge">{{ subscription.get_plan_display }}</span>
         <span class="text-muted">{{ subscription.get_status_display }}</span>
       </div>
       {% if subscription.is_pro %}
-        <p class="is-positive">Pro features unlocked.</p>
+        <p class="is-positive">{% trans "Pro features unlocked." %}</p>
       {% else %}
-        <p class="text-muted">You're on the Free plan.</p>
-        <a class="btn btn--primary" href="{% url 'accounts:subscription' %}">Upgrade to Pro</a>
+        <p class="text-muted">{% trans "You're on the Free plan." %}</p>
+        <a class="btn btn--primary" href="{% url 'accounts:subscription' %}">{% trans "Upgrade to Pro" %}</a>
       {% endif %}
     {% else %}
-      <p class="text-muted">No subscription record.</p>
+      <p class="text-muted">{% trans "No subscription record." %}</p>
     {% endif %}
   </div>
 </div>
+
+<p class="mt-6 cluster">
+  <a class="nav__link" href="{% url 'accounts:subscription' %}">{% trans "Subscription" %}</a> ·
+  <a class="nav__link" href="{% url 'notifications:list' %}">{% trans "Notifications" %}</a> ·
+  <a class="nav__link" href="{% url 'marketdata:alert_list' %}">{% trans "Price alerts" %}</a> ·
+  <a class="nav__link" href="{% url 'portfolio:asset_list' %}">{% trans "Asset catalogue" %}</a>
+</p>
 {% endblock %}

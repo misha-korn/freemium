@@ -1,15 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Delete {{ portfolio.name }} · Freemium{% endblock %}
+{% load i18n %}
+{% block title %}{% blocktrans with name=portfolio.name %}Delete {{ name }}{% endblocktrans %} · Freemium{% endblock %}
 
 {% block content %}
 <div class="card form-card">
-  <h1 class="card__title">Delete portfolio?</h1>
-  <p>This permanently deletes <strong>{{ portfolio.name }}</strong> and all of its transactions. This cannot be undone.</p>
+  <h1 class="card__title">{% trans "Delete portfolio?" %}</h1>
+  <p>{% blocktrans trimmed with name=portfolio.name %}This permanently deletes <strong>{{ name }}</strong> and all of its transactions. This cannot be undone.{% endblocktrans %}</p>
   <form method="post">
     {% csrf_token %}
     <div class="form-actions">
-      <button class="btn btn--danger" type="submit">Delete permanently</button>
-      <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">Cancel</a>
+      <button class="btn btn--danger" type="submit">{% trans "Delete permanently" %}</button>
+      <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Cancel" %}</a>
     </div>
   </form>
 </div>

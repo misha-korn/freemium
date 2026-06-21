@@ -42,13 +42,16 @@
     }
 
     // Auto-submit the language switcher on change (no inline handler / CSP-safe).
+    // The submit button is a no-JS fallback, so hide it once JS is wired up.
     var langSelect = document.querySelector("[data-lang-switcher]");
-    if (langSelect) {
+    if (langSelect && langSelect.form) {
       langSelect.addEventListener("change", function () {
-        if (langSelect.form) {
-          langSelect.form.submit();
-        }
+        langSelect.form.submit();
       });
+      var go = langSelect.form.querySelector(".lang-switcher__go");
+      if (go) {
+        go.hidden = true;
+      }
     }
   }
 
