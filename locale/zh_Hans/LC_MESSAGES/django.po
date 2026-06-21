@@ -138,6 +138,9 @@ msgstr "登录 · Freemium"
 msgid "Forgot password?"
 msgstr "忘记密码？"
 
+msgid "Username or email"
+msgstr "用户名或邮箱"
+
 msgid "New here?"
 msgstr "第一次来？"
 

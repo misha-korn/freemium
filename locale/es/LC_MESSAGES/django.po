@@ -148,6 +148,9 @@ msgstr "Iniciar sesión · Freemium"
 msgid "Forgot password?"
 msgstr "¿Olvidaste tu contraseña?"
 
+msgid "Username or email"
+msgstr "Usuario o correo"
+
 msgid "New here?"
 msgstr "¿Nuevo por aquí?"
 

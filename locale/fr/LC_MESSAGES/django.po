@@ -149,6 +149,9 @@ msgstr "Connexion · Freemium"
 msgid "Forgot password?"
 msgstr "Mot de passe oublié ?"
 
+msgid "Username or email"
+msgstr ""
+
 msgid "New here?"
 msgstr "Nouveau ici ?"
 
