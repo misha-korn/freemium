@@ -5,3 +5,7 @@ gunicorn>=23.0
 
 # Error monitoring
 sentry-sdk>=2.19
+
+# Transactional email over an HTTPS API (Render blocks outbound SMTP).
+# Provides the Brevo email backend; uses `requests` (already in base.txt).
+django-anymail>=10.3,<13
