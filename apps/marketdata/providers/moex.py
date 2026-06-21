@@ -16,9 +16,19 @@ MOEX_ISS_URL = (
 )
 REQUEST_TIMEOUT = 10
 
+# Primary order book for the most liquid MOEX shares; preferred when present.
+PRIMARY_BOARD = "TQBR"
+
+# Live market-data price columns, most "live" first. Falling back across these
+# means we still return a price when the market is closed (weekends / after
+# hours) and LAST is null but an intraday or session-close value exists.
+MARKETDATA_PRICE_COLUMNS = ("LAST", "MARKETPRICE", "LCLOSEPRICE", "WAPRICE")
+# Previous-session close, present even on days the security never traded.
+SECURITIES_PRICE_COLUMNS = ("PREVPRICE", "PREVLEGALCLOSEPRICE", "PREVADMITTEDQUOTE")
+
 
 class MoexQuoteProvider(QuoteProvider):
-    """Fetch last price from the public MOEX ISS REST API."""
+    """Fetch the latest available price from the public MOEX ISS REST API."""
 
     name = "MOEX"
 
@@ -38,7 +48,7 @@ class MoexQuoteProvider(QuoteProvider):
             logger.warning("MOEX quote fetch failed for %s: %s", symbol, exc)
             return None
 
-        price = self._extract_last_price(payload)
+        price = self._extract_price(payload)
         if price is None:
             return None
         return Quote(
@@ -49,23 +59,62 @@ class MoexQuoteProvider(QuoteProvider):
             source=self.name,
         )
 
+    @classmethod
+    def _extract_price(cls, payload: dict) -> Decimal | None:
+        """Return the most recent available price.
+
+        Tries the live market-data columns first (LAST, then intraday / close
+        fallbacks); if today's session never traded, falls back to the
+        previous-session close from the securities block. This keeps a quote
+        available outside trading hours instead of showing nothing.
+        """
+        price = cls._price_from_block(payload, "marketdata", MARKETDATA_PRICE_COLUMNS)
+        if price is None:
+            price = cls._price_from_block(
+                payload, "securities", SECURITIES_PRICE_COLUMNS
+            )
+        return price
+
     @staticmethod
-    def _extract_last_price(payload: dict) -> Decimal | None:
-        """Pull the first non-null LAST value from the marketdata block."""
+    def _price_from_block(
+        payload: dict, block_name: str, candidate_columns: tuple[str, ...]
+    ) -> Decimal | None:
+        """First positive price among candidate columns, preferring TQBR rows."""
         try:
-            block = payload["marketdata"]
+            block = payload[block_name]
             columns = block["columns"]
             rows = block["data"]
-            last_index = columns.index("LAST")
-        except (KeyError, ValueError, TypeError) as exc:
-            logger.warning("MOEX response shape unexpected: %s", exc)
+        except (KeyError, TypeError) as exc:
+            logger.warning("MOEX response shape unexpected (%s): %s", block_name, exc)
             return None
 
-        for row in rows:
-            value = row[last_index]
-            if value is not None:
-                try:
-                    return Decimal(str(value))
-                except InvalidOperation:
-                    return None
+        present = [(col, columns.index(col)) for col in candidate_columns if col in columns]
+        if not present:
+            return None
+        board_index = columns.index("BOARDID") if "BOARDID" in columns else None
+
+        def board_rank(row: list) -> int:
+            if board_index is None:
+                return 1
+            return 0 if row[board_index] == PRIMARY_BOARD else 1
+
+        for row in sorted(rows, key=board_rank):
+            for _col, index in present:
+                price = _to_positive_decimal(row[index])
+                if price is not None:
+                    return price
         return None
+
+
+def _to_positive_decimal(value: object) -> Decimal | None:
+    """Coerce a MOEX cell to a positive Decimal, else None.
+
+    MOEX uses null / empty / 0 to mean "no data"; a real share price is > 0.
+    """
+    if value in (None, ""):
+        return None
+    try:
+        price = Decimal(str(value))
+    except InvalidOperation:
+        return None
+    return price if price > 0 else None
