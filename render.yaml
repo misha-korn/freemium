@@ -1,16 +1,20 @@
-# Render Blueprint — one-click deploy of the full stack (Stage 3).
+# Render Blueprint — free-tier one-click deploy (web + Postgres + Redis).
 #
-#   web    : Django behind Gunicorn (static via WhiteNoise)
-#   worker : Celery worker (quote refresh)
-#   beat   : Celery beat (schedules the periodic refresh)
-#   db     : managed PostgreSQL
-#   redis  : managed Redis (Celery broker/result backend + Django cache)
+#   web   : Django behind Gunicorn (static via WhiteNoise)
+#   db    : managed PostgreSQL (free)
+#   redis : managed Key Value / Redis (Django cache + quote memoisation)
+#
+# Render's FREE plan has no background workers, so there is no Celery worker or
+# beat service here. Instead the web service runs Celery tasks eagerly (inline):
+# the "Refresh prices" button fetches quotes synchronously in the request, so it
+# works with no separate worker. The periodic auto-refresh and daily digest need
+# a beat scheduler and are therefore OFF on the free plan — to enable them,
+# upgrade and add `worker` + `beat` services (set CELERY_TASK_ALWAYS_EAGER=False).
 #
 # Deploy: push to GitHub, then on Render → "New +" → "Blueprint" and pick this
-# repo. Render reads this file and provisions everything. DJANGO_SECRET_KEY is
-# generated; DATABASE_URL / REDIS_URL are wired automatically. The only thing
-# you may want to set by hand is a custom domain in DJANGO_ALLOWED_HOSTS — the
-# Render hostname is trusted automatically (see config/settings/prod.py).
+# repo. DJANGO_SECRET_KEY is generated; DATABASE_URL / REDIS_URL are wired
+# automatically. The Render hostname is trusted automatically
+# (see config/settings/prod.py); add a custom domain to DJANGO_ALLOWED_HOSTS.
 
 databases:
   - name: freemium-db
@@ -19,11 +23,11 @@ databases:
     plan: free
 
 services:
-  # --- Redis (broker + result backend + cache) --------------------------- #
+  # --- Redis / Key Value (Django cache + quote memoisation) -------------- #
   - type: redis
     name: freemium-redis
     plan: free
-    maxmemoryPolicy: noeviction # don't drop queued Celery tasks under pressure
+    maxmemoryPolicy: allkeys-lru # cache only — evict least-recently-used keys
     ipAllowList: [] # internal-only; no public access
 
   # --- Web (Gunicorn) ---------------------------------------------------- #
@@ -55,96 +59,10 @@ services:
           type: redis
           name: freemium-redis
           property: connectionString
-      - key: CELERY_BROKER_URL
-        fromService:
-          type: redis
-          name: freemium-redis
-          property: connectionString
-      - key: CELERY_RESULT_BACKEND
-        fromService:
-          type: redis
-          name: freemium-redis
-          property: connectionString
+      # No background worker on the free plan: run Celery tasks inline so the
+      # "Refresh prices" button works without a separate worker process.
       - key: CELERY_TASK_ALWAYS_EAGER
-        value: "False"
+        value: "True"
       # Optional: set in the dashboard to enable error monitoring.
       - key: SENTRY_DSN
         sync: false
-
-  # --- Celery worker ----------------------------------------------------- #
-  - type: worker
-    name: freemium-worker
-    runtime: python
-    plan: free
-    buildCommand: "pip install -r requirements/prod.txt"
-    startCommand: "celery -A config worker -l info"
-    envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: config.settings.prod
-      - key: PYTHON_VERSION
-        value: "3.13.4"
-      - key: DJANGO_SECRET_KEY
-        fromService:
-          type: web
-          name: freemium-web
-          envVarKey: DJANGO_SECRET_KEY
-      - key: DATABASE_URL
-        fromDatabase:
-          name: freemium-db
-          property: connectionString
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: freemium-redis
-          property: connectionString
-      - key: CELERY_BROKER_URL
-        fromService:
-          type: redis
-          name: freemium-redis
-          property: connectionString
-      - key: CELERY_RESULT_BACKEND
-        fromService:
-          type: redis
-          name: freemium-redis
-          property: connectionString
-      - key: CELERY_TASK_ALWAYS_EAGER
-        value: "False"
-
-  # --- Celery beat (periodic schedule) ----------------------------------- #
-  - type: worker
-    name: freemium-beat
-    runtime: python
-    plan: free
-    buildCommand: "pip install -r requirements/prod.txt"
-    startCommand: "celery -A config beat -l info"
-    envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: config.settings.prod
-      - key: PYTHON_VERSION
-        value: "3.13.4"
-      - key: DJANGO_SECRET_KEY
-        fromService:
-          type: web
-          name: freemium-web
-          envVarKey: DJANGO_SECRET_KEY
-      - key: DATABASE_URL
-        fromDatabase:
-          name: freemium-db
-          property: connectionString
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: freemium-redis
-          property: connectionString
-      - key: CELERY_BROKER_URL
-        fromService:
-          type: redis
-          name: freemium-redis
-          property: connectionString
-      - key: CELERY_RESULT_BACKEND
-        fromService:
-          type: redis
-          name: freemium-redis
-          property: connectionString
-      - key: CELERY_TASK_ALWAYS_EAGER
-        value: "False"
