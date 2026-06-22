@@ -6,6 +6,7 @@ from datetime import UTC, datetime
 from decimal import Decimal, InvalidOperation
 
 import requests
+from django.core.cache import cache
 
 from .base import Quote, QuoteProvider, SymbolMatch
 
@@ -42,6 +43,17 @@ GROUPS_BY_ASSET_TYPE = {
     "BOND": {"stock_bonds", "stock_eurobond"},
     "CURRENCY": {"currency_selt"},
 }
+# MOEX's text search (q=) needs ~3 chars. For shorter queries (and shares-market
+# types) we filter a cached full list of shares-market instruments locally, so
+# suggestions appear from the very first character.
+MOEX_SHARES_LIST_URL = (
+    "https://iss.moex.com/iss/engines/stock/markets/shares/securities.json"
+)
+SHARES_INDEX_CACHE_KEY = "moex:shares_index"
+SHARES_INDEX_TTL = 6 * 60 * 60  # seconds
+SHORT_QUERY_LEN = 3
+# Asset types covered by the shares-market list (everything priceable there).
+INDEX_ASSET_TYPES = {"", "STOCK", "ETF", "FUND"}
 
 
 class MoexQuoteProvider(QuoteProvider):
@@ -84,6 +96,18 @@ class MoexQuoteProvider(QuoteProvider):
         return self._first_name(payload)
 
     def search(self, query: str, asset_type: str | None = None) -> list[SymbolMatch]:
+        query = query.strip()
+        if not query:
+            return []
+        # Short shares-market queries: filter the cached full list locally so
+        # suggestions work from 1 char (MOEX text search needs ~3).
+        if (
+            len(query) < SHORT_QUERY_LEN
+            and (asset_type or "").upper() in INDEX_ASSET_TYPES
+        ):
+            hits = self._search_index(query)
+            if hits:
+                return hits
         payload = self._get_json(
             MOEX_SEARCH_URL,
             {"q": query, "iss.meta": "off", "limit": SEARCH_LIMIT},
@@ -198,6 +222,52 @@ class MoexQuoteProvider(QuoteProvider):
             if len(matches) >= SEARCH_LIMIT:
                 break
         return matches
+
+    @classmethod
+    def _shares_index(cls) -> list[SymbolMatch]:
+        """Cached full list of shares-market instruments (SECID + SHORTNAME)."""
+        cached = cache.get(SHARES_INDEX_CACHE_KEY)
+        if cached is not None:
+            return cached
+        payload = cls._get_json(MOEX_SHARES_LIST_URL, {"iss.meta": "off"})
+        index = cls._parse_index(payload) if payload else []
+        cache.set(SHARES_INDEX_CACHE_KEY, index, SHARES_INDEX_TTL)
+        return index
+
+    @classmethod
+    def _search_index(cls, query: str) -> list[SymbolMatch]:
+        """Substring match against the cached shares list (works from 1 char)."""
+        needle = query.upper()
+        hits = [
+            m
+            for m in cls._shares_index()
+            if needle in m.ticker.upper() or needle in m.name.upper()
+        ]
+        return hits[:SEARCH_LIMIT]
+
+    @staticmethod
+    def _parse_index(payload: dict) -> list[SymbolMatch]:
+        """SECID + SHORTNAME from the shares-market list, deduped by ticker."""
+        try:
+            block = payload["securities"]
+            columns = block["columns"]
+            rows = block["data"]
+        except (KeyError, TypeError):
+            return []
+        if "SECID" not in columns:
+            return []
+        secid_i = columns.index("SECID")
+        name_i = columns.index("SHORTNAME") if "SHORTNAME" in columns else None
+        seen: set[str] = set()
+        index: list[SymbolMatch] = []
+        for row in rows:
+            secid = row[secid_i] if secid_i < len(row) else None
+            if not secid or secid in seen:
+                continue
+            seen.add(secid)
+            name = row[name_i] if name_i is not None and name_i < len(row) else ""
+            index.append(SymbolMatch(ticker=str(secid), name=str(name or "")))
+        return index
 
 
 def _to_positive_decimal(value: object) -> Decimal | None:
