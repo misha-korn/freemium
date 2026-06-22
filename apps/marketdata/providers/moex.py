@@ -1,4 +1,4 @@
-"""MOEX ISS quote provider (Russian market, no API key required)."""
+"""MOEX ISS provider (Russian market, no API key required): price, name, search."""
 from __future__ import annotations
 
 import logging
@@ -7,14 +7,16 @@ from decimal import Decimal, InvalidOperation
 
 import requests
 
-from .base import Quote, QuoteProvider
+from .base import Quote, QuoteProvider, SymbolMatch
 
 logger = logging.getLogger(__name__)
 
 MOEX_ISS_URL = (
     "https://iss.moex.com/iss/engines/stock/markets/shares/securities/{symbol}.json"
 )
+MOEX_SEARCH_URL = "https://iss.moex.com/iss/securities.json"
 REQUEST_TIMEOUT = 10
+SEARCH_LIMIT = 10
 
 # Primary order book for the most liquid MOEX shares; preferred when present.
 PRIMARY_BOARD = "TQBR"
@@ -25,29 +27,32 @@ PRIMARY_BOARD = "TQBR"
 MARKETDATA_PRICE_COLUMNS = ("LAST", "MARKETPRICE", "LCLOSEPRICE", "WAPRICE")
 # Previous-session close, present even on days the security never traded.
 SECURITIES_PRICE_COLUMNS = ("PREVPRICE", "PREVLEGALCLOSEPRICE", "PREVADMITTEDQUOTE")
+# Display-name columns in the per-security endpoint's "securities" block.
+SECURITIES_NAME_COLUMNS = ("SHORTNAME", "SECNAME", "NAME")
 
 
 class MoexQuoteProvider(QuoteProvider):
-    """Fetch the latest available price from the public MOEX ISS REST API."""
+    """Price / name / search from the public MOEX ISS REST API."""
 
     name = "MOEX"
 
     def get_endpoint(self, symbol: str) -> str:
         return MOEX_ISS_URL.format(symbol=symbol.upper())
 
-    def get_quote(self, symbol: str) -> Quote | None:
+    @staticmethod
+    def _get_json(url: str, params: dict) -> dict | None:
         try:
-            response = requests.get(
-                self.get_endpoint(symbol),
-                params={"iss.meta": "off"},
-                timeout=REQUEST_TIMEOUT,
-            )
+            response = requests.get(url, params=params, timeout=REQUEST_TIMEOUT)
             response.raise_for_status()
-            payload = response.json()
+            return response.json()
         except (requests.RequestException, ValueError) as exc:
-            logger.warning("MOEX quote fetch failed for %s: %s", symbol, exc)
+            logger.warning("MOEX request failed (%s): %s", url, exc)
             return None
 
+    def get_quote(self, symbol: str) -> Quote | None:
+        payload = self._get_json(self.get_endpoint(symbol), {"iss.meta": "off"})
+        if payload is None:
+            return None
         price = self._extract_price(payload)
         if price is None:
             return None
@@ -59,15 +64,25 @@ class MoexQuoteProvider(QuoteProvider):
             source=self.name,
         )
 
+    def get_name(self, symbol: str) -> str | None:
+        payload = self._get_json(self.get_endpoint(symbol), {"iss.meta": "off"})
+        if payload is None:
+            return None
+        return self._first_name(payload)
+
+    def search(self, query: str) -> list[SymbolMatch]:
+        payload = self._get_json(
+            MOEX_SEARCH_URL,
+            {"q": query, "iss.meta": "off", "limit": SEARCH_LIMIT},
+        )
+        if payload is None:
+            return []
+        return self._matches(payload)
+
+    # --- parsing helpers --------------------------------------------------- #
     @classmethod
     def _extract_price(cls, payload: dict) -> Decimal | None:
-        """Return the most recent available price.
-
-        Tries the live market-data columns first (LAST, then intraday / close
-        fallbacks); if today's session never traded, falls back to the
-        previous-session close from the securities block. This keeps a quote
-        available outside trading hours instead of showing nothing.
-        """
+        """Most recent available price: live columns first, else previous close."""
         price = cls._price_from_block(payload, "marketdata", MARKETDATA_PRICE_COLUMNS)
         if price is None:
             price = cls._price_from_block(
@@ -88,7 +103,7 @@ class MoexQuoteProvider(QuoteProvider):
             logger.warning("MOEX response shape unexpected (%s): %s", block_name, exc)
             return None
 
-        present = [(col, columns.index(col)) for col in candidate_columns if col in columns]
+        present = [(c, columns.index(c)) for c in candidate_columns if c in columns]
         if not present:
             return None
         board_index = columns.index("BOARDID") if "BOARDID" in columns else None
@@ -104,6 +119,64 @@ class MoexQuoteProvider(QuoteProvider):
                 if price is not None:
                     return price
         return None
+
+    @staticmethod
+    def _first_name(payload: dict) -> str | None:
+        """Pull SHORTNAME (preferring the TQBR row) from the securities block."""
+        try:
+            block = payload["securities"]
+            columns = block["columns"]
+            rows = block["data"]
+        except (KeyError, TypeError):
+            return None
+        present = [columns.index(c) for c in SECURITIES_NAME_COLUMNS if c in columns]
+        if not present:
+            return None
+        board_index = columns.index("BOARDID") if "BOARDID" in columns else None
+
+        def board_rank(row: list) -> int:
+            if board_index is None:
+                return 1
+            return 0 if row[board_index] == PRIMARY_BOARD else 1
+
+        for row in sorted(rows, key=board_rank):
+            for index in present:
+                value = row[index] if index < len(row) else None
+                if value:
+                    return str(value).strip()
+        return None
+
+    @staticmethod
+    def _matches(payload: dict) -> list[SymbolMatch]:
+        """Search hits from iss/securities.json (note: lowercase columns)."""
+        try:
+            block = payload["securities"]
+            columns = block["columns"]
+            rows = block["data"]
+        except (KeyError, TypeError):
+            return []
+
+        def col(field: str) -> int | None:
+            return columns.index(field) if field in columns else None
+
+        secid_i = col("secid")
+        name_i = col("shortname") if col("shortname") is not None else col("name")
+        traded_i = col("is_traded")
+        if secid_i is None:
+            return []
+
+        matches: list[SymbolMatch] = []
+        for row in rows:
+            if traded_i is not None and not row[traded_i]:
+                continue
+            ticker = row[secid_i]
+            if not ticker:
+                continue
+            name = row[name_i] if name_i is not None else ""
+            matches.append(SymbolMatch(ticker=str(ticker), name=str(name or "")))
+            if len(matches) >= SEARCH_LIMIT:
+                break
+        return matches
 
 
 def _to_positive_decimal(value: object) -> Decimal | None:

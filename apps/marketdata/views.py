@@ -6,12 +6,15 @@ from typing import Any
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import QuerySet
+from django.http import HttpRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from django.views import View
 from django.views.generic import CreateView, DeleteView, ListView
 
 from .forms import PriceAlertForm
 from .models import PriceAlert
+from .services import search_symbols
 
 
 class AlertListView(LoginRequiredMixin, ListView):
@@ -44,3 +47,17 @@ class AlertDeleteView(LoginRequiredMixin, DeleteView):
         ctx = super().get_context_data(**kwargs)
         ctx["alert"] = self.object
         return ctx
+
+
+class SymbolSearchView(LoginRequiredMixin, View):
+    """JSON ticker lookup for the asset form's autocomplete (?q=&market=)."""
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> JsonResponse:
+        query = request.GET.get("q", "").strip()
+        market = request.GET.get("market", "").strip()
+        if not query:
+            return JsonResponse({"results": []})
+        matches = search_symbols(market, query)
+        return JsonResponse(
+            {"results": [{"ticker": m.ticker, "name": m.name} for m in matches]}
+        )

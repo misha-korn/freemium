@@ -23,6 +23,11 @@ class AssetForm(forms.ModelForm):
     class Meta:
         model = Asset
         fields = ["ticker", "name", "asset_type", "market", "currency", "isin"]
+        widgets = {
+            "ticker": forms.TextInput(
+                attrs={"list": "ticker-suggestions", "autocomplete": "off"}
+            ),
+        }
 
 
 class TransactionForm(forms.ModelForm):
