@@ -14,7 +14,6 @@
   <form class="form" method="post" novalidate>
     {% csrf_token %}
     {% include "partials/form_fields.html" %}
-    <datalist id="ticker-suggestions"></datalist>
     <div class="form-actions">
       <button class="btn btn--primary" type="submit">{% trans "Save" %}</button>
       <a class="btn btn--ghost" href="{% url 'portfolio:asset_list' %}">{% trans "Cancel" %}</a>

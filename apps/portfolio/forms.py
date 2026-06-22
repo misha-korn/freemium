@@ -24,9 +24,9 @@ class AssetForm(forms.ModelForm):
         model = Asset
         fields = ["ticker", "name", "asset_type", "market", "currency", "isin"]
         widgets = {
-            "ticker": forms.TextInput(
-                attrs={"list": "ticker-suggestions", "autocomplete": "off"}
-            ),
+            # autocomplete=off so the browser's own history popup doesn't fight
+            # our custom suggestions dropdown (see static/js/asset_search.js).
+            "ticker": forms.TextInput(attrs={"autocomplete": "off"}),
         }
 
 
