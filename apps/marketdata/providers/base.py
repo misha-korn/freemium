@@ -26,6 +26,14 @@ class SymbolMatch:
     name: str
 
 
+def prefix_matches(query: str, match: SymbolMatch) -> bool:
+    """True if the ticker or display name starts with ``query`` (case-insensitive)."""
+    q = query.strip().upper()
+    if not q:
+        return True
+    return match.ticker.upper().startswith(q) or match.name.upper().startswith(q)
+
+
 class QuoteProvider(ABC):
     """Abstract market-data provider."""
 
