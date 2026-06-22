@@ -4,6 +4,7 @@ from __future__ import annotations
 from decimal import Decimal
 
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from .models import Asset, Portfolio, Transaction
 
@@ -28,6 +29,14 @@ class AssetForm(forms.ModelForm):
             # our custom suggestions dropdown (see static/js/asset_search.js).
             "ticker": forms.TextInput(attrs={"autocomplete": "off"}),
         }
+        labels = {
+            "ticker": _("Ticker"),
+            "name": _("Name"),
+            "asset_type": _("Asset type"),
+            "market": _("Market"),
+            "currency": _("Currency"),
+            "isin": _("ISIN"),
+        }
 
 
 class TransactionForm(forms.ModelForm):
@@ -39,6 +48,15 @@ class TransactionForm(forms.ModelForm):
                 attrs={"type": "datetime-local"},
                 format="%Y-%m-%dT%H:%M",
             ),
+        }
+        labels = {
+            "asset": _("Asset"),
+            "kind": _("Type"),
+            "quantity": _("Quantity"),
+            "price": _("Price"),
+            "fee": _("Fee"),
+            "executed_at": _("Executed at"),
+            "note": _("Note"),
         }
 
     def __init__(self, *args: object, **kwargs: object) -> None:

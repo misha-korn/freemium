@@ -11,40 +11,41 @@ from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 # ---------------------------------------------------------------------------
 # Module-level choices
 # ---------------------------------------------------------------------------
 
-CURRENCY_CHOICES: list[tuple[str, str]] = [
-    ("RUB", "Russian Ruble"),
-    ("USD", "US Dollar"),
-    ("EUR", "Euro"),
-    ("GBP", "British Pound"),
-    ("CNY", "Chinese Yuan"),
+CURRENCY_CHOICES = [
+    ("RUB", _("Russian Ruble")),
+    ("USD", _("US Dollar")),
+    ("EUR", _("Euro")),
+    ("GBP", _("British Pound")),
+    ("CNY", _("Chinese Yuan")),
 ]
 
-ASSET_TYPE_CHOICES: list[tuple[str, str]] = [
-    ("STOCK", "Stock"),
-    ("BOND", "Bond"),
-    ("ETF", "ETF"),
-    ("FUND", "Mutual Fund"),
-    ("CURRENCY", "Currency"),
-    ("CRYPTO", "Cryptocurrency"),
-    ("OTHER", "Other"),
+ASSET_TYPE_CHOICES = [
+    ("STOCK", _("Stock")),
+    ("BOND", _("Bond")),
+    ("ETF", _("ETF")),
+    ("FUND", _("Mutual Fund")),
+    ("CURRENCY", _("Currency")),
+    ("CRYPTO", _("Cryptocurrency")),
+    ("OTHER", _("Other")),
 ]
 
-MARKET_CHOICES: list[tuple[str, str]] = [
-    ("MOEX", "Moscow Exchange"),
-    ("US", "US Markets"),
-    ("EU", "European Markets"),
-    ("GLOBAL", "Global"),
-    ("OTHER", "Other"),
+MARKET_CHOICES = [
+    ("MOEX", _("Moscow Exchange")),
+    ("US", _("US Markets")),
+    ("EU", _("European Markets")),
+    ("GLOBAL", _("Global")),
+    ("OTHER", _("Other")),
 ]
 
-TRANSACTION_KIND_CHOICES: list[tuple[str, str]] = [
-    ("BUY", "Buy"),
-    ("SELL", "Sell"),
+TRANSACTION_KIND_CHOICES = [
+    ("BUY", _("Buy")),
+    ("SELL", _("Sell")),
 ]
 
 
