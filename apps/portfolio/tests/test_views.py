@@ -220,11 +220,11 @@ def test_refresh_quotes_dispatches_for_held_assets(auth_client, user):
     )
 
     url = reverse("portfolio:refresh_quotes", kwargs={"pk": portfolio.pk})
-    with patch("apps.portfolio.views.refresh_quote.delay") as delay:
+    with patch("apps.portfolio.views.fetch_and_store_quote") as fetch:
         resp = auth_client.post(url)
 
     assert resp.status_code == 302
-    delay.assert_called_once_with(asset.id)
+    fetch.assert_called_once_with(asset)
 
 
 @pytest.mark.django_db
