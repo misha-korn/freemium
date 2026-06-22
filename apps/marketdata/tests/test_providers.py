@@ -1,6 +1,7 @@
 from decimal import Decimal
 from unittest.mock import MagicMock, patch
 
+from apps.marketdata.providers.base import SymbolMatch
 from apps.marketdata.providers.international import (
     FinnhubQuoteProvider,
     NullQuoteProvider,
@@ -181,3 +182,15 @@ def test_moex_search_narrows_to_asset_type():
         stocks = MoexQuoteProvider().search("сбер", asset_type="STOCK")
     assert [m.ticker for m in bonds] == ["SU26240"]
     assert [m.ticker for m in stocks] == ["SBER"]
+
+
+def test_moex_short_query_filters_cached_index():
+    """A 1–2 char stock query filters the cached shares list (no 3-char floor)."""
+    index = [
+        SymbolMatch("SBER", "Сбербанк"),
+        SymbolMatch("SBERP", "Сбербанк-п"),
+        SymbolMatch("GAZP", "Газпром"),
+    ]
+    with patch.object(MoexQuoteProvider, "_shares_index", return_value=index):
+        matches = MoexQuoteProvider().search("s", asset_type="STOCK")
+    assert [m.ticker for m in matches] == ["SBER", "SBERP"]
