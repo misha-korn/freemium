@@ -279,6 +279,22 @@ a:hover { text-decoration: underline; }
 .field .errorlist { margin: 0; padding: 0; list-style: none; color: var(--color-negative); font-size: var(--text-sm); }
 .form-actions { display: flex; gap: var(--space-3); align-items: center; }
 
+/* Ticker autocomplete dropdown (asset form) */
+.ac-list {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 50;
+  margin: 4px 0 0; padding: var(--space-1); list-style: none;
+  max-height: 280px; overflow-y: auto;
+  background: var(--color-surface); border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow);
+}
+.ac-item {
+  display: flex; align-items: baseline; gap: var(--space-2);
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); cursor: pointer;
+}
+.ac-item:hover, .ac-item.is-active { background: var(--color-accent-soft); }
+.ac-ticker { font-family: var(--font-mono); font-weight: 600; color: var(--color-text); flex-shrink: 0; }
+.ac-name { font-size: var(--text-sm); color: var(--color-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
 /* ----- Empty state ----- */
 .empty-state { text-align: center; padding: var(--space-8) var(--space-4); border: 1px dashed var(--color-border-strong); border-radius: var(--radius-lg); background: var(--color-surface); }
 .empty-state h2 { font-size: var(--text-xl); }
