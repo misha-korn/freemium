@@ -50,14 +50,15 @@ class AlertDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class SymbolSearchView(LoginRequiredMixin, View):
-    """JSON ticker lookup for the asset form's autocomplete (?q=&market=)."""
+    """JSON ticker lookup for the asset form's autocomplete (?q=&market=&type=)."""
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> JsonResponse:
         query = request.GET.get("q", "").strip()
         market = request.GET.get("market", "").strip()
+        asset_type = request.GET.get("type", "").strip()
         if not query:
             return JsonResponse({"results": []})
-        matches = search_symbols(market, query)
+        matches = search_symbols(market, query, asset_type)
         return JsonResponse(
             {"results": [{"ticker": m.ticker, "name": m.name} for m in matches]}
         )

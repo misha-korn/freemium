@@ -33,6 +33,15 @@ SECURITIES_NAME_COLUMNS = ("SHORTNAME", "SECNAME", "NAME")
 # filtered to these so users pick tradable equities/funds — not bonds, indices
 # or "fixing" reference instruments (e.g. FIXSBER) that have no share price.
 PRICEABLE_GROUPS = {"stock_shares", "stock_etf", "stock_dr", "stock_ppif"}
+# MOEX security groups per Asset.asset_type, so search narrows to the chosen
+# instrument type. Types not listed (CRYPTO / OTHER) fall back to PRICEABLE_GROUPS.
+GROUPS_BY_ASSET_TYPE = {
+    "STOCK": {"stock_shares", "stock_dr"},
+    "ETF": {"stock_etf", "stock_ppif"},
+    "FUND": {"stock_ppif", "stock_etf"},
+    "BOND": {"stock_bonds", "stock_eurobond"},
+    "CURRENCY": {"currency_selt"},
+}
 
 
 class MoexQuoteProvider(QuoteProvider):
@@ -74,14 +83,14 @@ class MoexQuoteProvider(QuoteProvider):
             return None
         return self._first_name(payload)
 
-    def search(self, query: str) -> list[SymbolMatch]:
+    def search(self, query: str, asset_type: str | None = None) -> list[SymbolMatch]:
         payload = self._get_json(
             MOEX_SEARCH_URL,
             {"q": query, "iss.meta": "off", "limit": SEARCH_LIMIT},
         )
         if payload is None:
             return []
-        return self._matches(payload)
+        return self._matches(payload, asset_type)
 
     # --- parsing helpers --------------------------------------------------- #
     @classmethod
@@ -151,8 +160,12 @@ class MoexQuoteProvider(QuoteProvider):
         return None
 
     @staticmethod
-    def _matches(payload: dict) -> list[SymbolMatch]:
-        """Search hits from iss/securities.json (note: lowercase columns)."""
+    def _matches(payload: dict, asset_type: str | None = None) -> list[SymbolMatch]:
+        """Search hits from iss/securities.json (note: lowercase columns).
+
+        Narrowed to the groups matching ``asset_type``; without a known type,
+        falls back to all priceable equity groups.
+        """
         try:
             block = payload["securities"]
             columns = block["columns"]
@@ -170,11 +183,12 @@ class MoexQuoteProvider(QuoteProvider):
         if secid_i is None:
             return []
 
+        allowed = GROUPS_BY_ASSET_TYPE.get((asset_type or "").upper(), PRICEABLE_GROUPS)
         matches: list[SymbolMatch] = []
         for row in rows:
             if traded_i is not None and not row[traded_i]:
                 continue
-            if group_i is not None and row[group_i] not in PRICEABLE_GROUPS:
+            if group_i is not None and row[group_i] not in allowed:
                 continue
             ticker = row[secid_i]
             if not ticker:

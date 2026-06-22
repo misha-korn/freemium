@@ -7,6 +7,7 @@
   var url = window.SYMBOL_SEARCH_URL;
   var ticker = document.getElementById("id_ticker");
   var market = document.getElementById("id_market");
+  var atype = document.getElementById("id_asset_type");
   var nameField = document.getElementById("id_name");
   var list = document.getElementById("ticker-suggestions");
   if (!url || !ticker || !list) return;
@@ -17,12 +18,16 @@
   function fetchSuggestions() {
     var q = ticker.value.trim();
     var m = market ? market.value : "";
+    var t = atype ? atype.value : "";
     if (q.length < 1) {
       list.innerHTML = "";
       return;
     }
     fetch(
-      url + "?q=" + encodeURIComponent(q) + "&market=" + encodeURIComponent(m),
+      url +
+        "?q=" + encodeURIComponent(q) +
+        "&market=" + encodeURIComponent(m) +
+        "&type=" + encodeURIComponent(t),
       { headers: { "X-Requested-With": "XMLHttpRequest" } }
     )
       .then(function (r) {
@@ -56,5 +61,8 @@
 
   if (market) {
     market.addEventListener("change", fetchSuggestions);
+  }
+  if (atype) {
+    atype.addEventListener("change", fetchSuggestions);
   }
 })();

@@ -72,7 +72,9 @@ class FinnhubQuoteProvider(QuoteProvider):
         name = payload.get("name")
         return str(name).strip() if name else None
 
-    def search(self, query: str) -> list[SymbolMatch]:
+    def search(self, query: str, asset_type: str | None = None) -> list[SymbolMatch]:
+        # asset_type is accepted for interface parity; Finnhub's free search has
+        # no reliable type filter, so results aren't narrowed by it.
         payload = self._get_json(FINNHUB_SEARCH_URL, {"q": query})
         if not payload:
             return []

@@ -14,12 +14,13 @@ def test_symbol_search_returns_json(auth_client):
         "apps.marketdata.views.search_symbols", return_value=matches
     ) as search:
         resp = auth_client.get(
-            reverse("marketdata:symbol_search"), {"q": "сбер", "market": "MOEX"}
+            reverse("marketdata:symbol_search"),
+            {"q": "сбер", "market": "MOEX", "type": "STOCK"},
         )
 
     assert resp.status_code == 200
     assert resp.json()["results"] == [{"ticker": "SBER", "name": "Сбербанк"}]
-    search.assert_called_once_with("MOEX", "сбер")
+    search.assert_called_once_with("MOEX", "сбер", "STOCK")
 
 
 @pytest.mark.django_db
