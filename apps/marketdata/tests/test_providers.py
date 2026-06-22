@@ -120,7 +120,7 @@ def test_moex_search_filters_out_non_shares():
             "columns": ["secid", "shortname", "is_traded", "group"],
             "data": [
                 ["SBER", "Сбербанк", 1, "stock_shares"],
-                ["SBMX", "БПИФ Сбер", 1, "stock_etf"],
+                ["SBMX", "Сбер ETF", 1, "stock_etf"],
                 ["FIXSBER", "Фиксинг МосБиржи SBER", 1, "stock_index"],
                 ["SU26240", "ОФЗ 26240", 1, "stock_bonds"],
             ],
@@ -172,15 +172,15 @@ def test_moex_search_narrows_to_asset_type():
             "columns": ["secid", "shortname", "is_traded", "group"],
             "data": [
                 ["SBER", "Сбербанк", 1, "stock_shares"],
-                ["SBMX", "БПИФ Сбер", 1, "stock_etf"],
-                ["SU26240", "ОФЗ 26240", 1, "stock_bonds"],
+                ["SBMX", "Сбер ETF", 1, "stock_etf"],
+                ["SBRB", "Сбербанк обл", 1, "stock_bonds"],
             ],
         }
     }
     with _mock_get(payload):
         bonds = MoexQuoteProvider().search("сбер", asset_type="BOND")
         stocks = MoexQuoteProvider().search("сбер", asset_type="STOCK")
-    assert [m.ticker for m in bonds] == ["SU26240"]
+    assert [m.ticker for m in bonds] == ["SBRB"]
     assert [m.ticker for m in stocks] == ["SBER"]
 
 

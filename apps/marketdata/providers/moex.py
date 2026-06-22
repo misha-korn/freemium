@@ -8,7 +8,7 @@ from decimal import Decimal, InvalidOperation
 import requests
 from django.core.cache import cache
 
-from .base import Quote, QuoteProvider, SymbolMatch
+from .base import Quote, QuoteProvider, SymbolMatch, prefix_matches
 
 logger = logging.getLogger(__name__)
 
@@ -114,7 +114,7 @@ class MoexQuoteProvider(QuoteProvider):
         )
         if payload is None:
             return []
-        return self._matches(payload, asset_type)
+        return self._matches(payload, asset_type, query)
 
     # --- parsing helpers --------------------------------------------------- #
     @classmethod
@@ -184,11 +184,13 @@ class MoexQuoteProvider(QuoteProvider):
         return None
 
     @staticmethod
-    def _matches(payload: dict, asset_type: str | None = None) -> list[SymbolMatch]:
+    def _matches(
+        payload: dict, asset_type: str | None = None, query: str = ""
+    ) -> list[SymbolMatch]:
         """Search hits from iss/securities.json (note: lowercase columns).
 
-        Narrowed to the groups matching ``asset_type``; without a known type,
-        falls back to all priceable equity groups.
+        Narrowed to the groups matching ``asset_type`` (else all priceable equity
+        groups) and to ticker/name prefix matches of ``query``.
         """
         try:
             block = payload["securities"]
@@ -218,7 +220,10 @@ class MoexQuoteProvider(QuoteProvider):
             if not ticker:
                 continue
             name = row[name_i] if name_i is not None else ""
-            matches.append(SymbolMatch(ticker=str(ticker), name=str(name or "")))
+            match = SymbolMatch(ticker=str(ticker), name=str(name or ""))
+            if not prefix_matches(query, match):
+                continue
+            matches.append(match)
             if len(matches) >= SEARCH_LIMIT:
                 break
         return matches
@@ -236,13 +241,8 @@ class MoexQuoteProvider(QuoteProvider):
 
     @classmethod
     def _search_index(cls, query: str) -> list[SymbolMatch]:
-        """Substring match against the cached shares list (works from 1 char)."""
-        needle = query.upper()
-        hits = [
-            m
-            for m in cls._shares_index()
-            if needle in m.ticker.upper() or needle in m.name.upper()
-        ]
+        """Prefix match against the cached shares list (works from 1 char)."""
+        hits = [m for m in cls._shares_index() if prefix_matches(query, m)]
         return hits[:SEARCH_LIMIT]
 
     @staticmethod
