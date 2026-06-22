@@ -20,8 +20,7 @@ from django.views.generic import (
 )
 
 from apps.billing import subscriptions
-from apps.marketdata.services import resolve_asset_name
-from apps.marketdata.tasks import refresh_quote
+from apps.marketdata.services import fetch_and_store_quote, resolve_asset_name
 
 from . import exports
 from .allocation import build_allocation, chart_payload
@@ -145,10 +144,11 @@ class PortfolioDetailView(_OwnedPortfolioMixin, DetailView):
 
 
 class PortfolioRefreshQuotesView(LoginRequiredMixin, View):
-    """POST-only: enqueue a fresh-quote refresh for this portfolio's held assets.
+    """POST-only: fetch fresh quotes for this portfolio's held assets, inline.
 
-    Under ``CELERY_TASK_ALWAYS_EAGER`` (dev) the fetch runs inline so prices
-    appear immediately; in production it queues work for the Celery worker.
+    The free hosting tier has no Celery worker, so quotes are fetched
+    synchronously in the request (only a handful of held assets). Each new
+    ``PriceQuote`` is persisted and shown on the next page load.
     """
 
     def post(
@@ -156,15 +156,25 @@ class PortfolioRefreshQuotesView(LoginRequiredMixin, View):
     ) -> HttpResponse:
         portfolio = get_object_or_404(Portfolio, pk=pk, owner=request.user)
         held = compute_positions(portfolio)
-        for position in held:
-            refresh_quote.delay(position.asset.id)
+        if not held:
+            messages.info(request, "Add a trade first — no positions to price yet.")
+            return redirect(portfolio.get_absolute_url())
 
-        if held:
+        # Free tier has no Celery worker — fetch inline (a handful of assets).
+        priced = sum(
+            1
+            for position in held
+            if fetch_and_store_quote(position.asset) is not None
+        )
+        if priced:
             messages.success(
-                request, f"Refreshing quotes for {len(held)} asset(s)…"
+                request, f"Updated prices for {priced} of {len(held)} asset(s)."
             )
         else:
-            messages.info(request, "Add a trade first — no positions to price yet.")
+            messages.warning(
+                request,
+                "Couldn't fetch a price for any holding — check the ticker/market.",
+            )
         return redirect(portfolio.get_absolute_url())
 
 

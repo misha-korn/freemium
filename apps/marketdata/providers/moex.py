@@ -29,6 +29,10 @@ MARKETDATA_PRICE_COLUMNS = ("LAST", "MARKETPRICE", "LCLOSEPRICE", "WAPRICE")
 SECURITIES_PRICE_COLUMNS = ("PREVPRICE", "PREVLEGALCLOSEPRICE", "PREVADMITTEDQUOTE")
 # Display-name columns in the per-security endpoint's "securities" block.
 SECURITIES_NAME_COLUMNS = ("SHORTNAME", "SECNAME", "NAME")
+# Security groups the shares-market quote endpoint can actually price. Search is
+# filtered to these so users pick tradable equities/funds — not bonds, indices
+# or "fixing" reference instruments (e.g. FIXSBER) that have no share price.
+PRICEABLE_GROUPS = {"stock_shares", "stock_etf", "stock_dr", "stock_ppif"}
 
 
 class MoexQuoteProvider(QuoteProvider):
@@ -162,12 +166,15 @@ class MoexQuoteProvider(QuoteProvider):
         secid_i = col("secid")
         name_i = col("shortname") if col("shortname") is not None else col("name")
         traded_i = col("is_traded")
+        group_i = col("group")
         if secid_i is None:
             return []
 
         matches: list[SymbolMatch] = []
         for row in rows:
             if traded_i is not None and not row[traded_i]:
+                continue
+            if group_i is not None and row[group_i] not in PRICEABLE_GROUPS:
                 continue
             ticker = row[secid_i]
             if not ticker:

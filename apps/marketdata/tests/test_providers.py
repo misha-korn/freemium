@@ -112,6 +112,24 @@ def test_moex_search_returns_traded_matches():
     assert matches[0].name == "Сбербанк"
 
 
+def test_moex_search_filters_out_non_shares():
+    """Drop bonds / indices / fixing instruments — only priceable equities."""
+    payload = {
+        "securities": {
+            "columns": ["secid", "shortname", "is_traded", "group"],
+            "data": [
+                ["SBER", "Сбербанк", 1, "stock_shares"],
+                ["SBMX", "БПИФ Сбер", 1, "stock_etf"],
+                ["FIXSBER", "Фиксинг МосБиржи SBER", 1, "stock_index"],
+                ["SU26240", "ОФЗ 26240", 1, "stock_bonds"],
+            ],
+        }
+    }
+    with _mock_get(payload):
+        matches = MoexQuoteProvider().search("сбер")
+    assert [m.ticker for m in matches] == ["SBER", "SBMX"]
+
+
 def _mock_intl_get(payload):
     mock_response = MagicMock()
     mock_response.json.return_value = payload
