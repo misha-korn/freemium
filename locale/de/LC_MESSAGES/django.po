@@ -923,6 +923,72 @@ msgstr "Kein Abo-Eintrag."
 msgid "Export trades (CSV)"
 msgstr "Trades exportieren (CSV)"
 
+msgid "Asset type"
+msgstr ""
+
+msgid "Currency"
+msgstr ""
+
+msgid "ISIN"
+msgstr ""
+
+msgid "Executed at"
+msgstr ""
+
+msgid "Note"
+msgstr ""
+
+msgid "Russian Ruble"
+msgstr ""
+
+msgid "US Dollar"
+msgstr ""
+
+msgid "Euro"
+msgstr ""
+
+msgid "British Pound"
+msgstr ""
+
+msgid "Chinese Yuan"
+msgstr ""
+
+msgid "Stock"
+msgstr ""
+
+msgid "Bond"
+msgstr ""
+
+msgid "ETF"
+msgstr ""
+
+msgid "Mutual Fund"
+msgstr ""
+
+msgid "Cryptocurrency"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "Moscow Exchange"
+msgstr ""
+
+msgid "US Markets"
+msgstr ""
+
+msgid "European Markets"
+msgstr ""
+
+msgid "Global"
+msgstr ""
+
+msgid "Buy"
+msgstr ""
+
+msgid "Sell"
+msgstr ""
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s Portfolio"

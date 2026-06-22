@@ -921,6 +921,72 @@ msgstr "Записи о подписке нет."
 msgid "Export trades (CSV)"
 msgstr "Экспорт сделок (CSV)"
 
+msgid "Asset type"
+msgstr "Тип актива"
+
+msgid "Currency"
+msgstr "Валюта"
+
+msgid "ISIN"
+msgstr "ISIN"
+
+msgid "Executed at"
+msgstr "Дата и время"
+
+msgid "Note"
+msgstr "Заметка"
+
+msgid "Russian Ruble"
+msgstr "Российский рубль"
+
+msgid "US Dollar"
+msgstr "Доллар США"
+
+msgid "Euro"
+msgstr "Евро"
+
+msgid "British Pound"
+msgstr "Фунт стерлингов"
+
+msgid "Chinese Yuan"
+msgstr "Китайский юань"
+
+msgid "Stock"
+msgstr "Акция"
+
+msgid "Bond"
+msgstr "Облигация"
+
+msgid "ETF"
+msgstr "ETF"
+
+msgid "Mutual Fund"
+msgstr "ПИФ"
+
+msgid "Cryptocurrency"
+msgstr "Криптовалюта"
+
+msgid "Other"
+msgstr "Другое"
+
+msgid "Moscow Exchange"
+msgstr "Московская биржа"
+
+msgid "US Markets"
+msgstr "Рынок США"
+
+msgid "European Markets"
+msgstr "Европейские рынки"
+
+msgid "Global"
+msgstr "Глобальный"
+
+msgid "Buy"
+msgstr "Покупка"
+
+msgid "Sell"
+msgstr "Продажа"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s портфель"

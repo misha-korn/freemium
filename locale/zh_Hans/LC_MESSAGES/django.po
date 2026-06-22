@@ -877,6 +877,72 @@ msgstr "无订阅记录。"
 msgid "Export trades (CSV)"
 msgstr "导出交易（CSV）"
 
+msgid "Asset type"
+msgstr "资产类型"
+
+msgid "Currency"
+msgstr "货币"
+
+msgid "ISIN"
+msgstr "ISIN"
+
+msgid "Executed at"
+msgstr "成交时间"
+
+msgid "Note"
+msgstr "备注"
+
+msgid "Russian Ruble"
+msgstr "俄罗斯卢布"
+
+msgid "US Dollar"
+msgstr "美元"
+
+msgid "Euro"
+msgstr "欧元"
+
+msgid "British Pound"
+msgstr "英镑"
+
+msgid "Chinese Yuan"
+msgstr "人民币"
+
+msgid "Stock"
+msgstr "股票"
+
+msgid "Bond"
+msgstr "债券"
+
+msgid "ETF"
+msgstr "ETF"
+
+msgid "Mutual Fund"
+msgstr "共同基金"
+
+msgid "Cryptocurrency"
+msgstr "加密货币"
+
+msgid "Other"
+msgstr "其他"
+
+msgid "Moscow Exchange"
+msgstr "莫斯科交易所"
+
+msgid "US Markets"
+msgstr "美国市场"
+
+msgid "European Markets"
+msgstr "欧洲市场"
+
+msgid "Global"
+msgstr "全球"
+
+msgid "Buy"
+msgstr "买入"
+
+msgid "Sell"
+msgstr "卖出"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"

@@ -921,6 +921,72 @@ msgstr "Sin registro de suscripción."
 msgid "Export trades (CSV)"
 msgstr "Exportar operaciones (CSV)"
 
+msgid "Asset type"
+msgstr "Tipo de activo"
+
+msgid "Currency"
+msgstr "Moneda"
+
+msgid "ISIN"
+msgstr "ISIN"
+
+msgid "Executed at"
+msgstr "Fecha y hora"
+
+msgid "Note"
+msgstr "Nota"
+
+msgid "Russian Ruble"
+msgstr "Rublo ruso"
+
+msgid "US Dollar"
+msgstr "Dólar estadounidense"
+
+msgid "Euro"
+msgstr "Euro"
+
+msgid "British Pound"
+msgstr "Libra esterlina"
+
+msgid "Chinese Yuan"
+msgstr "Yuan chino"
+
+msgid "Stock"
+msgstr "Acción"
+
+msgid "Bond"
+msgstr "Bono"
+
+msgid "ETF"
+msgstr "ETF"
+
+msgid "Mutual Fund"
+msgstr "Fondo de inversión"
+
+msgid "Cryptocurrency"
+msgstr "Criptomoneda"
+
+msgid "Other"
+msgstr "Otro"
+
+msgid "Moscow Exchange"
+msgstr "Bolsa de Moscú"
+
+msgid "US Markets"
+msgstr "Mercados de EE. UU."
+
+msgid "European Markets"
+msgstr "Mercados europeos"
+
+msgid "Global"
+msgstr "Global"
+
+msgid "Buy"
+msgstr "Compra"
+
+msgid "Sell"
+msgstr "Venta"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"
