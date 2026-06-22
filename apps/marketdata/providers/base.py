@@ -52,9 +52,10 @@ class QuoteProvider(ABC):
         """
         return None
 
-    def search(self, query: str) -> list[SymbolMatch]:
+    def search(self, query: str, asset_type: str | None = None) -> list[SymbolMatch]:
         """Return tradable symbols matching ``query`` (ticker or name).
 
-        Default: no search. Providers with a lookup endpoint override this.
+        ``asset_type`` (STOCK / ETF / BOND / …) lets a provider narrow results to
+        the selected instrument type. Default: no search.
         """
         return []

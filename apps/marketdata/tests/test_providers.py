@@ -162,3 +162,22 @@ def test_finnhub_search_maps_results():
 def test_null_provider_has_no_name_or_search():
     assert NullQuoteProvider().get_name("X") is None
     assert NullQuoteProvider().search("X") == []
+
+
+def test_moex_search_narrows_to_asset_type():
+    """asset_type selects the matching MOEX groups (BOND → bonds, STOCK → shares)."""
+    payload = {
+        "securities": {
+            "columns": ["secid", "shortname", "is_traded", "group"],
+            "data": [
+                ["SBER", "Сбербанк", 1, "stock_shares"],
+                ["SBMX", "БПИФ Сбер", 1, "stock_etf"],
+                ["SU26240", "ОФЗ 26240", 1, "stock_bonds"],
+            ],
+        }
+    }
+    with _mock_get(payload):
+        bonds = MoexQuoteProvider().search("сбер", asset_type="BOND")
+        stocks = MoexQuoteProvider().search("сбер", asset_type="STOCK")
+    assert [m.ticker for m in bonds] == ["SU26240"]
+    assert [m.ticker for m in stocks] == ["SBER"]

@@ -112,9 +112,11 @@ def resolve_asset_name(market: str, ticker: str) -> str | None:
     return get_provider(market).get_name(ticker.strip())
 
 
-def search_symbols(market: str, query: str) -> list[SymbolMatch]:
-    """Tradable symbols matching ``query`` on ``market`` (for ticker lookup)."""
+def search_symbols(
+    market: str, query: str, asset_type: str | None = None
+) -> list[SymbolMatch]:
+    """Tradable symbols matching ``query`` on ``market``, narrowed by asset type."""
     query = query.strip()
     if not query:
         return []
-    return get_provider(market).search(query)
+    return get_provider(market).search(query, asset_type)
