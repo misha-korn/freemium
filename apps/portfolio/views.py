@@ -20,6 +20,7 @@ from django.views.generic import (
 )
 
 from apps.billing import subscriptions
+from apps.marketdata.services import resolve_asset_name
 from apps.marketdata.tasks import refresh_quote
 
 from . import exports
@@ -251,8 +252,16 @@ class AssetCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("portfolio:asset_list")
 
     def form_valid(self, form: AssetForm):
+        response = super().form_valid(form)
+        # Auto-fill the company / security name from the market provider when the
+        # user left it blank, so we always know which instrument this is.
+        if not self.object.name:
+            name = resolve_asset_name(self.object.market, self.object.ticker)
+            if name:
+                self.object.name = name
+                self.object.save(update_fields=["name"])
         messages.success(self.request, _("Asset added to the catalogue."))
-        return super().form_valid(form)
+        return response
 
 
 class AssetDeleteView(LoginRequiredMixin, DeleteView):

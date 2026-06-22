@@ -1,4 +1,4 @@
-"""Provider interface + Quote value object."""
+"""Provider interface + Quote / SymbolMatch value objects."""
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -16,6 +16,14 @@ class Quote:
     currency: str
     as_of: datetime
     source: str
+
+
+@dataclass(frozen=True)
+class SymbolMatch:
+    """A search hit: a tradable symbol and its display name."""
+
+    ticker: str
+    name: str
 
 
 class QuoteProvider(ABC):
@@ -36,3 +44,17 @@ class QuoteProvider(ABC):
             if quote is not None:
                 quotes[symbol] = quote
         return quotes
+
+    def get_name(self, symbol: str) -> str | None:
+        """Return the instrument's display name (company / security), or None.
+
+        Default: unknown. Providers that can resolve names override this.
+        """
+        return None
+
+    def search(self, query: str) -> list[SymbolMatch]:
+        """Return tradable symbols matching ``query`` (ticker or name).
+
+        Default: no search. Providers with a lookup endpoint override this.
+        """
+        return []

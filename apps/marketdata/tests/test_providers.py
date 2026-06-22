@@ -82,3 +82,65 @@ def test_moex_returns_none_when_no_price_anywhere():
     }
     with _mock_get(payload):
         assert MoexQuoteProvider().get_quote("SBER") is None
+
+
+def test_moex_get_name_prefers_primary_board():
+    payload = {
+        "securities": {
+            "columns": ["SECID", "BOARDID", "SHORTNAME"],
+            "data": [["SBER", "SMAL", "Сбер-смолл"], ["SBER", "TQBR", "Сбербанк"]],
+        }
+    }
+    with _mock_get(payload):
+        assert MoexQuoteProvider().get_name("SBER") == "Сбербанк"
+
+
+def test_moex_search_returns_traded_matches():
+    payload = {
+        "securities": {
+            "columns": ["secid", "shortname", "is_traded"],
+            "data": [
+                ["SBER", "Сбербанк", 1],
+                ["SBERP", "Сбербанк-п", 1],
+                ["OLD", "Делистинг", 0],
+            ],
+        }
+    }
+    with _mock_get(payload):
+        matches = MoexQuoteProvider().search("сбер")
+    assert [m.ticker for m in matches] == ["SBER", "SBERP"]  # untraded row skipped
+    assert matches[0].name == "Сбербанк"
+
+
+def _mock_intl_get(payload):
+    mock_response = MagicMock()
+    mock_response.json.return_value = payload
+    mock_response.raise_for_status.return_value = None
+    return patch(
+        "apps.marketdata.providers.international.requests.get",
+        return_value=mock_response,
+    )
+
+
+def test_finnhub_get_name_from_profile():
+    with _mock_intl_get({"name": "Apple Inc", "ticker": "AAPL"}):
+        assert FinnhubQuoteProvider(api_key="k").get_name("AAPL") == "Apple Inc"
+
+
+def test_finnhub_search_maps_results():
+    payload = {
+        "count": 2,
+        "result": [
+            {"symbol": "AAPL", "description": "APPLE INC"},
+            {"symbol": "APLE", "description": "APPLE HOSPITALITY REIT"},
+        ],
+    }
+    with _mock_intl_get(payload):
+        matches = FinnhubQuoteProvider(api_key="k").search("apple")
+    assert [m.ticker for m in matches] == ["AAPL", "APLE"]
+    assert matches[0].name == "APPLE INC"
+
+
+def test_null_provider_has_no_name_or_search():
+    assert NullQuoteProvider().get_name("X") is None
+    assert NullQuoteProvider().search("X") == []

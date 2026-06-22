@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING
 from django.core.cache import cache
 
 from .models import PriceQuote
-from .providers.base import Quote
+from .providers.base import Quote, SymbolMatch
 from .providers.registry import get_provider
 
 if TYPE_CHECKING:
@@ -101,3 +101,20 @@ def latest_quotes(asset_ids: Iterable[int]) -> dict[int, PriceQuote]:
         if quote.asset_id not in newest:
             newest[quote.asset_id] = quote
     return newest
+
+
+def resolve_asset_name(market: str, ticker: str) -> str | None:
+    """Best-effort display name for an instrument from its market provider.
+
+    Returns None when it can't be resolved (unknown ticker, no provider for the
+    market, or a network issue) — callers treat the name as optional.
+    """
+    return get_provider(market).get_name(ticker.strip())
+
+
+def search_symbols(market: str, query: str) -> list[SymbolMatch]:
+    """Tradable symbols matching ``query`` on ``market`` (for ticker lookup)."""
+    query = query.strip()
+    if not query:
+        return []
+    return get_provider(market).search(query)

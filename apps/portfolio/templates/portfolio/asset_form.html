@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %}{% trans "Add asset" %} · Freemium{% endblock %}
 
 {% block content %}
@@ -14,10 +14,16 @@
   <form class="form" method="post" novalidate>
     {% csrf_token %}
     {% include "partials/form_fields.html" %}
+    <datalist id="ticker-suggestions"></datalist>
     <div class="form-actions">
       <button class="btn btn--primary" type="submit">{% trans "Save" %}</button>
       <a class="btn btn--ghost" href="{% url 'portfolio:asset_list' %}">{% trans "Cancel" %}</a>
     </div>
   </form>
 </div>
+{% endblock %}
+
+{% block extra_body %}
+<script>window.SYMBOL_SEARCH_URL = "{% url 'marketdata:symbol_search' %}";</script>
+<script src="{% static 'js/asset_search.js' %}?v={{ STATIC_VERSION }}" defer></script>
 {% endblock %}
