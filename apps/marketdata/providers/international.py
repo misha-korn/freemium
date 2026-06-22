@@ -8,7 +8,7 @@ from decimal import Decimal, InvalidOperation
 import requests
 from django.conf import settings
 
-from .base import Quote, QuoteProvider, SymbolMatch
+from .base import Quote, QuoteProvider, SymbolMatch, prefix_matches
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +74,7 @@ class FinnhubQuoteProvider(QuoteProvider):
 
     def search(self, query: str, asset_type: str | None = None) -> list[SymbolMatch]:
         # asset_type is accepted for interface parity; Finnhub's free search has
-        # no reliable type filter, so results aren't narrowed by it.
+        # no reliable type filter, so results are narrowed only by ticker/name prefix.
         payload = self._get_json(FINNHUB_SEARCH_URL, {"q": query})
         if not payload:
             return []
@@ -84,7 +84,10 @@ class FinnhubQuoteProvider(QuoteProvider):
             if not symbol:
                 continue
             description = item.get("description") or ""
-            matches.append(SymbolMatch(ticker=str(symbol), name=str(description)))
+            match = SymbolMatch(ticker=str(symbol), name=str(description))
+            if not prefix_matches(query, match):
+                continue
+            matches.append(match)
             if len(matches) >= SEARCH_LIMIT:
                 break
         return matches
