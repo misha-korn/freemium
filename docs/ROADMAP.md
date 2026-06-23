@@ -127,8 +127,10 @@
 - [ ] **Benchmark overlay** (IMOEX / S&P) — snapshot the index level alongside
       portfolio value daily, then plot both rebased to 100. Needs an index data
       source (MOEX index engine / Finnhub); the next value-chart increment.
-- [ ] **Trade validation** — warn / block selling more than is held (no negative
-      positions); surface a clear message instead of silently clamping.
+- [x] **Trade validation** — the trade form blocks selling more units than are
+      held (and selling with no position) with a clear message, instead of
+      silently clamping. `services.held_quantity` nets BUYs − SELLs; editing a
+      SELL excludes itself from the tally. BUYs are never restricted.
 
 ### Stage 6 notes (dividends)
 - Income figures stay in the payment's **own currency** and are never summed
@@ -153,3 +155,11 @@
 - The value chart plots market value vs invested capital; it appears once ≥2
   snapshots exist. The original invested-capital chart stays (it needs no
   snapshots and works from the first trade).
+
+### Stage 6 notes (trade validation)
+- Validation lives in `TransactionForm.clean` (manual entry). The view passes the
+  parent portfolio so a SELL on create can be checked before the instance has a
+  portfolio. `compute_positions`/`tax` keep their silent oversell clamp as a
+  defensive guard for any pre-existing data — the form is the user-facing gate.
+- Tier 1 complete: dividends, value-over-time, trade validation. Remaining Tier 1
+  follow-ups (own PRs): MOEX dividend auto-pull; benchmark overlay.

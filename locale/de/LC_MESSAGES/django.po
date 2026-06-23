@@ -949,6 +949,12 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
+msgid "You don't hold any %(ticker)s in this portfolio to sell."
+msgstr ""
+
+msgid "You can't sell %(qty)s — you only hold %(held)s %(ticker)s."
+msgstr ""
+
 msgid "Russian Ruble"
 msgstr ""
 

@@ -761,6 +761,17 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
     "ISIN": ("ISIN", "ISIN", "ISIN"),
     "Executed at": ("Дата и время", "Fecha y hora", "成交时间"),
     "Note": ("Заметка", "Nota", "备注"),
+    # --- Tier 1: trade validation ---
+    "You don't hold any %(ticker)s in this portfolio to sell.": (
+        "У вас нет %(ticker)s в этом портфеле для продажи.",
+        "No tienes %(ticker)s en esta cartera para vender.",
+        "你在该投资组合中没有可卖出的 %(ticker)s。",
+    ),
+    "You can't sell %(qty)s — you only hold %(held)s %(ticker)s.": (
+        "Нельзя продать %(qty)s — у вас только %(held)s %(ticker)s.",
+        "No puedes vender %(qty)s — solo tienes %(held)s %(ticker)s.",
+        "无法卖出 %(qty)s——你只持有 %(held)s %(ticker)s。",
+    ),
     "Russian Ruble": ("Российский рубль", "Rublo ruso", "俄罗斯卢布"),
     "US Dollar": ("Доллар США", "Dólar estadounidense", "美元"),
     "Euro": ("Евро", "Euro", "欧元"),

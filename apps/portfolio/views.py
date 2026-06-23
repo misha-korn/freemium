@@ -218,6 +218,13 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
         )
         return super().dispatch(request, *args, **kwargs)
 
+    def get_form_kwargs(self) -> dict[str, Any]:
+        # Give the form the parent portfolio so it can validate a SELL against
+        # the units actually held (the instance has no portfolio yet on create).
+        kwargs = super().get_form_kwargs()
+        kwargs["portfolio"] = self.portfolio
+        return kwargs
+
     def form_valid(self, form: TransactionForm):
         form.instance.portfolio = self.portfolio
         messages.success(self.request, "Transaction added.")

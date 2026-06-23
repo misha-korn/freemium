@@ -12,6 +12,8 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
+from django.db.models import Sum
+
 if TYPE_CHECKING:
     from apps.portfolio.models import Asset, Portfolio
 
@@ -133,3 +135,20 @@ def portfolio_summary(portfolio: Portfolio) -> dict:
         "invested_by_currency": invested_by_currency,
         "base_currency": portfolio.base_currency,
     }
+
+
+def held_quantity(
+    portfolio: Portfolio, asset: Asset, *, exclude_id: int | None = None
+) -> Decimal:
+    """Net units of ``asset`` currently held in ``portfolio`` (BUYs minus SELLs).
+
+    Used by trade validation to refuse selling more than is held. ``exclude_id``
+    drops one transaction from the tally so editing an existing SELL is judged
+    against the *other* trades, not itself. Money/quantity is Decimal.
+    """
+    txns = portfolio.transactions.filter(asset=asset)
+    if exclude_id is not None:
+        txns = txns.exclude(pk=exclude_id)
+    bought = txns.filter(kind="BUY").aggregate(total=Sum("quantity"))["total"] or Decimal("0")
+    sold = txns.filter(kind="SELL").aggregate(total=Sum("quantity"))["total"] or Decimal("0")
+    return bought - sold

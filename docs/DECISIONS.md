@@ -159,6 +159,18 @@ once ≥2 snapshots exist; the invested-capital chart stays for day one. A bench
 overlay (index level snapshotted in parallel, rebased to 100) is the next
 increment — it needs an index data source.
 
+### Trade validation in the form, clamp stays as a guard (Stage 6)
+Selling more than is held now fails validation in `TransactionForm.clean` with a
+clear message ("you only hold N"), and selling with no position is blocked too —
+instead of silently clamping the oversell to zero. The check uses
+`services.held_quantity` (net BUYs − SELLs), and editing a SELL excludes itself
+from the tally so a legitimate sell stays valid on edit. The view passes the
+parent portfolio into the form because, on create, the instance has no portfolio
+until `form_valid`. We deliberately **keep** the silent clamp in
+`compute_positions`/`tax` as a defensive guard for any pre-existing/imported data
+— the form is the user-facing gate, the clamp is the safety net. BUYs are never
+restricted.
+
 ### Free-plan gating by limit, not feature flags (Stage 4)
 The enforced Free limit is `FREE_MAX_PORTFOLIOS` (default 1); Pro lifts it to
 unlimited. The cap is checked in `PortfolioCreateView` for both GET (hide the
