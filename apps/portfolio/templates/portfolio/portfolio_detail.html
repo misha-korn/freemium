@@ -97,6 +97,17 @@
   </section>
 {% endif %}
 
+{% if value_chart.available and value_chart.points|length > 1 %}
+  <section class="card chart-card" aria-labelledby="value-chart-heading">
+    <h2 id="value-chart-heading" class="card__title">{% trans "Portfolio value over time" %}</h2>
+    <p class="text-muted">{% trans "Daily mark-to-market value vs invested capital, recorded from the first fully priced day." %}</p>
+    <div class="chart-canvas-wrap">
+      <canvas id="portfolio-value-chart" role="img"
+              aria-label="{% trans 'Portfolio market value over time' %}"></canvas>
+    </div>
+  </section>
+{% endif %}
+
 {% if chart_data.available and chart_data.points %}
   <section class="card chart-card" aria-labelledby="chart-heading">
     <h2 id="chart-heading" class="card__title">{% trans "Invested capital over time" %}</h2>
@@ -195,10 +206,15 @@
 {% endblock %}
 
 {% block extra_body %}
-  {% if chart_data.points or allocation_charts %}
+  {% with show_value_chart=value_chart.points|length %}
+  {% if chart_data.points or allocation_charts or show_value_chart > 1 %}
     {# Stage 3/prod hardening: self-host Chart.js or add SRI + CSP nonce. #}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
             crossorigin="anonymous" defer></script>
+    {% if show_value_chart > 1 %}
+      {{ value_chart|json_script:"portfolio-value-chart-data" }}
+      <script src="{% static 'js/portfolio_value_chart.js' %}" defer></script>
+    {% endif %}
     {% if chart_data.available and chart_data.points %}
       {{ chart_data|json_script:"portfolio-chart-data" }}
       <script src="{% static 'js/portfolio_chart.js' %}" defer></script>
@@ -207,4 +223,5 @@
       <script src="{% static 'js/allocation_charts.js' %}" defer></script>
     {% endif %}
   {% endif %}
+  {% endwith %}
 {% endblock %}

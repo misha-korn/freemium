@@ -238,6 +238,19 @@ msgstr "Capital invertido a lo largo del tiempo"
 msgid "Cumulative invested capital over time"
 msgstr "Capital invertido acumulado a lo largo del tiempo"
 
+msgid "Portfolio value over time"
+msgstr "Valor de la cartera en el tiempo"
+
+msgid ""
+"Daily mark-to-market value vs invested capital, recorded from the first "
+"fully priced day."
+msgstr ""
+"Valor de mercado diario frente al capital invertido, desde el primer día "
+"totalmente valorado."
+
+msgid "Portfolio market value over time"
+msgstr "Valor de mercado de la cartera en el tiempo"
+
 msgid "Positions"
 msgstr "Posiciones"
 
