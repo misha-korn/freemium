@@ -6,7 +6,7 @@ from decimal import Decimal
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Asset, Portfolio, Transaction
+from .models import Asset, DividendPayment, Portfolio, Transaction
 
 
 class PortfolioForm(forms.ModelForm):
@@ -80,3 +80,57 @@ class TransactionForm(forms.ModelForm):
         if price < 0:
             raise forms.ValidationError("Price cannot be negative.")
         return price
+
+
+class DividendForm(forms.ModelForm):
+    """Manual entry of a dividend or coupon payment (Tier 1)."""
+
+    class Meta:
+        model = DividendPayment
+        fields = ["asset", "kind", "amount", "tax_withheld", "currency", "paid_on", "note"]
+        widgets = {
+            "paid_on": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+        }
+        labels = {
+            "asset": _("Asset"),
+            "kind": _("Type"),
+            "amount": _("Gross amount"),
+            "tax_withheld": _("Tax withheld"),
+            "currency": _("Currency"),
+            "paid_on": _("Paid on"),
+            "note": _("Note"),
+        }
+
+    def __init__(self, *args: object, **kwargs: object) -> None:
+        super().__init__(*args, **kwargs)
+        # Accept the value produced by the <input type="date"> widget.
+        self.fields["paid_on"].input_formats = ["%Y-%m-%d"]
+        self.fields["asset"].queryset = Asset.objects.all()
+        self.fields["note"].required = False
+        # Tax is optional; a blank field means "nothing withheld" (see clean).
+        self.fields["tax_withheld"].required = False
+
+    def clean_amount(self) -> Decimal:
+        amount: Decimal = self.cleaned_data["amount"]
+        if amount <= 0:
+            raise forms.ValidationError(_("Amount must be greater than zero."))
+        return amount
+
+    def clean_tax_withheld(self) -> Decimal:
+        tax: Decimal | None = self.cleaned_data.get("tax_withheld")
+        if tax is None:
+            return Decimal("0")
+        if tax < 0:
+            raise forms.ValidationError(_("Tax withheld cannot be negative."))
+        return tax
+
+    def clean(self) -> dict:
+        cleaned = super().clean()
+        amount = cleaned.get("amount")
+        tax = cleaned.get("tax_withheld") or Decimal("0")
+        if amount is not None and tax > amount:
+            self.add_error(
+                "tax_withheld",
+                _("Tax withheld can't exceed the gross amount."),
+            )
+        return cleaned

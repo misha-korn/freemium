@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load i18n portfolio_extras %}
+{% block title %}{% trans "Dividends" %} · {{ portfolio.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{{ portfolio.name }}</p>
+    <h1 class="page-header__title">{% trans "Dividends and coupons" %}{% if year %} · {{ year }}{% endif %}</h1>
+    <p class="page-header__sub">{% trans "Income you received — totals per currency, never mixed across currencies." %}</p>
+  </div>
+  <div class="cluster">
+    <a class="btn btn--primary" href="{% url 'portfolio:dividend_create' portfolio.pk %}">{% trans "+ Add dividend" %}</a>
+    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
+  </div>
+</div>
+
+{% if years %}
+  <div class="cluster" style="margin-bottom:var(--space-5);">
+    {% for y in years %}
+      <a class="badge {% if y == year %}badge--buy{% endif %}" href="{% url 'portfolio:dividends_year' portfolio.pk y %}">{{ y }}</a>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% if summary %}
+  <div class="card-grid">
+    {% for cur, t in summary.items %}
+      <div class="card stat">
+        <span class="stat__label">{% trans "Net income" %} · {{ cur }}</span>
+        <span class="stat__value is-positive">{{ t.net|money }} {{ cur }}</span>
+        <span class="stat__sub text-muted">
+          {% blocktrans trimmed with gross=t.gross|money tax=t.tax|money %}
+            Gross {{ gross }} · tax {{ tax }}
+          {% endblocktrans %}
+          {% if t.yoc is not None %} · {% blocktrans trimmed with y=t.yoc|percent %}yield-on-cost {{ y }}{% endblocktrans %}{% endif %}
+        </span>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% for group in calendar %}
+    <div class="section-head mt-6">
+      <h2 class="card__title" style="margin:0;">{{ group.payments.0.paid_on|date:"F Y" }}</h2>
+      <span class="cluster">
+        {% for cur, net in group.net_by_currency.items %}
+          <span class="badge badge--buy">{{ net|money }} {{ cur }}</span>
+        {% endfor %}
+      </span>
+    </div>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{% trans "Date" %}</th><th>{% trans "Type" %}</th><th>{% trans "Asset" %}</th>
+            <th class="num">{% trans "Gross" %}</th><th class="num">{% trans "Tax" %}</th>
+            <th class="num">{% trans "Net" %}</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in group.payments %}
+            <tr>
+              <td>{{ p.paid_on|date:"Y-m-d" }}</td>
+              <td><span class="badge">{{ p.get_kind_display }}</span></td>
+              <td>{{ p.asset.ticker }}{% if p.note %} <span class="text-muted">· {{ p.note }}</span>{% endif %}</td>
+              <td class="num">{{ p.amount|money }} {{ p.currency }}</td>
+              <td class="num">{{ p.tax_withheld|money }}</td>
+              <td class="num is-positive">{{ p.net_amount|money }}</td>
+              <td class="text-right">
+                <a href="{% url 'portfolio:dividend_update' p.pk %}">{% trans "edit" %}</a>
+                · <a href="{% url 'portfolio:dividend_delete' p.pk %}">{% trans "delete" %}</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="empty-state">
+    <h2>{% trans "No dividends recorded yet" %}</h2>
+    <p>{% trans "Add a dividend or coupon payment to build your income history and calendar." %}</p>
+    <a class="btn btn--primary mt-6" href="{% url 'portfolio:dividend_create' portfolio.pk %}">{% trans "Add a dividend" %}</a>
+  </div>
+{% endif %}
+{% endblock %}

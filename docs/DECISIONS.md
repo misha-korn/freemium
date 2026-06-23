@@ -131,6 +131,19 @@ then does it deduplicate on `(provider, event_id)` and activate/cancel. An
 already-processed event is acknowledged without re-acting. This is the cardinal
 payments rule: never trust an unauthenticated webhook.
 
+### Dividends: manual entry first, income per-currency, no fabricated yield (Stage 6)
+Tier 1's #1 feature is dividends/coupons. A `DividendPayment` row stores one cash
+event (`amount` gross, `tax_withheld`, `currency`, `paid_on`) — manual entry
+first, matching the "manual before auto" stance; auto-pulling from MOEX ISS
+(`/securities/{SECID}/dividends.json`) is the next increment. `net_amount` is
+gross minus tax. The income summary and calendar group **per currency** and never
+sum across currencies (same honesty rule as valuation/tax). **Yield-on-cost**
+divides net income by the current open-position cost basis in that currency and is
+`None` when no basis exists — we never invent a yield. Dividends are **free** for
+all signed-in users (core value to drive adoption), unlike the Pro-gated tax
+report. `paid_on` is a `DateField` (pay date drives history + calendar); ex-date
+and per-share splits are deferred until the MOEX pull lands.
+
 ### Free-plan gating by limit, not feature flags (Stage 4)
 The enforced Free limit is `FREE_MAX_PORTFOLIOS` (default 1); Pro lifts it to
 unlimited. The cap is checked in `PortfolioCreateView` for both GET (hide the

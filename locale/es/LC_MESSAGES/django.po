@@ -987,6 +987,108 @@ msgstr "Compra"
 msgid "Sell"
 msgstr "Venta"
 
+msgid "Dividends"
+msgstr "Dividendos"
+
+msgid "Dividends and coupons"
+msgstr "Dividendos y cupones"
+
+msgid ""
+"Income you received — totals per currency, never mixed across currencies."
+msgstr "Ingresos recibidos — totales por divisa, sin mezclar divisas."
+
+msgid "+ Add dividend"
+msgstr "+ Añadir dividendo"
+
+msgid "Net income"
+msgstr "Ingreso neto"
+
+msgid "Gross %(gross)s · tax %(tax)s"
+msgstr "Bruto %(gross)s · impuesto %(tax)s"
+
+msgid "yield-on-cost %(y)s"
+msgstr "rentabilidad sobre coste %(y)s"
+
+msgid "Gross"
+msgstr "Bruto"
+
+msgid "Tax"
+msgstr "Impuesto"
+
+msgid "Net"
+msgstr "Neto"
+
+msgid "No dividends recorded yet"
+msgstr "Aún no hay dividendos registrados"
+
+msgid ""
+"Add a dividend or coupon payment to build your income history and calendar."
+msgstr ""
+"Añade un dividendo o cupón para crear tu historial y calendario de ingresos."
+
+msgid "Add a dividend"
+msgstr "Añadir un dividendo"
+
+msgid "Add dividend / coupon"
+msgstr "Añadir dividendo / cupón"
+
+msgid "Edit dividend / coupon"
+msgstr "Editar dividendo / cupón"
+
+msgid "Record income you received — a stock/ETF dividend or a bond coupon."
+msgstr ""
+"Registra los ingresos recibidos — un dividendo de acción/ETF o un cupón de "
+"bono."
+
+msgid ""
+"You have no assets yet. <a href=\"%(add_asset_url)s\">Add an asset</a> "
+"before recording income."
+msgstr ""
+"Aún no tienes activos. <a href=\"%(add_asset_url)s\">Añade un activo</a> "
+"antes de registrar ingresos."
+
+msgid "Save dividend"
+msgstr "Guardar dividendo"
+
+msgid "Add dividend"
+msgstr "Añadir dividendo"
+
+msgid "Edit dividend"
+msgstr "Editar dividendo"
+
+msgid "Delete dividend"
+msgstr "Eliminar dividendo"
+
+msgid "Delete this dividend?"
+msgstr "¿Eliminar este dividendo?"
+
+msgid "Gross amount"
+msgstr "Importe bruto"
+
+msgid "Tax withheld"
+msgstr "Impuesto retenido"
+
+msgid "Paid on"
+msgstr "Fecha de pago"
+
+msgid "Dividend"
+msgstr "Dividendo"
+
+msgid "Coupon"
+msgstr "Cupón"
+
+msgid "Dividend recorded."
+msgstr "Dividendo registrado."
+
+msgid "Amount must be greater than zero."
+msgstr "El importe debe ser mayor que cero."
+
+msgid "Tax withheld cannot be negative."
+msgstr "El impuesto retenido no puede ser negativo."
+
+msgid "Tax withheld can't exceed the gross amount."
+msgstr "El impuesto retenido no puede superar el importe bruto."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"

@@ -15,6 +15,7 @@
       {% csrf_token %}
       <button class="btn btn--ghost" type="submit">{% trans "↻ Refresh prices" %}</button>
     </form>
+    <a class="btn btn--ghost" href="{% url 'portfolio:dividends' portfolio.pk %}">{% trans "Dividends" %}</a>
     <a class="btn btn--ghost" href="{% url 'portfolio:import_trades' portfolio.pk %}">{% trans "Import CSV" %}</a>
     <a class="btn btn--ghost" href="{% url 'portfolio:tax_report' portfolio.pk %}">{% trans "Tax report" %}</a>
     <a class="btn btn--ghost" href="{% url 'portfolio:update' portfolio.pk %}">{% trans "Edit" %}</a>

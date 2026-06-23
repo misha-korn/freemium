@@ -8,7 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, QuerySet
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import (
@@ -24,11 +25,18 @@ from apps.marketdata.services import fetch_and_store_quote, resolve_asset_name
 
 from . import exports
 from .allocation import build_allocation, chart_payload
-from .forms import AssetForm, PortfolioForm, TransactionForm
+from .forms import AssetForm, DividendForm, PortfolioForm, TransactionForm
 from .imports import import_trades_csv
-from .models import Asset, Portfolio, Transaction
+from .income import (
+    dividend_calendar,
+    dividend_history,
+    dividend_summary,
+    dividend_years,
+    yield_on_cost,
+)
+from .models import Asset, DividendPayment, Portfolio, Transaction
 from .overview import build_account_overview
-from .services import compute_positions
+from .services import compute_positions, portfolio_summary
 from .tax import realized_gains, realized_summary, realized_years
 from .valuation import invested_timeseries, portfolio_valuation
 
@@ -243,6 +251,96 @@ class TransactionUpdateView(_OwnedTransactionMixin, UpdateView):
 
 class TransactionDeleteView(_OwnedTransactionMixin, DeleteView):
     template_name = "portfolio/transaction_confirm_delete.html"
+
+
+# --------------------------------------------------------------------------- #
+# Dividends & coupons (Tier 1)
+# --------------------------------------------------------------------------- #
+class DividendListView(_OwnedPortfolioMixin, DetailView):
+    """Per-portfolio dividend/coupon history, calendar and per-currency totals."""
+
+    template_name = "portfolio/dividend_list.html"
+    context_object_name = "portfolio"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        years = dividend_years(self.object)
+        year = self.kwargs.get("year")
+        if year is None and years:
+            year = years[0]
+        payments = dividend_history(self.object, year=year)
+        summary = dividend_summary(payments)
+        # Yield-on-cost uses the current open-position cost basis per currency;
+        # None when there's no basis in that currency (honest, no fabrication).
+        # Attach it onto each currency bucket so the template can render it
+        # without a dict-by-variable-key lookup.
+        invested = portfolio_summary(self.object)["invested_by_currency"]
+        yoc = yield_on_cost(summary, invested)
+        for currency, bucket in summary.items():
+            bucket["yoc"] = yoc[currency]
+        ctx["years"] = years
+        ctx["year"] = year
+        ctx["payments"] = payments
+        ctx["summary"] = summary
+        ctx["calendar"] = dividend_calendar(payments)
+        return ctx
+
+
+class DividendCreateView(LoginRequiredMixin, CreateView):
+    model = DividendPayment
+    form_class = DividendForm
+    template_name = "portfolio/dividend_form.html"
+
+    def dispatch(self, request, *args: Any, **kwargs: Any):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        self.portfolio = get_object_or_404(
+            Portfolio, pk=kwargs["pk"], owner=request.user
+        )
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_initial(self) -> dict[str, Any]:
+        return {"paid_on": timezone.now().date()}
+
+    def form_valid(self, form: DividendForm):
+        form.instance.portfolio = self.portfolio
+        messages.success(self.request, _("Dividend recorded."))
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+        return reverse("portfolio:dividends", kwargs={"pk": self.portfolio.pk})
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx["portfolio"] = self.portfolio
+        ctx["assets_exist"] = Asset.objects.exists()
+        return ctx
+
+
+class _OwnedDividendMixin(LoginRequiredMixin):
+    """Restrict DividendPayment access via the parent portfolio's owner."""
+
+    def get_queryset(self) -> QuerySet[DividendPayment]:
+        return DividendPayment.objects.filter(
+            portfolio__owner=self.request.user
+        ).select_related("portfolio", "asset")
+
+    def get_success_url(self) -> str:
+        return reverse("portfolio:dividends", kwargs={"pk": self.object.portfolio.pk})
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx["portfolio"] = self.object.portfolio
+        return ctx
+
+
+class DividendUpdateView(_OwnedDividendMixin, UpdateView):
+    form_class = DividendForm
+    template_name = "portfolio/dividend_form.html"
+
+
+class DividendDeleteView(_OwnedDividendMixin, DeleteView):
+    template_name = "portfolio/dividend_confirm_delete.html"
 
 
 # --------------------------------------------------------------------------- #

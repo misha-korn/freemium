@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Asset, Portfolio, Transaction
+from .models import Asset, DividendPayment, Portfolio, Transaction
 
 
 @admin.register(Portfolio)
@@ -34,3 +34,20 @@ class TransactionAdmin(admin.ModelAdmin):
     search_fields = ("portfolio__name", "asset__ticker", "note")
     autocomplete_fields = ("portfolio", "asset")
     date_hierarchy = "executed_at"
+
+
+@admin.register(DividendPayment)
+class DividendPaymentAdmin(admin.ModelAdmin):
+    list_display = (
+        "paid_on",
+        "portfolio",
+        "asset",
+        "kind",
+        "amount",
+        "tax_withheld",
+        "currency",
+    )
+    list_filter = ("kind", "currency", "asset__market")
+    search_fields = ("portfolio__name", "asset__ticker", "note")
+    autocomplete_fields = ("portfolio", "asset")
+    date_hierarchy = "paid_on"

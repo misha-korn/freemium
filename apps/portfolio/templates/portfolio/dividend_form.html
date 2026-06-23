@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% if form.instance.pk %}{% trans "Edit dividend" %}{% else %}{% trans "Add dividend" %}{% endif %} · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    {% if portfolio %}<p class="eyebrow">{{ portfolio.name }}</p>{% endif %}
+    <h1 class="page-header__title">{% if form.instance.pk %}{% trans "Edit dividend / coupon" %}{% else %}{% trans "Add dividend / coupon" %}{% endif %}</h1>
+    <p class="page-header__sub">{% trans "Record income you received — a stock/ETF dividend or a bond coupon." %}</p>
+  </div>
+</div>
+
+<div class="card form-card">
+  {% if assets_exist is False %}
+    <p class="helptext">
+      {% url 'portfolio:asset_create' as add_asset_url %}
+      {% blocktrans trimmed %}You have no assets yet. <a href="{{ add_asset_url }}">Add an asset</a> before recording income.{% endblocktrans %}
+    </p>
+  {% endif %}
+  <form class="form" method="post" novalidate>
+    {% csrf_token %}
+    {% include "partials/form_fields.html" %}
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">{% trans "Save dividend" %}</button>
+      <a class="btn btn--ghost" href="{% url 'portfolio:dividends' portfolio.pk %}">{% trans "Cancel" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

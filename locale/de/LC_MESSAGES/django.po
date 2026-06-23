@@ -989,6 +989,103 @@ msgstr ""
 msgid "Sell"
 msgstr ""
 
+msgid "Dividends"
+msgstr ""
+
+msgid "Dividends and coupons"
+msgstr ""
+
+msgid ""
+"Income you received — totals per currency, never mixed across currencies."
+msgstr ""
+
+msgid "+ Add dividend"
+msgstr ""
+
+msgid "Net income"
+msgstr ""
+
+msgid "Gross %(gross)s · tax %(tax)s"
+msgstr ""
+
+msgid "yield-on-cost %(y)s"
+msgstr ""
+
+msgid "Gross"
+msgstr ""
+
+msgid "Tax"
+msgstr ""
+
+msgid "Net"
+msgstr ""
+
+msgid "No dividends recorded yet"
+msgstr ""
+
+msgid ""
+"Add a dividend or coupon payment to build your income history and calendar."
+msgstr ""
+
+msgid "Add a dividend"
+msgstr ""
+
+msgid "Add dividend / coupon"
+msgstr ""
+
+msgid "Edit dividend / coupon"
+msgstr ""
+
+msgid "Record income you received — a stock/ETF dividend or a bond coupon."
+msgstr ""
+
+msgid ""
+"You have no assets yet. <a href=\"%(add_asset_url)s\">Add an asset</a> "
+"before recording income."
+msgstr ""
+
+msgid "Save dividend"
+msgstr ""
+
+msgid "Add dividend"
+msgstr ""
+
+msgid "Edit dividend"
+msgstr ""
+
+msgid "Delete dividend"
+msgstr ""
+
+msgid "Delete this dividend?"
+msgstr ""
+
+msgid "Gross amount"
+msgstr ""
+
+msgid "Tax withheld"
+msgstr ""
+
+msgid "Paid on"
+msgstr ""
+
+msgid "Dividend"
+msgstr ""
+
+msgid "Coupon"
+msgstr ""
+
+msgid "Dividend recorded."
+msgstr ""
+
+msgid "Amount must be greater than zero."
+msgstr ""
+
+msgid "Tax withheld cannot be negative."
+msgstr ""
+
+msgid "Tax withheld can't exceed the gross amount."
+msgstr ""
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s Portfolio"
