@@ -120,11 +120,17 @@
       (`portfolio.income`). Free for all signed-in users (core value, not Pro).
 - [ ] Auto-pull dividends from MOEX ISS (`/securities/{SECID}/dividends.json`)
       to pre-fill history for RU holdings — the next dividends increment.
-- [ ] **Portfolio value over time + benchmark** — `PortfolioSnapshot` + a daily
-      job → an honest mark-to-market value chart and index comparison
-      (IMOEX / S&P). Closes the deferred mark-to-market chart.
-- [ ] **Trade validation** — warn / block selling more than is held (no negative
-      positions); surface a clear message instead of silently clamping.
+- [x] **Portfolio value over time** — `PortfolioSnapshot` (daily MTM value in
+      base currency) + a daily Celery task and opportunistic snapshot on view
+      (free tier has no worker); a true value-vs-invested line chart on the
+      dashboard (`portfolio.snapshots`). Closes the deferred mark-to-market chart.
+- [ ] **Benchmark overlay** (IMOEX / S&P) — snapshot the index level alongside
+      portfolio value daily, then plot both rebased to 100. Needs an index data
+      source (MOEX index engine / Finnhub); the next value-chart increment.
+- [x] **Trade validation** — the trade form blocks selling more units than are
+      held (and selling with no position) with a clear message, instead of
+      silently clamping. `services.held_quantity` nets BUYs − SELLs; editing a
+      SELL excludes itself from the tally. BUYs are never restricted.
 
 ### Stage 6 notes (dividends)
 - Income figures stay in the payment's **own currency** and are never summed
@@ -135,3 +141,25 @@
   currency (e.g. the position was fully sold) — never a fabricated yield.
 - `paid_on` is the pay date (drives history + the calendar); ex-date and a
   per-share breakdown are deliberately omitted until MOEX auto-pull lands.
+
+### Stage 6 notes (value over time)
+- A `PortfolioSnapshot` is stored **only** when the portfolio is fully priced and
+  the base-currency total exists; partial/unconvertible days are skipped — we
+  never persist a misleading value or back-date today's price onto past holdings.
+  The series accumulates forward from the first fully-priced day.
+- Snapshots are taken two ways: a daily Celery Beat task
+  (`apps.portfolio.tasks.snapshot_portfolios`, 23:30) and **opportunistically**
+  when a priced portfolio is viewed — so history accrues even on the free tier,
+  which runs no worker. Both use `update_or_create` on `(portfolio, as_of)`, so
+  there's one freshest row per day.
+- The value chart plots market value vs invested capital; it appears once ≥2
+  snapshots exist. The original invested-capital chart stays (it needs no
+  snapshots and works from the first trade).
+
+### Stage 6 notes (trade validation)
+- Validation lives in `TransactionForm.clean` (manual entry). The view passes the
+  parent portfolio so a SELL on create can be checked before the instance has a
+  portfolio. `compute_positions`/`tax` keep their silent oversell clamp as a
+  defensive guard for any pre-existing data — the form is the user-facing gate.
+- Tier 1 complete: dividends, value-over-time, trade validation. Remaining Tier 1
+  follow-ups (own PRs): MOEX dividend auto-pull; benchmark overlay.

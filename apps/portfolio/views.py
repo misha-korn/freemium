@@ -37,6 +37,7 @@ from .income import (
 from .models import Asset, DividendPayment, Portfolio, Transaction
 from .overview import build_account_overview
 from .services import compute_positions, portfolio_summary
+from .snapshots import take_snapshot, value_timeseries
 from .tax import realized_gains, realized_summary, realized_years
 from .valuation import invested_timeseries, portfolio_valuation
 
@@ -128,6 +129,11 @@ class PortfolioDetailView(_OwnedPortfolioMixin, DetailView):
         ctx["allocation"] = allocation
         ctx["allocation_charts"] = self._allocation_charts(allocation)
         ctx["chart_data"] = invested_timeseries(self.object)
+        # Opportunistically record today's mark-to-market value (free tier has
+        # no Celery worker). Stores nothing unless the portfolio is fully priced
+        # and convertible — never a fabricated value. Idempotent per day.
+        take_snapshot(self.object, valuation=valuation)
+        ctx["value_chart"] = value_timeseries(self.object)
         ctx["transactions"] = self.object.transactions.select_related("asset")[:50]
         return ctx
 
@@ -211,6 +217,13 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
             Portfolio, pk=kwargs["pk"], owner=request.user
         )
         return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self) -> dict[str, Any]:
+        # Give the form the parent portfolio so it can validate a SELL against
+        # the units actually held (the instance has no portfolio yet on create).
+        kwargs = super().get_form_kwargs()
+        kwargs["portfolio"] = self.portfolio
+        return kwargs
 
     def form_valid(self, form: TransactionForm):
         form.instance.portfolio = self.portfolio

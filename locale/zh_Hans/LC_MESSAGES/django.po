@@ -228,6 +228,17 @@ msgstr "投入资金随时间变化"
 msgid "Cumulative invested capital over time"
 msgstr "累计投入资金随时间变化"
 
+msgid "Portfolio value over time"
+msgstr "投资组合价值随时间变化"
+
+msgid ""
+"Daily mark-to-market value vs invested capital, recorded from the first "
+"fully priced day."
+msgstr "每日市值与投入资本对比，自首个完全定价之日起记录。"
+
+msgid "Portfolio market value over time"
+msgstr "投资组合市值随时间变化"
+
 msgid "Positions"
 msgstr "持仓"
 
@@ -891,6 +902,12 @@ msgstr "成交时间"
 
 msgid "Note"
 msgstr "备注"
+
+msgid "You don't hold any %(ticker)s in this portfolio to sell."
+msgstr "你在该投资组合中没有可卖出的 %(ticker)s。"
+
+msgid "You can't sell %(qty)s — you only hold %(held)s %(ticker)s."
+msgstr "无法卖出 %(qty)s——你只持有 %(held)s %(ticker)s。"
 
 msgid "Russian Ruble"
 msgstr "俄罗斯卢布"

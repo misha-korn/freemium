@@ -144,6 +144,33 @@ all signed-in users (core value to drive adoption), unlike the Pro-gated tax
 report. `paid_on` is a `DateField` (pay date drives history + calendar); ex-date
 and per-share splits are deferred until the MOEX pull lands.
 
+### Value over time: forward-only daily snapshots, stored only when priced (Stage 6)
+The deferred mark-to-market chart needed *historical* prices the providers don't
+give us. Rather than back-date today's price onto past holdings (dishonest), a
+`PortfolioSnapshot` records one mark-to-market value per portfolio per day from
+now on; the series accumulates forward. A snapshot is stored **only** when the
+portfolio is fully priced and the base-currency total exists — partial/
+unconvertible days are skipped, never persisted as a misleading value (same rule
+as valuation). Because the free tier runs no Celery worker, snapshots are taken
+both by a daily Beat task **and opportunistically** when a priced portfolio is
+viewed; `update_or_create` on `(portfolio, as_of)` keeps one freshest row per day,
+so the GET-time write is safe and idempotent. The value-vs-invested chart appears
+once ≥2 snapshots exist; the invested-capital chart stays for day one. A benchmark
+overlay (index level snapshotted in parallel, rebased to 100) is the next
+increment — it needs an index data source.
+
+### Trade validation in the form, clamp stays as a guard (Stage 6)
+Selling more than is held now fails validation in `TransactionForm.clean` with a
+clear message ("you only hold N"), and selling with no position is blocked too —
+instead of silently clamping the oversell to zero. The check uses
+`services.held_quantity` (net BUYs − SELLs), and editing a SELL excludes itself
+from the tally so a legitimate sell stays valid on edit. The view passes the
+parent portfolio into the form because, on create, the instance has no portfolio
+until `form_valid`. We deliberately **keep** the silent clamp in
+`compute_positions`/`tax` as a defensive guard for any pre-existing/imported data
+— the form is the user-facing gate, the clamp is the safety net. BUYs are never
+restricted.
+
 ### Free-plan gating by limit, not feature flags (Stage 4)
 The enforced Free limit is `FREE_MAX_PORTFOLIOS` (default 1); Pro lifts it to
 unlimited. The cap is checked in `PortfolioCreateView` for both GET (hide the

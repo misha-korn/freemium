@@ -239,6 +239,17 @@ msgstr "Capital investi dans le temps"
 msgid "Cumulative invested capital over time"
 msgstr "Capital investi cumulé dans le temps"
 
+msgid "Portfolio value over time"
+msgstr ""
+
+msgid ""
+"Daily mark-to-market value vs invested capital, recorded from the first "
+"fully priced day."
+msgstr ""
+
+msgid "Portfolio market value over time"
+msgstr ""
+
 msgid "Positions"
 msgstr "Positions"
 
@@ -938,6 +949,12 @@ msgid "Executed at"
 msgstr ""
 
 msgid "Note"
+msgstr ""
+
+msgid "You don't hold any %(ticker)s in this portfolio to sell."
+msgstr ""
+
+msgid "You can't sell %(qty)s — you only hold %(held)s %(ticker)s."
 msgstr ""
 
 msgid "Russian Ruble"
