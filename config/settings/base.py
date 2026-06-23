@@ -247,6 +247,11 @@ CELERY_BEAT_SCHEDULE = {
         "task": "apps.notifications.tasks.send_daily_digest",
         "schedule": crontab(hour=8, minute=0),
     },
+    # Daily mark-to-market value snapshot (value-over-time chart).
+    "daily-portfolio-snapshot": {
+        "task": "apps.portfolio.tasks.snapshot_portfolios",
+        "schedule": crontab(hour=23, minute=30),
+    },
 }
 
 # --------------------------------------------------------------------------- #

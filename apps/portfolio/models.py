@@ -263,3 +263,49 @@ class DividendPayment(models.Model):
     def net_amount(self) -> Decimal:
         """Amount actually received after tax withheld at source."""
         return self.amount - self.tax_withheld
+
+
+# ---------------------------------------------------------------------------
+# PortfolioSnapshot (Tier 1 — value over time)
+# ---------------------------------------------------------------------------
+
+
+class PortfolioSnapshot(models.Model):
+    """A daily mark-to-market record of a portfolio's value in base currency.
+
+    The honest answer to "value over time": the current-quote providers give no
+    *historical* prices, so rather than back-date today's price onto past
+    holdings (dishonest), we record one snapshot per day from now on and let the
+    series accumulate. A snapshot is stored **only** when the portfolio is fully
+    priced and every currency converts to the base currency — otherwise we'd be
+    storing a misleading partial value, so we skip it (see ``snapshots`` service).
+
+    Money rule: market_value and invested use DecimalField — never FloatField.
+    """
+
+    portfolio = models.ForeignKey(
+        Portfolio,
+        on_delete=models.CASCADE,
+        related_name="snapshots",
+    )
+    # The calendar date this snapshot represents (one per portfolio per day).
+    as_of = models.DateField()
+    # Total mark-to-market value in `currency`. Decimal — never float.
+    market_value = models.DecimalField(max_digits=20, decimal_places=2)
+    # Cumulative net invested capital (cost basis) in `currency`, for context.
+    invested = models.DecimalField(max_digits=20, decimal_places=2)
+    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["as_of"]
+        indexes = [models.Index(fields=["portfolio", "as_of"])]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["portfolio", "as_of"],
+                name="uniq_snapshot_portfolio_asof",
+            )
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.portfolio} {self.market_value} {self.currency} @ {self.as_of}"

@@ -208,6 +208,24 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "Capital invertido acumulado a lo largo del tiempo",
         "累计投入资金随时间变化",
     ),
+    "Portfolio value over time": (
+        "Стоимость портфеля во времени",
+        "Valor de la cartera en el tiempo",
+        "投资组合价值随时间变化",
+    ),
+    "Daily mark-to-market value vs invested capital, recorded from the "
+    "first fully priced day.": (
+        "Ежедневная рыночная стоимость в сравнении с вложенным капиталом, "
+        "с первого дня полной оценки.",
+        "Valor de mercado diario frente al capital invertido, desde el primer "
+        "día totalmente valorado.",
+        "每日市值与投入资本对比，自首个完全定价之日起记录。",
+    ),
+    "Portfolio market value over time": (
+        "Рыночная стоимость портфеля во времени",
+        "Valor de mercado de la cartera en el tiempo",
+        "投资组合市值随时间变化",
+    ),
     "Positions": ("Позиции", "Posiciones", "持仓"),
     "Asset": ("Актив", "Activo", "资产"),
     "Market": ("Рынок", "Mercado", "市场"),

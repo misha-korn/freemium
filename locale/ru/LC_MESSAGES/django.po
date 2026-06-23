@@ -238,6 +238,19 @@ msgstr "Вложенный капитал во времени"
 msgid "Cumulative invested capital over time"
 msgstr "Накопленный вложенный капитал во времени"
 
+msgid "Portfolio value over time"
+msgstr "Стоимость портфеля во времени"
+
+msgid ""
+"Daily mark-to-market value vs invested capital, recorded from the first "
+"fully priced day."
+msgstr ""
+"Ежедневная рыночная стоимость в сравнении с вложенным капиталом, с первого "
+"дня полной оценки."
+
+msgid "Portfolio market value over time"
+msgstr "Рыночная стоимость портфеля во времени"
+
 msgid "Positions"
 msgstr "Позиции"
 

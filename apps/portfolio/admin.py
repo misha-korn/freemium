@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from .models import Asset, DividendPayment, Portfolio, Transaction
+from .models import (
+    Asset,
+    DividendPayment,
+    Portfolio,
+    PortfolioSnapshot,
+    Transaction,
+)
 
 
 @admin.register(Portfolio)
@@ -51,3 +57,12 @@ class DividendPaymentAdmin(admin.ModelAdmin):
     search_fields = ("portfolio__name", "asset__ticker", "note")
     autocomplete_fields = ("portfolio", "asset")
     date_hierarchy = "paid_on"
+
+
+@admin.register(PortfolioSnapshot)
+class PortfolioSnapshotAdmin(admin.ModelAdmin):
+    list_display = ("as_of", "portfolio", "market_value", "invested", "currency")
+    list_filter = ("currency",)
+    search_fields = ("portfolio__name",)
+    autocomplete_fields = ("portfolio",)
+    date_hierarchy = "as_of"
