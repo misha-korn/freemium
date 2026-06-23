@@ -7,6 +7,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from .models import Asset, DividendPayment, Portfolio, Transaction
+from .services import held_quantity
 
 
 class PortfolioForm(forms.ModelForm):
@@ -60,6 +61,10 @@ class TransactionForm(forms.ModelForm):
         }
 
     def __init__(self, *args: object, **kwargs: object) -> None:
+        # The view passes the parent portfolio so a SELL can be validated against
+        # what's actually held (CreateView assigns it after validation, so the
+        # form can't read it from the instance yet).
+        self.portfolio: Portfolio | None = kwargs.pop("portfolio", None)
         super().__init__(*args, **kwargs)
         # Accept the value produced by the <input type="datetime-local"> widget.
         self.fields["executed_at"].input_formats = [
@@ -80,6 +85,47 @@ class TransactionForm(forms.ModelForm):
         if price < 0:
             raise forms.ValidationError("Price cannot be negative.")
         return price
+
+    def _portfolio(self) -> Portfolio | None:
+        """Resolve the portfolio: passed by the view (create) or on the instance (edit)."""
+        if self.portfolio is not None:
+            return self.portfolio
+        if self.instance and self.instance.pk:
+            return self.instance.portfolio
+        return None
+
+    def clean(self) -> dict:
+        """Block selling more units than are held (no negative positions).
+
+        Editing an existing SELL excludes that trade from the tally, so a valid
+        sell stays valid on edit. BUYs are never restricted.
+        """
+        cleaned = super().clean()
+        if cleaned.get("kind") != "SELL":
+            return cleaned
+
+        quantity = cleaned.get("quantity")
+        asset = cleaned.get("asset")
+        portfolio = self._portfolio()
+        if quantity is None or asset is None or portfolio is None:
+            return cleaned
+
+        held = held_quantity(
+            portfolio, asset, exclude_id=self.instance.pk if self.instance else None
+        )
+        if held <= 0:
+            self.add_error(
+                "quantity",
+                _("You don't hold any %(ticker)s in this portfolio to sell.")
+                % {"ticker": asset.ticker},
+            )
+        elif quantity > held:
+            self.add_error(
+                "quantity",
+                _("You can't sell %(qty)s — you only hold %(held)s %(ticker)s.")
+                % {"qty": quantity, "held": held, "ticker": asset.ticker},
+            )
+        return cleaned
 
 
 class DividendForm(forms.ModelForm):

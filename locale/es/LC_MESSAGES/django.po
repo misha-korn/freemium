@@ -949,6 +949,12 @@ msgstr "Fecha y hora"
 msgid "Note"
 msgstr "Nota"
 
+msgid "You don't hold any %(ticker)s in this portfolio to sell."
+msgstr "No tienes %(ticker)s en esta cartera para vender."
+
+msgid "You can't sell %(qty)s — you only hold %(held)s %(ticker)s."
+msgstr "No puedes vender %(qty)s — solo tienes %(held)s %(ticker)s."
+
 msgid "Russian Ruble"
 msgstr "Rublo ruso"
 

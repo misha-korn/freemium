@@ -903,6 +903,12 @@ msgstr "成交时间"
 msgid "Note"
 msgstr "备注"
 
+msgid "You don't hold any %(ticker)s in this portfolio to sell."
+msgstr "你在该投资组合中没有可卖出的 %(ticker)s。"
+
+msgid "You can't sell %(qty)s — you only hold %(held)s %(ticker)s."
+msgstr "无法卖出 %(qty)s——你只持有 %(held)s %(ticker)s。"
+
 msgid "Russian Ruble"
 msgstr "俄罗斯卢布"
 
