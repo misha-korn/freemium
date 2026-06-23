@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n portfolio_extras %}
+{% block title %}{% trans "Delete dividend" %} · Freemium{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+  <h1 class="card__title">{% trans "Delete this dividend?" %}</h1>
+  <p>
+    <span class="badge">{{ dividendpayment.get_kind_display }}</span>
+    {{ dividendpayment.asset.ticker }}
+    · {{ dividendpayment.amount|money }} {{ dividendpayment.currency }}
+    · {{ dividendpayment.paid_on|date:"Y-m-d" }}
+  </p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-actions">
+      <button class="btn btn--danger" type="submit">{% trans "Delete" %}</button>
+      <a class="btn btn--ghost" href="{% url 'portfolio:dividends' dividendpayment.portfolio.pk %}">{% trans "Cancel" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

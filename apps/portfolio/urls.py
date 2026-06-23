@@ -46,4 +46,26 @@ urlpatterns = [
         views.TransactionDeleteView.as_view(),
         name="transaction_delete",
     ),
+    # Dividends & coupons (Tier 1)
+    path("<int:pk>/dividends/", views.DividendListView.as_view(), name="dividends"),
+    path(
+        "<int:pk>/dividends/new/",
+        views.DividendCreateView.as_view(),
+        name="dividend_create",
+    ),
+    path(
+        "<int:pk>/dividends/<int:year>/",
+        views.DividendListView.as_view(),
+        name="dividends_year",
+    ),
+    path(
+        "dividends/<int:pk>/edit/",
+        views.DividendUpdateView.as_view(),
+        name="dividend_update",
+    ),
+    path(
+        "dividends/<int:pk>/delete/",
+        views.DividendDeleteView.as_view(),
+        name="dividend_delete",
+    ),
 ]

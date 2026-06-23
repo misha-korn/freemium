@@ -987,6 +987,109 @@ msgstr "Покупка"
 msgid "Sell"
 msgstr "Продажа"
 
+msgid "Dividends"
+msgstr "Дивиденды"
+
+msgid "Dividends and coupons"
+msgstr "Дивиденды и купоны"
+
+msgid ""
+"Income you received — totals per currency, never mixed across currencies."
+msgstr "Полученный доход — итоги по каждой валюте, без смешивания валют."
+
+msgid "+ Add dividend"
+msgstr "+ Добавить дивиденд"
+
+msgid "Net income"
+msgstr "Чистый доход"
+
+msgid "Gross %(gross)s · tax %(tax)s"
+msgstr "Начислено %(gross)s · налог %(tax)s"
+
+msgid "yield-on-cost %(y)s"
+msgstr "доходность к вложенному %(y)s"
+
+msgid "Gross"
+msgstr "Начислено"
+
+msgid "Tax"
+msgstr "Налог"
+
+msgid "Net"
+msgstr "Чистыми"
+
+msgid "No dividends recorded yet"
+msgstr "Дивидендов пока нет"
+
+msgid ""
+"Add a dividend or coupon payment to build your income history and calendar."
+msgstr ""
+"Добавьте дивиденд или купон, чтобы построить историю и календарь "
+"поступлений."
+
+msgid "Add a dividend"
+msgstr "Добавить дивиденд"
+
+msgid "Add dividend / coupon"
+msgstr "Добавить дивиденд / купон"
+
+msgid "Edit dividend / coupon"
+msgstr "Изменить дивиденд / купон"
+
+msgid "Record income you received — a stock/ETF dividend or a bond coupon."
+msgstr ""
+"Зафиксируйте полученный доход — дивиденд по акции/ETF или купон по "
+"облигации."
+
+msgid ""
+"You have no assets yet. <a href=\"%(add_asset_url)s\">Add an asset</a> "
+"before recording income."
+msgstr ""
+"У вас пока нет активов. <a href=\"%(add_asset_url)s\">Добавьте актив</a>, "
+"прежде чем фиксировать доход."
+
+msgid "Save dividend"
+msgstr "Сохранить дивиденд"
+
+msgid "Add dividend"
+msgstr "Добавить дивиденд"
+
+msgid "Edit dividend"
+msgstr "Изменить дивиденд"
+
+msgid "Delete dividend"
+msgstr "Удалить дивиденд"
+
+msgid "Delete this dividend?"
+msgstr "Удалить этот дивиденд?"
+
+msgid "Gross amount"
+msgstr "Сумма начисления"
+
+msgid "Tax withheld"
+msgstr "Удержанный налог"
+
+msgid "Paid on"
+msgstr "Дата выплаты"
+
+msgid "Dividend"
+msgstr "Дивиденд"
+
+msgid "Coupon"
+msgstr "Купон"
+
+msgid "Dividend recorded."
+msgstr "Дивиденд сохранён."
+
+msgid "Amount must be greater than zero."
+msgstr "Сумма должна быть больше нуля."
+
+msgid "Tax withheld cannot be negative."
+msgstr "Удержанный налог не может быть отрицательным."
+
+msgid "Tax withheld can't exceed the gross amount."
+msgstr "Удержанный налог не может превышать сумму начисления."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s портфель"

@@ -107,3 +107,31 @@
 - Telegram is **best-effort**: with no `TELEGRAM_BOT_TOKEN` it silently no-ops,
   so in-app + email still work. A live broker API integration is the last
   remaining item and needs credentials.
+
+## Stage 6 — Competitiveness, Tier 1 (in progress)
+
+> Bring the tracker to parity with Intelinvest / Snowball / Sharesight. Each item
+> ships as its own branch + PR. Recommended start: dividends (the #1 expected
+> feature). See `docs/Freemium-план-развития.md` direction.
+
+- [x] **Dividends & coupons** — manual entry first: a `DividendPayment` model
+      (stock/ETF dividend or bond coupon), per-portfolio CRUD, a per-currency
+      income summary, yield-on-cost, and a month-by-month calendar/history
+      (`portfolio.income`). Free for all signed-in users (core value, not Pro).
+- [ ] Auto-pull dividends from MOEX ISS (`/securities/{SECID}/dividends.json`)
+      to pre-fill history for RU holdings — the next dividends increment.
+- [ ] **Portfolio value over time + benchmark** — `PortfolioSnapshot` + a daily
+      job → an honest mark-to-market value chart and index comparison
+      (IMOEX / S&P). Closes the deferred mark-to-market chart.
+- [ ] **Trade validation** — warn / block selling more than is held (no negative
+      positions); surface a clear message instead of silently clamping.
+
+### Stage 6 notes (dividends)
+- Income figures stay in the payment's **own currency** and are never summed
+  across currencies — same honesty rule as valuation / tax. `net_amount` is
+  gross minus tax withheld at source.
+- **Yield-on-cost** divides net income by the current open-position cost basis in
+  the same currency; it is `None` (em dash) when there's no basis in that
+  currency (e.g. the position was fully sold) — never a fabricated yield.
+- `paid_on` is the pay date (drives history + the calendar); ex-date and a
+  per-share breakdown are deliberately omitted until MOEX auto-pull lands.

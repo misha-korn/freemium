@@ -669,7 +669,7 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
     ),
     "Ticker": ("Тикер", "Símbolo", "代码"),
     "Name": ("Название", "Nombre", "名称"),
-    "Type": ("Тип", "Tipo", "类型"),
+    # "Type" is already defined above (shared asset/transaction label).
     "No assets yet": ("Активов пока нет", "Aún no hay activos", "暂无资产"),
     "Add instruments (stocks, ETFs, bonds, crypto) to log trades against them.": (
         "Добавьте инструменты (акции, ETF, облигации, крипту), чтобы вносить по ним сделки.",
@@ -760,6 +760,93 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
     "Global": ("Глобальный", "Global", "全球"),
     "Buy": ("Покупка", "Compra", "买入"),
     "Sell": ("Продажа", "Venta", "卖出"),
+    # --- Tier 1: dividends & coupons ---
+    "Dividends": ("Дивиденды", "Dividendos", "股息"),
+    "Dividends and coupons": ("Дивиденды и купоны", "Dividendos y cupones", "股息与票息"),
+    "Income you received — totals per currency, never mixed across currencies.": (
+        "Полученный доход — итоги по каждой валюте, без смешивания валют.",
+        "Ingresos recibidos — totales por divisa, sin mezclar divisas.",
+        "你收到的收入——按货币分别汇总，不跨货币混合。",
+    ),
+    "+ Add dividend": ("+ Добавить дивиденд", "+ Añadir dividendo", "+ 添加股息"),
+    "Net income": ("Чистый доход", "Ingreso neto", "净收入"),
+    "Gross %(gross)s · tax %(tax)s": (
+        "Начислено %(gross)s · налог %(tax)s",
+        "Bruto %(gross)s · impuesto %(tax)s",
+        "税前 %(gross)s · 税 %(tax)s",
+    ),
+    "yield-on-cost %(y)s": (
+        "доходность к вложенному %(y)s",
+        "rentabilidad sobre coste %(y)s",
+        "成本收益率 %(y)s",
+    ),
+    "Gross": ("Начислено", "Bruto", "税前"),
+    "Tax": ("Налог", "Impuesto", "税"),
+    "Net": ("Чистыми", "Neto", "净额"),
+    "No dividends recorded yet": (
+        "Дивидендов пока нет",
+        "Aún no hay dividendos registrados",
+        "暂无股息记录",
+    ),
+    "Add a dividend or coupon payment to build your income history and calendar.": (
+        "Добавьте дивиденд или купон, чтобы построить историю и календарь поступлений.",
+        "Añade un dividendo o cupón para crear tu historial y calendario de ingresos.",
+        "添加股息或票息，以建立你的收入历史和日历。",
+    ),
+    "Add a dividend": ("Добавить дивиденд", "Añadir un dividendo", "添加股息"),
+    "Add dividend / coupon": (
+        "Добавить дивиденд / купон",
+        "Añadir dividendo / cupón",
+        "添加股息 / 票息",
+    ),
+    "Edit dividend / coupon": (
+        "Изменить дивиденд / купон",
+        "Editar dividendo / cupón",
+        "编辑股息 / 票息",
+    ),
+    "Record income you received — a stock/ETF dividend or a bond coupon.": (
+        "Зафиксируйте полученный доход — дивиденд по акции/ETF или купон по облигации.",
+        "Registra los ingresos recibidos — un dividendo de acción/ETF o un cupón de bono.",
+        "记录你收到的收入——股票/ETF 股息或债券票息。",
+    ),
+    'You have no assets yet. <a href="%(add_asset_url)s">Add an asset</a> '
+    "before recording income.": (
+        'У вас пока нет активов. <a href="%(add_asset_url)s">Добавьте актив</a>, '
+        "прежде чем фиксировать доход.",
+        'Aún no tienes activos. <a href="%(add_asset_url)s">Añade un activo</a> '
+        "antes de registrar ingresos.",
+        '你还没有资产。请先<a href="%(add_asset_url)s">添加资产</a>，再记录收入。',
+    ),
+    "Save dividend": ("Сохранить дивиденд", "Guardar dividendo", "保存股息"),
+    "Add dividend": ("Добавить дивиденд", "Añadir dividendo", "添加股息"),
+    "Edit dividend": ("Изменить дивиденд", "Editar dividendo", "编辑股息"),
+    "Delete dividend": ("Удалить дивиденд", "Eliminar dividendo", "删除股息"),
+    "Delete this dividend?": (
+        "Удалить этот дивиденд?",
+        "¿Eliminar este dividendo?",
+        "删除此股息？",
+    ),
+    "Gross amount": ("Сумма начисления", "Importe bruto", "税前金额"),
+    "Tax withheld": ("Удержанный налог", "Impuesto retenido", "已扣税款"),
+    "Paid on": ("Дата выплаты", "Fecha de pago", "支付日期"),
+    "Dividend": ("Дивиденд", "Dividendo", "股息"),
+    "Coupon": ("Купон", "Cupón", "票息"),
+    "Dividend recorded.": ("Дивиденд сохранён.", "Dividendo registrado.", "股息已保存。"),
+    "Amount must be greater than zero.": (
+        "Сумма должна быть больше нуля.",
+        "El importe debe ser mayor que cero.",
+        "金额必须大于零。",
+    ),
+    "Tax withheld cannot be negative.": (
+        "Удержанный налог не может быть отрицательным.",
+        "El impuesto retenido no puede ser negativo.",
+        "已扣税款不能为负。",
+    ),
+    "Tax withheld can't exceed the gross amount.": (
+        "Удержанный налог не может превышать сумму начисления.",
+        "El impuesto retenido no puede superar el importe bruto.",
+        "已扣税款不能超过税前金额。",
+    ),
 }
 
 # msgid -> (msgid_plural, {lang: (form0, form1, form2...)})

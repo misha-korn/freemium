@@ -943,6 +943,103 @@ msgstr "买入"
 msgid "Sell"
 msgstr "卖出"
 
+msgid "Dividends"
+msgstr "股息"
+
+msgid "Dividends and coupons"
+msgstr "股息与票息"
+
+msgid ""
+"Income you received — totals per currency, never mixed across currencies."
+msgstr "你收到的收入——按货币分别汇总，不跨货币混合。"
+
+msgid "+ Add dividend"
+msgstr "+ 添加股息"
+
+msgid "Net income"
+msgstr "净收入"
+
+msgid "Gross %(gross)s · tax %(tax)s"
+msgstr "税前 %(gross)s · 税 %(tax)s"
+
+msgid "yield-on-cost %(y)s"
+msgstr "成本收益率 %(y)s"
+
+msgid "Gross"
+msgstr "税前"
+
+msgid "Tax"
+msgstr "税"
+
+msgid "Net"
+msgstr "净额"
+
+msgid "No dividends recorded yet"
+msgstr "暂无股息记录"
+
+msgid ""
+"Add a dividend or coupon payment to build your income history and calendar."
+msgstr "添加股息或票息，以建立你的收入历史和日历。"
+
+msgid "Add a dividend"
+msgstr "添加股息"
+
+msgid "Add dividend / coupon"
+msgstr "添加股息 / 票息"
+
+msgid "Edit dividend / coupon"
+msgstr "编辑股息 / 票息"
+
+msgid "Record income you received — a stock/ETF dividend or a bond coupon."
+msgstr "记录你收到的收入——股票/ETF 股息或债券票息。"
+
+msgid ""
+"You have no assets yet. <a href=\"%(add_asset_url)s\">Add an asset</a> "
+"before recording income."
+msgstr "你还没有资产。请先<a href=\"%(add_asset_url)s\">添加资产</a>，再记录收入。"
+
+msgid "Save dividend"
+msgstr "保存股息"
+
+msgid "Add dividend"
+msgstr "添加股息"
+
+msgid "Edit dividend"
+msgstr "编辑股息"
+
+msgid "Delete dividend"
+msgstr "删除股息"
+
+msgid "Delete this dividend?"
+msgstr "删除此股息？"
+
+msgid "Gross amount"
+msgstr "税前金额"
+
+msgid "Tax withheld"
+msgstr "已扣税款"
+
+msgid "Paid on"
+msgstr "支付日期"
+
+msgid "Dividend"
+msgstr "股息"
+
+msgid "Coupon"
+msgstr "票息"
+
+msgid "Dividend recorded."
+msgstr "股息已保存。"
+
+msgid "Amount must be greater than zero."
+msgstr "金额必须大于零。"
+
+msgid "Tax withheld cannot be negative."
+msgstr "已扣税款不能为负。"
+
+msgid "Tax withheld can't exceed the gross amount."
+msgstr "已扣税款不能超过税前金额。"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"

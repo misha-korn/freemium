@@ -190,3 +190,76 @@ class Transaction(models.Model):
         if self.kind == "BUY":
             return self.gross_value + self.fee
         return self.gross_value - self.fee
+
+
+# ---------------------------------------------------------------------------
+# DividendPayment (Tier 1 — dividends & coupons)
+# ---------------------------------------------------------------------------
+
+
+class DividendPayment(models.Model):
+    """A cash income event received within a portfolio.
+
+    Covers a stock/ETF **dividend** or a bond **coupon**. Tier 1 ships manual
+    entry first (history + calendar); auto-pulling dividends from MOEX is a
+    follow-up. Income figures stay in the payment's own currency and are never
+    summed across currencies without an FX rate — same honesty rule as the rest
+    of the app.
+
+    Money rule: amount and tax use DecimalField — never FloatField.
+    """
+
+    class Kind(models.TextChoices):
+        DIVIDEND = "DIVIDEND", _("Dividend")
+        COUPON = "COUPON", _("Coupon")
+
+    portfolio = models.ForeignKey(
+        Portfolio,
+        on_delete=models.CASCADE,
+        related_name="dividends",
+    )
+    asset = models.ForeignKey(
+        Asset,
+        on_delete=models.PROTECT,
+        related_name="dividends",
+    )
+    kind = models.CharField(
+        max_length=8,
+        choices=Kind.choices,
+        default=Kind.DIVIDEND,
+    )
+    # Gross amount received for this single payment, in `currency`.
+    # Monetary amounts: DecimalField only — never FloatField.
+    amount = models.DecimalField(
+        max_digits=20,
+        decimal_places=8,
+        validators=[MinValueValidator(Decimal("0.00000001"))],
+    )
+    # Tax withheld at source (e.g. RU 13% dividend tax). Decimal — never float.
+    tax_withheld = models.DecimalField(
+        max_digits=20,
+        decimal_places=8,
+        default=Decimal("0"),
+        validators=[MinValueValidator(Decimal("0"))],
+    )
+    currency = models.CharField(
+        max_length=3,
+        choices=CURRENCY_CHOICES,
+        default="USD",
+    )
+    # Pay date — what matters for "income received" history and the calendar.
+    paid_on = models.DateField()
+    note = models.CharField(max_length=300, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-paid_on", "-id"]
+        indexes = [models.Index(fields=["portfolio", "-paid_on"])]
+
+    def __str__(self) -> str:
+        return f"{self.get_kind_display()} {self.amount} {self.currency} {self.asset.ticker}"
+
+    @property
+    def net_amount(self) -> Decimal:
+        """Amount actually received after tax withheld at source."""
+        return self.amount - self.tax_withheld
