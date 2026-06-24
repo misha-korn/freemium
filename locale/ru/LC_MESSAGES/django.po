@@ -1347,6 +1347,22 @@ msgstr "Корпоративное событие удалено."
 msgid "Shares must be greater than zero."
 msgstr "Число акций должно быть больше нуля."
 
+msgid "Offline"
+msgstr "Нет сети"
+
+msgid "You're offline"
+msgstr "Вы офлайн"
+
+msgid ""
+"Freemium needs a connection to show your portfolio. Check your network and "
+"try again."
+msgstr ""
+"Freemium нужно подключение, чтобы показать портфель. Проверьте сеть и "
+"попробуйте снова."
+
+msgid "Retry"
+msgstr "Повторить"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s портфель"

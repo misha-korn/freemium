@@ -235,3 +235,26 @@
   no-op, so the common case is unchanged.
 - **Tier 2 done**: broker import, bonds, rebalancing, corporate actions.
   Remaining Tier 2 follow-up: MOEX bonds-market pricing (needs live MOEX).
+
+## Stage 8 — Retention & growth, Tier 3 (in progress)
+
+> Plan order: PWA → dividend forecast / sectors / news → public portfolios.
+
+- [x] **PWA (#8)** — installable "like an app": a web app manifest, branded
+      icons (192/512 + maskable, generated), and a service worker served from the
+      site root (so its scope is the whole app) with an offline fallback page.
+      Manifest/sw/offline live at `/manifest.webmanifest`, `/sw.js`, `/offline/`
+      (`config.views`); `pwa.js` registers the worker.
+- [ ] **Dividend forecast / sectors / news (#9)** — needs a real data source;
+      sector stays deferred until a provider feeds one (we don't fabricate it).
+- [ ] **Public portfolios / sharing (#10)** — opt-in read-only public link.
+
+### Stage 8 notes (PWA)
+- The service worker is deliberately **minimal and honest**: it caches only the
+  offline page, never portfolio data (which must be fresh from the server). It
+  intercepts only top-level navigations and falls back to `/offline/` when the
+  network fails; everything else hits the network normally.
+- The worker is served from the root with `Service-Worker-Allowed: /` and
+  `Cache-Control: no-cache` so updates propagate. Icons are generated PNGs
+  (Pillow) in the brand teal; the offline page is self-contained (inline CSS) so
+  it renders without any cached assets.

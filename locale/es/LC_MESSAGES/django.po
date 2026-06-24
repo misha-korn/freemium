@@ -1349,6 +1349,22 @@ msgstr "Acción corporativa eliminada."
 msgid "Shares must be greater than zero."
 msgstr "Las acciones deben ser mayores que cero."
 
+msgid "Offline"
+msgstr "Sin conexión"
+
+msgid "You're offline"
+msgstr "Estás sin conexión"
+
+msgid ""
+"Freemium needs a connection to show your portfolio. Check your network and "
+"try again."
+msgstr ""
+"Freemium necesita conexión para mostrar tu cartera. Revisa tu red e "
+"inténtalo de nuevo."
+
+msgid "Retry"
+msgstr "Reintentar"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"

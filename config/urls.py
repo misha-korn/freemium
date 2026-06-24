@@ -3,8 +3,14 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
+from . import views as pwa_views
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # PWA (Tier 3): served from root so the service worker controls the whole app.
+    path("manifest.webmanifest", pwa_views.manifest, name="manifest"),
+    path("sw.js", pwa_views.service_worker, name="service_worker"),
+    path("offline/", pwa_views.offline, name="offline"),
     # i18n set_language view (POST) powers the header language switcher.
     path("i18n/", include("django.conf.urls.i18n")),
     # django-allauth: login, signup, logout, password reset, email mgmt, ...
