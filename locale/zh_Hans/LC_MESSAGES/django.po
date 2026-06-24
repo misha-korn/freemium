@@ -1166,6 +1166,59 @@ msgstr "面值必须大于零。"
 msgid "Coupon rate cannot be negative."
 msgstr "票面利率不能为负。"
 
+msgid "Rebalance"
+msgstr "再平衡"
+
+msgid ""
+"Set a target weight per holding; we suggest how much to buy or sell to reach"
+" it."
+msgstr "为每项持仓设定目标权重；我们会建议买入或卖出多少以达到该目标。"
+
+msgid "Current"
+msgstr "当前"
+
+msgid "Target, %"
+msgstr "目标，%"
+
+msgid "Drift"
+msgstr "偏离"
+
+msgid "Suggestion"
+msgstr "建议"
+
+msgid "Target weight for %(t)s"
+msgstr "%(t)s 的目标权重"
+
+msgid "On target"
+msgstr "已达标"
+
+msgid "Save targets"
+msgstr "保存目标"
+
+msgid "Targets total: %(s)s%."
+msgstr "目标合计：%(s)s%。"
+
+msgid ""
+"Buy/sell amounts appear once every holding is priced and converts to the "
+"base currency — use “Refresh prices” on the portfolio."
+msgstr "当每项持仓都有价格并可换算为基准货币后，将显示买入/卖出金额——请在投资组合中使用“刷新价格”。"
+
+msgid "Nothing to rebalance yet"
+msgstr "暂无可再平衡的内容"
+
+msgid ""
+"Add holdings first, then set target weights to get buy/sell suggestions."
+msgstr "请先添加持仓，再设定目标权重，即可获得买卖建议。"
+
+msgid "Target allocation saved."
+msgstr "目标配置已保存。"
+
+msgid "Some targets were invalid and skipped (use a number ≥ 0)."
+msgstr "部分目标无效已跳过（请使用 ≥ 0 的数字）。"
+
+msgid "Targets add up to %(sum)s%% — over 100%%."
+msgstr "目标合计 %(sum)s%%——超过 100%%。"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"

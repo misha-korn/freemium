@@ -1212,6 +1212,59 @@ msgstr ""
 msgid "Coupon rate cannot be negative."
 msgstr ""
 
+msgid "Rebalance"
+msgstr ""
+
+msgid ""
+"Set a target weight per holding; we suggest how much to buy or sell to reach"
+" it."
+msgstr ""
+
+msgid "Current"
+msgstr ""
+
+msgid "Target, %"
+msgstr ""
+
+msgid "Drift"
+msgstr ""
+
+msgid "Suggestion"
+msgstr ""
+
+msgid "Target weight for %(t)s"
+msgstr ""
+
+msgid "On target"
+msgstr ""
+
+msgid "Save targets"
+msgstr ""
+
+msgid "Targets total: %(s)s%."
+msgstr ""
+
+msgid ""
+"Buy/sell amounts appear once every holding is priced and converts to the "
+"base currency — use “Refresh prices” on the portfolio."
+msgstr ""
+
+msgid "Nothing to rebalance yet"
+msgstr ""
+
+msgid ""
+"Add holdings first, then set target weights to get buy/sell suggestions."
+msgstr ""
+
+msgid "Target allocation saved."
+msgstr ""
+
+msgid "Some targets were invalid and skipped (use a number ≥ 0)."
+msgstr ""
+
+msgid "Targets add up to %(sum)s%% — over 100%%."
+msgstr ""
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s Portfolio"

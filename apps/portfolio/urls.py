@@ -75,4 +75,6 @@ urlpatterns = [
         views.BondDetailUpsertView.as_view(),
         name="bond_edit",
     ),
+    # Rebalancing — target weights + suggestions (Tier 2 #6)
+    path("<int:pk>/rebalance/", views.RebalanceView.as_view(), name="rebalance"),
 ]

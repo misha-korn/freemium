@@ -159,6 +159,18 @@ once ≥2 snapshots exist; the invested-capital chart stays for day one. A bench
 overlay (index level snapshotted in parallel, rebased to 100) is the next
 increment — it needs an index data source.
 
+### Rebalancing: suggest only when priced; hold band; base-currency amounts (Stage 7)
+Tier 2 rebalancing (#6) stores a `RebalanceTarget` (target weight % per asset) and
+`portfolio.rebalance.build_rebalance` compares each holding's current weight
+(market value converted to base) against it. Buy/sell **amounts are produced only
+when the portfolio is fully priced and FX-convertible** (`available`); otherwise
+targets stay editable but amounts render `—` — we never rebalance against
+fabricated values. A 0.5%-of-portfolio **hold band** suppresses noise trades from
+rounding, and targets for not-yet-held assets suggest a full buy. Suggestions are
+in the base currency only (unit/lot rounding is left to the user). Targets are
+edited inline on the Rebalance page (`target_<asset_id>` inputs); a blank removes
+the target, and the view warns if targets exceed 100%.
+
 ### Bonds: manual reference data + derived coupon maths first (Stage 7)
 Tier 2 bonds (#5) start with a `BondDetail` (OneToOne with a BOND `Asset`: face
 value, coupon rate, frequency, maturity) and pure maths in `portfolio.bonds`.

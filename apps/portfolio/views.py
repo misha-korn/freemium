@@ -1,11 +1,12 @@
 """Portfolio views — class-based, ownership-scoped (Stage 1)."""
 from __future__ import annotations
 
+from decimal import Decimal, InvalidOperation
 from typing import Any
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count, QuerySet
+from django.db.models import Count, QuerySet, Sum
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
@@ -42,8 +43,16 @@ from .income import (
     dividend_years,
     yield_on_cost,
 )
-from .models import Asset, BondDetail, DividendPayment, Portfolio, Transaction
+from .models import (
+    Asset,
+    BondDetail,
+    DividendPayment,
+    Portfolio,
+    RebalanceTarget,
+    Transaction,
+)
 from .overview import build_account_overview
+from .rebalance import build_rebalance
 from .services import compute_positions, portfolio_summary
 from .snapshots import take_snapshot, value_timeseries
 from .tax import realized_gains, realized_summary, realized_years
@@ -434,6 +443,64 @@ class BondDetailUpsertView(LoginRequiredMixin, View):
             request, self.template_name,
             {"form": form, "portfolio": portfolio, "asset": asset},
         )
+
+
+# --------------------------------------------------------------------------- #
+# Rebalancing — target weights + buy/sell suggestions (Tier 2 #6)
+# --------------------------------------------------------------------------- #
+class RebalanceView(_OwnedPortfolioMixin, DetailView):
+    """Show current vs target allocation; POST saves per-asset target weights."""
+
+    template_name = "portfolio/rebalance.html"
+    context_object_name = "portfolio"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx["rebalance"] = build_rebalance(self.object)
+        return ctx
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        portfolio = self.get_object()  # owner-scoped queryset -> 404 otherwise
+        existing = {t.asset_id: t for t in portfolio.rebalance_targets.all()}
+        held_ids = [pos.asset.id for pos in compute_positions(portfolio)]
+        asset_ids = list(dict.fromkeys(held_ids + list(existing.keys())))
+
+        saved = 0
+        invalid = 0
+        for asset_id in asset_ids:
+            raw = (request.POST.get(f"target_{asset_id}") or "").strip().replace(",", ".")
+            if raw == "":
+                if asset_id in existing:
+                    existing[asset_id].delete()
+                continue
+            try:
+                weight = Decimal(raw)
+            except InvalidOperation:
+                invalid += 1
+                continue
+            if weight < 0:
+                invalid += 1
+                continue
+            RebalanceTarget.objects.update_or_create(
+                portfolio=portfolio,
+                asset_id=asset_id,
+                defaults={"target_weight": weight},
+            )
+            saved += 1
+
+        if saved:
+            messages.success(request, _("Target allocation saved."))
+        if invalid:
+            messages.warning(
+                request, _("Some targets were invalid and skipped (use a number ≥ 0).")
+            )
+        total = portfolio.rebalance_targets.aggregate(s=Sum("target_weight"))["s"]
+        if total and total > Decimal("100"):
+            messages.info(
+                request,
+                _("Targets add up to %(sum)s%% — over 100%%.") % {"sum": total},
+            )
+        return redirect("portfolio:rebalance", pk=portfolio.pk)
 
 
 # --------------------------------------------------------------------------- #
