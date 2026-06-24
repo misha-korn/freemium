@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Share" %} · {{ portfolio.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{{ portfolio.name }}</p>
+    <h1 class="page-header__title">{% trans "Share portfolio" %}</h1>
+    <p class="page-header__sub">{% trans "A public link shows your composition and returns (%) only — never amounts, trades or your name." %}</p>
+  </div>
+  <div class="cluster">
+    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
+  </div>
+</div>
+
+<div class="card form-card">
+  {% if portfolio.is_public %}
+    <p><span class="badge badge--buy">{% trans "Public" %}</span> {% trans "Anyone with the link can view this portfolio." %}</p>
+    <div class="field">
+      <label for="share-url">{% trans "Public link" %}</label>
+      <input id="share-url" type="text" value="{{ public_url }}" readonly onclick="this.select()">
+    </div>
+    <form method="post" class="mt-6">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="unpublish">
+      <button class="btn btn--danger" type="submit">{% trans "Make private" %}</button>
+    </form>
+  {% else %}
+    <p><span class="badge">{% trans "Private" %}</span> {% trans "Only you can see this portfolio." %}</p>
+    <form method="post" class="mt-6">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="publish">
+      <button class="btn btn--primary" type="submit">{% trans "Make public" %}</button>
+    </form>
+  {% endif %}
+</div>
+{% endblock %}

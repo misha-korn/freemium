@@ -252,7 +252,11 @@
 - [ ] Stock **dividend forecast / sectors / news** — still needs a real data
       source; sector stays deferred until a provider feeds one (we don't
       fabricate it). Candidate: MOEX dividends endpoint for RU stocks.
-- [ ] **Public portfolios / sharing (#10)** — opt-in read-only public link.
+- [x] **Public portfolios / sharing (#10)** — opt-in, token-gated read-only
+      public link at `/p/<token>/` (`PublicPortfolioView`). Shows composition
+      (allocation donuts + per-holding weights) and returns (%) only — **never**
+      absolute amounts, trades or the owner's identity. Owner toggles publish /
+      make-private on a Share page; the token is `secrets.token_urlsafe`.
 
 ### Stage 8 notes (PWA)
 - The service worker is deliberately **minimal and honest**: it caches only the
@@ -270,3 +274,15 @@
   Stock dividends are deliberately **not** projected — guessing from history
   would fabricate numbers; that waits for a forward-dividend data source. The
   page says so plainly. It assumes the holding is kept and predicts no prices.
+
+### Stage 8 notes (public portfolios) — Tier 3 core complete
+- Sharing is **opt-in** and **token-gated** (`secrets.token_urlsafe`); the public
+  view 404s unless `is_public` is set, and the link is unguessable / not
+  enumerable by id. Making a portfolio private 404s the link again.
+- The public page is **privacy-first**: it exposes only composition (allocation
+  donuts + per-holding weights) and returns (%) — never absolute amounts, the
+  trade history or the owner's name/email. A focused template (not the owner
+  dashboard) guarantees nothing extra leaks.
+- **Tier 3 core done**: PWA, income forecast (bonds), public portfolios.
+  Remaining data-source-bound follow-ups: stock dividend forecast / sectors /
+  news, and MOEX bonds-market pricing.

@@ -1318,6 +1318,62 @@ msgstr "添加带票息数据的债券，即可在此预测票息收入。"
 msgid "Forecast"
 msgstr "预测"
 
+msgid "Share"
+msgstr "分享"
+
+msgid "Share portfolio"
+msgstr "分享投资组合"
+
+msgid ""
+"A public link shows your composition and returns (%) only — never amounts, "
+"trades or your name."
+msgstr "公开链接仅显示构成和收益率（%）——绝不显示金额、交易或你的姓名。"
+
+msgid "Public"
+msgstr "公开"
+
+msgid "Anyone with the link can view this portfolio."
+msgstr "任何拥有链接的人都可以查看此投资组合。"
+
+msgid "Public link"
+msgstr "公开链接"
+
+msgid "Make private"
+msgstr "设为私密"
+
+msgid "Private"
+msgstr "私密"
+
+msgid "Only you can see this portfolio."
+msgstr "只有你能看到此投资组合。"
+
+msgid "Make public"
+msgstr "设为公开"
+
+msgid "Public portfolio"
+msgstr "公开投资组合"
+
+msgid "A shared, read-only view — composition and returns only."
+msgstr "共享的只读视图——仅构成和收益。"
+
+msgid "Holdings"
+msgstr "持仓"
+
+msgid "Weight"
+msgstr "权重"
+
+msgid "This portfolio has no holdings yet."
+msgstr "此投资组合暂无持仓。"
+
+msgid "Amounts are hidden on shared portfolios. Build your own:"
+msgstr "共享投资组合中金额已隐藏。创建你自己的："
+
+msgid "Portfolio is now public — anyone with the link can view it."
+msgstr "投资组合现已公开——任何拥有链接的人都可查看。"
+
+msgid "Portfolio is private again."
+msgstr "投资组合已恢复私密。"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"

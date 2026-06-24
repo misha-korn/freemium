@@ -1,5 +1,17 @@
 # Key decisions (ADR-lite)
 
+### Public portfolios: opt-in, token-gated, composition-only (Stage 8)
+Tier 3's #10 shares a portfolio via an **opt-in**, unguessable token link
+(`secrets.token_urlsafe`) at `/p/<token>/`; `PublicPortfolioView` 404s unless
+`is_public` is set, so a portfolio is never public by default and the link isn't
+enumerable by id. The public page is **privacy-first**: a dedicated template
+renders only the composition (allocation donuts + per-holding weights) and
+returns (%) — never absolute amounts, the transaction history, or the owner's
+username/email. Showing weights/returns rather than money lets a user share what
+they hold without revealing their net worth. The owner toggles publish /
+make-private on a Share page; making it private 404s the link again. (Regression
+tests assert money and owner identity never appear on the public page.)
+
 ### Income forecast projects only deterministic bond coupons (Stage 8)
 Tier 3's #9 (dividend forecast / sectors / news) is gated on an external data
 source. The honest slice shipped now is a **bond-coupon income forecast**

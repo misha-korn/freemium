@@ -222,6 +222,66 @@ class PortfolioDeleteView(_OwnedPortfolioMixin, DeleteView):
     success_url = reverse_lazy("portfolio:list")
 
 
+class PortfolioShareView(_OwnedPortfolioMixin, DetailView):
+    """Owner controls for public sharing: publish / make private + the link."""
+
+    template_name = "portfolio/share.html"
+    context_object_name = "portfolio"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        if self.object.is_public and self.object.share_token:
+            ctx["public_url"] = self.request.build_absolute_uri(
+                self.object.get_public_url()
+            )
+        return ctx
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        portfolio = self.get_object()  # owner-scoped -> 404 otherwise
+        action = request.POST.get("action")
+        if action == "publish":
+            portfolio.ensure_share_token()
+            portfolio.is_public = True
+            portfolio.save(update_fields=["share_token", "is_public", "updated_at"])
+            messages.success(
+                request, _("Portfolio is now public — anyone with the link can view it.")
+            )
+        elif action == "unpublish":
+            portfolio.is_public = False
+            portfolio.save(update_fields=["is_public", "updated_at"])
+            messages.success(request, _("Portfolio is private again."))
+        return redirect("portfolio:share", pk=portfolio.pk)
+
+
+class PublicPortfolioView(DetailView):
+    """Token-gated, read-only public view: composition only, no money or owner.
+
+    Exposes weights and returns (percentages) and the allocation donuts — never
+    absolute amounts, transactions or the owner's identity. 404 unless the
+    portfolio is opted into public sharing.
+    """
+
+    template_name = "portfolio/public_portfolio.html"
+    context_object_name = "portfolio"
+    slug_field = "share_token"
+    slug_url_kwarg = "token"
+
+    def get_queryset(self) -> QuerySet[Portfolio]:
+        return Portfolio.objects.filter(is_public=True)
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        valuation = portfolio_valuation(self.object)
+        allocation = build_allocation(valuation["positions"], valuation["base_currency"])
+        ctx["allocation"] = allocation
+        ctx["allocation_charts"] = PortfolioDetailView._allocation_charts(allocation)
+        # Percentages only — absolute amounts are deliberately never exposed.
+        ctx["simple_return"] = valuation["totals"]["simple_return"]
+        ctx["xirr"] = valuation["totals"]["xirr"]
+        ctx["base_currency"] = valuation["base_currency"]
+        return ctx
+
+
 # --------------------------------------------------------------------------- #
 # Transaction
 # --------------------------------------------------------------------------- #

@@ -18,6 +18,8 @@ urlpatterns = [
     ),
     path("<int:pk>/edit/", views.PortfolioUpdateView.as_view(), name="update"),
     path("<int:pk>/delete/", views.PortfolioDeleteView.as_view(), name="delete"),
+    # Public sharing controls (Tier 3 #10) — owner only.
+    path("<int:pk>/share/", views.PortfolioShareView.as_view(), name="share"),
     # CSV trade import (Stage 5)
     path("<int:pk>/import/", views.ImportTradesView.as_view(), name="import_trades"),
     # Pro: tax report + exports (Stage 5)
