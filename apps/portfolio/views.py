@@ -28,6 +28,7 @@ from . import exports
 from .allocation import build_allocation, chart_payload
 from .bonds import bond_summary
 from .broker_import import import_broker_xlsx
+from .forecast import income_forecast
 from .forms import (
     AssetForm,
     BondDetailForm,
@@ -373,6 +374,18 @@ class DividendUpdateView(_OwnedDividendMixin, UpdateView):
 
 class DividendDeleteView(_OwnedDividendMixin, DeleteView):
     template_name = "portfolio/dividend_confirm_delete.html"
+
+
+class IncomeForecastView(_OwnedPortfolioMixin, DetailView):
+    """Expected future income (bond coupons) over the next 12 months — Tier 3 (#9)."""
+
+    template_name = "portfolio/income_forecast.html"
+    context_object_name = "portfolio"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx["forecast"] = income_forecast(self.object)
+        return ctx
 
 
 # --------------------------------------------------------------------------- #

@@ -74,6 +74,25 @@ def next_coupon(detail: BondDetail, as_of: date) -> dict | None:
     return {"date": bounds[1], "amount": detail.coupon_amount.quantize(_MONEY)}
 
 
+def upcoming_coupons(detail: BondDetail, as_of: date, end: date) -> list[dict]:
+    """Per-unit coupons due in ``(as_of, end]`` up to maturity.
+
+    Each item is ``{"date", "amount"}``. Empty once matured. Used by the income
+    forecast — fully deterministic from the coupon schedule, no external data.
+    """
+    bounds = coupon_bounds(detail, as_of)
+    if bounds is None:
+        return []
+    period = coupon_period_months(detail)
+    amount = detail.coupon_amount.quantize(_MONEY)
+    coupons: list[dict] = []
+    when = bounds[1]  # first coupon strictly after as_of
+    while when <= end and when <= detail.maturity_date:
+        coupons.append({"date": when, "amount": amount})
+        when = when + relativedelta(months=period)
+    return coupons
+
+
 def days_to_maturity(detail: BondDetail, as_of: date) -> int:
     """Calendar days until maturity (negative if already matured)."""
     return (detail.maturity_date - as_of).days

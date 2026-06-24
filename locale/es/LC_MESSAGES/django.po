@@ -1365,6 +1365,47 @@ msgstr ""
 msgid "Retry"
 msgstr "Reintentar"
 
+msgid "Income forecast"
+msgstr "Previsión de ingresos"
+
+msgid "Expected income"
+msgstr "Ingresos previstos"
+
+msgid ""
+"Bond coupons due in the next %(m)s months, from the details you entered. "
+"Stock dividends aren't forecast — that needs a data source."
+msgstr ""
+"Cupones de bonos en los próximos %(m)s meses, según los datos que "
+"introdujiste. Los dividendos de acciones no se prevén — eso requiere una "
+"fuente de datos."
+
+msgid "Expected"
+msgstr "Previsto"
+
+msgid "next %(m)s months"
+msgstr "próximos %(m)s meses"
+
+msgid ""
+"Covers bond coupons only and assumes you keep holding — it doesn't predict "
+"price moves or stock dividends."
+msgstr ""
+"Solo cubre cupones de bonos y asume que mantienes las posiciones — no "
+"predice movimientos de precio ni dividendos de acciones."
+
+msgid "No upcoming income to forecast"
+msgstr "No hay ingresos próximos para prever"
+
+msgid "Your bonds have no coupons due in the forecast window."
+msgstr "Tus bonos no tienen cupones en la ventana de previsión."
+
+msgid "Add bonds with their coupon details to forecast coupon income here."
+msgstr ""
+"Añade bonos con sus datos de cupón para prever aquí los ingresos por "
+"cupones."
+
+msgid "Forecast"
+msgstr "Previsión"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"

@@ -1330,6 +1330,40 @@ msgstr ""
 msgid "Retry"
 msgstr ""
 
+msgid "Income forecast"
+msgstr ""
+
+msgid "Expected income"
+msgstr ""
+
+msgid ""
+"Bond coupons due in the next %(m)s months, from the details you entered. "
+"Stock dividends aren't forecast — that needs a data source."
+msgstr ""
+
+msgid "Expected"
+msgstr ""
+
+msgid "next %(m)s months"
+msgstr ""
+
+msgid ""
+"Covers bond coupons only and assumes you keep holding — it doesn't predict "
+"price moves or stock dividends."
+msgstr ""
+
+msgid "No upcoming income to forecast"
+msgstr ""
+
+msgid "Your bonds have no coupons due in the forecast window."
+msgstr ""
+
+msgid "Add bonds with their coupon details to forecast coupon income here."
+msgstr ""
+
+msgid "Forecast"
+msgstr ""
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s Portfolio"

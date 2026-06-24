@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n portfolio_extras %}
+{% block title %}{% trans "Income forecast" %} · {{ portfolio.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{{ portfolio.name }}</p>
+    <h1 class="page-header__title">{% trans "Expected income" %}</h1>
+    <p class="page-header__sub">{% blocktrans with m=forecast.horizon_months %}Bond coupons due in the next {{ m }} months, from the details you entered. Stock dividends aren't forecast — that needs a data source.{% endblocktrans %}</p>
+  </div>
+  <div class="cluster">
+    <a class="btn btn--ghost" href="{% url 'portfolio:dividends' portfolio.pk %}">{% trans "Dividends" %}</a>
+    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
+  </div>
+</div>
+
+{% if forecast.months %}
+  <div class="card-grid">
+    {% for cur, total in forecast.currency_totals.items %}
+      <div class="card stat">
+        <span class="stat__label">{% trans "Expected" %} · {{ cur }}</span>
+        <span class="stat__value is-positive">{{ total|money }} {{ cur }}</span>
+        <span class="stat__sub text-muted">{% blocktrans with m=forecast.horizon_months %}next {{ m }} months{% endblocktrans %}</span>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% for group in forecast.months %}
+    <div class="section-head mt-6">
+      <h2 class="card__title" style="margin:0;">{{ group.events.0.date|date:"F Y" }}</h2>
+      <span class="cluster">
+        {% for cur, t in group.totals.items %}<span class="badge badge--buy">{{ t|money }} {{ cur }}</span>{% endfor %}
+      </span>
+    </div>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th>{% trans "Date" %}</th><th>{% trans "Bond" %}</th><th class="num">{% trans "Coupon" %}</th></tr>
+        </thead>
+        <tbody>
+          {% for e in group.events %}
+            <tr>
+              <td>{{ e.date|date:"Y-m-d" }}</td>
+              <td>{{ e.asset.ticker }}{% if e.asset.name %} <span class="text-muted">· {{ e.asset.name }}</span>{% endif %}</td>
+              <td class="num is-positive">{{ e.amount|money }} {{ e.currency }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endfor %}
+  <p class="text-muted mt-6">{% trans "Covers bond coupons only and assumes you keep holding — it doesn't predict price moves or stock dividends." %}</p>
+{% else %}
+  <div class="empty-state">
+    <h2>{% trans "No upcoming income to forecast" %}</h2>
+    {% if forecast.has_bond_details %}
+      <p>{% trans "Your bonds have no coupons due in the forecast window." %}</p>
+    {% else %}
+      <p>{% trans "Add bonds with their coupon details to forecast coupon income here." %}</p>
+    {% endif %}
+    <a class="btn btn--primary mt-6" href="{% url 'portfolio:bonds' portfolio.pk %}">{% trans "Bonds" %}</a>
+  </div>
+{% endif %}
+{% endblock %}
