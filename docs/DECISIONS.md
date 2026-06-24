@@ -1,5 +1,17 @@
 # Key decisions (ADR-lite)
 
+### PWA service worker is minimal and never caches data (Stage 8)
+Tier 3's PWA (#8) makes the site installable with a web app manifest, generated
+icons and a service worker. The worker is served from the **site root**
+(`/sw.js`) so its scope covers the whole app, with `Service-Worker-Allowed: /`
+and `Cache-Control: no-cache` so worker updates always propagate. It is
+deliberately minimal: it precaches only an offline fallback page and intercepts
+**only top-level navigations**, falling back to `/offline/` when the network is
+down — it never caches portfolio data, which must always be fresh from the
+server (caching stale balances would violate the honesty rule). The offline page
+is self-contained (inline CSS) so it renders with nothing else cached. Manifest,
+worker and offline page are served by `config.views` from root URLs.
+
 ### Custom `User` from day one
 Subclassed `AbstractUser` before the first migration. Swapping the user model
 later is painful; doing it now is free and lets us extend identity safely.

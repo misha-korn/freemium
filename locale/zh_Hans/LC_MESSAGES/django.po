@@ -1270,6 +1270,20 @@ msgstr "公司行动已删除。"
 msgid "Shares must be greater than zero."
 msgstr "股数必须大于零。"
 
+msgid "Offline"
+msgstr "离线"
+
+msgid "You're offline"
+msgstr "你已离线"
+
+msgid ""
+"Freemium needs a connection to show your portfolio. Check your network and "
+"try again."
+msgstr "Freemium 需要网络连接才能显示你的投资组合。请检查网络后重试。"
+
+msgid "Retry"
+msgstr "重试"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"

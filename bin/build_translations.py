@@ -1089,6 +1089,18 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "Las acciones deben ser mayores que cero.",
         "股数必须大于零。",
     ),
+    # --- Tier 3: PWA offline page (#8) ---
+    "Offline": ("Нет сети", "Sin conexión", "离线"),
+    "You're offline": ("Вы офлайн", "Estás sin conexión", "你已离线"),
+    "Freemium needs a connection to show your portfolio. Check your network "
+    "and try again.": (
+        "Freemium нужно подключение, чтобы показать портфель. Проверьте сеть и "
+        "попробуйте снова.",
+        "Freemium necesita conexión para mostrar tu cartera. Revisa tu red e "
+        "inténtalo de nuevo.",
+        "Freemium 需要网络连接才能显示你的投资组合。请检查网络后重试。",
+    ),
+    "Retry": ("Повторить", "Reintentar", "重试"),
 }
 
 # msgid -> (msgid_plural, {lang: (form0, form1, form2...)})

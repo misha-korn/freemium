@@ -1,0 +1,44 @@
+{% load i18n %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a7a7a">
+  <title>{% trans "Offline" %} · Freemium</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: #f6f8f8; color: #14201f; padding: 1.5rem;
+    }
+    .card {
+      max-width: 28rem; text-align: center; background: #fff; border: 1px solid #e2e8e8;
+      border-radius: 16px; padding: 2.5rem 2rem; box-shadow: 0 10px 30px rgba(10,122,122,.08);
+    }
+    .mark {
+      width: 64px; height: 64px; margin: 0 auto 1rem; border-radius: 16px;
+      background: #0a7a7a; color: #fff; display: grid; place-items: center; font-size: 28px;
+    }
+    h1 { font-size: 1.4rem; margin: 0 0 .5rem; }
+    p { color: #51605f; line-height: 1.5; margin: 0 0 1.5rem; }
+    a {
+      display: inline-block; background: #0a7a7a; color: #fff; text-decoration: none;
+      padding: .7rem 1.4rem; border-radius: 10px; font-weight: 600;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0d1413; color: #e7eeed; }
+      .card { background: #131d1c; border-color: #243433; }
+      p { color: #9fb0ae; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="mark" aria-hidden="true">◆</div>
+    <h1>{% trans "You're offline" %}</h1>
+    <p>{% trans "Freemium needs a connection to show your portfolio. Check your network and try again." %}</p>
+    <a href="/">{% trans "Retry" %}</a>
+  </main>
+</body>
+</html>

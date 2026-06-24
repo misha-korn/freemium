@@ -7,6 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>{% block title %}Freemium · Investment Tracker{% endblock %}</title>
+  {# PWA: installable web app (Tier 3) #}
+  <link rel="manifest" href="{% url 'manifest' %}">
+  <meta name="theme-color" content="#0a7a7a">
+  <link rel="icon" href="{% static 'img/favicon-32.png' %}" sizes="32x32" type="image/png">
+  <link rel="icon" href="{% static 'img/icon-512.png' %}" sizes="512x512" type="image/png">
+  <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Freemium">
   <link rel="stylesheet" href="{% static 'css/main.css' %}?v={{ STATIC_VERSION }}">
   {% comment %}
     No-flash theme: set the saved/OS theme before first paint. Must be inline and
@@ -101,6 +109,7 @@
   </footer>
 
   <script src="{% static 'js/theme.js' %}?v={{ STATIC_VERSION }}" defer></script>
+  <script src="{% static 'js/pwa.js' %}?v={{ STATIC_VERSION }}" defer></script>
   {% block extra_body %}{% endblock %}
 </body>
 </html>
