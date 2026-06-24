@@ -1366,6 +1366,62 @@ msgstr ""
 msgid "Forecast"
 msgstr ""
 
+msgid "Share"
+msgstr ""
+
+msgid "Share portfolio"
+msgstr ""
+
+msgid ""
+"A public link shows your composition and returns (%) only — never amounts, "
+"trades or your name."
+msgstr ""
+
+msgid "Public"
+msgstr ""
+
+msgid "Anyone with the link can view this portfolio."
+msgstr ""
+
+msgid "Public link"
+msgstr ""
+
+msgid "Make private"
+msgstr ""
+
+msgid "Private"
+msgstr ""
+
+msgid "Only you can see this portfolio."
+msgstr ""
+
+msgid "Make public"
+msgstr ""
+
+msgid "Public portfolio"
+msgstr ""
+
+msgid "A shared, read-only view — composition and returns only."
+msgstr ""
+
+msgid "Holdings"
+msgstr ""
+
+msgid "Weight"
+msgstr ""
+
+msgid "This portfolio has no holdings yet."
+msgstr ""
+
+msgid "Amounts are hidden on shared portfolios. Build your own:"
+msgstr ""
+
+msgid "Portfolio is now public — anyone with the link can view it."
+msgstr ""
+
+msgid "Portfolio is private again."
+msgstr ""
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s portefeuille"

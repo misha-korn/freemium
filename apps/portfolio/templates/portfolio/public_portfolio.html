@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static portfolio_extras i18n %}
+{% block title %}{{ portfolio.name }} · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{% trans "Public portfolio" %} · {{ base_currency }}</p>
+    <h1 class="page-header__title">{{ portfolio.name }}</h1>
+    <p class="page-header__sub">{% trans "A shared, read-only view — composition and returns only." %}</p>
+  </div>
+</div>
+
+{% if simple_return is not None or xirr is not None %}
+  <div class="card-grid">
+    <div class="card stat">
+      <span class="stat__label">{% trans "Return" %}</span>
+      <span class="stat__value {% if simple_return > 0 %}is-positive{% elif simple_return < 0 %}is-negative{% endif %}">{{ simple_return|percent }}</span>
+    </div>
+    <div class="card stat">
+      <span class="stat__label">{% trans "Return · XIRR" %}</span>
+      <span class="stat__value {% if xirr > 0 %}is-positive{% elif xirr < 0 %}is-negative{% endif %}">{{ xirr|percent }}</span>
+    </div>
+  </div>
+{% endif %}
+
+{% if allocation_charts %}
+  <section class="dashboard-section" aria-labelledby="alloc-heading">
+    <div class="section-head">
+      <h2 id="alloc-heading" class="card__title">{% trans "Allocation" %}</h2>
+      <span class="badge">{{ allocation.base_currency }}</span>
+    </div>
+    <div class="donut-grid">
+      {% for c in allocation_charts %}
+        <div class="card donut-card">
+          <h3 class="donut-card__title">{{ c.title }}</h3>
+          <div class="donut-canvas-wrap">
+            <canvas id="{{ c.dom_id }}" data-source="{{ c.data_id }}" role="img" aria-label="{{ c.title }}"></canvas>
+          </div>
+          <ul class="donut-legend" data-legend-for="{{ c.dom_id }}">
+            {% for s in c.slices %}
+              <li class="donut-legend__item">
+                <span class="donut-legend__swatch" data-i="{{ forloop.counter0 }}" aria-hidden="true"></span>
+                <span class="donut-legend__label">{{ s.label }}</span>
+                <span class="donut-legend__pct">{{ s.weight|percent }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+          {{ c.payload|json_script:c.data_id }}
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% if allocation.by_holding %}
+  <h2 class="card__title mt-6">{% trans "Holdings" %}</h2>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr><th>{% trans "Asset" %}</th><th class="num">{% trans "Weight" %}</th></tr>
+      </thead>
+      <tbody>
+        {% for s in allocation.by_holding %}
+          <tr><td>{{ s.label }}</td><td class="num">{{ s.weight|percent }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="empty-state"><h2>{% trans "This portfolio has no holdings yet." %}</h2></div>
+{% endif %}
+
+<p class="text-muted mt-6">{% trans "Amounts are hidden on shared portfolios. Build your own:" %}
+  <a href="{% url 'account_signup' %}">{% trans "Get started" %}</a>.</p>
+{% endblock %}
+
+{% block extra_body %}
+  {% if allocation_charts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" crossorigin="anonymous" defer></script>
+    <script src="{% static 'js/allocation_charts.js' %}" defer></script>
+  {% endif %}
+{% endblock %}

@@ -71,6 +71,12 @@ class Portfolio(models.Model):
         default="USD",
     )
     description = models.CharField(max_length=300, blank=True)
+    # Public read-only sharing (Tier 3 #10): opt-in. Only a token-gated, money-
+    # free composition view is exposed — never absolute amounts or owner identity.
+    is_public = models.BooleanField(default=False)
+    share_token = models.CharField(
+        max_length=43, unique=True, null=True, blank=True, default=None
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -88,6 +94,17 @@ class Portfolio(models.Model):
 
     def get_absolute_url(self) -> str:
         return reverse("portfolio:detail", kwargs={"pk": self.pk})
+
+    def ensure_share_token(self) -> str:
+        """Return the share token, generating an unguessable one on first use."""
+        if not self.share_token:
+            import secrets
+
+            self.share_token = secrets.token_urlsafe(16)
+        return self.share_token
+
+    def get_public_url(self) -> str:
+        return reverse("public_portfolio", kwargs={"token": self.share_token})
 
 
 # ---------------------------------------------------------------------------

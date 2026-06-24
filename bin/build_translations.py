@@ -1138,6 +1138,60 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "添加带票息数据的债券，即可在此预测票息收入。",
     ),
     "Forecast": ("Прогноз", "Previsión", "预测"),
+    # --- Tier 3: public portfolios / sharing (#10) ---
+    "Share": ("Поделиться", "Compartir", "分享"),
+    "Share portfolio": ("Поделиться портфелем", "Compartir cartera", "分享投资组合"),
+    "A public link shows your composition and returns (%) only — never amounts, "
+    "trades or your name.": (
+        "Публичная ссылка показывает только состав и доходность (%) — без сумм, "
+        "сделок и вашего имени.",
+        "Un enlace público muestra solo la composición y la rentabilidad (%) — "
+        "nunca importes, operaciones ni tu nombre.",
+        "公开链接仅显示构成和收益率（%）——绝不显示金额、交易或你的姓名。",
+    ),
+    "Public": ("Публичный", "Público", "公开"),
+    "Anyone with the link can view this portfolio.": (
+        "Любой, у кого есть ссылка, может посмотреть этот портфель.",
+        "Cualquiera con el enlace puede ver esta cartera.",
+        "任何拥有链接的人都可以查看此投资组合。",
+    ),
+    "Public link": ("Публичная ссылка", "Enlace público", "公开链接"),
+    "Make private": ("Сделать приватным", "Hacer privada", "设为私密"),
+    "Private": ("Приватный", "Privado", "私密"),
+    "Only you can see this portfolio.": (
+        "Только вы видите этот портфель.",
+        "Solo tú puedes ver esta cartera.",
+        "只有你能看到此投资组合。",
+    ),
+    "Make public": ("Сделать публичным", "Hacer pública", "设为公开"),
+    "Public portfolio": ("Публичный портфель", "Cartera pública", "公开投资组合"),
+    "A shared, read-only view — composition and returns only.": (
+        "Общий доступ только для чтения — только состав и доходность.",
+        "Vista compartida de solo lectura — solo composición y rentabilidad.",
+        "共享的只读视图——仅构成和收益。",
+    ),
+    "Holdings": ("Состав", "Posiciones", "持仓"),
+    "Weight": ("Доля", "Peso", "权重"),
+    "This portfolio has no holdings yet.": (
+        "В этом портфеле пока нет позиций.",
+        "Esta cartera aún no tiene posiciones.",
+        "此投资组合暂无持仓。",
+    ),
+    "Amounts are hidden on shared portfolios. Build your own:": (
+        "В публичных портфелях суммы скрыты. Создайте свой:",
+        "En las carteras compartidas se ocultan los importes. Crea la tuya:",
+        "共享投资组合中金额已隐藏。创建你自己的：",
+    ),
+    "Portfolio is now public — anyone with the link can view it.": (
+        "Портфель теперь публичный — его можно открыть по ссылке.",
+        "La cartera ahora es pública — cualquiera con el enlace puede verla.",
+        "投资组合现已公开——任何拥有链接的人都可查看。",
+    ),
+    "Portfolio is private again.": (
+        "Портфель снова приватный.",
+        "La cartera vuelve a ser privada.",
+        "投资组合已恢复私密。",
+    ),
 }
 
 # msgid -> (msgid_plural, {lang: (form0, form1, form2...)})

@@ -1406,6 +1406,64 @@ msgstr ""
 msgid "Forecast"
 msgstr "Previsión"
 
+msgid "Share"
+msgstr "Compartir"
+
+msgid "Share portfolio"
+msgstr "Compartir cartera"
+
+msgid ""
+"A public link shows your composition and returns (%) only — never amounts, "
+"trades or your name."
+msgstr ""
+"Un enlace público muestra solo la composición y la rentabilidad (%) — nunca "
+"importes, operaciones ni tu nombre."
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Anyone with the link can view this portfolio."
+msgstr "Cualquiera con el enlace puede ver esta cartera."
+
+msgid "Public link"
+msgstr "Enlace público"
+
+msgid "Make private"
+msgstr "Hacer privada"
+
+msgid "Private"
+msgstr "Privado"
+
+msgid "Only you can see this portfolio."
+msgstr "Solo tú puedes ver esta cartera."
+
+msgid "Make public"
+msgstr "Hacer pública"
+
+msgid "Public portfolio"
+msgstr "Cartera pública"
+
+msgid "A shared, read-only view — composition and returns only."
+msgstr "Vista compartida de solo lectura — solo composición y rentabilidad."
+
+msgid "Holdings"
+msgstr "Posiciones"
+
+msgid "Weight"
+msgstr "Peso"
+
+msgid "This portfolio has no holdings yet."
+msgstr "Esta cartera aún no tiene posiciones."
+
+msgid "Amounts are hidden on shared portfolios. Build your own:"
+msgstr "En las carteras compartidas se ocultan los importes. Crea la tuya:"
+
+msgid "Portfolio is now public — anyone with the link can view it."
+msgstr "La cartera ahora es pública — cualquiera con el enlace puede verla."
+
+msgid "Portfolio is private again."
+msgstr "La cartera vuelve a ser privada."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"

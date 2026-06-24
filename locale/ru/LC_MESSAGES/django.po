@@ -1402,6 +1402,64 @@ msgstr ""
 msgid "Forecast"
 msgstr "Прогноз"
 
+msgid "Share"
+msgstr "Поделиться"
+
+msgid "Share portfolio"
+msgstr "Поделиться портфелем"
+
+msgid ""
+"A public link shows your composition and returns (%) only — never amounts, "
+"trades or your name."
+msgstr ""
+"Публичная ссылка показывает только состав и доходность (%) — без сумм, "
+"сделок и вашего имени."
+
+msgid "Public"
+msgstr "Публичный"
+
+msgid "Anyone with the link can view this portfolio."
+msgstr "Любой, у кого есть ссылка, может посмотреть этот портфель."
+
+msgid "Public link"
+msgstr "Публичная ссылка"
+
+msgid "Make private"
+msgstr "Сделать приватным"
+
+msgid "Private"
+msgstr "Приватный"
+
+msgid "Only you can see this portfolio."
+msgstr "Только вы видите этот портфель."
+
+msgid "Make public"
+msgstr "Сделать публичным"
+
+msgid "Public portfolio"
+msgstr "Публичный портфель"
+
+msgid "A shared, read-only view — composition and returns only."
+msgstr "Общий доступ только для чтения — только состав и доходность."
+
+msgid "Holdings"
+msgstr "Состав"
+
+msgid "Weight"
+msgstr "Доля"
+
+msgid "This portfolio has no holdings yet."
+msgstr "В этом портфеле пока нет позиций."
+
+msgid "Amounts are hidden on shared portfolios. Build your own:"
+msgstr "В публичных портфелях суммы скрыты. Создайте свой:"
+
+msgid "Portfolio is now public — anyone with the link can view it."
+msgstr "Портфель теперь публичный — его можно открыть по ссылке."
+
+msgid "Portfolio is private again."
+msgstr "Портфель снова приватный."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s портфель"
