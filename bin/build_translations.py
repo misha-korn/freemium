@@ -912,6 +912,76 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "El impuesto retenido no puede superar el importe bruto.",
         "已扣税款不能超过税前金额。",
     ),
+    # --- Tier 2: bonds (#5) ---
+    "Bonds": ("Облигации", "Bonos", "债券"),
+    "Accrued coupon, the next coupon and maturity for your bonds. Reference "
+    "data is entered manually; market pricing from MOEX is coming next.": (
+        "НКД, ближайший купон и срок погашения по вашим облигациям. Справочные "
+        "данные вводятся вручную; рыночные цены с MOEX появятся позже.",
+        "Cupón acumulado, próximo cupón y vencimiento de tus bonos. Los datos de "
+        "referencia se introducen a mano; los precios de MOEX llegarán pronto.",
+        "你的债券的应计利息、下一次票息和到期日。参考数据手动录入；MOEX 市场价格即将推出。",
+    ),
+    # "Bond" and "Coupon" are already defined above (asset-type / dividend labels).
+    "Maturity": ("Погашение", "Vencimiento", "到期"),
+    "Accrued coupon": ("НКД", "Cupón acumulado", "应计利息"),
+    "Next coupon": ("Ближайший купон", "Próximo cupón", "下一次票息"),
+    "matured": ("погашена", "vencido", "已到期"),
+    "%(t)s total": ("всего %(t)s", "%(t)s en total", "合计 %(t)s"),
+    "No bond details yet — coupons and maturity can't be computed.": (
+        "Нет данных облигации — купоны и срок погашения не рассчитать.",
+        "Aún no hay datos del bono — no se pueden calcular cupones ni vencimiento.",
+        "尚无债券数据——无法计算票息和到期日。",
+    ),
+    "set details": ("указать данные", "añadir datos", "填写数据"),
+    "Accrued coupon is computed by linear accrual between coupon dates derived "
+    "from the maturity and frequency. Market price and НКД from the MOEX bond "
+    "market are a follow-up.": (
+        "НКД считается линейно между купонными датами, выведенными из срока "
+        "погашения и периодичности. Рыночная цена и НКД с рынка облигаций MOEX — "
+        "следующий шаг.",
+        "El cupón acumulado se calcula linealmente entre fechas de cupón "
+        "derivadas del vencimiento y la frecuencia. El precio de mercado y el НКД "
+        "de MOEX son un paso siguiente.",
+        "应计利息按从到期日和频率推导的票息日期之间线性计提。MOEX 债券市场的市场价格和 НКД 为后续功能。",
+    ),
+    "No bonds in this portfolio": (
+        "В этом портфеле нет облигаций",
+        "No hay bonos en esta cartera",
+        "该投资组合中没有债券",
+    ),
+    "Add a trade for a bond-type asset to track its coupons and maturity here.": (
+        "Добавьте сделку по активу-облигации, чтобы отслеживать здесь купоны и срок погашения.",
+        "Añade una operación de un activo tipo bono para seguir aquí sus cupones y vencimiento.",
+        "为债券类资产添加一笔交易，即可在此跟踪其票息和到期日。",
+    ),
+    "Bond details": ("Данные облигации", "Datos del bono", "债券数据"),
+    "Face value, coupon and maturity — used to compute accrued coupon and the "
+    "next coupon.": (
+        "Номинал, купон и срок погашения — для расчёта НКД и ближайшего купона.",
+        "Valor nominal, cupón y vencimiento — para calcular el cupón acumulado y el próximo cupón.",
+        "面值、票息和到期日——用于计算应计利息和下一次票息。",
+    ),
+    "Save bond details": ("Сохранить данные облигации", "Guardar datos del bono", "保存债券数据"),
+    "Face value (par)": ("Номинал", "Valor nominal", "面值"),
+    "Coupon rate, % per year": ("Ставка купона, % годовых", "Tasa de cupón, % anual", "票面利率，每年 %"),
+    "Coupon frequency": ("Периодичность купона", "Frecuencia del cupón", "票息频率"),
+    "Maturity date": ("Дата погашения", "Fecha de vencimiento", "到期日"),
+    "Annual": ("Раз в год", "Anual", "每年"),
+    "Semi-annual": ("Раз в полгода", "Semestral", "每半年"),
+    "Quarterly": ("Раз в квартал", "Trimestral", "每季度"),
+    "Monthly": ("Раз в месяц", "Mensual", "每月"),
+    "Bond details saved.": ("Данные облигации сохранены.", "Datos del bono guardados.", "债券数据已保存。"),
+    "Face value must be greater than zero.": (
+        "Номинал должен быть больше нуля.",
+        "El valor nominal debe ser mayor que cero.",
+        "面值必须大于零。",
+    ),
+    "Coupon rate cannot be negative.": (
+        "Ставка купона не может быть отрицательной.",
+        "La tasa de cupón no puede ser negativa.",
+        "票面利率不能为负。",
+    ),
 }
 
 # msgid -> (msgid_plural, {lang: (form0, form1, form2...)})
@@ -924,6 +994,16 @@ PLURALS: dict[str, tuple[str, dict[str, tuple[str, ...]]]] = {
             "zh_Hans": ("%(count)s 个投资组合",),
             "fr": ("%(count)s portefeuille", "%(count)s portefeuilles"),
             "de": ("%(count)s Portfolio", "%(count)s Portfolios"),
+        },
+    ),
+    "%(days)s day left": (
+        "%(days)s days left",
+        {
+            "ru": ("%(days)s день", "%(days)s дня", "%(days)s дней"),
+            "es": ("%(days)s día", "%(days)s días"),
+            "zh_Hans": ("剩 %(days)s 天",),
+            "fr": ("%(days)s jour", "%(days)s jours"),
+            "de": ("%(days)s Tag", "%(days)s Tage"),
         },
     ),
     "%(count)s trade": (

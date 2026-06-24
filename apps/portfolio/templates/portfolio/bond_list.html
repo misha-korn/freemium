@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load i18n portfolio_extras %}
+{% block title %}{% trans "Bonds" %} · {{ portfolio.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{{ portfolio.name }}</p>
+    <h1 class="page-header__title">{% trans "Bonds" %}</h1>
+    <p class="page-header__sub">{% trans "Accrued coupon, the next coupon and maturity for your bonds. Reference data is entered manually; market pricing from MOEX is coming next." %}</p>
+  </div>
+  <div class="cluster">
+    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
+  </div>
+</div>
+
+{% if bonds %}
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{% trans "Bond" %}</th>
+          <th class="num">{% trans "Quantity" %}</th>
+          <th class="num">{% trans "Coupon" %}</th>
+          <th>{% trans "Maturity" %}</th>
+          <th class="num">{% trans "Accrued coupon" %}</th>
+          <th>{% trans "Next coupon" %}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in bonds %}
+          <tr>
+            <td>{{ b.position.asset.ticker }}{% if b.position.asset.name %} <span class="text-muted">· {{ b.position.asset.name }}</span>{% endif %}</td>
+            <td class="num">{{ b.position.quantity|floatformat:"-8" }}</td>
+            {% if b.detail %}
+              <td class="num">{{ b.detail.coupon_rate|floatformat:2 }}% · {{ b.detail.get_coupon_frequency_display }}</td>
+              <td>
+                {{ b.detail.maturity_date|date:"Y-m-d" }}
+                {% if b.summary.matured %}
+                  <span class="badge">{% trans "matured" %}</span>
+                {% else %}
+                  <span class="text-muted">· {% blocktrans count days=b.summary.days_to_maturity %}{{ days }} day left{% plural %}{{ days }} days left{% endblocktrans %}</span>
+                {% endif %}
+              </td>
+              <td class="num">
+                {{ b.summary.accrued_interest|money }} {{ b.summary.currency }}
+                <span class="text-muted">· {% blocktrans with t=b.summary.accrued_total|money %}{{ t }} total{% endblocktrans %}</span>
+              </td>
+              <td>
+                {% if b.summary.next_coupon %}
+                  {{ b.summary.next_coupon.date|date:"Y-m-d" }} · {{ b.summary.next_coupon.amount|money }} {{ b.summary.currency }}
+                {% else %}—{% endif %}
+              </td>
+              <td class="text-right"><a href="{% url 'portfolio:bond_edit' portfolio.pk b.position.asset.id %}">{% trans "edit" %}</a></td>
+            {% else %}
+              <td colspan="4" class="text-muted">{% trans "No bond details yet — coupons and maturity can't be computed." %}</td>
+              <td class="text-right"><a href="{% url 'portfolio:bond_edit' portfolio.pk b.position.asset.id %}">{% trans "set details" %}</a></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="text-muted mt-6">{% trans "Accrued coupon is computed by linear accrual between coupon dates derived from the maturity and frequency. Market price and НКД from the MOEX bond market are a follow-up." %}</p>
+{% else %}
+  <div class="empty-state">
+    <h2>{% trans "No bonds in this portfolio" %}</h2>
+    <p>{% trans "Add a trade for a bond-type asset to track its coupons and maturity here." %}</p>
+    <a class="btn btn--primary mt-6" href="{{ portfolio.get_absolute_url }}">{% trans "Back to portfolio" %}</a>
+  </div>
+{% endif %}
+{% endblock %}

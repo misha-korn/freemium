@@ -309,3 +309,60 @@ class PortfolioSnapshot(models.Model):
 
     def __str__(self) -> str:
         return f"{self.portfolio} {self.market_value} {self.currency} @ {self.as_of}"
+
+
+# ---------------------------------------------------------------------------
+# BondDetail (Tier 2 — bonds: НКД / coupons / maturity)
+# ---------------------------------------------------------------------------
+
+
+class BondDetail(models.Model):
+    """Reference data for a bond ``Asset``: face value, coupon and maturity.
+
+    Manual entry first — accrued coupon (НКД), the next coupon and days to
+    maturity are computed locally from these fields (see ``portfolio.bonds``).
+    Pricing from the MOEX bonds market is a follow-up increment. Only meaningful
+    for BOND-type assets; amounts are in the asset's own currency.
+
+    Money rule: face_value uses DecimalField — never FloatField.
+    """
+
+    COUPON_FREQUENCY_CHOICES = [
+        (1, _("Annual")),
+        (2, _("Semi-annual")),
+        (4, _("Quarterly")),
+        (12, _("Monthly")),
+    ]
+
+    asset = models.OneToOneField(
+        Asset,
+        on_delete=models.CASCADE,
+        related_name="bond",
+    )
+    # Face value (номинал) per unit, in the asset's currency. Decimal — never float.
+    face_value = models.DecimalField(
+        max_digits=20,
+        decimal_places=8,
+        validators=[MinValueValidator(Decimal("0.00000001"))],
+    )
+    # Annual coupon rate as a percent of face value (e.g. 8.5 == 8.5%/yr).
+    coupon_rate = models.DecimalField(
+        max_digits=7,
+        decimal_places=4,
+        validators=[MinValueValidator(Decimal("0"))],
+    )
+    coupon_frequency = models.PositiveSmallIntegerField(
+        choices=COUPON_FREQUENCY_CHOICES,
+        default=2,
+    )
+    maturity_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.asset.ticker} bond ({self.coupon_rate}% to {self.maturity_date})"
+
+    @property
+    def coupon_amount(self) -> Decimal:
+        """Coupon paid per unit each period, in the asset's currency."""
+        return self.face_value * self.coupon_rate / Decimal("100") / self.coupon_frequency

@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import (
     Asset,
+    BondDetail,
     DividendPayment,
     Portfolio,
     PortfolioSnapshot,
@@ -66,3 +67,18 @@ class PortfolioSnapshotAdmin(admin.ModelAdmin):
     search_fields = ("portfolio__name",)
     autocomplete_fields = ("portfolio",)
     date_hierarchy = "as_of"
+
+
+@admin.register(BondDetail)
+class BondDetailAdmin(admin.ModelAdmin):
+    list_display = (
+        "asset",
+        "face_value",
+        "coupon_rate",
+        "coupon_frequency",
+        "maturity_date",
+    )
+    list_filter = ("coupon_frequency",)
+    search_fields = ("asset__ticker", "asset__name")
+    autocomplete_fields = ("asset",)
+    date_hierarchy = "maturity_date"

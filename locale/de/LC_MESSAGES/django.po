@@ -1126,10 +1126,101 @@ msgstr ""
 msgid "Tax withheld can't exceed the gross amount."
 msgstr ""
 
+msgid "Bonds"
+msgstr ""
+
+msgid ""
+"Accrued coupon, the next coupon and maturity for your bonds. Reference data "
+"is entered manually; market pricing from MOEX is coming next."
+msgstr ""
+
+msgid "Maturity"
+msgstr ""
+
+msgid "Accrued coupon"
+msgstr ""
+
+msgid "Next coupon"
+msgstr ""
+
+msgid "matured"
+msgstr ""
+
+msgid "%(t)s total"
+msgstr ""
+
+msgid "No bond details yet — coupons and maturity can't be computed."
+msgstr ""
+
+msgid "set details"
+msgstr ""
+
+msgid ""
+"Accrued coupon is computed by linear accrual between coupon dates derived "
+"from the maturity and frequency. Market price and НКД from the MOEX bond "
+"market are a follow-up."
+msgstr ""
+
+msgid "No bonds in this portfolio"
+msgstr ""
+
+msgid ""
+"Add a trade for a bond-type asset to track its coupons and maturity here."
+msgstr ""
+
+msgid "Bond details"
+msgstr ""
+
+msgid ""
+"Face value, coupon and maturity — used to compute accrued coupon and the "
+"next coupon."
+msgstr ""
+
+msgid "Save bond details"
+msgstr ""
+
+msgid "Face value (par)"
+msgstr ""
+
+msgid "Coupon rate, % per year"
+msgstr ""
+
+msgid "Coupon frequency"
+msgstr ""
+
+msgid "Maturity date"
+msgstr ""
+
+msgid "Annual"
+msgstr ""
+
+msgid "Semi-annual"
+msgstr ""
+
+msgid "Quarterly"
+msgstr ""
+
+msgid "Monthly"
+msgstr ""
+
+msgid "Bond details saved."
+msgstr ""
+
+msgid "Face value must be greater than zero."
+msgstr ""
+
+msgid "Coupon rate cannot be negative."
+msgstr ""
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s Portfolio"
 msgstr[1] "%(count)s Portfolios"
+
+msgid "%(days)s day left"
+msgid_plural "%(days)s days left"
+msgstr[0] "%(days)s Tag"
+msgstr[1] "%(days)s Tage"
 
 msgid "%(count)s trade"
 msgid_plural "%(count)s trades"

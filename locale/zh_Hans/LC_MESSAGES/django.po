@@ -1080,9 +1080,99 @@ msgstr "已扣税款不能为负。"
 msgid "Tax withheld can't exceed the gross amount."
 msgstr "已扣税款不能超过税前金额。"
 
+msgid "Bonds"
+msgstr "债券"
+
+msgid ""
+"Accrued coupon, the next coupon and maturity for your bonds. Reference data "
+"is entered manually; market pricing from MOEX is coming next."
+msgstr "你的债券的应计利息、下一次票息和到期日。参考数据手动录入；MOEX 市场价格即将推出。"
+
+msgid "Maturity"
+msgstr "到期"
+
+msgid "Accrued coupon"
+msgstr "应计利息"
+
+msgid "Next coupon"
+msgstr "下一次票息"
+
+msgid "matured"
+msgstr "已到期"
+
+msgid "%(t)s total"
+msgstr "合计 %(t)s"
+
+msgid "No bond details yet — coupons and maturity can't be computed."
+msgstr "尚无债券数据——无法计算票息和到期日。"
+
+msgid "set details"
+msgstr "填写数据"
+
+msgid ""
+"Accrued coupon is computed by linear accrual between coupon dates derived "
+"from the maturity and frequency. Market price and НКД from the MOEX bond "
+"market are a follow-up."
+msgstr "应计利息按从到期日和频率推导的票息日期之间线性计提。MOEX 债券市场的市场价格和 НКД 为后续功能。"
+
+msgid "No bonds in this portfolio"
+msgstr "该投资组合中没有债券"
+
+msgid ""
+"Add a trade for a bond-type asset to track its coupons and maturity here."
+msgstr "为债券类资产添加一笔交易，即可在此跟踪其票息和到期日。"
+
+msgid "Bond details"
+msgstr "债券数据"
+
+msgid ""
+"Face value, coupon and maturity — used to compute accrued coupon and the "
+"next coupon."
+msgstr "面值、票息和到期日——用于计算应计利息和下一次票息。"
+
+msgid "Save bond details"
+msgstr "保存债券数据"
+
+msgid "Face value (par)"
+msgstr "面值"
+
+msgid "Coupon rate, % per year"
+msgstr "票面利率，每年 %"
+
+msgid "Coupon frequency"
+msgstr "票息频率"
+
+msgid "Maturity date"
+msgstr "到期日"
+
+msgid "Annual"
+msgstr "每年"
+
+msgid "Semi-annual"
+msgstr "每半年"
+
+msgid "Quarterly"
+msgstr "每季度"
+
+msgid "Monthly"
+msgstr "每月"
+
+msgid "Bond details saved."
+msgstr "债券数据已保存。"
+
+msgid "Face value must be greater than zero."
+msgstr "面值必须大于零。"
+
+msgid "Coupon rate cannot be negative."
+msgstr "票面利率不能为负。"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"
+
+msgid "%(days)s day left"
+msgid_plural "%(days)s days left"
+msgstr[0] "剩 %(days)s 天"
 
 msgid "%(count)s trade"
 msgid_plural "%(count)s trades"

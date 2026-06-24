@@ -68,4 +68,11 @@ urlpatterns = [
         views.DividendDeleteView.as_view(),
         name="dividend_delete",
     ),
+    # Bonds — НКД / coupons / maturity (Tier 2 #5)
+    path("<int:pk>/bonds/", views.BondListView.as_view(), name="bonds"),
+    path(
+        "<int:pk>/bonds/<int:asset_id>/edit/",
+        views.BondDetailUpsertView.as_view(),
+        name="bond_edit",
+    ),
 ]
