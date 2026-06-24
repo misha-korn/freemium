@@ -25,6 +25,7 @@ from apps.marketdata.services import fetch_and_store_quote, resolve_asset_name
 
 from . import exports
 from .allocation import build_allocation, chart_payload
+from .broker_import import import_broker_xlsx
 from .forms import AssetForm, DividendForm, PortfolioForm, TransactionForm
 from .imports import import_trades_csv
 from .income import (
@@ -421,14 +422,27 @@ class ImportTradesView(LoginRequiredMixin, View):
         portfolio = self._portfolio(request, pk)
         upload = request.FILES.get("file")
         if upload is None:
-            messages.error(request, _("Please choose a CSV file."))
+            messages.error(request, _("Please choose a CSV or .xlsx file."))
             return redirect("portfolio:import_trades", pk=pk)
 
-        result = import_trades_csv(portfolio, upload.read())
+        # Dispatch by file type: an .xlsx is treated as a broker report (tolerant
+        # parser, auto-creates unknown tickers); anything else as our strict CSV.
+        if (upload.name or "").lower().endswith(".xlsx"):
+            result = import_broker_xlsx(portfolio, upload.read())
+        else:
+            result = import_trades_csv(portfolio, upload.read())
+
         if result["created"]:
             messages.success(
                 request,
                 _("Imported %(n)s trade(s).") % {"n": result["created"]},
+            )
+        created_assets = result.get("created_assets") or []
+        if created_assets:
+            messages.info(
+                request,
+                _("Added %(n)s new instrument(s) to the catalogue: %(tickers)s")
+                % {"n": len(created_assets), "tickers": ", ".join(created_assets[:20])},
             )
         for error in result["errors"][:10]:
             messages.warning(request, error)

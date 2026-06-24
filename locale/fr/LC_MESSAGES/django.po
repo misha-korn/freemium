@@ -573,8 +573,31 @@ msgstr "Fichier CSV"
 msgid "Expected columns:"
 msgstr "Colonnes attendues :"
 
+msgid "CSV columns:"
+msgstr ""
+
 msgid "Please choose a CSV file."
 msgstr "Veuillez choisir un fichier CSV."
+
+msgid "Please choose a CSV or .xlsx file."
+msgstr ""
+
+msgid ""
+"Upload a broker report (Tinkoff / Sber .xlsx) or a CSV. Unreadable rows are "
+"reported and skipped — nothing else is touched."
+msgstr ""
+
+msgid "File (broker .xlsx or CSV)"
+msgstr ""
+
+msgid ""
+"Broker report (.xlsx, beta): the trades table is detected automatically; "
+"unknown tickers are added to the catalogue. If a report doesn't import "
+"cleanly, send us the file."
+msgstr ""
+
+msgid "Added %(n)s new instrument(s) to the catalogue: %(tickers)s"
+msgstr ""
 
 msgid "No rows found in the file."
 msgstr "Aucune ligne trouvée dans le fichier."

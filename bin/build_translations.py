@@ -446,10 +446,46 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
     ),
     "CSV file": ("Файл CSV", "Archivo CSV", "CSV 文件"),
     "Expected columns:": ("Ожидаемые столбцы:", "Columnas esperadas:", "预期列："),
+    "CSV columns:": ("Столбцы CSV:", "Columnas del CSV:", "CSV 列："),
     "Please choose a CSV file.": (
         "Пожалуйста, выберите CSV-файл.",
         "Por favor, elige un archivo CSV.",
         "请选择一个 CSV 文件。",
+    ),
+    # --- Tier 2: broker report import (#4) ---
+    "Please choose a CSV or .xlsx file.": (
+        "Пожалуйста, выберите файл CSV или .xlsx.",
+        "Por favor, elige un archivo CSV o .xlsx.",
+        "请选择一个 CSV 或 .xlsx 文件。",
+    ),
+    "Upload a broker report (Tinkoff / Sber .xlsx) or a CSV. Unreadable rows "
+    "are reported and skipped — nothing else is touched.": (
+        "Загрузите отчёт брокера (Тинькофф / Сбер .xlsx) или CSV. Нечитаемые "
+        "строки показываются и пропускаются — остальное не затрагивается.",
+        "Sube un informe del bróker (Tinkoff / Sber .xlsx) o un CSV. Las filas "
+        "ilegibles se informan y se omiten — no se toca nada más.",
+        "上传券商报告（Tinkoff / Sber .xlsx）或 CSV。无法识别的行会被报告并跳过——其余内容不受影响。",
+    ),
+    "File (broker .xlsx or CSV)": (
+        "Файл (отчёт брокера .xlsx или CSV)",
+        "Archivo (informe del bróker .xlsx o CSV)",
+        "文件（券商 .xlsx 或 CSV）",
+    ),
+    "Broker report (.xlsx, beta): the trades table is detected automatically; "
+    "unknown tickers are added to the catalogue. If a report doesn't import "
+    "cleanly, send us the file.": (
+        "Отчёт брокера (.xlsx, бета): таблица сделок определяется автоматически; "
+        "неизвестные тикеры добавляются в каталог. Если отчёт не импортируется "
+        "корректно, пришлите нам файл.",
+        "Informe del bróker (.xlsx, beta): la tabla de operaciones se detecta "
+        "automáticamente; los tickers desconocidos se añaden al catálogo. Si un "
+        "informe no se importa bien, envíanos el archivo.",
+        "券商报告（.xlsx，测试版）：自动识别交易表；未知代码会添加到目录。如果报告无法正常导入，请把文件发给我们。",
+    ),
+    "Added %(n)s new instrument(s) to the catalogue: %(tickers)s": (
+        "Добавлено инструментов в каталог: %(n)s — %(tickers)s",
+        "Se añadieron %(n)s instrumento(s) al catálogo: %(tickers)s",
+        "已向目录添加 %(n)s 个新工具：%(tickers)s",
     ),
     "No rows found in the file.": (
         "В файле не найдено строк.",

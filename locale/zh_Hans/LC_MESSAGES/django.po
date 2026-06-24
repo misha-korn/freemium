@@ -554,8 +554,31 @@ msgstr "CSV 文件"
 msgid "Expected columns:"
 msgstr "预期列："
 
+msgid "CSV columns:"
+msgstr "CSV 列："
+
 msgid "Please choose a CSV file."
 msgstr "请选择一个 CSV 文件。"
+
+msgid "Please choose a CSV or .xlsx file."
+msgstr "请选择一个 CSV 或 .xlsx 文件。"
+
+msgid ""
+"Upload a broker report (Tinkoff / Sber .xlsx) or a CSV. Unreadable rows are "
+"reported and skipped — nothing else is touched."
+msgstr "上传券商报告（Tinkoff / Sber .xlsx）或 CSV。无法识别的行会被报告并跳过——其余内容不受影响。"
+
+msgid "File (broker .xlsx or CSV)"
+msgstr "文件（券商 .xlsx 或 CSV）"
+
+msgid ""
+"Broker report (.xlsx, beta): the trades table is detected automatically; "
+"unknown tickers are added to the catalogue. If a report doesn't import "
+"cleanly, send us the file."
+msgstr "券商报告（.xlsx，测试版）：自动识别交易表；未知代码会添加到目录。如果报告无法正常导入，请把文件发给我们。"
+
+msgid "Added %(n)s new instrument(s) to the catalogue: %(tickers)s"
+msgstr "已向目录添加 %(n)s 个新工具：%(tickers)s"
 
 msgid "No rows found in the file."
 msgstr "文件中未找到数据行。"
