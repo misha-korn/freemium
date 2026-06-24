@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Bond details" %} · Freemium{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{{ portfolio.name }} · {{ asset.ticker }}</p>
+    <h1 class="page-header__title">{% trans "Bond details" %}</h1>
+    <p class="page-header__sub">{% trans "Face value, coupon and maturity — used to compute accrued coupon and the next coupon." %}</p>
+  </div>
+</div>
+
+<div class="card form-card">
+  <form class="form" method="post" novalidate>
+    {% csrf_token %}
+    {% include "partials/form_fields.html" %}
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">{% trans "Save bond details" %}</button>
+      <a class="btn btn--ghost" href="{% url 'portfolio:bonds' portfolio.pk %}">{% trans "Cancel" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

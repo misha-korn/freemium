@@ -25,8 +25,15 @@ from apps.marketdata.services import fetch_and_store_quote, resolve_asset_name
 
 from . import exports
 from .allocation import build_allocation, chart_payload
+from .bonds import bond_summary
 from .broker_import import import_broker_xlsx
-from .forms import AssetForm, DividendForm, PortfolioForm, TransactionForm
+from .forms import (
+    AssetForm,
+    BondDetailForm,
+    DividendForm,
+    PortfolioForm,
+    TransactionForm,
+)
 from .imports import import_trades_csv
 from .income import (
     dividend_calendar,
@@ -35,7 +42,7 @@ from .income import (
     dividend_years,
     yield_on_cost,
 )
-from .models import Asset, DividendPayment, Portfolio, Transaction
+from .models import Asset, BondDetail, DividendPayment, Portfolio, Transaction
 from .overview import build_account_overview
 from .services import compute_positions, portfolio_summary
 from .snapshots import take_snapshot, value_timeseries
@@ -355,6 +362,78 @@ class DividendUpdateView(_OwnedDividendMixin, UpdateView):
 
 class DividendDeleteView(_OwnedDividendMixin, DeleteView):
     template_name = "portfolio/dividend_confirm_delete.html"
+
+
+# --------------------------------------------------------------------------- #
+# Bonds — НКД / coupons / maturity (Tier 2 #5)
+# --------------------------------------------------------------------------- #
+class BondListView(_OwnedPortfolioMixin, DetailView):
+    """Held bonds in a portfolio with computed НКД, next coupon and maturity."""
+
+    template_name = "portfolio/bond_list.html"
+    context_object_name = "portfolio"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        today = timezone.now().date()
+        bond_positions = [
+            pos for pos in compute_positions(self.object) if pos.asset.asset_type == "BOND"
+        ]
+        details = {
+            bond.asset_id: bond
+            for bond in BondDetail.objects.filter(
+                asset_id__in=[pos.asset.id for pos in bond_positions]
+            )
+        }
+        rows: list[dict[str, Any]] = []
+        for pos in bond_positions:
+            detail = details.get(pos.asset.id)
+            rows.append(
+                {
+                    "position": pos,
+                    "detail": detail,
+                    "summary": bond_summary(detail, today, quantity=pos.quantity)
+                    if detail
+                    else None,
+                }
+            )
+        ctx["bonds"] = rows
+        ctx["today"] = today
+        return ctx
+
+
+class BondDetailUpsertView(LoginRequiredMixin, View):
+    """Create or edit the bond reference details for a BOND-type asset."""
+
+    template_name = "portfolio/bond_form.html"
+
+    def _load(self, request: HttpRequest, pk: int, asset_id: int):
+        portfolio = get_object_or_404(Portfolio, pk=pk, owner=request.user)
+        asset = get_object_or_404(Asset, pk=asset_id, asset_type="BOND")
+        detail = BondDetail.objects.filter(asset=asset).first()
+        return portfolio, asset, detail
+
+    def get(self, request: HttpRequest, pk: int, asset_id: int, *a: Any, **k: Any) -> HttpResponse:
+        portfolio, asset, detail = self._load(request, pk, asset_id)
+        form = BondDetailForm(instance=detail)
+        return render(
+            request, self.template_name,
+            {"form": form, "portfolio": portfolio, "asset": asset},
+        )
+
+    def post(self, request: HttpRequest, pk: int, asset_id: int, *a: Any, **k: Any) -> HttpResponse:
+        portfolio, asset, detail = self._load(request, pk, asset_id)
+        form = BondDetailForm(request.POST, instance=detail)
+        if form.is_valid():
+            bond = form.save(commit=False)
+            bond.asset = asset
+            bond.save()
+            messages.success(request, _("Bond details saved."))
+            return redirect("portfolio:bonds", pk=portfolio.pk)
+        return render(
+            request, self.template_name,
+            {"form": form, "portfolio": portfolio, "asset": asset},
+        )
 
 
 # --------------------------------------------------------------------------- #

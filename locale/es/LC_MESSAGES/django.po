@@ -1136,10 +1136,111 @@ msgstr "El impuesto retenido no puede ser negativo."
 msgid "Tax withheld can't exceed the gross amount."
 msgstr "El impuesto retenido no puede superar el importe bruto."
 
+msgid "Bonds"
+msgstr "Bonos"
+
+msgid ""
+"Accrued coupon, the next coupon and maturity for your bonds. Reference data "
+"is entered manually; market pricing from MOEX is coming next."
+msgstr ""
+"Cupón acumulado, próximo cupón y vencimiento de tus bonos. Los datos de "
+"referencia se introducen a mano; los precios de MOEX llegarán pronto."
+
+msgid "Maturity"
+msgstr "Vencimiento"
+
+msgid "Accrued coupon"
+msgstr "Cupón acumulado"
+
+msgid "Next coupon"
+msgstr "Próximo cupón"
+
+msgid "matured"
+msgstr "vencido"
+
+msgid "%(t)s total"
+msgstr "%(t)s en total"
+
+msgid "No bond details yet — coupons and maturity can't be computed."
+msgstr ""
+"Aún no hay datos del bono — no se pueden calcular cupones ni vencimiento."
+
+msgid "set details"
+msgstr "añadir datos"
+
+msgid ""
+"Accrued coupon is computed by linear accrual between coupon dates derived "
+"from the maturity and frequency. Market price and НКД from the MOEX bond "
+"market are a follow-up."
+msgstr ""
+"El cupón acumulado se calcula linealmente entre fechas de cupón derivadas "
+"del vencimiento y la frecuencia. El precio de mercado y el НКД de MOEX son "
+"un paso siguiente."
+
+msgid "No bonds in this portfolio"
+msgstr "No hay bonos en esta cartera"
+
+msgid ""
+"Add a trade for a bond-type asset to track its coupons and maturity here."
+msgstr ""
+"Añade una operación de un activo tipo bono para seguir aquí sus cupones y "
+"vencimiento."
+
+msgid "Bond details"
+msgstr "Datos del bono"
+
+msgid ""
+"Face value, coupon and maturity — used to compute accrued coupon and the "
+"next coupon."
+msgstr ""
+"Valor nominal, cupón y vencimiento — para calcular el cupón acumulado y el "
+"próximo cupón."
+
+msgid "Save bond details"
+msgstr "Guardar datos del bono"
+
+msgid "Face value (par)"
+msgstr "Valor nominal"
+
+msgid "Coupon rate, % per year"
+msgstr "Tasa de cupón, % anual"
+
+msgid "Coupon frequency"
+msgstr "Frecuencia del cupón"
+
+msgid "Maturity date"
+msgstr "Fecha de vencimiento"
+
+msgid "Annual"
+msgstr "Anual"
+
+msgid "Semi-annual"
+msgstr "Semestral"
+
+msgid "Quarterly"
+msgstr "Trimestral"
+
+msgid "Monthly"
+msgstr "Mensual"
+
+msgid "Bond details saved."
+msgstr "Datos del bono guardados."
+
+msgid "Face value must be greater than zero."
+msgstr "El valor nominal debe ser mayor que cero."
+
+msgid "Coupon rate cannot be negative."
+msgstr "La tasa de cupón no puede ser negativa."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"
 msgstr[1] "%(count)s carteras"
+
+msgid "%(days)s day left"
+msgid_plural "%(days)s days left"
+msgstr[0] "%(days)s día"
+msgstr[1] "%(days)s días"
 
 msgid "%(count)s trade"
 msgid_plural "%(count)s trades"

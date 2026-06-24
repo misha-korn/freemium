@@ -159,6 +159,18 @@ once ≥2 snapshots exist; the invested-capital chart stays for day one. A bench
 overlay (index level snapshotted in parallel, rebased to 100) is the next
 increment — it needs an index data source.
 
+### Bonds: manual reference data + derived coupon maths first (Stage 7)
+Tier 2 bonds (#5) start with a `BondDetail` (OneToOne with a BOND `Asset`: face
+value, coupon rate, frequency, maturity) and pure maths in `portfolio.bonds`.
+Coupon dates are derived **backward from maturity** by the coupon period (the
+standard assumption when the explicit schedule isn't known), so accrued coupon
+(НКД) is a simple linear day-count between the surrounding coupon dates — no
+issue date needed. We never invent a market price: an unpriced bond still renders
+`—`, and the Bonds page shows reference figures (НКД, next coupon, days to
+maturity), clearly labelled. Pricing from the MOEX bonds market (price as % of
+face + `ACCRUEDINT`) is the next increment and needs live MOEX, so it's deferred
+and verified on the user's machine — same stance as the quote providers.
+
 ### Broker import is tolerant + keyless, dispatched by file type (Stage 7)
 Tier 2's broker import (#4) reuses the existing import page: an `.xlsx` upload is
 parsed as a broker report, anything else as the strict CSV (dispatch on the file

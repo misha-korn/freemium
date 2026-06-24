@@ -6,7 +6,7 @@ from decimal import Decimal
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Asset, DividendPayment, Portfolio, Transaction
+from .models import Asset, BondDetail, DividendPayment, Portfolio, Transaction
 from .services import held_quantity
 
 
@@ -180,3 +180,36 @@ class DividendForm(forms.ModelForm):
                 _("Tax withheld can't exceed the gross amount."),
             )
         return cleaned
+
+
+class BondDetailForm(forms.ModelForm):
+    """Reference details for a bond (face value, coupon, maturity) — Tier 2."""
+
+    class Meta:
+        model = BondDetail
+        fields = ["face_value", "coupon_rate", "coupon_frequency", "maturity_date"]
+        widgets = {
+            "maturity_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+        }
+        labels = {
+            "face_value": _("Face value (par)"),
+            "coupon_rate": _("Coupon rate, % per year"),
+            "coupon_frequency": _("Coupon frequency"),
+            "maturity_date": _("Maturity date"),
+        }
+
+    def __init__(self, *args: object, **kwargs: object) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields["maturity_date"].input_formats = ["%Y-%m-%d"]
+
+    def clean_face_value(self) -> Decimal:
+        face_value: Decimal = self.cleaned_data["face_value"]
+        if face_value <= 0:
+            raise forms.ValidationError(_("Face value must be greater than zero."))
+        return face_value
+
+    def clean_coupon_rate(self) -> Decimal:
+        rate: Decimal = self.cleaned_data["coupon_rate"]
+        if rate < 0:
+            raise forms.ValidationError(_("Coupon rate cannot be negative."))
+        return rate

@@ -175,8 +175,12 @@
       (RU + EN), maps columns by meaning, and creates trades; unknown tickers are
       auto-created (MOEX/RUB inferred, else GLOBAL). Unreadable rows are reported
       and skipped. The strict CSV path is unchanged (dispatch by file extension).
-- [ ] **Bonds (#5)** — price from the MOEX bonds market + НКД (accrued coupon),
-      coupon schedule and maturity. Builds on the COUPON `DividendPayment` kind.
+- [x] **Bonds (#5)** — reference details + maths: a `BondDetail` (face value,
+      coupon rate, frequency, maturity) per bond `Asset`, with `portfolio.bonds`
+      computing accrued coupon (НКД, linear day-count), the next coupon and days
+      to maturity. A per-portfolio Bonds page lists held bonds with these figures.
+- [ ] Bond **pricing from the MOEX bonds market** (% of face + ACCRUEDINT) — the
+      next bonds increment; needs live MOEX (verify on the user's machine).
 - [ ] **Rebalancing (#6)** — target weights per holding + buy/sell suggestions to
       reach them. Pure computation over existing positions/allocation.
 - [ ] **Corporate actions (#7)** — at least stock splits, so cost basis and
@@ -193,3 +197,14 @@
   default to STOCK; the user can correct the catalogue entry. No name/price
   lookup is done during import (kept offline + fast); "Refresh prices" fills that
   in later. Per-row errors are diagnostic and stay in English.
+
+### Stage 7 notes (bonds)
+- **Manual reference data first** (`BondDetail`, OneToOne with a BOND `Asset`):
+  face value, coupon rate, frequency, maturity — all the user enters once.
+- **Coupon dates are derived backward from maturity** by the coupon period (a
+  standard assumption when the explicit schedule is unknown), so accrued coupon
+  (НКД) is a linear day-count between the surrounding coupon dates. No market
+  price is invented — an unpriced bond still shows `—` like any holding.
+- **Pricing from the MOEX bonds market** (price as % of face + `ACCRUEDINT`) is
+  the next increment and needs live MOEX, which the sandbox can't reach — it'll
+  be verified on the user's machine, like the Finnhub/MOEX quote paths.
