@@ -163,3 +163,33 @@
   defensive guard for any pre-existing data — the form is the user-facing gate.
 - Tier 1 complete: dividends, value-over-time, trade validation. Remaining Tier 1
   follow-ups (own PRs): MOEX dividend auto-pull; benchmark overlay.
+
+## Stage 7 — Competitiveness, Tier 2 (in progress)
+
+> Feature parity with the analogues. Each item ships as its own branch + PR,
+> in plan order: broker import → bonds → rebalancing → corporate actions.
+
+- [x] **Broker report import (#4)** — a keyless, realistic auto-import: upload a
+      broker report `.xlsx` (Tinkoff / Sber and similar) on the existing import
+      page. `portfolio.broker_import` finds the trades table by header keywords
+      (RU + EN), maps columns by meaning, and creates trades; unknown tickers are
+      auto-created (MOEX/RUB inferred, else GLOBAL). Unreadable rows are reported
+      and skipped. The strict CSV path is unchanged (dispatch by file extension).
+- [ ] **Bonds (#5)** — price from the MOEX bonds market + НКД (accrued coupon),
+      coupon schedule and maturity. Builds on the COUPON `DividendPayment` kind.
+- [ ] **Rebalancing (#6)** — target weights per holding + buy/sell suggestions to
+      reach them. Pure computation over existing positions/allocation.
+- [ ] **Corporate actions (#7)** — at least stock splits, so cost basis and
+      quantity don't break on a split.
+
+### Stage 7 notes (broker import)
+- **Tolerant by design**: broker layouts vary and carry preamble/summary rows, so
+  the parser detects the trades table from header keywords rather than fixed
+  positions, and skips rows it can't read (totals, blanks) instead of aborting.
+- Marked **beta** in the UI: it's validated against the documented Tinkoff/Sber
+  trades-table structure and synthetic fixtures, not yet against a wide range of
+  real exports — the page asks the user to send a file if one doesn't import.
+- Auto-created assets infer market from currency (RUB → MOEX, else GLOBAL) and
+  default to STOCK; the user can correct the catalogue entry. No name/price
+  lookup is done during import (kept offline + fast); "Refresh prices" fills that
+  in later. Per-row errors are diagnostic and stay in English.

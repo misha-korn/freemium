@@ -159,6 +159,21 @@ once ≥2 snapshots exist; the invested-capital chart stays for day one. A bench
 overlay (index level snapshotted in parallel, rebased to 100) is the next
 increment — it needs an index data source.
 
+### Broker import is tolerant + keyless, dispatched by file type (Stage 7)
+Tier 2's broker import (#4) reuses the existing import page: an `.xlsx` upload is
+parsed as a broker report, anything else as the strict CSV (dispatch on the file
+extension in `ImportTradesView`). Broker layouts (Tinkoff/Sber) vary and carry
+preamble/summary rows, so `portfolio.broker_import` is **tolerant** — it locates
+the trades table by recognising the header from keywords (RU + EN), maps columns
+by meaning, and skips rows it can't read (totals, blanks) rather than aborting
+the file. Unknown tickers are **auto-created** with inferred fields (RUB → MOEX,
+else GLOBAL; STOCK) so the user needn't pre-register holdings; no name/price
+lookup happens during import to keep it offline and fast. It's shipped as
+**beta** (validated against the documented structure + synthetic fixtures, not a
+broad range of real exports) and the page invites the user to send a failing
+file. Money stays Decimal; per-row errors are diagnostic English, like the CSV
+import.
+
 ### Trade validation in the form, clamp stays as a guard (Stage 6)
 Selling more than is held now fails validation in `TransactionForm.clean` with a
 clear message ("you only hold N"), and selling with no position is blocked too —
