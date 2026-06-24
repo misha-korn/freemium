@@ -1219,6 +1219,57 @@ msgstr "部分目标无效已跳过（请使用 ≥ 0 的数字）。"
 msgid "Targets add up to %(sum)s%% — over 100%%."
 msgstr "目标合计 %(sum)s%%——超过 100%%。"
 
+msgid "Splits"
+msgstr "拆股"
+
+msgid "Stock split"
+msgstr "股票拆分"
+
+msgid "Stock splits"
+msgstr "股票拆分"
+
+msgid ""
+"Record a split so share count and cost basis stay correct. A 2-for-1 split "
+"is new 2, old 1; a 1-for-10 reverse split is new 1, old 10."
+msgstr "记录拆股，使股数和成本基础保持正确。2 拆 1：新 2、旧 1；1 并 10 反向拆股：新 1、旧 10。"
+
+msgid "Add split"
+msgstr "添加拆股"
+
+msgid "Recorded splits"
+msgstr "已记录的拆股"
+
+msgid "Effective date"
+msgstr "生效日期"
+
+msgid "New shares"
+msgstr "新股数"
+
+msgid "Old shares"
+msgstr "旧股数"
+
+msgid "Ratio (new : old)"
+msgstr "比例（新 : 旧）"
+
+msgid ""
+"Trades dated before a split are replayed at the adjusted share count and "
+"price, so quantity matches today and the cost basis is unchanged."
+msgstr "拆股之前的交易按调整后的股数和价格重新计算，因此数量与当前一致，成本基础不变。"
+
+msgid ""
+"No splits recorded. Most portfolios need none — add one only when a holding "
+"actually split."
+msgstr "尚无拆股记录。大多数投资组合无需拆股——仅在持仓确实发生拆股时才添加。"
+
+msgid "Corporate action saved."
+msgstr "公司行动已保存。"
+
+msgid "Corporate action removed."
+msgstr "公司行动已删除。"
+
+msgid "Shares must be greater than zero."
+msgstr "股数必须大于零。"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"

@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
-from django.db.models import Sum
+from .corporate_actions import adjusted_quantity_price, splits_by_asset
 
 if TYPE_CHECKING:
     from apps.portfolio.models import Asset, Portfolio
@@ -49,10 +49,12 @@ def compute_positions(portfolio: Portfolio) -> list[Position]:
     Returns only positions with quantity > 0, sorted by invested descending.
     """
     # Fetch once; select_related avoids per-row SQL for asset attributes.
-    txns = (
-        portfolio.transactions.select_related("asset")
-        .order_by("executed_at", "id")
+    txns = list(
+        portfolio.transactions.select_related("asset").order_by("executed_at", "id")
     )
+    # Stock splits adjust pre-split trades to today's share count / price so the
+    # cost basis stays intact (see corporate_actions). No splits ⇒ a no-op.
+    splits = splits_by_asset(txn.asset_id for txn in txns)
 
     # Track per-asset state: {asset_id: [quantity, cost_basis]}
     # Using lists (mutable) for performance inside the loop.
@@ -66,18 +68,20 @@ def compute_positions(portfolio: Portfolio) -> list[Position]:
             asset_map[aid] = txn.asset
 
         qty, basis = state[aid]
+        # Split-adjusted quantity/price (cost = qty × price is preserved).
+        txn_qty, txn_price = adjusted_quantity_price(txn, splits.get(aid))
 
         if txn.kind == "BUY":
             # Money rule: Decimal only — never float.
-            trade_cost = txn.price * txn.quantity + txn.fee
-            state[aid] = [qty + txn.quantity, basis + trade_cost]
+            trade_cost = txn_price * txn_qty + txn.fee
+            state[aid] = [qty + txn_qty, basis + trade_cost]
 
         elif txn.kind == "SELL":
             if qty <= Decimal("0"):
                 # Nothing held — skip (data quality guard).
                 continue
 
-            sold = min(txn.quantity, qty)
+            sold = min(txn_qty, qty)
 
             if qty > Decimal("0"):
                 avg = basis / qty
@@ -144,11 +148,17 @@ def held_quantity(
 
     Used by trade validation to refuse selling more than is held. ``exclude_id``
     drops one transaction from the tally so editing an existing SELL is judged
-    against the *other* trades, not itself. Money/quantity is Decimal.
+    against the *other* trades, not itself. Quantities are split-adjusted to
+    today's terms so a pre-split buy is compared on the same basis as a sell.
+    Money/quantity is Decimal.
     """
     txns = portfolio.transactions.filter(asset=asset)
     if exclude_id is not None:
         txns = txns.exclude(pk=exclude_id)
-    bought = txns.filter(kind="BUY").aggregate(total=Sum("quantity"))["total"] or Decimal("0")
-    sold = txns.filter(kind="SELL").aggregate(total=Sum("quantity"))["total"] or Decimal("0")
-    return bought - sold
+    splits = splits_by_asset([asset.id]).get(asset.id)
+
+    held = Decimal("0")
+    for txn in txns:
+        qty, _price = adjusted_quantity_price(txn, splits)
+        held += qty if txn.kind == "BUY" else -qty
+    return held

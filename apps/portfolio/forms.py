@@ -6,7 +6,14 @@ from decimal import Decimal
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Asset, BondDetail, DividendPayment, Portfolio, Transaction
+from .models import (
+    Asset,
+    BondDetail,
+    CorporateAction,
+    DividendPayment,
+    Portfolio,
+    Transaction,
+)
 from .services import held_quantity
 
 
@@ -213,3 +220,44 @@ class BondDetailForm(forms.ModelForm):
         if rate < 0:
             raise forms.ValidationError(_("Coupon rate cannot be negative."))
         return rate
+
+
+class CorporateActionForm(forms.ModelForm):
+    """Add a stock split for an asset traded in the portfolio — Tier 2 (#7)."""
+
+    class Meta:
+        model = CorporateAction
+        fields = ["asset", "effective_date", "new_shares", "old_shares", "note"]
+        widgets = {
+            "effective_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+        }
+        labels = {
+            "asset": _("Asset"),
+            "effective_date": _("Effective date"),
+            "new_shares": _("New shares"),
+            "old_shares": _("Old shares"),
+            "note": _("Note"),
+        }
+
+    def __init__(self, *args: object, **kwargs: object) -> None:
+        # Scope the asset dropdown to instruments actually traded in this portfolio.
+        portfolio = kwargs.pop("portfolio", None)
+        super().__init__(*args, **kwargs)
+        self.fields["effective_date"].input_formats = ["%Y-%m-%d"]
+        self.fields["note"].required = False
+        if portfolio is not None:
+            self.fields["asset"].queryset = (
+                Asset.objects.filter(transactions__portfolio=portfolio).distinct()
+            )
+
+    def clean_new_shares(self) -> Decimal:
+        value: Decimal = self.cleaned_data["new_shares"]
+        if value <= 0:
+            raise forms.ValidationError(_("Shares must be greater than zero."))
+        return value
+
+    def clean_old_shares(self) -> Decimal:
+        value: Decimal = self.cleaned_data["old_shares"]
+        if value <= 0:
+            raise forms.ValidationError(_("Shares must be greater than zero."))
+        return value

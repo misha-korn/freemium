@@ -77,4 +77,15 @@ urlpatterns = [
     ),
     # Rebalancing — target weights + suggestions (Tier 2 #6)
     path("<int:pk>/rebalance/", views.RebalanceView.as_view(), name="rebalance"),
+    # Corporate actions — stock splits (Tier 2 #7)
+    path(
+        "<int:pk>/corporate-actions/",
+        views.CorporateActionsView.as_view(),
+        name="corporate_actions",
+    ),
+    path(
+        "<int:pk>/corporate-actions/<int:action_id>/delete/",
+        views.CorporateActionDeleteView.as_view(),
+        name="corporate_action_delete",
+    ),
 ]

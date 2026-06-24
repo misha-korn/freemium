@@ -7,7 +7,7 @@ from typing import Any
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, QuerySet, Sum
-from django.http import HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
@@ -31,6 +31,7 @@ from .broker_import import import_broker_xlsx
 from .forms import (
     AssetForm,
     BondDetailForm,
+    CorporateActionForm,
     DividendForm,
     PortfolioForm,
     TransactionForm,
@@ -46,6 +47,7 @@ from .income import (
 from .models import (
     Asset,
     BondDetail,
+    CorporateAction,
     DividendPayment,
     Portfolio,
     RebalanceTarget,
@@ -501,6 +503,47 @@ class RebalanceView(_OwnedPortfolioMixin, DetailView):
                 _("Targets add up to %(sum)s%% — over 100%%.") % {"sum": total},
             )
         return redirect("portfolio:rebalance", pk=portfolio.pk)
+
+
+# --------------------------------------------------------------------------- #
+# Corporate actions — stock splits (Tier 2 #7)
+# --------------------------------------------------------------------------- #
+class CorporateActionsView(_OwnedPortfolioMixin, DetailView):
+    """List splits affecting the portfolio's assets; POST adds a split."""
+
+    template_name = "portfolio/corporate_action_list.html"
+    context_object_name = "portfolio"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx.setdefault("form", CorporateActionForm(portfolio=self.object))
+        ctx["actions"] = (
+            CorporateAction.objects.filter(asset__transactions__portfolio=self.object)
+            .select_related("asset")
+            .distinct()
+        )
+        return ctx
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        self.object = self.get_object()  # owner-scoped -> 404 otherwise
+        form = CorporateActionForm(request.POST, portfolio=self.object)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Corporate action saved."))
+            return redirect("portfolio:corporate_actions", pk=self.object.pk)
+        return self.render_to_response(self.get_context_data(form=form))
+
+
+class CorporateActionDeleteView(LoginRequiredMixin, View):
+    def post(self, request: HttpRequest, pk: int, action_id: int, *a: Any, **k: Any) -> HttpResponse:
+        portfolio = get_object_or_404(Portfolio, pk=pk, owner=request.user)
+        action = get_object_or_404(CorporateAction, pk=action_id)
+        # Only allow removing a split for an asset actually traded in this portfolio.
+        if not action.asset.transactions.filter(portfolio=portfolio).exists():
+            raise Http404
+        action.delete()
+        messages.success(request, _("Corporate action removed."))
+        return redirect("portfolio:corporate_actions", pk=portfolio.pk)
 
 
 # --------------------------------------------------------------------------- #

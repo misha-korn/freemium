@@ -1038,6 +1038,57 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "Los objetivos suman %(sum)s%% — más del 100%%.",
         "目标合计 %(sum)s%%——超过 100%%。",
     ),
+    # --- Tier 2: corporate actions / splits (#7) ---
+    "Splits": ("Сплиты", "Splits", "拆股"),
+    "Stock split": ("Сплит акций", "Split de acciones", "股票拆分"),
+    "Stock splits": ("Сплиты акций", "Splits de acciones", "股票拆分"),
+    "Record a split so share count and cost basis stay correct. A 2-for-1 split "
+    "is new 2, old 1; a 1-for-10 reverse split is new 1, old 10.": (
+        "Запишите сплит, чтобы число акций и себестоимость остались верными. "
+        "Сплит 2 к 1 — новые 2, старые 1; обратный 1 к 10 — новые 1, старые 10.",
+        "Registra un split para que el número de acciones y el coste sigan "
+        "correctos. Un split 2 por 1 es nuevas 2, antiguas 1; un contrasplit "
+        "1 por 10 es nuevas 1, antiguas 10.",
+        "记录拆股，使股数和成本基础保持正确。2 拆 1：新 2、旧 1；1 并 10 反向拆股：新 1、旧 10。",
+    ),
+    "Add split": ("Добавить сплит", "Añadir split", "添加拆股"),
+    "Recorded splits": ("Записанные сплиты", "Splits registrados", "已记录的拆股"),
+    "Effective date": ("Дата вступления", "Fecha efectiva", "生效日期"),
+    "New shares": ("Новые акции", "Acciones nuevas", "新股数"),
+    "Old shares": ("Старые акции", "Acciones antiguas", "旧股数"),
+    "Ratio (new : old)": ("Коэффициент (новые : старые)", "Ratio (nuevas : antiguas)", "比例（新 : 旧）"),
+    "Trades dated before a split are replayed at the adjusted share count and "
+    "price, so quantity matches today and the cost basis is unchanged.": (
+        "Сделки до сплита пересчитываются по скорректированному числу акций и "
+        "цене, поэтому количество совпадает с сегодняшним, а себестоимость не меняется.",
+        "Las operaciones anteriores al split se recalculan con el número de "
+        "acciones y el precio ajustados, así la cantidad coincide con hoy y el "
+        "coste no cambia.",
+        "拆股之前的交易按调整后的股数和价格重新计算，因此数量与当前一致，成本基础不变。",
+    ),
+    "No splits recorded. Most portfolios need none — add one only when a holding "
+    "actually split.": (
+        "Сплиты не записаны. Большинству портфелей они не нужны — добавляйте "
+        "только если по бумаге действительно был сплит.",
+        "No hay splits registrados. La mayoría de las carteras no necesitan "
+        "ninguno — añade uno solo si una posición realmente se dividió.",
+        "尚无拆股记录。大多数投资组合无需拆股——仅在持仓确实发生拆股时才添加。",
+    ),
+    "Corporate action saved.": (
+        "Корпоративное событие сохранено.",
+        "Acción corporativa guardada.",
+        "公司行动已保存。",
+    ),
+    "Corporate action removed.": (
+        "Корпоративное событие удалено.",
+        "Acción corporativa eliminada.",
+        "公司行动已删除。",
+    ),
+    "Shares must be greater than zero.": (
+        "Число акций должно быть больше нуля.",
+        "Las acciones deben ser mayores que cero.",
+        "股数必须大于零。",
+    ),
 }
 
 # msgid -> (msgid_plural, {lang: (form0, form1, form2...)})

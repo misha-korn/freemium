@@ -1290,6 +1290,65 @@ msgstr "Algunos objetivos no eran válidos y se omitieron (usa un número ≥ 0)
 msgid "Targets add up to %(sum)s%% — over 100%%."
 msgstr "Los objetivos suman %(sum)s%% — más del 100%%."
 
+msgid "Splits"
+msgstr "Splits"
+
+msgid "Stock split"
+msgstr "Split de acciones"
+
+msgid "Stock splits"
+msgstr "Splits de acciones"
+
+msgid ""
+"Record a split so share count and cost basis stay correct. A 2-for-1 split "
+"is new 2, old 1; a 1-for-10 reverse split is new 1, old 10."
+msgstr ""
+"Registra un split para que el número de acciones y el coste sigan correctos."
+" Un split 2 por 1 es nuevas 2, antiguas 1; un contrasplit 1 por 10 es nuevas"
+" 1, antiguas 10."
+
+msgid "Add split"
+msgstr "Añadir split"
+
+msgid "Recorded splits"
+msgstr "Splits registrados"
+
+msgid "Effective date"
+msgstr "Fecha efectiva"
+
+msgid "New shares"
+msgstr "Acciones nuevas"
+
+msgid "Old shares"
+msgstr "Acciones antiguas"
+
+msgid "Ratio (new : old)"
+msgstr "Ratio (nuevas : antiguas)"
+
+msgid ""
+"Trades dated before a split are replayed at the adjusted share count and "
+"price, so quantity matches today and the cost basis is unchanged."
+msgstr ""
+"Las operaciones anteriores al split se recalculan con el número de acciones "
+"y el precio ajustados, así la cantidad coincide con hoy y el coste no "
+"cambia."
+
+msgid ""
+"No splits recorded. Most portfolios need none — add one only when a holding "
+"actually split."
+msgstr ""
+"No hay splits registrados. La mayoría de las carteras no necesitan ninguno —"
+" añade uno solo si una posición realmente se dividió."
+
+msgid "Corporate action saved."
+msgstr "Acción corporativa guardada."
+
+msgid "Corporate action removed."
+msgstr "Acción corporativa eliminada."
+
+msgid "Shares must be greater than zero."
+msgstr "Las acciones deben ser mayores que cero."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"

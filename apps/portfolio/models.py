@@ -413,3 +413,63 @@ class RebalanceTarget(models.Model):
 
     def __str__(self) -> str:
         return f"{self.asset.ticker} → {self.target_weight}% in {self.portfolio}"
+
+
+# ---------------------------------------------------------------------------
+# CorporateAction (Tier 2 — corporate actions: stock splits)
+# ---------------------------------------------------------------------------
+
+
+class CorporateAction(models.Model):
+    """A corporate action on an `Asset` — currently a stock split.
+
+    A split changes share count and per-share price without changing the value
+    held, so a position's cost basis must stay intact. Trades executed **before**
+    the effective date are replayed with their quantity multiplied by the split
+    factor (new ÷ old) and price divided by it — so the share count matches
+    today's terms while the cost basis is unchanged (see
+    ``portfolio.corporate_actions`` and ``compute_positions``). A 2-for-1 split is
+    new=2, old=1 (factor 2); a 1-for-10 reverse split is new=1, old=10 (factor 0.1).
+    """
+
+    class Kind(models.TextChoices):
+        SPLIT = "SPLIT", _("Stock split")
+
+    asset = models.ForeignKey(
+        Asset,
+        on_delete=models.CASCADE,
+        related_name="corporate_actions",
+    )
+    kind = models.CharField(max_length=8, choices=Kind.choices, default=Kind.SPLIT)
+    effective_date = models.DateField()
+    # Split ratio new:old — new shares received for every `old_shares` held.
+    new_shares = models.DecimalField(
+        max_digits=20,
+        decimal_places=8,
+        validators=[MinValueValidator(Decimal("0.00000001"))],
+    )
+    old_shares = models.DecimalField(
+        max_digits=20,
+        decimal_places=8,
+        validators=[MinValueValidator(Decimal("0.00000001"))],
+    )
+    note = models.CharField(max_length=300, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-effective_date", "-id"]
+        indexes = [models.Index(fields=["asset", "effective_date"])]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["asset", "effective_date", "kind"],
+                name="uniq_corpaction_asset_date_kind",
+            )
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.asset.ticker} {self.new_shares}:{self.old_shares} split @ {self.effective_date}"
+
+    @property
+    def factor(self) -> Decimal:
+        """Split factor = new ÷ old (2:1 → 2; 1:10 reverse → 0.1)."""
+        return self.new_shares / self.old_shares
