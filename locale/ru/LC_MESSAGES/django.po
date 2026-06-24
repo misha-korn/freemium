@@ -1231,6 +1231,65 @@ msgstr "Номинал должен быть больше нуля."
 msgid "Coupon rate cannot be negative."
 msgstr "Ставка купона не может быть отрицательной."
 
+msgid "Rebalance"
+msgstr "Ребалансировка"
+
+msgid ""
+"Set a target weight per holding; we suggest how much to buy or sell to reach"
+" it."
+msgstr ""
+"Задайте целевую долю по каждому активу — подскажем, сколько докупить или "
+"продать."
+
+msgid "Current"
+msgstr "Текущая"
+
+msgid "Target, %"
+msgstr "Цель, %"
+
+msgid "Drift"
+msgstr "Отклонение"
+
+msgid "Suggestion"
+msgstr "Подсказка"
+
+msgid "Target weight for %(t)s"
+msgstr "Целевая доля для %(t)s"
+
+msgid "On target"
+msgstr "В цели"
+
+msgid "Save targets"
+msgstr "Сохранить цели"
+
+msgid "Targets total: %(s)s%."
+msgstr "Сумма целей: %(s)s%."
+
+msgid ""
+"Buy/sell amounts appear once every holding is priced and converts to the "
+"base currency — use “Refresh prices” on the portfolio."
+msgstr ""
+"Суммы покупки/продажи появятся, когда у всех позиций будут цены и они "
+"сконвертируются в базовую валюту — нажмите «Обновить цены» в портфеле."
+
+msgid "Nothing to rebalance yet"
+msgstr "Пока нечего ребалансировать"
+
+msgid ""
+"Add holdings first, then set target weights to get buy/sell suggestions."
+msgstr ""
+"Сначала добавьте позиции, затем задайте целевые доли — появятся подсказки "
+"докупить/продать."
+
+msgid "Target allocation saved."
+msgstr "Целевое распределение сохранено."
+
+msgid "Some targets were invalid and skipped (use a number ≥ 0)."
+msgstr "Некоторые цели некорректны и пропущены (введите число ≥ 0)."
+
+msgid "Targets add up to %(sum)s%% — over 100%%."
+msgstr "Сумма целей — %(sum)s%% (больше 100%%)."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s портфель"

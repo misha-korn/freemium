@@ -982,6 +982,62 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "La tasa de cupón no puede ser negativa.",
         "票面利率不能为负。",
     ),
+    # --- Tier 2: rebalancing (#6) ---
+    "Rebalance": ("Ребалансировка", "Reequilibrar", "再平衡"),
+    "Set a target weight per holding; we suggest how much to buy or sell to reach it.": (
+        "Задайте целевую долю по каждому активу — подскажем, сколько докупить или продать.",
+        "Define un peso objetivo por posición; sugerimos cuánto comprar o vender para alcanzarlo.",
+        "为每项持仓设定目标权重；我们会建议买入或卖出多少以达到该目标。",
+    ),
+    "Current": ("Текущая", "Actual", "当前"),
+    "Target, %": ("Цель, %", "Objetivo, %", "目标，%"),
+    "Drift": ("Отклонение", "Desvío", "偏离"),
+    "Suggestion": ("Подсказка", "Sugerencia", "建议"),
+    "Target weight for %(t)s": (
+        "Целевая доля для %(t)s",
+        "Peso objetivo para %(t)s",
+        "%(t)s 的目标权重",
+    ),
+    "On target": ("В цели", "En objetivo", "已达标"),
+    "Save targets": ("Сохранить цели", "Guardar objetivos", "保存目标"),
+    "Targets total: %(s)s%.": (
+        "Сумма целей: %(s)s%.",
+        "Total de objetivos: %(s)s%.",
+        "目标合计：%(s)s%。",
+    ),
+    "Buy/sell amounts appear once every holding is priced and converts to the "
+    "base currency — use “Refresh prices” on the portfolio.": (
+        "Суммы покупки/продажи появятся, когда у всех позиций будут цены и они "
+        "сконвертируются в базовую валюту — нажмите «Обновить цены» в портфеле.",
+        "Los importes de compra/venta aparecen cuando cada posición tiene precio "
+        "y se convierte a la divisa base — usa «Actualizar precios» en la cartera.",
+        "当每项持仓都有价格并可换算为基准货币后，将显示买入/卖出金额——请在投资组合中使用“刷新价格”。",
+    ),
+    "Nothing to rebalance yet": (
+        "Пока нечего ребалансировать",
+        "Aún no hay nada que reequilibrar",
+        "暂无可再平衡的内容",
+    ),
+    "Add holdings first, then set target weights to get buy/sell suggestions.": (
+        "Сначала добавьте позиции, затем задайте целевые доли — появятся подсказки докупить/продать.",
+        "Añade posiciones primero y luego define pesos objetivo para ver sugerencias.",
+        "请先添加持仓，再设定目标权重，即可获得买卖建议。",
+    ),
+    "Target allocation saved.": (
+        "Целевое распределение сохранено.",
+        "Asignación objetivo guardada.",
+        "目标配置已保存。",
+    ),
+    "Some targets were invalid and skipped (use a number ≥ 0).": (
+        "Некоторые цели некорректны и пропущены (введите число ≥ 0).",
+        "Algunos objetivos no eran válidos y se omitieron (usa un número ≥ 0).",
+        "部分目标无效已跳过（请使用 ≥ 0 的数字）。",
+    ),
+    "Targets add up to %(sum)s%% — over 100%%.": (
+        "Сумма целей — %(sum)s%% (больше 100%%).",
+        "Los objetivos suman %(sum)s%% — más del 100%%.",
+        "目标合计 %(sum)s%%——超过 100%%。",
+    ),
 }
 
 # msgid -> (msgid_plural, {lang: (form0, form1, form2...)})

@@ -181,8 +181,11 @@
       to maturity. A per-portfolio Bonds page lists held bonds with these figures.
 - [ ] Bond **pricing from the MOEX bonds market** (% of face + ACCRUEDINT) — the
       next bonds increment; needs live MOEX (verify on the user's machine).
-- [ ] **Rebalancing (#6)** — target weights per holding + buy/sell suggestions to
-      reach them. Pure computation over existing positions/allocation.
+- [x] **Rebalancing (#6)** — `RebalanceTarget` (target weight % per asset) +
+      `portfolio.rebalance`: compares each holding's current weight (market value
+      in base currency) to its target and suggests the base-currency amount to
+      buy/sell. A Rebalance page edits targets inline. Suggestions appear only
+      when fully priced + convertible; targets are editable regardless.
 - [ ] **Corporate actions (#7)** — at least stock splits, so cost basis and
       quantity don't break on a split.
 
@@ -208,3 +211,12 @@
 - **Pricing from the MOEX bonds market** (price as % of face + `ACCRUEDINT`) is
   the next increment and needs live MOEX, which the sandbox can't reach — it'll
   be verified on the user's machine, like the Finnhub/MOEX quote paths.
+
+### Stage 7 notes (rebalancing)
+- Suggestions are **honest**: produced only when the portfolio is fully priced
+  and every currency converts to base (`build_rebalance` sets `available`).
+  Otherwise targets are still editable but buy/sell amounts show `—`.
+- A small **hold band** (0.5% of the portfolio) treats tiny drifts as on-target,
+  so rounding noise doesn't produce spurious trades. Targets for not-yet-held
+  assets are supported (suggest a full buy). Amounts are base-currency; unit
+  counts aren't suggested (price/lot rounding is left to the user).

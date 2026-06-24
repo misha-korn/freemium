@@ -6,6 +6,7 @@ from .models import (
     DividendPayment,
     Portfolio,
     PortfolioSnapshot,
+    RebalanceTarget,
     Transaction,
 )
 
@@ -82,3 +83,10 @@ class BondDetailAdmin(admin.ModelAdmin):
     search_fields = ("asset__ticker", "asset__name")
     autocomplete_fields = ("asset",)
     date_hierarchy = "maturity_date"
+
+
+@admin.register(RebalanceTarget)
+class RebalanceTargetAdmin(admin.ModelAdmin):
+    list_display = ("portfolio", "asset", "target_weight", "updated_at")
+    search_fields = ("portfolio__name", "asset__ticker")
+    autocomplete_fields = ("portfolio", "asset")

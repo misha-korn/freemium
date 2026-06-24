@@ -1232,6 +1232,64 @@ msgstr "El valor nominal debe ser mayor que cero."
 msgid "Coupon rate cannot be negative."
 msgstr "La tasa de cupón no puede ser negativa."
 
+msgid "Rebalance"
+msgstr "Reequilibrar"
+
+msgid ""
+"Set a target weight per holding; we suggest how much to buy or sell to reach"
+" it."
+msgstr ""
+"Define un peso objetivo por posición; sugerimos cuánto comprar o vender para"
+" alcanzarlo."
+
+msgid "Current"
+msgstr "Actual"
+
+msgid "Target, %"
+msgstr "Objetivo, %"
+
+msgid "Drift"
+msgstr "Desvío"
+
+msgid "Suggestion"
+msgstr "Sugerencia"
+
+msgid "Target weight for %(t)s"
+msgstr "Peso objetivo para %(t)s"
+
+msgid "On target"
+msgstr "En objetivo"
+
+msgid "Save targets"
+msgstr "Guardar objetivos"
+
+msgid "Targets total: %(s)s%."
+msgstr "Total de objetivos: %(s)s%."
+
+msgid ""
+"Buy/sell amounts appear once every holding is priced and converts to the "
+"base currency — use “Refresh prices” on the portfolio."
+msgstr ""
+"Los importes de compra/venta aparecen cuando cada posición tiene precio y se"
+" convierte a la divisa base — usa «Actualizar precios» en la cartera."
+
+msgid "Nothing to rebalance yet"
+msgstr "Aún no hay nada que reequilibrar"
+
+msgid ""
+"Add holdings first, then set target weights to get buy/sell suggestions."
+msgstr ""
+"Añade posiciones primero y luego define pesos objetivo para ver sugerencias."
+
+msgid "Target allocation saved."
+msgstr "Asignación objetivo guardada."
+
+msgid "Some targets were invalid and skipped (use a number ≥ 0)."
+msgstr "Algunos objetivos no eran válidos y se omitieron (usa un número ≥ 0)."
+
+msgid "Targets add up to %(sum)s%% — over 100%%."
+msgstr "Los objetivos suman %(sum)s%% — más del 100%%."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"

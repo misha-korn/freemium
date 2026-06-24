@@ -366,3 +366,50 @@ class BondDetail(models.Model):
     def coupon_amount(self) -> Decimal:
         """Coupon paid per unit each period, in the asset's currency."""
         return self.face_value * self.coupon_rate / Decimal("100") / self.coupon_frequency
+
+
+# ---------------------------------------------------------------------------
+# RebalanceTarget (Tier 2 — rebalancing: target allocation)
+# ---------------------------------------------------------------------------
+
+
+class RebalanceTarget(models.Model):
+    """A user's desired weight for one asset within a portfolio (percent).
+
+    The rebalancing view compares these targets against the current allocation
+    (market value in base currency) and suggests how much to buy/sell to reach
+    them. Suggestions are produced only when the portfolio is fully priced and
+    convertible — we never rebalance against fabricated values.
+    """
+
+    portfolio = models.ForeignKey(
+        Portfolio,
+        on_delete=models.CASCADE,
+        related_name="rebalance_targets",
+    )
+    asset = models.ForeignKey(
+        Asset,
+        on_delete=models.PROTECT,
+        related_name="rebalance_targets",
+    )
+    # Desired share of the portfolio, in percent (0–100). Not money, but kept as
+    # Decimal for exact weight arithmetic.
+    target_weight = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        validators=[MinValueValidator(Decimal("0"))],
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-target_weight"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["portfolio", "asset"],
+                name="uniq_target_portfolio_asset",
+            )
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.asset.ticker} → {self.target_weight}% in {self.portfolio}"

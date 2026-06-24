@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load i18n portfolio_extras %}
+{% block title %}{% trans "Rebalance" %} · {{ portfolio.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{{ portfolio.name }} · {{ rebalance.base_currency }}</p>
+    <h1 class="page-header__title">{% trans "Rebalance" %}</h1>
+    <p class="page-header__sub">{% trans "Set a target weight per holding; we suggest how much to buy or sell to reach it." %}</p>
+  </div>
+  <div class="cluster">
+    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
+  </div>
+</div>
+
+{% if rebalance.rows %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{% trans "Asset" %}</th>
+            <th class="num">{% trans "Current" %}</th>
+            <th class="num">{% trans "Target, %" %}</th>
+            <th class="num">{% trans "Drift" %}</th>
+            <th>{% trans "Suggestion" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rebalance.rows %}
+            <tr>
+              <td>{{ row.asset.ticker }}{% if row.asset.name %} <span class="text-muted">· {{ row.asset.name }}</span>{% endif %}</td>
+              <td class="num">{{ row.current_weight|percent }}</td>
+              <td class="num">
+                <div class="field" style="margin:0;">
+                  <input type="number" step="0.01" min="0" inputmode="decimal"
+                         name="target_{{ row.asset.id }}"
+                         value="{{ row.target_percent|default_if_none:'' }}"
+                         aria-label="{% blocktrans with t=row.asset.ticker %}Target weight for {{ t }}{% endblocktrans %}"
+                         style="max-width:7rem; text-align:right;">
+                </div>
+              </td>
+              <td class="num {% if row.drift > 0 %}is-negative{% elif row.drift < 0 %}is-positive{% endif %}">{{ row.drift|percent }}</td>
+              <td>
+                {% if row.action == 'BUY' %}
+                  <span class="badge badge--buy">{% trans "Buy" %}</span> {{ row.amount|money }} {{ rebalance.base_currency }}
+                {% elif row.action == 'SELL' %}
+                  <span class="badge badge--sell">{% trans "Sell" %}</span> {{ row.amount|money }} {{ rebalance.base_currency }}
+                {% elif row.action == 'HOLD' %}
+                  <span class="text-muted">{% trans "On target" %}</span>
+                {% else %}
+                  <span class="text-muted">—</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">{% trans "Save targets" %}</button>
+    </div>
+  </form>
+  <p class="text-muted mt-6">
+    {% blocktrans with s=rebalance.target_sum %}Targets total: {{ s }}%.{% endblocktrans %}
+    {% if not rebalance.available %}
+      {% trans "Buy/sell amounts appear once every holding is priced and converts to the base currency — use “Refresh prices” on the portfolio." %}
+    {% endif %}
+  </p>
+{% else %}
+  <div class="empty-state">
+    <h2>{% trans "Nothing to rebalance yet" %}</h2>
+    <p>{% trans "Add holdings first, then set target weights to get buy/sell suggestions." %}</p>
+    <a class="btn btn--primary mt-6" href="{{ portfolio.get_absolute_url }}">{% trans "Back to portfolio" %}</a>
+  </div>
+{% endif %}
+{% endblock %}
