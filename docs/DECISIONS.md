@@ -1,5 +1,16 @@
 # Key decisions (ADR-lite)
 
+### Income forecast projects only deterministic bond coupons (Stage 8)
+Tier 3's #9 (dividend forecast / sectors / news) is gated on an external data
+source. The honest slice shipped now is a **bond-coupon income forecast**
+(`portfolio.forecast` + `bonds.upcoming_coupons`): a forward calendar of coupons
+due in the next 12 months, computed deterministically from the user's
+`BondDetail` (date + amount × quantity), per currency, grouped by month. Stock
+dividends are **not** forecast — projecting them from history would fabricate
+numbers, against the project's cardinal rule — and sector/news stay deferred
+until a provider exists. A MOEX dividends endpoint could later power a real RU
+stock-dividend forecast (needs live MOEX).
+
 ### PWA service worker is minimal and never caches data (Stage 8)
 Tier 3's PWA (#8) makes the site installable with a web app manifest, generated
 icons and a service worker. The worker is served from the **site root**

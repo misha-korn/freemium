@@ -1101,6 +1101,43 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "Freemium 需要网络连接才能显示你的投资组合。请检查网络后重试。",
     ),
     "Retry": ("Повторить", "Reintentar", "重试"),
+    # --- Tier 3: income forecast (#9, bond coupons) ---
+    "Income forecast": ("Прогноз дохода", "Previsión de ingresos", "收入预测"),
+    "Expected income": ("Ожидаемый доход", "Ingresos previstos", "预期收入"),
+    "Bond coupons due in the next %(m)s months, from the details you entered. "
+    "Stock dividends aren't forecast — that needs a data source.": (
+        "Купоны по облигациям за ближайшие %(m)s месяцев — из введённых вами "
+        "данных. Дивиденды по акциям не прогнозируются: для этого нужен источник данных.",
+        "Cupones de bonos en los próximos %(m)s meses, según los datos que "
+        "introdujiste. Los dividendos de acciones no se prevén — eso requiere una fuente de datos.",
+        "未来 %(m)s 个月内到期的债券票息（来自你录入的数据）。不预测股票股息——那需要数据源。",
+    ),
+    "Expected": ("Ожидается", "Previsto", "预期"),
+    "next %(m)s months": ("ближайшие %(m)s мес.", "próximos %(m)s meses", "未来 %(m)s 个月"),
+    "Covers bond coupons only and assumes you keep holding — it doesn't predict "
+    "price moves or stock dividends.": (
+        "Учитывает только купоны облигаций и предполагает, что вы продолжаете "
+        "держать бумаги — не предсказывает движение цен и дивиденды по акциям.",
+        "Solo cubre cupones de bonos y asume que mantienes las posiciones — no "
+        "predice movimientos de precio ni dividendos de acciones.",
+        "仅涵盖债券票息并假设你继续持有——不预测价格变动或股票股息。",
+    ),
+    "No upcoming income to forecast": (
+        "Нет предстоящего дохода для прогноза",
+        "No hay ingresos próximos para prever",
+        "暂无可预测的未来收入",
+    ),
+    "Your bonds have no coupons due in the forecast window.": (
+        "По вашим облигациям нет купонов в окне прогноза.",
+        "Tus bonos no tienen cupones en la ventana de previsión.",
+        "你的债券在预测窗口内没有票息。",
+    ),
+    "Add bonds with their coupon details to forecast coupon income here.": (
+        "Добавьте облигации с данными купона, чтобы прогнозировать купонный доход.",
+        "Añade bonos con sus datos de cupón para prever aquí los ingresos por cupones.",
+        "添加带票息数据的债券，即可在此预测票息收入。",
+    ),
+    "Forecast": ("Прогноз", "Previsión", "预测"),
 }
 
 # msgid -> (msgid_plural, {lang: (form0, form1, form2...)})

@@ -245,8 +245,13 @@
       site root (so its scope is the whole app) with an offline fallback page.
       Manifest/sw/offline live at `/manifest.webmanifest`, `/sw.js`, `/offline/`
       (`config.views`); `pwa.js` registers the worker.
-- [ ] **Dividend forecast / sectors / news (#9)** — needs a real data source;
-      sector stays deferred until a provider feeds one (we don't fabricate it).
+- [x] **Income forecast (#9, honest slice)** — a forward calendar of **bond
+      coupons** due in the next 12 months, computed deterministically from
+      `BondDetail` (`portfolio.forecast` + `bonds.upcoming_coupons`), per currency,
+      grouped by month. Linked from the Dividends page.
+- [ ] Stock **dividend forecast / sectors / news** — still needs a real data
+      source; sector stays deferred until a provider feeds one (we don't
+      fabricate it). Candidate: MOEX dividends endpoint for RU stocks.
 - [ ] **Public portfolios / sharing (#10)** — opt-in read-only public link.
 
 ### Stage 8 notes (PWA)
@@ -258,3 +263,10 @@
   `Cache-Control: no-cache` so updates propagate. Icons are generated PNGs
   (Pillow) in the brand teal; the offline page is self-contained (inline CSS) so
   it renders without any cached assets.
+
+### Stage 8 notes (income forecast)
+- The forecast only projects what's **deterministic**: bond coupons from the
+  user's `BondDetail` (date + amount × quantity), grouped by month and currency.
+  Stock dividends are deliberately **not** projected — guessing from history
+  would fabricate numbers; that waits for a forward-dividend data source. The
+  page says so plainly. It assumes the holding is kept and predicts no prices.

@@ -11,6 +11,7 @@
   </div>
   <div class="cluster">
     <a class="btn btn--primary" href="{% url 'portfolio:dividend_create' portfolio.pk %}">{% trans "+ Add dividend" %}</a>
+    <a class="btn btn--ghost" href="{% url 'portfolio:income_forecast' portfolio.pk %}">{% trans "Forecast" %}</a>
     <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
   </div>
 </div>

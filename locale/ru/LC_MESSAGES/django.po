@@ -1363,6 +1363,45 @@ msgstr ""
 msgid "Retry"
 msgstr "Повторить"
 
+msgid "Income forecast"
+msgstr "Прогноз дохода"
+
+msgid "Expected income"
+msgstr "Ожидаемый доход"
+
+msgid ""
+"Bond coupons due in the next %(m)s months, from the details you entered. "
+"Stock dividends aren't forecast — that needs a data source."
+msgstr ""
+"Купоны по облигациям за ближайшие %(m)s месяцев — из введённых вами данных. "
+"Дивиденды по акциям не прогнозируются: для этого нужен источник данных."
+
+msgid "Expected"
+msgstr "Ожидается"
+
+msgid "next %(m)s months"
+msgstr "ближайшие %(m)s мес."
+
+msgid ""
+"Covers bond coupons only and assumes you keep holding — it doesn't predict "
+"price moves or stock dividends."
+msgstr ""
+"Учитывает только купоны облигаций и предполагает, что вы продолжаете держать"
+" бумаги — не предсказывает движение цен и дивиденды по акциям."
+
+msgid "No upcoming income to forecast"
+msgstr "Нет предстоящего дохода для прогноза"
+
+msgid "Your bonds have no coupons due in the forecast window."
+msgstr "По вашим облигациям нет купонов в окне прогноза."
+
+msgid "Add bonds with their coupon details to forecast coupon income here."
+msgstr ""
+"Добавьте облигации с данными купона, чтобы прогнозировать купонный доход."
+
+msgid "Forecast"
+msgstr "Прогноз"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s портфель"
