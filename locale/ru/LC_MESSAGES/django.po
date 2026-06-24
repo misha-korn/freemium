@@ -1290,6 +1290,63 @@ msgstr "Некоторые цели некорректны и пропущены
 msgid "Targets add up to %(sum)s%% — over 100%%."
 msgstr "Сумма целей — %(sum)s%% (больше 100%%)."
 
+msgid "Splits"
+msgstr "Сплиты"
+
+msgid "Stock split"
+msgstr "Сплит акций"
+
+msgid "Stock splits"
+msgstr "Сплиты акций"
+
+msgid ""
+"Record a split so share count and cost basis stay correct. A 2-for-1 split "
+"is new 2, old 1; a 1-for-10 reverse split is new 1, old 10."
+msgstr ""
+"Запишите сплит, чтобы число акций и себестоимость остались верными. Сплит 2 "
+"к 1 — новые 2, старые 1; обратный 1 к 10 — новые 1, старые 10."
+
+msgid "Add split"
+msgstr "Добавить сплит"
+
+msgid "Recorded splits"
+msgstr "Записанные сплиты"
+
+msgid "Effective date"
+msgstr "Дата вступления"
+
+msgid "New shares"
+msgstr "Новые акции"
+
+msgid "Old shares"
+msgstr "Старые акции"
+
+msgid "Ratio (new : old)"
+msgstr "Коэффициент (новые : старые)"
+
+msgid ""
+"Trades dated before a split are replayed at the adjusted share count and "
+"price, so quantity matches today and the cost basis is unchanged."
+msgstr ""
+"Сделки до сплита пересчитываются по скорректированному числу акций и цене, "
+"поэтому количество совпадает с сегодняшним, а себестоимость не меняется."
+
+msgid ""
+"No splits recorded. Most portfolios need none — add one only when a holding "
+"actually split."
+msgstr ""
+"Сплиты не записаны. Большинству портфелей они не нужны — добавляйте только "
+"если по бумаге действительно был сплит."
+
+msgid "Corporate action saved."
+msgstr "Корпоративное событие сохранено."
+
+msgid "Corporate action removed."
+msgstr "Корпоративное событие удалено."
+
+msgid "Shares must be greater than zero."
+msgstr "Число акций должно быть больше нуля."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s портфель"

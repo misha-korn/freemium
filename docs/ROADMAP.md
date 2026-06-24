@@ -186,8 +186,12 @@
       in base currency) to its target and suggests the base-currency amount to
       buy/sell. A Rebalance page edits targets inline. Suggestions appear only
       when fully priced + convertible; targets are editable regardless.
-- [ ] **Corporate actions (#7)** — at least stock splits, so cost basis and
-      quantity don't break on a split.
+- [x] **Corporate actions (#7)** — stock splits: a `CorporateAction` (split
+      ratio new:old + effective date) per asset. `portfolio.corporate_actions`
+      replays pre-split trades at the adjusted share count/price, so quantity
+      matches today and the cost basis is unchanged. Applied consistently in
+      `compute_positions`, the FIFO tax report and `held_quantity` (validation).
+      A Splits page adds/removes them.
 
 ### Stage 7 notes (broker import)
 - **Tolerant by design**: broker layouts vary and carry preamble/summary rows, so
@@ -220,3 +224,14 @@
   so rounding noise doesn't produce spurious trades. Targets for not-yet-held
   assets are supported (suggest a full buy). Amounts are base-currency; unit
   counts aren't suggested (price/lot rounding is left to the user).
+
+### Stage 7 notes (corporate actions) — Tier 2 complete
+- A split adjusts only the **share count and per-unit price**; the cost basis is
+  preserved. Trades before the effective date are replayed at quantity × factor,
+  price ÷ factor (factor = new ÷ old); a trade on/after the date is untouched.
+- The same `corporate_actions` helper is used by `compute_positions`, the FIFO
+  tax report and `held_quantity`, so positions, realized gains and the
+  sell-more-than-held check all agree on split-adjusted shares. No splits ⇒ a
+  no-op, so the common case is unchanged.
+- **Tier 2 done**: broker import, bonds, rebalancing, corporate actions.
+  Remaining Tier 2 follow-up: MOEX bonds-market pricing (needs live MOEX).

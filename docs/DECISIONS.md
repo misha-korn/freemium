@@ -159,6 +159,18 @@ once ≥2 snapshots exist; the invested-capital chart stays for day one. A bench
 overlay (index level snapshotted in parallel, rebased to 100) is the next
 increment — it needs an index data source.
 
+### Corporate actions: splits adjust trade replay, cost basis preserved (Stage 7)
+Tier 2 corporate actions (#7) handle stock splits. A `CorporateAction` stores the
+ratio (new:old) + effective date; `portfolio.corporate_actions` replays each trade
+executed **before** the split at quantity × factor and price ÷ factor (factor =
+new ÷ old), so cost (quantity × price) is preserved while the share count and
+average cost land in today's post-split terms. The same helper is applied in
+`compute_positions`, the FIFO tax report and `held_quantity` so positions, realized
+gains and the over-sell guard all agree on adjusted shares; with no splits it's a
+no-op, leaving the common case (and all prior tests) unchanged. Splits are global
+(on the shared `Asset`), edited from a per-portfolio Splits page scoped to traded
+assets — consistent with how asset name / bond details are shared.
+
 ### Rebalancing: suggest only when priced; hold band; base-currency amounts (Stage 7)
 Tier 2 rebalancing (#6) stores a `RebalanceTarget` (target weight % per asset) and
 `portfolio.rebalance.build_rebalance` compares each holding's current weight

@@ -1267,6 +1267,57 @@ msgstr ""
 msgid "Targets add up to %(sum)s%% — over 100%%."
 msgstr ""
 
+msgid "Splits"
+msgstr ""
+
+msgid "Stock split"
+msgstr ""
+
+msgid "Stock splits"
+msgstr ""
+
+msgid ""
+"Record a split so share count and cost basis stay correct. A 2-for-1 split "
+"is new 2, old 1; a 1-for-10 reverse split is new 1, old 10."
+msgstr ""
+
+msgid "Add split"
+msgstr ""
+
+msgid "Recorded splits"
+msgstr ""
+
+msgid "Effective date"
+msgstr ""
+
+msgid "New shares"
+msgstr ""
+
+msgid "Old shares"
+msgstr ""
+
+msgid "Ratio (new : old)"
+msgstr ""
+
+msgid ""
+"Trades dated before a split are replayed at the adjusted share count and "
+"price, so quantity matches today and the cost basis is unchanged."
+msgstr ""
+
+msgid ""
+"No splits recorded. Most portfolios need none — add one only when a holding "
+"actually split."
+msgstr ""
+
+msgid "Corporate action saved."
+msgstr ""
+
+msgid "Corporate action removed."
+msgstr ""
+
+msgid "Shares must be greater than zero."
+msgstr ""
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s portefeuille"

@@ -16,6 +16,8 @@ from datetime import datetime
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
+from .corporate_actions import adjusted_quantity_price, splits_by_asset
+
 if TYPE_CHECKING:
     from .models import Asset, Portfolio
 
@@ -45,7 +47,12 @@ class RealizedLot:
 
 def realized_gains(portfolio: Portfolio, *, year: int | None = None) -> list[RealizedLot]:
     """Return realized lots for ``portfolio``, optionally filtered by sell year."""
-    txns = portfolio.transactions.select_related("asset").order_by("executed_at", "id")
+    txns = list(
+        portfolio.transactions.select_related("asset").order_by("executed_at", "id")
+    )
+    # Split-adjust trades so share counts/prices are on today's terms (cost basis
+    # preserved). No splits ⇒ a no-op (see corporate_actions).
+    splits = splits_by_asset(txn.asset_id for txn in txns)
 
     # Per-asset FIFO queue of open buy lots: [remaining_qty, unit_cost, acquired_at].
     queues: dict[int, list[list]] = {}
@@ -53,18 +60,19 @@ def realized_gains(portfolio: Portfolio, *, year: int | None = None) -> list[Rea
 
     for txn in txns:
         queue = queues.setdefault(txn.asset_id, [])
+        txn_qty, txn_price = adjusted_quantity_price(txn, splits.get(txn.asset_id))
 
         if txn.kind == "BUY":
-            unit_cost = (txn.price * txn.quantity + txn.fee) / txn.quantity
-            queue.append([txn.quantity, unit_cost, txn.executed_at])
+            unit_cost = (txn_price * txn_qty + txn.fee) / txn_qty
+            queue.append([txn_qty, unit_cost, txn.executed_at])
             continue
 
-        if txn.kind != "SELL" or txn.quantity <= 0:
+        if txn.kind != "SELL" or txn_qty <= 0:
             continue
 
         # Net per-unit proceeds: gross less this sell's fee, spread over the qty sold.
-        unit_proceeds = (txn.price * txn.quantity - txn.fee) / txn.quantity
-        remaining = txn.quantity
+        unit_proceeds = (txn_price * txn_qty - txn.fee) / txn_qty
+        remaining = txn_qty
 
         while remaining > 0 and queue:
             lot = queue[0]

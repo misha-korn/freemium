@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models import (
     Asset,
     BondDetail,
+    CorporateAction,
     DividendPayment,
     Portfolio,
     PortfolioSnapshot,
@@ -90,3 +91,12 @@ class RebalanceTargetAdmin(admin.ModelAdmin):
     list_display = ("portfolio", "asset", "target_weight", "updated_at")
     search_fields = ("portfolio__name", "asset__ticker")
     autocomplete_fields = ("portfolio", "asset")
+
+
+@admin.register(CorporateAction)
+class CorporateActionAdmin(admin.ModelAdmin):
+    list_display = ("asset", "kind", "effective_date", "new_shares", "old_shares")
+    list_filter = ("kind",)
+    search_fields = ("asset__ticker", "asset__name")
+    autocomplete_fields = ("asset",)
+    date_hierarchy = "effective_date"

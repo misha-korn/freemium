@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Splits" %} · {{ portfolio.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">{{ portfolio.name }}</p>
+    <h1 class="page-header__title">{% trans "Stock splits" %}</h1>
+    <p class="page-header__sub">{% trans "Record a split so share count and cost basis stay correct. A 2-for-1 split is new 2, old 1; a 1-for-10 reverse split is new 1, old 10." %}</p>
+  </div>
+  <div class="cluster">
+    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
+  </div>
+</div>
+
+<div class="card form-card">
+  <form class="form" method="post" novalidate>
+    {% csrf_token %}
+    {% include "partials/form_fields.html" %}
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit">{% trans "Add split" %}</button>
+    </div>
+  </form>
+</div>
+
+{% if actions %}
+  <h2 class="card__title mt-6">{% trans "Recorded splits" %}</h2>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{% trans "Asset" %}</th><th>{% trans "Effective date" %}</th>
+          <th class="num">{% trans "Ratio (new : old)" %}</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for action in actions %}
+          <tr>
+            <td>{{ action.asset.ticker }}{% if action.asset.name %} <span class="text-muted">· {{ action.asset.name }}</span>{% endif %}</td>
+            <td>{{ action.effective_date|date:"Y-m-d" }}</td>
+            <td class="num">{{ action.new_shares|floatformat:"-8" }} : {{ action.old_shares|floatformat:"-8" }}</td>
+            <td class="text-right">
+              <form method="post" action="{% url 'portfolio:corporate_action_delete' portfolio.pk action.pk %}" class="cluster__inline">
+                {% csrf_token %}
+                <button class="btn btn--ghost" type="submit">{% trans "delete" %}</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="text-muted mt-6">{% trans "Trades dated before a split are replayed at the adjusted share count and price, so quantity matches today and the cost basis is unchanged." %}</p>
+{% else %}
+  <p class="text-muted mt-6">{% trans "No splits recorded. Most portfolios need none — add one only when a holding actually split." %}</p>
+{% endif %}
+{% endblock %}
