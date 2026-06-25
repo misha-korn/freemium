@@ -53,7 +53,7 @@ def test_forecast_scales_by_quantity_and_groups_by_month(user):
     result = income_forecast(pf, months=12, as_of=date(2024, 3, 1))
 
     # Two coupons in the next 12 months (Jul 2024, Jan 2025), 40 * 10 = 400 each.
-    assert result["has_bond_details"] is True
+    assert result["has_events"] is True
     assert result["currency_totals"]["RUB"] == Decimal("800.00")
     assert [(g["year"], g["month"]) for g in result["months"]] == [(2024, 7), (2025, 1)]
     assert result["months"][0]["events"][0]["amount"] == Decimal("400.00")
@@ -72,7 +72,7 @@ def test_forecast_empty_without_bond_details(user):
         executed_at=datetime(2024, 1, 10, tzinfo=UTC),
     )
     result = income_forecast(pf, as_of=date(2024, 3, 1))
-    assert result["has_bond_details"] is False
+    assert result["has_events"] is False
     assert result["months"] == []
 
 
@@ -97,7 +97,7 @@ def test_forecast_page_renders(auth_client, user):
     pf, _asset = _bond_holding(user, maturity=date(2030, 1, 1))
     resp = auth_client.get(reverse("portfolio:income_forecast", kwargs={"pk": pf.pk}))
     assert resp.status_code == 200
-    assert resp.context["forecast"]["has_bond_details"] is True
+    assert resp.context["forecast"]["has_events"] is True
 
 
 @pytest.mark.django_db

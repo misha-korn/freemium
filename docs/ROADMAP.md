@@ -254,9 +254,13 @@
       `marketdata.dividends` (`AssetDividend`), recorded as `DividendPayment`
       using shares held before each ex-date (`portfolio.dividend_import`). A
       "Pull from market" button on the Dividends page; facts only, deduped.
-- [ ] Stock **dividend forward estimate + yield** — next increment: estimate
-      upcoming dividends from the imported history (cadence × latest), clearly
-      labelled. Sectors / news still need a data source (sector stays deferred).
+- [x] **Stock dividend forward estimate + yield** — the income forecast now adds
+      estimated upcoming dividends (`dividend_estimate`: infer cadence from the
+      imported history, project latest per-share × shares), clearly labelled
+      *estimate* next to *scheduled* bond coupons, plus trailing-12m
+      yield-on-cost per currency. Only estimates with ≥2 real dividends.
+- [ ] **Sectors / news** — still need a data source; sector stays deferred until
+      a provider feeds one (we don't fabricate it).
 - [x] **Public portfolios / sharing (#10)** — opt-in, token-gated read-only
       public link at `/p/<token>/` (`PublicPortfolioView`). Shows composition
       (allocation donuts + per-holding weights) and returns (%) only — **never**

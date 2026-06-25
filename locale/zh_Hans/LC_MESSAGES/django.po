@@ -1388,6 +1388,37 @@ msgid ""
 "tickers."
 msgstr "未找到新股息——可能已是最新，或没有数据源覆盖这些代码。"
 
+msgid ""
+"Income due in the next %(m)s months: bond coupons (scheduled) and stock "
+"dividends (estimated from history)."
+msgstr "未来 %(m)s 个月的收入：债券票息（按计划）和股票股息（根据历史估算）。"
+
+msgid "Annual dividends"
+msgstr "年度股息"
+
+msgid "trailing 12 months"
+msgstr "过去 12 个月"
+
+msgid "Amount"
+msgstr "金额"
+
+msgid "(estimate)"
+msgstr "（估算）"
+
+msgid ""
+"Stock dividends are estimates: the latest dividend, repeated at its usual "
+"cadence × your shares. Real amounts and dates may differ; bond coupons are "
+"scheduled, not estimated."
+msgstr "股票股息为估算：以最近一次股息按通常的频率 × 你的股数重复。实际金额和日期可能不同；债券票息为按计划，非估算。"
+
+msgid "Bond coupons are scheduled from the details you entered."
+msgstr "债券票息按你录入的数据排定。"
+
+msgid ""
+"Add bonds with coupon details, or pull dividend history on the Dividends "
+"page, to see expected income here."
+msgstr "在「股息」页添加带票息数据的债券，或导入股息历史，即可在此查看预期收入。"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"
