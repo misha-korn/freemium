@@ -11,6 +11,10 @@
   </div>
   <div class="cluster">
     <a class="btn btn--primary" href="{% url 'portfolio:dividend_create' portfolio.pk %}">{% trans "+ Add dividend" %}</a>
+    <form method="post" action="{% url 'portfolio:pull_dividends' portfolio.pk %}" class="cluster__inline">
+      {% csrf_token %}
+      <button class="btn btn--ghost" type="submit">{% trans "↻ Pull from market" %}</button>
+    </form>
     <a class="btn btn--ghost" href="{% url 'portfolio:income_forecast' portfolio.pk %}">{% trans "Forecast" %}</a>
     <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
   </div>

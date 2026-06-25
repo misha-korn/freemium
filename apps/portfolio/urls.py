@@ -70,6 +70,8 @@ urlpatterns = [
         views.DividendDeleteView.as_view(),
         name="dividend_delete",
     ),
+    # Dividend auto-import from market data (Tier 3 #9)
+    path("<int:pk>/dividends/pull/", views.PullDividendsView.as_view(), name="pull_dividends"),
     # Income forecast — expected bond coupons (Tier 3 #9)
     path("<int:pk>/income/", views.IncomeForecastView.as_view(), name="income_forecast"),
     # Bonds — НКД / coupons / maturity (Tier 2 #5)

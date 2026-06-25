@@ -1374,6 +1374,20 @@ msgstr "投资组合现已公开——任何拥有链接的人都可查看。"
 msgid "Portfolio is private again."
 msgstr "投资组合已恢复私密。"
 
+msgid "↻ Pull from market"
+msgstr "↻ 从市场获取"
+
+msgid "Imported %(n)s dividend payment(s) from market data."
+msgstr "已从市场数据导入 %(n)s 笔股息。"
+
+msgid "No stocks or ETFs to look up dividends for yet."
+msgstr "暂无可查询股息的股票或 ETF。"
+
+msgid ""
+"No new dividends found — you're up to date, or no source covers these "
+"tickers."
+msgstr "未找到新股息——可能已是最新，或没有数据源覆盖这些代码。"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"

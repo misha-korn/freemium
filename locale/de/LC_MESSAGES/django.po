@@ -1420,6 +1420,20 @@ msgstr ""
 msgid "Portfolio is private again."
 msgstr ""
 
+msgid "↻ Pull from market"
+msgstr ""
+
+msgid "Imported %(n)s dividend payment(s) from market data."
+msgstr ""
+
+msgid "No stocks or ETFs to look up dividends for yet."
+msgstr ""
+
+msgid ""
+"No new dividends found — you're up to date, or no source covers these "
+"tickers."
+msgstr ""
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s Portfolio"

@@ -72,3 +72,38 @@ class PriceAlert(models.Model):
 
     def __str__(self) -> str:
         return f"{self.user} {self.asset} {self.direction} {self.threshold}"
+
+
+class AssetDividend(models.Model):
+    """A real, per-share dividend record for an asset, from a market provider.
+
+    Global reference data (like ``PriceQuote``): the **per-share** amount paid on
+    an ex-date, fetched from Twelve Data (international) or MOEX ISS (RU). Used to
+    auto-import a user's dividend history (per-share × shares held on the date)
+    and, later, to estimate forward income. Money rule: amount is Decimal.
+    """
+
+    asset = models.ForeignKey(
+        "portfolio.Asset",
+        on_delete=models.CASCADE,
+        related_name="dividend_records",
+    )
+    ex_date = models.DateField()
+    # Per-share amount in `currency`. Decimal only — never FloatField.
+    amount = models.DecimalField(max_digits=20, decimal_places=8)
+    currency = models.CharField(max_length=3)
+    source = models.CharField(max_length=40)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-ex_date"]
+        indexes = [models.Index(fields=["asset", "-ex_date"])]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["asset", "ex_date", "source"],
+                name="uniq_dividend_asset_exdate_source",
+            )
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.asset} {self.amount} {self.currency} ex {self.ex_date}"
