@@ -1476,6 +1476,44 @@ msgstr ""
 "Новых дивидендов не найдено — либо всё уже есть, либо по этим тикерам нет "
 "источника."
 
+msgid ""
+"Income due in the next %(m)s months: bond coupons (scheduled) and stock "
+"dividends (estimated from history)."
+msgstr ""
+"Доход за ближайшие %(m)s месяцев: купоны облигаций (по графику) и дивиденды "
+"акций (оценка по истории)."
+
+msgid "Annual dividends"
+msgstr "Дивиденды за год"
+
+msgid "trailing 12 months"
+msgstr "за последние 12 месяцев"
+
+msgid "Amount"
+msgstr "Сумма"
+
+msgid "(estimate)"
+msgstr "(оценка)"
+
+msgid ""
+"Stock dividends are estimates: the latest dividend, repeated at its usual "
+"cadence × your shares. Real amounts and dates may differ; bond coupons are "
+"scheduled, not estimated."
+msgstr ""
+"Дивиденды акций — оценка: последняя выплата, повторённая с обычной "
+"периодичностью × ваши акции. Реальные суммы и даты могут отличаться; купоны "
+"облигаций — по графику, не оценка."
+
+msgid "Bond coupons are scheduled from the details you entered."
+msgstr "Купоны облигаций — по графику из введённых вами данных."
+
+msgid ""
+"Add bonds with coupon details, or pull dividend history on the Dividends "
+"page, to see expected income here."
+msgstr ""
+"Добавьте облигации с данными купона или подтяните историю дивидендов на "
+"странице «Дивиденды», чтобы видеть ожидаемый доход здесь."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s портфель"

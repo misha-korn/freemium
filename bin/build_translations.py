@@ -1209,6 +1209,43 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "No se encontraron dividendos nuevos — ya está al día o ninguna fuente cubre estos tickers.",
         "未找到新股息——可能已是最新，或没有数据源覆盖这些代码。",
     ),
+    # --- Tier 3: dividend forward estimate + yield (#9) ---
+    "Income due in the next %(m)s months: bond coupons (scheduled) and stock "
+    "dividends (estimated from history).": (
+        "Доход за ближайшие %(m)s месяцев: купоны облигаций (по графику) и "
+        "дивиденды акций (оценка по истории).",
+        "Ingresos de los próximos %(m)s meses: cupones de bonos (programados) y "
+        "dividendos de acciones (estimados a partir del historial).",
+        "未来 %(m)s 个月的收入：债券票息（按计划）和股票股息（根据历史估算）。",
+    ),
+    "Annual dividends": ("Дивиденды за год", "Dividendos anuales", "年度股息"),
+    "trailing 12 months": ("за последние 12 месяцев", "últimos 12 meses", "过去 12 个月"),
+    "Amount": ("Сумма", "Importe", "金额"),
+    "(estimate)": ("(оценка)", "(estimación)", "（估算）"),
+    "Stock dividends are estimates: the latest dividend, repeated at its usual "
+    "cadence × your shares. Real amounts and dates may differ; bond coupons are "
+    "scheduled, not estimated.": (
+        "Дивиденды акций — оценка: последняя выплата, повторённая с обычной "
+        "периодичностью × ваши акции. Реальные суммы и даты могут отличаться; "
+        "купоны облигаций — по графику, не оценка.",
+        "Los dividendos de acciones son estimaciones: el último dividendo, "
+        "repetido con su cadencia habitual × tus acciones. Importes y fechas "
+        "reales pueden variar; los cupones de bonos son programados, no estimados.",
+        "股票股息为估算：以最近一次股息按通常的频率 × 你的股数重复。实际金额和日期可能不同；债券票息为按计划，非估算。",
+    ),
+    "Bond coupons are scheduled from the details you entered.": (
+        "Купоны облигаций — по графику из введённых вами данных.",
+        "Los cupones de bonos están programados según los datos que introdujiste.",
+        "债券票息按你录入的数据排定。",
+    ),
+    "Add bonds with coupon details, or pull dividend history on the Dividends "
+    "page, to see expected income here.": (
+        "Добавьте облигации с данными купона или подтяните историю дивидендов на "
+        "странице «Дивиденды», чтобы видеть ожидаемый доход здесь.",
+        "Añade bonos con datos de cupón, o importa el historial de dividendos en "
+        "la página de Dividendos, para ver aquí los ingresos previstos.",
+        "在「股息」页添加带票息数据的债券，或导入股息历史，即可在此查看预期收入。",
+    ),
 }
 
 # msgid -> (msgid_plural, {lang: (form0, form1, form2...)})

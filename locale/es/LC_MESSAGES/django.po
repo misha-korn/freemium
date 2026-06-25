@@ -1480,6 +1480,45 @@ msgstr ""
 "No se encontraron dividendos nuevos — ya está al día o ninguna fuente cubre "
 "estos tickers."
 
+msgid ""
+"Income due in the next %(m)s months: bond coupons (scheduled) and stock "
+"dividends (estimated from history)."
+msgstr ""
+"Ingresos de los próximos %(m)s meses: cupones de bonos (programados) y "
+"dividendos de acciones (estimados a partir del historial)."
+
+msgid "Annual dividends"
+msgstr "Dividendos anuales"
+
+msgid "trailing 12 months"
+msgstr "últimos 12 meses"
+
+msgid "Amount"
+msgstr "Importe"
+
+msgid "(estimate)"
+msgstr "(estimación)"
+
+msgid ""
+"Stock dividends are estimates: the latest dividend, repeated at its usual "
+"cadence × your shares. Real amounts and dates may differ; bond coupons are "
+"scheduled, not estimated."
+msgstr ""
+"Los dividendos de acciones son estimaciones: el último dividendo, repetido "
+"con su cadencia habitual × tus acciones. Importes y fechas reales pueden "
+"variar; los cupones de bonos son programados, no estimados."
+
+msgid "Bond coupons are scheduled from the details you entered."
+msgstr ""
+"Los cupones de bonos están programados según los datos que introdujiste."
+
+msgid ""
+"Add bonds with coupon details, or pull dividend history on the Dividends "
+"page, to see expected income here."
+msgstr ""
+"Añade bonos con datos de cupón, o importa el historial de dividendos en la "
+"página de Dividendos, para ver aquí los ingresos previstos."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"

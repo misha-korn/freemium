@@ -12,6 +12,18 @@ they hold without revealing their net worth. The owner toggles publish /
 make-private on a Share page; making it private 404s the link again. (Regression
 tests assert money and owner identity never appear on the public page.)
 
+### Dividend forward estimate: labelled, cadence-inferred, never a fact (Stage 8)
+With real dividend history imported, the income forecast adds a stock-dividend
+**estimate** (`dividend_estimate`): infer the payout cadence from past ex-dates
+(median gap snapped to monthly/quarterly/semi-annual/annual), then project the
+latest per-share amount × shares forward over the horizon. Estimates require **≥2
+real dividends** (one point can't fix a cadence — we don't guess) and are tagged
+`estimate=True` so the forecast UI renders them as "(estimate)" beside the
+*scheduled* bond coupons, with a footnote that real amounts/dates may differ.
+Trailing-12-month dividends (a real figure) drive a per-currency yield-on-cost.
+This keeps the strict "no fabricated facts" rule while still giving a useful
+forward view — the estimate is clearly disclosed as such (user-approved).
+
 ### Stock dividend auto-import: real facts, two free-ish sources (Stage 8)
 The "no data source" gap for stock dividends is closed for **history** first.
 `marketdata.dividends` fetches real per-share dividends from **Twelve Data**

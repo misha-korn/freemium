@@ -1436,6 +1436,37 @@ msgid ""
 "tickers."
 msgstr ""
 
+msgid ""
+"Income due in the next %(m)s months: bond coupons (scheduled) and stock "
+"dividends (estimated from history)."
+msgstr ""
+
+msgid "Annual dividends"
+msgstr ""
+
+msgid "trailing 12 months"
+msgstr ""
+
+msgid "Amount"
+msgstr ""
+
+msgid "(estimate)"
+msgstr ""
+
+msgid ""
+"Stock dividends are estimates: the latest dividend, repeated at its usual "
+"cadence × your shares. Real amounts and dates may differ; bond coupons are "
+"scheduled, not estimated."
+msgstr ""
+
+msgid "Bond coupons are scheduled from the details you entered."
+msgstr ""
+
+msgid ""
+"Add bonds with coupon details, or pull dividend history on the Dividends "
+"page, to see expected income here."
+msgstr ""
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s portefeuille"
