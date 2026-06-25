@@ -1192,6 +1192,23 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "La cartera vuelve a ser privada.",
         "投资组合已恢复私密。",
     ),
+    # --- Tier 3: dividend auto-import (#9, facts) ---
+    "↻ Pull from market": ("↻ Подтянуть из рынка", "↻ Obtener del mercado", "↻ 从市场获取"),
+    "Imported %(n)s dividend payment(s) from market data.": (
+        "Импортировано выплат из рыночных данных: %(n)s.",
+        "Se importaron %(n)s pago(s) de dividendos desde datos de mercado.",
+        "已从市场数据导入 %(n)s 笔股息。",
+    ),
+    "No stocks or ETFs to look up dividends for yet.": (
+        "Пока нет акций или ETF, по которым искать дивиденды.",
+        "Aún no hay acciones ni ETF para buscar dividendos.",
+        "暂无可查询股息的股票或 ETF。",
+    ),
+    "No new dividends found — you're up to date, or no source covers these tickers.": (
+        "Новых дивидендов не найдено — либо всё уже есть, либо по этим тикерам нет источника.",
+        "No se encontraron dividendos nuevos — ya está al día o ninguna fuente cubre estos tickers.",
+        "未找到新股息——可能已是最新，或没有数据源覆盖这些代码。",
+    ),
 }
 
 # msgid -> (msgid_plural, {lang: (form0, form1, form2...)})

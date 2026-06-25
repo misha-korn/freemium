@@ -28,6 +28,7 @@ from . import exports
 from .allocation import build_allocation, chart_payload
 from .bonds import bond_summary
 from .broker_import import import_broker_xlsx
+from .dividend_import import import_dividends
 from .forecast import income_forecast
 from .forms import (
     AssetForm,
@@ -434,6 +435,28 @@ class DividendUpdateView(_OwnedDividendMixin, UpdateView):
 
 class DividendDeleteView(_OwnedDividendMixin, DeleteView):
     template_name = "portfolio/dividend_confirm_delete.html"
+
+
+class PullDividendsView(LoginRequiredMixin, View):
+    """POST-only: import real dividend history from market data (Tier 3 #9)."""
+
+    def post(self, request: HttpRequest, pk: int, *a: Any, **k: Any) -> HttpResponse:
+        portfolio = get_object_or_404(Portfolio, pk=pk, owner=request.user)
+        result = import_dividends(portfolio)
+        if result["created"]:
+            messages.success(
+                request,
+                _("Imported %(n)s dividend payment(s) from market data.")
+                % {"n": result["created"]},
+            )
+        elif result["assets"] == 0:
+            messages.info(request, _("No stocks or ETFs to look up dividends for yet."))
+        else:
+            messages.info(
+                request,
+                _("No new dividends found — you're up to date, or no source covers these tickers."),
+            )
+        return redirect("portfolio:dividends", pk=pk)
 
 
 class IncomeForecastView(_OwnedPortfolioMixin, DetailView):

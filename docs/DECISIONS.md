@@ -12,6 +12,21 @@ they hold without revealing their net worth. The owner toggles publish /
 make-private on a Share page; making it private 404s the link again. (Regression
 tests assert money and owner identity never appear on the public page.)
 
+### Stock dividend auto-import: real facts, two free-ish sources (Stage 8)
+The "no data source" gap for stock dividends is closed for **history** first.
+`marketdata.dividends` fetches real per-share dividends from **Twelve Data**
+(international, `TWELVE_DATA_API_KEY`) and **MOEX ISS** (RU, no key), stored as
+global `AssetDividend` rows (like `PriceQuote`). `portfolio.dividend_import`
+records a `DividendPayment` per past dividend using the shares **actually held
+before that ex-date** (as-recorded counts that match the provider's historical
+per-share amount) — a real figure, not a guess. It covers assets ever traded (so
+a dividend received while held but since sold is captured), is idempotent
+(deduped on asset+ex-date), and runs from a "Pull from market" button (free tier
+has no worker, so inline + cached 12h). The forward *estimate* + yield are a
+separate next increment so the "facts" stay cleanly separated from any
+projection. Twelve Data's free tier returns full history with a date range, so
+cadence can be inferred there later.
+
 ### Income forecast projects only deterministic bond coupons (Stage 8)
 Tier 3's #9 (dividend forecast / sectors / news) is gated on an external data
 source. The honest slice shipped now is a **bond-coupon income forecast**

@@ -249,9 +249,14 @@
       coupons** due in the next 12 months, computed deterministically from
       `BondDetail` (`portfolio.forecast` + `bonds.upcoming_coupons`), per currency,
       grouped by month. Linked from the Dividends page.
-- [ ] Stock **dividend forecast / sectors / news** — still needs a real data
-      source; sector stays deferred until a provider feeds one (we don't
-      fabricate it). Candidate: MOEX dividends endpoint for RU stocks.
+- [x] **Stock dividend history auto-import** — real per-share dividends from
+      **Twelve Data** (international) + **MOEX ISS** (RU) via
+      `marketdata.dividends` (`AssetDividend`), recorded as `DividendPayment`
+      using shares held before each ex-date (`portfolio.dividend_import`). A
+      "Pull from market" button on the Dividends page; facts only, deduped.
+- [ ] Stock **dividend forward estimate + yield** — next increment: estimate
+      upcoming dividends from the imported history (cadence × latest), clearly
+      labelled. Sectors / news still need a data source (sector stays deferred).
 - [x] **Public portfolios / sharing (#10)** — opt-in, token-gated read-only
       public link at `/p/<token>/` (`PublicPortfolioView`). Shows composition
       (allocation donuts + per-holding weights) and returns (%) only — **never**

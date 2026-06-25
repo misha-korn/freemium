@@ -1464,6 +1464,22 @@ msgstr "La cartera ahora es pública — cualquiera con el enlace puede verla."
 msgid "Portfolio is private again."
 msgstr "La cartera vuelve a ser privada."
 
+msgid "↻ Pull from market"
+msgstr "↻ Obtener del mercado"
+
+msgid "Imported %(n)s dividend payment(s) from market data."
+msgstr "Se importaron %(n)s pago(s) de dividendos desde datos de mercado."
+
+msgid "No stocks or ETFs to look up dividends for yet."
+msgstr "Aún no hay acciones ni ETF para buscar dividendos."
+
+msgid ""
+"No new dividends found — you're up to date, or no source covers these "
+"tickers."
+msgstr ""
+"No se encontraron dividendos nuevos — ya está al día o ninguna fuente cubre "
+"estos tickers."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"
