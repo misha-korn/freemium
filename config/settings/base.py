@@ -305,6 +305,10 @@ PRO_PERIOD_DAYS = env.int("PRO_PERIOD_DAYS", default=30)
 FREE_MAX_PORTFOLIOS = env.int("FREE_MAX_PORTFOLIOS", default=1)
 # Shared secret used to sign/verify webhooks (HMAC). Required in prod.
 BILLING_WEBHOOK_SECRET = env("BILLING_WEBHOOK_SECRET", default="dev-webhook-secret")
+# YooKassa (RU payments). Set both to go live with BILLING_PROVIDER=yookassa +
+# BILLING_ENABLED=True. Empty by default — the dev provider stays in charge.
+YOOKASSA_SHOP_ID = env("YOOKASSA_SHOP_ID", default="")
+YOOKASSA_SECRET_KEY = env("YOOKASSA_SECRET_KEY", default="")
 
 # --------------------------------------------------------------------------- #
 # Notifications (Stage 5)

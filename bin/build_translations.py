@@ -1246,6 +1246,13 @@ TRANSLATIONS: dict[str, tuple[str, str, str]] = {
         "la página de Dividendos, para ver aquí los ingresos previstos.",
         "在「股息」页添加带票息数据的债券，或导入股息历史，即可在此查看预期收入。",
     ),
+    # --- Tier 4: payments / public offer ---
+    "Offer": ("Оферта", "Oferta", "要约"),
+    'By paying you agree to the <a href="%(offer_url)s">public offer</a>.': (
+        'Оплачивая, вы соглашаетесь с <a href="%(offer_url)s">публичной офертой</a>.',
+        'Al pagar, aceptas la <a href="%(offer_url)s">oferta pública</a>.',
+        '付款即表示你同意<a href="%(offer_url)s">公开要约</a>。',
+    ),
 }
 
 # msgid -> (msgid_plural, {lang: (form0, form1, form2...)})

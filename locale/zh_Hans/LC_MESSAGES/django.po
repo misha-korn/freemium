@@ -1419,6 +1419,12 @@ msgid ""
 "page, to see expected income here."
 msgstr "在「股息」页添加带票息数据的债券，或导入股息历史，即可在此查看预期收入。"
 
+msgid "Offer"
+msgstr "要约"
+
+msgid "By paying you agree to the <a href=\"%(offer_url)s\">public offer</a>."
+msgstr "付款即表示你同意<a href=\"%(offer_url)s\">公开要约</a>。"
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s 个投资组合"

@@ -1519,6 +1519,12 @@ msgstr ""
 "Añade bonos con datos de cupón, o importa el historial de dividendos en la "
 "página de Dividendos, para ver aquí los ingresos previstos."
 
+msgid "Offer"
+msgstr "Oferta"
+
+msgid "By paying you agree to the <a href=\"%(offer_url)s\">public offer</a>."
+msgstr "Al pagar, aceptas la <a href=\"%(offer_url)s\">oferta pública</a>."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s cartera"

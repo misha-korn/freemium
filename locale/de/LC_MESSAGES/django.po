@@ -1465,6 +1465,12 @@ msgid ""
 "page, to see expected income here."
 msgstr ""
 
+msgid "Offer"
+msgstr ""
+
+msgid "By paying you agree to the <a href=\"%(offer_url)s\">public offer</a>."
+msgstr ""
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s Portfolio"

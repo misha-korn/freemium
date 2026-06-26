@@ -1514,6 +1514,14 @@ msgstr ""
 "Добавьте облигации с данными купона или подтяните историю дивидендов на "
 "странице «Дивиденды», чтобы видеть ожидаемый доход здесь."
 
+msgid "Offer"
+msgstr "Оферта"
+
+msgid "By paying you agree to the <a href=\"%(offer_url)s\">public offer</a>."
+msgstr ""
+"Оплачивая, вы соглашаетесь с <a href=\"%(offer_url)s\">публичной "
+"офертой</a>."
+
 msgid "%(count)s portfolio"
 msgid_plural "%(count)s portfolios"
 msgstr[0] "%(count)s портфель"

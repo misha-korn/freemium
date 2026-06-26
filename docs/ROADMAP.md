@@ -295,3 +295,30 @@
 - **Tier 3 core done**: PWA, income forecast (bonds), public portfolios.
   Remaining data-source-bound follow-ups: stock dividend forecast / sectors /
   news, and MOEX bonds-market pricing.
+
+## Stage 9 — Monetisation, Tier 4 (in progress)
+
+> The plan's parallel "money" track: real payments + the legal to accept them.
+> Code is done and gated; going live needs the owner's keys + legal status.
+
+- [x] **YooKassa payment provider** — `billing.providers.yookassa.YooKassaProvider`
+      implements `create_checkout` (YooKassa API v3) and `parse_webhook`, wired
+      into the existing provider abstraction + webhook flow. Registered in the
+      registry; `UpgradeView` sends real providers back to the subscription page
+      (Pro activates via webhook, not the return).
+- [x] **Public offer (договор-оферта)** — a `/offer/` page + footer/pricing links;
+      the pricing page shows an "agree to the offer" note at checkout.
+- [ ] **Go live (owner)** — register самозанятость, get YooKassa keys, fill the
+      offer's `[ФИО]`/`[ИНН]`, set `YOOKASSA_*` + `BILLING_PROVIDER=yookassa` +
+      `BILLING_ENABLED=True` on Render, add the webhook URL in the YooKassa
+      dashboard.
+
+### Stage 9 notes (payments)
+- **Webhook security**: YooKassa notifications are unsigned, so `parse_webhook`
+  **re-fetches the payment from the API** and trusts the API's status — a spoofed
+  notification can't activate Pro because the API won't confirm a payment that
+  didn't really succeed for our shop. Idempotency + `(provider, event_id)`
+  dedup are unchanged. Only an API-confirmed `succeeded` activates.
+- **Gated by default**: with no keys / `BILLING_ENABLED=False`, the dev provider
+  stays in charge and the upgrade CTA shows "coming soon" — nothing collects
+  money until the owner flips it on. Keys are env-only; none are committed.
