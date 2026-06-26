@@ -70,9 +70,15 @@ class UpgradeView(LoginRequiredMixin, View):
             purpose=Payment.Purpose.SUBSCRIPTION,
             status=Payment.Status.PENDING,
         )
-        success_url = request.build_absolute_uri(
-            reverse("billing:dev_confirm", kwargs={"payment_id": payment.id})
-        )
+        # Where the provider returns the user after paying. The dev provider
+        # activates Pro on its confirm page; a real provider (YooKassa) activates
+        # via webhook, so it just returns to the subscription page.
+        if settings.BILLING_PROVIDER == "dev":
+            success_url = request.build_absolute_uri(
+                reverse("billing:dev_confirm", kwargs={"payment_id": payment.id})
+            )
+        else:
+            success_url = request.build_absolute_uri(reverse("accounts:subscription"))
         session = get_provider().create_checkout(
             user_id=request.user.id,
             amount=amount,

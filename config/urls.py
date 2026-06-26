@@ -26,6 +26,11 @@ urlpatterns = [
         TemplateView.as_view(template_name="legal/privacy.html"),
         name="privacy",
     ),
+    path(
+        "offer/",
+        TemplateView.as_view(template_name="legal/offer.html"),
+        name="offer",
+    ),
     path("u/", include("apps.accounts.urls")),
     path("portfolio/", include("apps.portfolio.urls")),
     path("billing/", include("apps.billing.urls")),

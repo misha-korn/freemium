@@ -1,5 +1,18 @@
 # Key decisions (ADR-lite)
 
+### YooKassa webhooks: verify by API re-fetch, not by signature (Stage 9)
+Tier 4 wires real RU payments via `billing.providers.yookassa`. Unlike the dev
+provider's HMAC, **YooKassa notifications are unsigned**, so `parse_webhook` does
+not trust the body: it re-fetches the payment from the YooKassa API by id and
+trusts the **API's** status. A spoofed notification therefore can't activate Pro,
+because the API won't confirm a payment that didn't really succeed for our shop;
+only an API-confirmed `succeeded` maps to an activating event. This slots into the
+existing webhook view unchanged (verify → dedup on `(provider, event_id)` →
+activate). Credentials are env-only (`YOOKASSA_SHOP_ID`/`_SECRET_KEY`), and the
+whole thing stays **gated**: with no keys / `BILLING_ENABLED=False` the dev
+provider stays in charge and the CTA shows "coming soon" — nothing collects money
+until the owner flips it on and fills the offer's `[ФИО]`/`[ИНН]`.
+
 ### Public portfolios: opt-in, token-gated, composition-only (Stage 8)
 Tier 3's #10 shares a portfolio via an **opt-in**, unguessable token link
 (`secrets.token_urlsafe`) at `/p/<token>/`; `PublicPortfolioView` 404s unless

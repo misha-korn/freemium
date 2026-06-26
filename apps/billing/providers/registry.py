@@ -12,12 +12,13 @@ from django.conf import settings
 
 from .base import PaymentProvider
 from .dev import DevProvider
+from .yookassa import YooKassaProvider
 
 logger = logging.getLogger(__name__)
 
 _PROVIDERS: dict[str, type[PaymentProvider]] = {
     "dev": DevProvider,
-    # "yookassa": YooKassaProvider,  # add when keys exist
+    "yookassa": YooKassaProvider,  # set YOOKASSA_* keys to go live
     # "stripe": StripeProvider,
 }
 
