@@ -23,21 +23,58 @@
     <p class="hero__note">{% trans "Free plan: 1 portfolio, manual entry, core charts." %}</p>
   </div>
 
+  {# Decorative product preview — illustrative UI, not real data. #}
+  <div class="hero-preview" aria-hidden="true">
+    <div class="hero-preview__bar">
+      <span class="hero-preview__dot hero-preview__dot--accent"></span>
+      <span class="hero-preview__dot"></span>
+      <span class="hero-preview__dot"></span>
+      <strong style="margin-left:auto;font-size:var(--text-sm);">{% trans "My portfolio" %}</strong>
+    </div>
+    <div class="hero-preview__stats">
+      <div class="hero-preview__stat">
+        <span class="hero-preview__k">{% trans "Value" %}</span>
+        <span class="hero-preview__v">1 248 300 ₽</span>
+      </div>
+      <div class="hero-preview__stat">
+        <span class="hero-preview__k">{% trans "Return" %}</span>
+        <span class="hero-preview__v is-positive">▲ 18.4%</span>
+      </div>
+      <div class="hero-preview__stat">
+        <span class="hero-preview__k">{% trans "Income" %}</span>
+        <span class="hero-preview__v">62 400 ₽</span>
+      </div>
+    </div>
+    <div class="hero-preview__chart">
+      <span class="hero-preview__col" style="height:38%"></span>
+      <span class="hero-preview__col" style="height:52%"></span>
+      <span class="hero-preview__col" style="height:46%"></span>
+      <span class="hero-preview__col" style="height:67%"></span>
+      <span class="hero-preview__col" style="height:58%"></span>
+      <span class="hero-preview__col" style="height:80%"></span>
+      <span class="hero-preview__col" style="height:72%"></span>
+      <span class="hero-preview__col" style="height:96%"></span>
+    </div>
+  </div>
+</section>
+
+<section class="dashboard-section" aria-labelledby="features-heading">
+  <h2 id="features-heading" class="card__title">{% trans "Everything you need to track investments" %}</h2>
   <ul class="feature-grid">
     <li class="feature-card">
-      <h2 class="feature-card__title">{% trans "True returns" %}</h2>
+      <h3 class="feature-card__title">{% trans "True returns" %}</h3>
       <p>{% trans "Time-weighted and money-weighted performance computed with exact decimal math." %}</p>
     </li>
     <li class="feature-card feature-card--accent">
-      <h2 class="feature-card__title">{% trans "Allocation & risk" %}</h2>
+      <h3 class="feature-card__title">{% trans "Allocation & risk" %}</h3>
       <p>{% trans "Diversification by holding, asset class, market and currency — see concentration at a glance." %}</p>
     </li>
     <li class="feature-card">
-      <h2 class="feature-card__title">{% trans "Two markets" %}</h2>
+      <h3 class="feature-card__title">{% trans "Two markets" %}</h3>
       <p>{% trans "Russian (MOEX) and international tickers in one base-currency view." %}</p>
     </li>
     <li class="feature-card">
-      <h2 class="feature-card__title">{% trans "Own your data" %}</h2>
+      <h3 class="feature-card__title">{% trans "Own your data" %}</h3>
       <p>{% trans "Manual entry first. Export to Excel/PDF and a yearly tax report on Pro." %}</p>
     </li>
   </ul>

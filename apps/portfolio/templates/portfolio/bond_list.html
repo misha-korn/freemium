@@ -9,10 +9,9 @@
     <h1 class="page-header__title">{% trans "Bonds" %}</h1>
     <p class="page-header__sub">{% trans "Accrued coupon, the next coupon and maturity for your bonds. Reference data is entered manually; market pricing from MOEX is coming next." %}</p>
   </div>
-  <div class="cluster">
-    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
-  </div>
 </div>
+
+{% include "portfolio/_subnav.html" with portfolio=portfolio active="bonds" %}
 
 {% if bonds %}
   <div class="table-wrap">

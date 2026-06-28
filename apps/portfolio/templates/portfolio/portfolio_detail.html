@@ -9,50 +9,54 @@
     <h1 class="page-header__title">{{ portfolio.name }}</h1>
     {% if portfolio.description %}<p class="page-header__sub">{{ portfolio.description }}</p>{% endif %}
   </div>
-  <div class="cluster">
+  <div class="toolbar">
     <a class="btn btn--primary" href="{% url 'portfolio:transaction_create' portfolio.pk %}">{% trans "+ Add trade" %}</a>
     <form method="post" action="{% url 'portfolio:refresh_quotes' portfolio.pk %}" class="cluster__inline">
       {% csrf_token %}
       <button class="btn btn--ghost" type="submit">{% trans "↻ Refresh prices" %}</button>
     </form>
-    <a class="btn btn--ghost" href="{% url 'portfolio:dividends' portfolio.pk %}">{% trans "Dividends" %}</a>
-    <a class="btn btn--ghost" href="{% url 'portfolio:bonds' portfolio.pk %}">{% trans "Bonds" %}</a>
-    <a class="btn btn--ghost" href="{% url 'portfolio:rebalance' portfolio.pk %}">{% trans "Rebalance" %}</a>
-    <a class="btn btn--ghost" href="{% url 'portfolio:corporate_actions' portfolio.pk %}">{% trans "Splits" %}</a>
-    <a class="btn btn--ghost" href="{% url 'portfolio:import_trades' portfolio.pk %}">{% trans "Import CSV" %}</a>
-    <a class="btn btn--ghost" href="{% url 'portfolio:tax_report' portfolio.pk %}">{% trans "Tax report" %}</a>
-    <a class="btn btn--ghost" href="{% url 'portfolio:share' portfolio.pk %}">{% trans "Share" %}</a>
-    <a class="btn btn--ghost" href="{% url 'portfolio:update' portfolio.pk %}">{% trans "Edit" %}</a>
-    <a class="btn btn--ghost" href="{% url 'portfolio:delete' portfolio.pk %}">{% trans "Delete" %}</a>
+    <div class="menu">
+      <button class="btn btn--ghost" type="button" data-menu-trigger>{% trans "More" %} <span aria-hidden="true">▾</span></button>
+      <div class="menu__panel" data-menu-panel hidden>
+        <a class="menu__item" href="{% url 'portfolio:import_trades' portfolio.pk %}">{% trans "Import trades" %}</a>
+        <a class="menu__item" href="{% url 'portfolio:share' portfolio.pk %}">{% trans "Share portfolio" %}</a>
+        <a class="menu__item" href="{% url 'portfolio:update' portfolio.pk %}">{% trans "Edit portfolio" %}</a>
+        <div class="menu__sep"></div>
+        <a class="menu__item menu__item--danger" href="{% url 'portfolio:delete' portfolio.pk %}">{% trans "Delete portfolio" %}</a>
+      </div>
+    </div>
   </div>
 </div>
 
+{% include "portfolio/_subnav.html" with portfolio=portfolio active="overview" %}
+
 {% with totals=valuation.totals %}
-<div class="card-grid">
-  <div class="card stat">
-    <span class="stat__label">{% trans "Market value" %}</span>
-    <span class="stat__value">
+<div class="metric-grid">
+  <div class="metric metric--hero">
+    <span class="metric__label">{% trans "Market value" %}</span>
+    <span class="metric__value">
       {% if totals.market_value_base is not None %}{{ totals.market_value_base|money }} {{ valuation.base_currency }}{% else %}—{% endif %}
     </span>
+    {% include "portfolio/_return_pill.html" with frac=totals.simple_return %}
   </div>
-  <div class="card stat">
-    <span class="stat__label">{% trans "Invested (cost basis)" %}</span>
-    <span class="stat__value">
+  <div class="metric">
+    <span class="metric__label">{% trans "Invested (cost basis)" %}</span>
+    <span class="metric__value">
       {% if totals.invested_base is not None %}{{ totals.invested_base|money }} {{ valuation.base_currency }}{% else %}—{% endif %}
     </span>
   </div>
-  <div class="card stat">
-    <span class="stat__label">{% trans "Unrealised P&L" %}</span>
-    <span class="stat__value {% if totals.unrealised_pnl_base is not None %}{% if totals.unrealised_pnl_base > 0 %}is-positive{% elif totals.unrealised_pnl_base < 0 %}is-negative{% endif %}{% endif %}">
+  <div class="metric">
+    <span class="metric__label">{% trans "Unrealised P&L" %}</span>
+    <span class="metric__value {% if totals.unrealised_pnl_base is not None %}{% if totals.unrealised_pnl_base > 0 %}is-positive{% elif totals.unrealised_pnl_base < 0 %}is-negative{% endif %}{% endif %}">
       {% if totals.unrealised_pnl_base is not None %}{{ totals.unrealised_pnl_base|signed }} {{ valuation.base_currency }}{% else %}—{% endif %}
     </span>
   </div>
-  <div class="card stat">
-    <span class="stat__label">{% trans "Return · XIRR" %}</span>
-    <span class="stat__value {% if totals.simple_return is not None %}{% if totals.simple_return > 0 %}is-positive{% elif totals.simple_return < 0 %}is-negative{% endif %}{% endif %}">
+  <div class="metric">
+    <span class="metric__label">{% trans "Return · XIRR" %}</span>
+    <span class="metric__value {% if totals.simple_return is not None %}{% if totals.simple_return > 0 %}is-positive{% elif totals.simple_return < 0 %}is-negative{% endif %}{% endif %}">
       {{ totals.simple_return|percent }}
     </span>
-    <span class="stat__sub text-muted">{% blocktrans with x=totals.xirr|percent %}XIRR {{ x }}{% endblocktrans %}</span>
+    <span class="metric__sub">{% blocktrans with x=totals.xirr|percent %}XIRR {{ x }}{% endblocktrans %}</span>
   </div>
 </div>
 {% endwith %}
@@ -103,8 +107,19 @@
 
 {% if value_chart.available and value_chart.points|length > 1 %}
   <section class="card chart-card" aria-labelledby="value-chart-heading">
-    <h2 id="value-chart-heading" class="card__title">{% trans "Portfolio value over time" %}</h2>
-    <p class="text-muted">{% trans "Daily mark-to-market value vs invested capital, recorded from the first fully priced day." %}</p>
+    <div class="section-head">
+      <div>
+        <h2 id="value-chart-heading" class="card__title" style="margin:0;">{% trans "Portfolio value over time" %}</h2>
+        <p class="text-muted" style="margin:0;">{% trans "Daily mark-to-market value vs invested capital, recorded from the first fully priced day." %}</p>
+      </div>
+      <div class="seg" data-range-for="portfolio-value-chart" role="group" aria-label="{% trans 'Chart time range' %}">
+        <button type="button" class="seg__btn" data-range="1m">1M</button>
+        <button type="button" class="seg__btn" data-range="3m">3M</button>
+        <button type="button" class="seg__btn" data-range="6m">6M</button>
+        <button type="button" class="seg__btn" data-range="1y">1Y</button>
+        <button type="button" class="seg__btn is-active" data-range="all">{% trans "All" %}</button>
+      </div>
+    </div>
     <div class="chart-canvas-wrap">
       <canvas id="portfolio-value-chart" role="img"
               aria-label="{% trans 'Portfolio market value over time' %}"></canvas>
@@ -124,33 +139,33 @@
 
 <h2 class="card__title mt-6">{% trans "Positions" %}</h2>
 {% if valuation.positions %}
-  <div class="table-wrap">
-    <table class="table">
+  <div class="table-wrap table-wrap--stack">
+    <table class="table table--sortable table--stack">
       <thead>
         <tr>
-          <th>{% trans "Asset" %}</th><th>{% trans "Market" %}</th>
-          <th class="num">{% trans "Quantity" %}</th><th class="num">{% trans "Avg cost" %}</th>
-          <th class="num">{% trans "Price" %}</th><th class="num">{% trans "Market value" %}</th>
-          <th class="num">{% trans "P&L" %}</th><th class="num">{% trans "Return" %}</th>
+          <th data-sort="text">{% trans "Asset" %}</th><th data-sort="text">{% trans "Market" %}</th>
+          <th class="num" data-sort="num">{% trans "Quantity" %}</th><th class="num" data-sort="num">{% trans "Avg cost" %}</th>
+          <th class="num" data-sort="num">{% trans "Price" %}</th><th class="num" data-sort="num">{% trans "Market value" %}</th>
+          <th class="num" data-sort="num">{% trans "P&L" %}</th><th class="num" data-sort="num">{% trans "Return" %}</th>
         </tr>
       </thead>
       <tbody>
         {% for pos in valuation.positions %}
           <tr>
-            <td>{{ pos.asset.ticker }}{% if pos.asset.name %} <span class="text-muted">· {{ pos.asset.name }}</span>{% endif %}</td>
-            <td><span class="badge">{{ pos.asset.market }}</span></td>
-            <td class="num">{{ pos.quantity|floatformat:"-8" }}</td>
-            <td class="num">{{ pos.avg_cost|floatformat:2 }} {{ pos.currency }}</td>
+            <td data-label="{% trans 'Asset' %}">{{ pos.asset.ticker }}{% if pos.asset.name %} <span class="text-muted">· {{ pos.asset.name }}</span>{% endif %}</td>
+            <td data-label="{% trans 'Market' %}"><span class="badge">{{ pos.asset.market }}</span></td>
+            <td class="num" data-label="{% trans 'Quantity' %}">{{ pos.quantity|floatformat:"-8" }}</td>
+            <td class="num" data-label="{% trans 'Avg cost' %}">{{ pos.avg_cost|floatformat:2 }} {{ pos.currency }}</td>
             {% if pos.priced %}
-              <td class="num">{{ pos.price|floatformat:2 }} {{ pos.currency }}</td>
-              <td class="num">{{ pos.market_value|money }} {{ pos.currency }}</td>
-              <td class="num {% if pos.unrealised_pnl > 0 %}is-positive{% elif pos.unrealised_pnl < 0 %}is-negative{% endif %}">{{ pos.unrealised_pnl|signed }}</td>
-              <td class="num {% if pos.simple_return > 0 %}is-positive{% elif pos.simple_return < 0 %}is-negative{% endif %}">{{ pos.simple_return|percent }}</td>
+              <td class="num" data-label="{% trans 'Price' %}">{{ pos.price|floatformat:2 }} {{ pos.currency }}</td>
+              <td class="num" data-label="{% trans 'Market value' %}">{{ pos.market_value|money }} {{ pos.currency }}</td>
+              <td class="num {% if pos.unrealised_pnl > 0 %}is-positive{% elif pos.unrealised_pnl < 0 %}is-negative{% endif %}" data-label="{% trans 'P&L' %}">{{ pos.unrealised_pnl|signed }}</td>
+              <td class="num {% if pos.simple_return > 0 %}is-positive{% elif pos.simple_return < 0 %}is-negative{% endif %}" data-label="{% trans 'Return' %}">{{ pos.simple_return|percent }}</td>
             {% else %}
-              <td class="num text-muted">—</td>
-              <td class="num text-muted">—</td>
-              <td class="num text-muted">—</td>
-              <td class="num text-muted">—</td>
+              <td class="num text-muted" data-label="{% trans 'Price' %}">—</td>
+              <td class="num text-muted" data-label="{% trans 'Market value' %}">—</td>
+              <td class="num text-muted" data-label="{% trans 'P&L' %}">—</td>
+              <td class="num text-muted" data-label="{% trans 'Return' %}">—</td>
             {% endif %}
           </tr>
         {% endfor %}
@@ -178,23 +193,23 @@
   {% endif %}
 </div>
 {% if transactions %}
-  <div class="table-wrap">
-    <table class="table">
+  <div class="table-wrap table-wrap--stack">
+    <table class="table table--sortable table--stack">
       <thead>
         <tr>
-          <th>{% trans "Date" %}</th><th>{% trans "Type" %}</th><th>{% trans "Asset" %}</th>
-          <th class="num">{% trans "Qty" %}</th><th class="num">{% trans "Price" %}</th><th class="num">{% trans "Fee" %}</th><th></th>
+          <th data-sort="text">{% trans "Date" %}</th><th data-sort="text">{% trans "Type" %}</th><th data-sort="text">{% trans "Asset" %}</th>
+          <th class="num" data-sort="num">{% trans "Qty" %}</th><th class="num" data-sort="num">{% trans "Price" %}</th><th class="num" data-sort="num">{% trans "Fee" %}</th><th></th>
         </tr>
       </thead>
       <tbody>
         {% for t in transactions %}
           <tr>
-            <td>{{ t.executed_at|date:"Y-m-d H:i" }}</td>
-            <td><span class="badge badge--{{ t.kind|lower }}">{{ t.get_kind_display }}</span></td>
-            <td>{{ t.asset.ticker }}</td>
-            <td class="num">{{ t.quantity|floatformat:"-8" }}</td>
-            <td class="num">{{ t.price|floatformat:2 }}</td>
-            <td class="num">{{ t.fee|floatformat:2 }}</td>
+            <td data-label="{% trans 'Date' %}">{{ t.executed_at|date:"Y-m-d H:i" }}</td>
+            <td data-label="{% trans 'Type' %}"><span class="badge badge--{{ t.kind|lower }}">{{ t.get_kind_display }}</span></td>
+            <td data-label="{% trans 'Asset' %}">{{ t.asset.ticker }}</td>
+            <td class="num" data-label="{% trans 'Qty' %}">{{ t.quantity|floatformat:"-8" }}</td>
+            <td class="num" data-label="{% trans 'Price' %}">{{ t.price|floatformat:2 }}</td>
+            <td class="num" data-label="{% trans 'Fee' %}">{{ t.fee|floatformat:2 }}</td>
             <td class="text-right">
               <a href="{% url 'portfolio:transaction_update' t.pk %}">{% trans "edit" %}</a>
               · <a href="{% url 'portfolio:transaction_delete' t.pk %}">{% trans "delete" %}</a>

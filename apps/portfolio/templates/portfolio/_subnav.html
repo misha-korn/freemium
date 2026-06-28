@@ -1,0 +1,13 @@
+{% load i18n %}
+{% comment %}
+  Section tabs shared by a portfolio's pages. Pass the parent `portfolio` and an
+  `active` key: overview | dividends | bonds | rebalance | splits | tax.
+{% endcomment %}
+<nav class="subnav" aria-label="{% trans 'Portfolio sections' %}">
+  <a class="subnav__link{% if active == 'overview' %} is-active{% endif %}" href="{{ portfolio.get_absolute_url }}"{% if active == 'overview' %} aria-current="page"{% endif %}>{% trans "Overview" %}</a>
+  <a class="subnav__link{% if active == 'dividends' %} is-active{% endif %}" href="{% url 'portfolio:dividends' portfolio.pk %}"{% if active == 'dividends' %} aria-current="page"{% endif %}>{% trans "Dividends" %}</a>
+  <a class="subnav__link{% if active == 'bonds' %} is-active{% endif %}" href="{% url 'portfolio:bonds' portfolio.pk %}"{% if active == 'bonds' %} aria-current="page"{% endif %}>{% trans "Bonds" %}</a>
+  <a class="subnav__link{% if active == 'rebalance' %} is-active{% endif %}" href="{% url 'portfolio:rebalance' portfolio.pk %}"{% if active == 'rebalance' %} aria-current="page"{% endif %}>{% trans "Rebalance" %}</a>
+  <a class="subnav__link{% if active == 'splits' %} is-active{% endif %}" href="{% url 'portfolio:corporate_actions' portfolio.pk %}"{% if active == 'splits' %} aria-current="page"{% endif %}>{% trans "Splits" %}</a>
+  <a class="subnav__link{% if active == 'tax' %} is-active{% endif %}" href="{% url 'portfolio:tax_report' portfolio.pk %}"{% if active == 'tax' %} aria-current="page"{% endif %}>{% trans "Tax report" %}</a>
+</nav>

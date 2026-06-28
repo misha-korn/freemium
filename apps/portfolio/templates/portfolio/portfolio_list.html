@@ -22,25 +22,28 @@
 
 {% if overview.combined %}
   {% with cb=overview.combined %}
-  <div class="card-grid">
-    <div class="card stat">
-      <span class="stat__label">{% trans "Total value" %} · {{ cb.currency }}</span>
-      <span class="stat__value">{% if cb.market_value is not None %}{{ cb.market_value|money }}{% else %}—{% endif %}</span>
-      <span class="stat__sub text-muted">{% blocktrans count count=cb.portfolio_count %}{{ count }} portfolio{% plural %}{{ count }} portfolios{% endblocktrans %}</span>
+  <div class="metric-grid">
+    <div class="metric metric--hero">
+      <span class="metric__label">{% trans "Total value" %} · {{ cb.currency }}</span>
+      <span class="metric__value">{% if cb.market_value is not None %}{{ cb.market_value|money }}{% else %}—{% endif %}</span>
+      <div class="cluster" style="gap:var(--space-2);">
+        {% include "portfolio/_return_pill.html" with frac=cb.simple_return %}
+        <span class="metric__sub">{% blocktrans count count=cb.portfolio_count %}{{ count }} portfolio{% plural %}{{ count }} portfolios{% endblocktrans %}</span>
+      </div>
     </div>
-    <div class="card stat">
-      <span class="stat__label">{% trans "Invested (cost basis)" %}</span>
-      <span class="stat__value">{% if cb.invested is not None %}{{ cb.invested|money }}{% else %}—{% endif %}</span>
+    <div class="metric">
+      <span class="metric__label">{% trans "Invested (cost basis)" %}</span>
+      <span class="metric__value">{% if cb.invested is not None %}{{ cb.invested|money }}{% else %}—{% endif %}</span>
     </div>
-    <div class="card stat">
-      <span class="stat__label">{% trans "Unrealised P&L" %}</span>
-      <span class="stat__value {% if cb.unrealised_pnl is not None %}{% if cb.unrealised_pnl > 0 %}is-positive{% elif cb.unrealised_pnl < 0 %}is-negative{% endif %}{% endif %}">
+    <div class="metric">
+      <span class="metric__label">{% trans "Unrealised P&L" %}</span>
+      <span class="metric__value {% if cb.unrealised_pnl is not None %}{% if cb.unrealised_pnl > 0 %}is-positive{% elif cb.unrealised_pnl < 0 %}is-negative{% endif %}{% endif %}">
         {% if cb.unrealised_pnl is not None %}{{ cb.unrealised_pnl|signed }} {{ cb.currency }}{% else %}—{% endif %}
       </span>
     </div>
-    <div class="card stat">
-      <span class="stat__label">{% trans "Return" %}</span>
-      <span class="stat__value {% if cb.simple_return is not None %}{% if cb.simple_return > 0 %}is-positive{% elif cb.simple_return < 0 %}is-negative{% endif %}{% endif %}">
+    <div class="metric">
+      <span class="metric__label">{% trans "Return" %}</span>
+      <span class="metric__value {% if cb.simple_return is not None %}{% if cb.simple_return > 0 %}is-positive{% elif cb.simple_return < 0 %}is-negative{% endif %}{% endif %}">
         {{ cb.simple_return|percent }}
       </span>
     </div>
@@ -69,11 +72,9 @@
           {% endif %}
         </div>
         <div class="cluster portfolio-card__meta">
+          {% include "portfolio/_return_pill.html" with frac=c.simple_return %}
           {% if c.unrealised_pnl is not None %}
             <span class="{% if c.unrealised_pnl > 0 %}is-positive{% elif c.unrealised_pnl < 0 %}is-negative{% endif %}">{{ c.unrealised_pnl|signed }}</span>
-          {% endif %}
-          {% if c.simple_return is not None %}
-            <span class="{% if c.simple_return > 0 %}is-positive{% elif c.simple_return < 0 %}is-negative{% endif %}">{{ c.simple_return|percent }}</span>
           {% endif %}
           <span class="text-muted">{% blocktrans count count=c.portfolio.transaction_count %}{{ count }} trade{% plural %}{{ count }} trades{% endblocktrans %}</span>
         </div>
