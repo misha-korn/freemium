@@ -47,6 +47,10 @@
     }
 
     var colors = labels.map(function (_, i) { return colorAt(i); });
+    // Match the slice gap to the card surface so dark theme doesn't show white
+    // slivers between segments (the old hardcoded #ffffff border).
+    var styles = getComputedStyle(document.documentElement);
+    var surface = (styles.getPropertyValue("--color-surface") || "#ffffff").trim();
 
     new window.Chart(canvas, {
       type: "doughnut",
@@ -55,7 +59,7 @@
         datasets: [{
           data: values,
           backgroundColor: colors,
-          borderColor: "#ffffff",
+          borderColor: surface,
           borderWidth: 2,
           hoverOffset: 6,
         }],

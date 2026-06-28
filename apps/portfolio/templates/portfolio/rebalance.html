@@ -9,10 +9,9 @@
     <h1 class="page-header__title">{% trans "Rebalance" %}</h1>
     <p class="page-header__sub">{% trans "Set a target weight per holding; we suggest how much to buy or sell to reach it." %}</p>
   </div>
-  <div class="cluster">
-    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
-  </div>
 </div>
+
+{% include "portfolio/_subnav.html" with portfolio=portfolio active="rebalance" %}
 
 {% if rebalance.rows %}
   <form method="post">

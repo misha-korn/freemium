@@ -9,10 +9,9 @@
     <h1 class="page-header__title">{% trans "Stock splits" %}</h1>
     <p class="page-header__sub">{% trans "Record a split so share count and cost basis stay correct. A 2-for-1 split is new 2, old 1; a 1-for-10 reverse split is new 1, old 10." %}</p>
   </div>
-  <div class="cluster">
-    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
-  </div>
 </div>
+
+{% include "portfolio/_subnav.html" with portfolio=portfolio active="splits" %}
 
 <div class="card form-card">
   <form class="form" method="post" novalidate>

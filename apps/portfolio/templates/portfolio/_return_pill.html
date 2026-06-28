@@ -1,0 +1,11 @@
+{% load portfolio_extras %}
+{% comment %}
+  A coloured P&L pill with a direction arrow. Pass `frac` (a return as a fraction,
+  e.g. 0.153). Renders nothing when frac is None so unpriced figures stay honest.
+{% endcomment %}
+{% if frac is not None %}
+  <span class="pnl-pill {% if frac > 0 %}pnl-pill--up{% elif frac < 0 %}pnl-pill--down{% else %}pnl-pill--flat{% endif %}">
+    {% if frac > 0 %}<span class="pnl-pill__arrow" aria-hidden="true">▲</span>{% elif frac < 0 %}<span class="pnl-pill__arrow" aria-hidden="true">▼</span>{% endif %}
+    <span>{{ frac|percent }}</span>
+  </span>
+{% endif %}

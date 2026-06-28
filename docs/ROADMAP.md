@@ -322,3 +322,39 @@
 - **Gated by default**: with no keys / `BILLING_ENABLED=False`, the dev provider
   stays in charge and the upgrade CTA shows "coming soon" — nothing collects
   money until the owner flips it on. Keys are env-only; none are committed.
+
+## Stage 10 — Competitive frontend pass (in progress)
+
+> Benchmarked the UI against Intelinvest / Snowball Income / Sharesight / Getquin
+> and closed the most visible frontend gaps. Pure presentation layer — no model,
+> data-source or backend changes; all ~310 tests stay green.
+
+- [x] **Action toolbar + section tabs** — the portfolio dashboard's wall of 11
+      ghost buttons becomes a primary cluster (Add trade / Refresh) plus a "More"
+      dropdown (`menu.js`, CSP-safe), and a shared `_subnav.html` tab bar
+      (Overview / Dividends / Bonds / Rebalance / Splits / Tax) included on every
+      portfolio sub-page with an `is-active` + `aria-current` state.
+- [x] **Hero metric cards + P&L pills** — headline figures use `.metric--hero`
+      cards; returns render as a coloured pill with a ▲/▼ arrow (`_return_pill.html`),
+      reused on the portfolio list cards and combined total.
+- [x] **Chart time-range control** — a segmented 1M/3M/6M/1Y/All control filters
+      the value-over-time series client-side (`portfolio_value_chart.js`); ranges
+      the data can't fill are auto-hidden. Appears once ≥2 snapshots exist.
+- [x] **Sortable + mobile-stacking tables** — `tables.js` sorts positions /
+      transactions / tax lots by any column (numeric or text, `aria-sort` +
+      keyboard); on narrow screens `.table--stack` reflows rows into labelled
+      cards via `data-label`.
+- [x] **Pricing comparison + landing preview** — the pricing page gains a
+      feature-checklist layout with a "Popular" ribbon; the home hero gains an
+      illustrative product preview (decorative, `aria-hidden`).
+- [x] **Dark-mode donut fix** — allocation donut slice borders read
+      `--color-surface` instead of a hardcoded white, so dark theme no longer
+      shows white slivers between segments.
+
+### Stage 10 notes
+- Everything is **progressive enhancement**: `menu.js` / `tables.js` / the range
+  control no-op without their target elements or without JS, so pages still work.
+- New components reuse existing design tokens (no new palette); honesty rules are
+  untouched — `—` for missing values, pills render nothing when a return is None.
+- New user-facing strings are wrapped in `{% trans %}`; catalogs need a rebuild
+  (`bin/build_translations.py`) to localise them (English source shows until then).

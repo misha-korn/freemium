@@ -9,16 +9,17 @@
     <h1 class="page-header__title">{% trans "Dividends and coupons" %}{% if year %} · {{ year }}{% endif %}</h1>
     <p class="page-header__sub">{% trans "Income you received — totals per currency, never mixed across currencies." %}</p>
   </div>
-  <div class="cluster">
+  <div class="toolbar">
     <a class="btn btn--primary" href="{% url 'portfolio:dividend_create' portfolio.pk %}">{% trans "+ Add dividend" %}</a>
     <form method="post" action="{% url 'portfolio:pull_dividends' portfolio.pk %}" class="cluster__inline">
       {% csrf_token %}
       <button class="btn btn--ghost" type="submit">{% trans "↻ Pull from market" %}</button>
     </form>
     <a class="btn btn--ghost" href="{% url 'portfolio:income_forecast' portfolio.pk %}">{% trans "Forecast" %}</a>
-    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
   </div>
 </div>
+
+{% include "portfolio/_subnav.html" with portfolio=portfolio active="dividends" %}
 
 {% if years %}
   <div class="cluster" style="margin-bottom:var(--space-5);">
@@ -53,8 +54,8 @@
         {% endfor %}
       </span>
     </div>
-    <div class="table-wrap">
-      <table class="table">
+    <div class="table-wrap table-wrap--stack">
+      <table class="table table--stack">
         <thead>
           <tr>
             <th>{% trans "Date" %}</th><th>{% trans "Type" %}</th><th>{% trans "Asset" %}</th>
@@ -65,12 +66,12 @@
         <tbody>
           {% for p in group.payments %}
             <tr>
-              <td>{{ p.paid_on|date:"Y-m-d" }}</td>
-              <td><span class="badge">{{ p.get_kind_display }}</span></td>
-              <td>{{ p.asset.ticker }}{% if p.note %} <span class="text-muted">· {{ p.note }}</span>{% endif %}</td>
-              <td class="num">{{ p.amount|money }} {{ p.currency }}</td>
-              <td class="num">{{ p.tax_withheld|money }}</td>
-              <td class="num is-positive">{{ p.net_amount|money }}</td>
+              <td data-label="{% trans 'Date' %}">{{ p.paid_on|date:"Y-m-d" }}</td>
+              <td data-label="{% trans 'Type' %}"><span class="badge">{{ p.get_kind_display }}</span></td>
+              <td data-label="{% trans 'Asset' %}">{{ p.asset.ticker }}{% if p.note %} <span class="text-muted">· {{ p.note }}</span>{% endif %}</td>
+              <td class="num" data-label="{% trans 'Gross' %}">{{ p.amount|money }} {{ p.currency }}</td>
+              <td class="num" data-label="{% trans 'Tax' %}">{{ p.tax_withheld|money }}</td>
+              <td class="num is-positive" data-label="{% trans 'Net' %}">{{ p.net_amount|money }}</td>
               <td class="text-right">
                 <a href="{% url 'portfolio:dividend_update' p.pk %}">{% trans "edit" %}</a>
                 · <a href="{% url 'portfolio:dividend_delete' p.pk %}">{% trans "delete" %}</a>

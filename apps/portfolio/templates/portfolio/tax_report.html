@@ -9,13 +9,14 @@
     <h1 class="page-header__title">{% trans "Realized gains" %}{% if year %} · {{ year }}{% endif %}</h1>
     <p class="page-header__sub">{% trans "Closed positions matched FIFO — proceeds minus cost, per currency." %}</p>
   </div>
-  <div class="cluster">
+  <div class="toolbar">
     <a class="btn btn--ghost" href="{% url 'portfolio:export_tax_csv' portfolio.pk %}{% if year %}?year={{ year }}{% endif %}">{% trans "Export CSV" %}</a>
     <a class="btn btn--ghost" href="{% url 'portfolio:export_tax_xlsx' portfolio.pk %}{% if year %}?year={{ year }}{% endif %}">{% trans "Export Excel" %}</a>
     <a class="btn btn--ghost" href="{% url 'portfolio:export_tax_pdf' portfolio.pk %}{% if year %}?year={{ year }}{% endif %}">{% trans "Export PDF" %}</a>
-    <a class="btn btn--ghost" href="{{ portfolio.get_absolute_url }}">{% trans "Back" %}</a>
   </div>
 </div>
+
+{% include "portfolio/_subnav.html" with portfolio=portfolio active="tax" %}
 
 {% if years %}
   <div class="cluster" style="margin-bottom:var(--space-5);">
@@ -37,26 +38,26 @@
   </div>
 
   <h2 class="card__title mt-6">{% trans "Closed lots" %}</h2>
-  <div class="table-wrap">
-    <table class="table">
+  <div class="table-wrap table-wrap--stack">
+    <table class="table table--sortable table--stack">
       <thead>
         <tr>
-          <th>{% trans "Asset" %}</th><th>{% trans "Acquired" %}</th><th>{% trans "Disposed" %}</th>
-          <th class="num">{% trans "Quantity" %}</th><th class="num">{% trans "Cost" %}</th>
-          <th class="num">{% trans "Proceeds" %}</th><th class="num">{% trans "Gain" %}</th><th class="num">{% trans "Days" %}</th>
+          <th data-sort="text">{% trans "Asset" %}</th><th data-sort="text">{% trans "Acquired" %}</th><th data-sort="text">{% trans "Disposed" %}</th>
+          <th class="num" data-sort="num">{% trans "Quantity" %}</th><th class="num" data-sort="num">{% trans "Cost" %}</th>
+          <th class="num" data-sort="num">{% trans "Proceeds" %}</th><th class="num" data-sort="num">{% trans "Gain" %}</th><th class="num" data-sort="num">{% trans "Days" %}</th>
         </tr>
       </thead>
       <tbody>
         {% for lot in lots %}
           <tr>
-            <td>{{ lot.asset.ticker }}</td>
-            <td>{{ lot.acquired_at|date:"Y-m-d" }}</td>
-            <td>{{ lot.disposed_at|date:"Y-m-d" }}</td>
-            <td class="num">{{ lot.quantity|floatformat:"-8" }}</td>
-            <td class="num">{{ lot.cost|money }} {{ lot.currency }}</td>
-            <td class="num">{{ lot.proceeds|money }}</td>
-            <td class="num {% if lot.gain > 0 %}is-positive{% elif lot.gain < 0 %}is-negative{% endif %}">{{ lot.gain|signed }}</td>
-            <td class="num">{{ lot.holding_days }}</td>
+            <td data-label="{% trans 'Asset' %}">{{ lot.asset.ticker }}</td>
+            <td data-label="{% trans 'Acquired' %}">{{ lot.acquired_at|date:"Y-m-d" }}</td>
+            <td data-label="{% trans 'Disposed' %}">{{ lot.disposed_at|date:"Y-m-d" }}</td>
+            <td class="num" data-label="{% trans 'Quantity' %}">{{ lot.quantity|floatformat:"-8" }}</td>
+            <td class="num" data-label="{% trans 'Cost' %}">{{ lot.cost|money }} {{ lot.currency }}</td>
+            <td class="num" data-label="{% trans 'Proceeds' %}">{{ lot.proceeds|money }}</td>
+            <td class="num {% if lot.gain > 0 %}is-positive{% elif lot.gain < 0 %}is-negative{% endif %}" data-label="{% trans 'Gain' %}">{{ lot.gain|signed }}</td>
+            <td class="num" data-label="{% trans 'Days' %}">{{ lot.holding_days }}</td>
           </tr>
         {% endfor %}
       </tbody>
